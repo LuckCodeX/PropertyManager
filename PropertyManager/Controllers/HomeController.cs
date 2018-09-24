@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PropertyManager.Models;
 
 namespace PropertyManager.Controllers
 {
@@ -12,6 +13,16 @@ namespace PropertyManager.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Dashboard()
+        {
             return View();
         }
     }

@@ -14,6 +14,18 @@ namespace PropertyManager
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Login",
+                url: "login",
+                defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Dashboard",
+                url: "dashboard",
+                defaults: new { controller = "Home", action = "Dashboard", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

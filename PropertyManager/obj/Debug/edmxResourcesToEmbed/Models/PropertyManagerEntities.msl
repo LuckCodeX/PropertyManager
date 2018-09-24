@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PropertyManagerModelStoreContainer" CdmEntityContainer="PropertyManagerEntities">
+    <EntitySetMapping Name="admins">
+      <EntityTypeMapping TypeName="PropertyManagerModel.admin">
+        <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aparment_image">
+      <EntityTypeMapping TypeName="PropertyManagerModel.aparment_image">
+        <MappingFragment StoreEntitySet="aparment_image">
+          <ScalarProperty Name="apartment_image_id" ColumnName="apartment_image_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="img" ColumnName="img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartments">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
+        <MappingFragment StoreEntitySet="apartment">
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+          <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="management_fee" ColumnName="management_fee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartment_content">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_content">
+        <MappingFragment StoreEntitySet="apartment_content">
+          <ScalarProperty Name="apartment_content_id" ColumnName="apartment_content_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartment_facility">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_facility">
+        <MappingFragment StoreEntitySet="apartment_facility">
+          <ScalarProperty Name="apartment_facility_id" ColumnName="apartment_facility_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="facility_id" ColumnName="facility_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="blogs">
+      <EntityTypeMapping TypeName="PropertyManagerModel.blog">
+        <MappingFragment StoreEntitySet="blog">
+          <ScalarProperty Name="blog_id" ColumnName="blog_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="blog_content">
+      <EntityTypeMapping TypeName="PropertyManagerModel.blog_content">
+        <MappingFragment StoreEntitySet="blog_content">
+          <ScalarProperty Name="blog_content_id" ColumnName="blog_content_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="blog_id" ColumnName="blog_id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="language" ColumnName="language" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="facilities">
+      <EntityTypeMapping TypeName="PropertyManagerModel.facility">
+        <MappingFragment StoreEntitySet="facility">
+          <ScalarProperty Name="facility_id" ColumnName="facility_id" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="facility_content">
+      <EntityTypeMapping TypeName="PropertyManagerModel.facility_content">
+        <MappingFragment StoreEntitySet="facility_content">
+          <ScalarProperty Name="facility_content_id" ColumnName="facility_content_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="facility_id" ColumnName="facility_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projects">
+      <EntityTypeMapping TypeName="PropertyManagerModel.project">
+        <MappingFragment StoreEntitySet="project">
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="project_content">
+      <EntityTypeMapping TypeName="PropertyManagerModel.project_content">
+        <MappingFragment StoreEntitySet="project_content">
+          <ScalarProperty Name="project_content_id" ColumnName="project_content_id" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="language" ColumnName="language" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="slides">
+      <EntityTypeMapping TypeName="PropertyManagerModel.slide">
+        <MappingFragment StoreEntitySet="slide">
+          <ScalarProperty Name="slide_id" ColumnName="slide_id" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_account">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_account">
+        <MappingFragment StoreEntitySet="user_account">
+          <ScalarProperty Name="user_account_id" ColumnName="user_account_id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_profile">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_profile">
+        <MappingFragment StoreEntitySet="user_profile">
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="img_verification_1" ColumnName="img_verification_1" />
+          <ScalarProperty Name="img_verification_2" ColumnName="img_verification_2" />
+          <ScalarProperty Name="work" ColumnName="work" />
+          <ScalarProperty Name="contact" ColumnName="contact" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_visit">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_visit">
+        <MappingFragment StoreEntitySet="user_visit">
+          <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

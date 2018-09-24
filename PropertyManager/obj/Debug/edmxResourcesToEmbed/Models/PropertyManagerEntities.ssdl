@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PropertyManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="role" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aparment_image">
+    <Key>
+      <PropertyRef Name="apartment_image_id" />
+    </Key>
+    <Property Name="apartment_image_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
+    <Property Name="apartment_id" Type="int" Nullable="false" />
+    <Property Name="img" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="apartment">
+    <Key>
+      <PropertyRef Name="apartment_id" />
+    </Key>
+    <Property Name="apartment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_profile_owner_id" Type="int" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="int" Nullable="false" />
+    <Property Name="area" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="no_bedroom" Type="int" Nullable="false" />
+    <Property Name="no_bathroom" Type="int" Nullable="false" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="latitude" Type="float" Nullable="false" />
+    <Property Name="longitude" Type="float" Nullable="false" />
+    <Property Name="city" Type="nvarchar" MaxLength="50" />
+    <Property Name="project_id" Type="int" />
+    <Property Name="type" Type="int" Nullable="false" />
+    <Property Name="management_fee" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="apartment_content">
+    <Key>
+      <PropertyRef Name="apartment_content_id" />
+    </Key>
+    <Property Name="apartment_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="apartment_id" Type="int" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="ntext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="apartment_facility">
+    <Key>
+      <PropertyRef Name="apartment_facility_id" />
+    </Key>
+    <Property Name="apartment_facility_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="apartment_id" Type="int" Nullable="false" />
+    <Property Name="facility_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="blog">
+    <Key>
+      <PropertyRef Name="blog_id" />
+    </Key>
+    <Property Name="blog_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+    <Property Name="img" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="blog_content">
+    <Key>
+      <PropertyRef Name="blog_content_id" />
+    </Key>
+    <Property Name="blog_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="content" Type="ntext" />
+    <Property Name="blog_id" Type="int" Nullable="false" />
+    <Property Name="description" Type="ntext" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="facility">
+    <Key>
+      <PropertyRef Name="facility_id" />
+    </Key>
+    <Property Name="facility_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="img" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="facility_content">
+    <Key>
+      <PropertyRef Name="facility_content_id" />
+    </Key>
+    <Property Name="facility_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="facility_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="project">
+    <Key>
+      <PropertyRef Name="project_id" />
+    </Key>
+    <Property Name="project_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="img" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="project_content">
+    <Key>
+      <PropertyRef Name="project_content_id" />
+    </Key>
+    <Property Name="project_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="project_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="slide">
+    <Key>
+      <PropertyRef Name="slide_id" />
+    </Key>
+    <Property Name="slide_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="img" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="url" Type="varchar" MaxLength="255" />
+    <Property Name="type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_account">
+    <Key>
+      <PropertyRef Name="user_account_id" />
+    </Key>
+    <Property Name="user_account_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="user_profile_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_profile">
+    <Key>
+      <PropertyRef Name="user_profile_id" />
+    </Key>
+    <Property Name="user_profile_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="last_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="gender" Type="int" />
+    <Property Name="birthday" Type="int" />
+    <Property Name="phone" Type="varchar" MaxLength="25" />
+    <Property Name="img_verification_1" Type="varchar" MaxLength="255" />
+    <Property Name="img_verification_2" Type="varchar" MaxLength="255" />
+    <Property Name="work" Type="nvarchar" MaxLength="255" />
+    <Property Name="contact" Type="nvarchar" MaxLength="255" />
+    <Property Name="description" Type="ntext" />
+    <Property Name="avatar" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_visit">
+    <Key>
+      <PropertyRef Name="user_visit_id" />
+    </Key>
+    <Property Name="user_visit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_profile_id" Type="int" Nullable="false" />
+    <Property Name="apartment_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__aparment___apart__1ED998B2">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="aparment_image" Type="Self.aparment_image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="apartment_id" />
+      </Principal>
+      <Dependent Role="aparment_image">
+        <PropertyRef Name="apartment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__apartment__apart__1A14E395">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="apartment_content" Type="Self.apartment_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="apartment_id" />
+      </Principal>
+      <Dependent Role="apartment_content">
+        <PropertyRef Name="apartment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__apartment__apart__276EDEB3">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="apartment_facility" Type="Self.apartment_facility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="apartment_id" />
+      </Principal>
+      <Dependent Role="apartment_facility">
+        <PropertyRef Name="apartment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__apartment__facil__286302EC">
+    <End Role="facility" Type="Self.facility" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="apartment_facility" Type="Self.apartment_facility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="facility">
+        <PropertyRef Name="facility_id" />
+      </Principal>
+      <Dependent Role="apartment_facility">
+        <PropertyRef Name="facility_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__apartment__proje__4AB81AF0">
+    <End Role="project" Type="Self.project" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="apartment" Type="Self.apartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="project_id" />
+      </Principal>
+      <Dependent Role="apartment">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__apartment__user___164452B1">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="apartment" Type="Self.apartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="user_profile_id" />
+      </Principal>
+      <Dependent Role="apartment">
+        <PropertyRef Name="user_profile_owner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__blog_cont__blog___2E1BDC42">
+    <End Role="blog" Type="Self.blog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="blog_content" Type="Self.blog_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="blog">
+        <PropertyRef Name="blog_id" />
+      </Principal>
+      <Dependent Role="blog_content">
+        <PropertyRef Name="blog_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__facility___facil__24927208">
+    <End Role="facility" Type="Self.facility" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="facility_content" Type="Self.facility_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="facility">
+        <PropertyRef Name="facility_id" />
+      </Principal>
+      <Dependent Role="facility_content">
+        <PropertyRef Name="facility_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__project_c__proje__4E88ABD4">
+    <End Role="project" Type="Self.project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="project_content" Type="Self.project_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="project_id" />
+      </Principal>
+      <Dependent Role="project_content">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_acco__user___1273C1CD">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user_account" Type="Self.user_account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="user_profile_id" />
+      </Principal>
+      <Dependent Role="user_account">
+        <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_visi__apart__44FF419A">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
+    <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="apartment">
+        <PropertyRef Name="apartment_id" />
+      </Principal>
+      <Dependent Role="user_visit">
+        <PropertyRef Name="apartment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_visi__user___440B1D61">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="user_profile_id" />
+      </Principal>
+      <Dependent Role="user_visit">
+        <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PropertyManagerModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="aparment_image" EntityType="Self.aparment_image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="apartment" EntityType="Self.apartment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="apartment_content" EntityType="Self.apartment_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="apartment_facility" EntityType="Self.apartment_facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="blog" EntityType="Self.blog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="blog_content" EntityType="Self.blog_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project_content" EntityType="Self.project_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__aparment___apart__1ED998B2" Association="Self.FK__aparment___apart__1ED998B2">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="aparment_image" EntitySet="aparment_image" />
+    </AssociationSet>
+    <AssociationSet Name="FK__apartment__apart__1A14E395" Association="Self.FK__apartment__apart__1A14E395">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="apartment_content" EntitySet="apartment_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__apartment__apart__276EDEB3" Association="Self.FK__apartment__apart__276EDEB3">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="apartment_facility" EntitySet="apartment_facility" />
+    </AssociationSet>
+    <AssociationSet Name="FK__apartment__facil__286302EC" Association="Self.FK__apartment__facil__286302EC">
+      <End Role="facility" EntitySet="facility" />
+      <End Role="apartment_facility" EntitySet="apartment_facility" />
+    </AssociationSet>
+    <AssociationSet Name="FK__apartment__proje__4AB81AF0" Association="Self.FK__apartment__proje__4AB81AF0">
+      <End Role="project" EntitySet="project" />
+      <End Role="apartment" EntitySet="apartment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__apartment__user___164452B1" Association="Self.FK__apartment__user___164452B1">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="apartment" EntitySet="apartment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__blog_cont__blog___2E1BDC42" Association="Self.FK__blog_cont__blog___2E1BDC42">
+      <End Role="blog" EntitySet="blog" />
+      <End Role="blog_content" EntitySet="blog_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__facility___facil__24927208" Association="Self.FK__facility___facil__24927208">
+      <End Role="facility" EntitySet="facility" />
+      <End Role="facility_content" EntitySet="facility_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project_c__proje__4E88ABD4" Association="Self.FK__project_c__proje__4E88ABD4">
+      <End Role="project" EntitySet="project" />
+      <End Role="project_content" EntitySet="project_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="Self.FK__user_acco__user___1273C1CD">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="user_account" EntitySet="user_account" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
+      <End Role="apartment" EntitySet="apartment" />
+      <End Role="user_visit" EntitySet="user_visit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_visi__user___440B1D61" Association="Self.FK__user_visi__user___440B1D61">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="user_visit" EntitySet="user_visit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

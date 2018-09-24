@@ -95,3 +95,7 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\Proper
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.CopyComplete
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.pdb
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.xml
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.xml

@@ -1,0 +1,51 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+
+* {
+    color: #484848;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.gray-bg {
+    background-color: #f3f3f4
+}
+
+.middle-box {
+    max-width: 350px;
+    z-index: 100;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.middle-box h1 {
+    font-size: 170px;
+    margin-top: 0;
+}
+
+h3 {
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.logo-name {
+    color: #e6e6e6;
+    font-weight: 800;
+    letter-spacing: -10px;
+    margin-bottom: 0
+}
+
+.fadeInDown {
+    animation-name: fadeInDown;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both
+}
+
+.m-t {
+    margin-top: 15px
+}
+
+

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="propertymanager">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/Images/logo.png" />
+    <title>Property Plus Manager | Đăng nhập</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <link href="~/Content/reset.css" rel="stylesheet">
+    <link href="~/Content/login.css" rel="stylesheet">
+</head>
+<body class="gray-bg" ng-controller="LoginCtrl">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">P+</h1>
+
+            </div>
+            <h3>Chào mừng bạn đến với Property Manager</h3>
+            <form class="m-t" ng-submit="login()">
+                <p class="text-danger">{{errorText}}</p>
+                <div class="form-group">
+                    <input type="text" class="form-control" required="" placeholder="Username" ng-model="user.Username" />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="" ng-model="user.Password">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Đăng nhập</button>
+            </form>
+            <p class="m-t"> <small>Property Plus 2018</small> </p>
+        </div>
+    </div>
+
+    <script src="/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/angular.min.js"></script>
+    <script src="/Scripts/angular-translate.min.js"></script>
+    <script src="/Scripts/angular-sanitize.min.js"></script>
+    <script src="/Scripts/ocLazyLoad.min.js"></script>
+    <script src="/Scripts/angular-ui-router.min.js"></script>
+    <script src="/Scripts/ui-bootstrap-tpls-1.3.3.min.js"></script>
+    <script src="/Scripts/angular-idle.js"></script>
+    <script src="/Scripts/base64.js"></script>
+    <script src="/Scripts/angular-cookies.min.js"></script>
+    <script src="/Scripts/angular-animate.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWuX4GXgxkGER7KMO5M5NM8npxQ04wxnk&libraries=places"></script>
+
+    <script src="/Scripts/app/app.js"></script>
+    @*<script src="/Scripts/app/config.js"></script>*@
+    <script src="/Scripts/app/services.js"></script>
+    <script src="/Scripts/app/directives.js"></script>
+
+    <script src="/Scripts/app/loginctrl.js"></script>
+
+</body>
+
+</html>

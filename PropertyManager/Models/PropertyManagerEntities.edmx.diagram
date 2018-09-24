@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a863c55cbf94be6ae1ae13e7f31af8c" Name="Diagram1">
+        <EntityTypeShape EntityType="PropertyManagerModel.admin" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.aparment_image" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment_content" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment_facility" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.blog" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.blog_content" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.facility" Width="1.5" PointX="6" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.facility_content" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.project" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.project_content" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.slide" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_account" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_profile" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_visit" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="PropertyManagerModel.FK__aparment___apart__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__proje__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__user___164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__apart__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__facil__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__blog_cont__blog___2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__facility___facil__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__project_c__proje__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_acco__user___1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___440B1D61" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
