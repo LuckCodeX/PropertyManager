@@ -4,10 +4,181 @@
     <base href="/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=vietnamese" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/custom.css">
     <title>Manager</title>
 </head>
 <body>
-    <h1>Layout</h1>
+    <div class="header-bar-layout" ng-controller="MainCtrl" ng-init="loadLayout()">
+        <div class="left-header">
+            <a class="logo nav-left-header" href="">
+                <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC'/>
+                <span>TitanPlan</span>
+            </a>
+            <a class="nav-left-header" href="">Shift Plan</a>
+            <a class="nav-left-header" href="">Messenger</a>
+            <a class="nav-left-header" href="">Calendar</a>
+            <a class="nav-left-header" href="">Timesheets</a>
+            <a class="nav-left-header" href="">Requests</a>
+            <a class="nav-left-header" href="">Report</a>
+            <a class="nav-left-header" href="">Setting</a>
+        </div>
+        <div class="right-header">
+            <div class="nav-right-header user-nav dropdown" href="">
+                <button class="dropdown-toggle" data-toggle="dropdown">
+                   <img class="avatar-user" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC'/>
+                    <div class="user-name-box">
+                        <span class="user-name">Admin</span>
+                        <span class="user-small-name">ADMIN COM</span>
+                    </div>
+               </button>
+               <ul class="dropdown-menu">
+                <li>
+                    <img class="big-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC">
+                    <div class="detail-user-big">
+                        <span class="name-user-big">Admin</span>
+                        <span class="email-user-big">adminadmin@gmail.com</span>
+                    </div>
+                </li>
+                <li><a href="#">User Profile</a></li>
+                <li><a href="#">Notification Settings</a></li>
+                <li><a href="#">Quick support</a></li>
+                <li class="divider"></li>
+                <li><a href="#">LOGOUT</a></li>
+              </ul>
+            </div>
+            <div class="nav-right-header left-hr">
+                
+            </div>
+            <div class="nav-right-header dropdown" href="">
+                <button class="has-badge dropdown-toggle" data-toggle="dropdown">
+                  <i class="fas fa-plus-circle"></i>
+               </button>
+               <ul class="dropdown-menu">
+                <li><a href="#">Time-Off request</a></li>
+                <li><a href="#">Set availability</a></li>
+                <li><a href="#">New Event</a></li>
+              </ul>
+            </div>
+            <div class="nav-right-header dropdown" href="">
+                <button class="has-badge dropdown-toggle" data-toggle="dropdown">
+                  <span>23</span>
+                <i class="fas fa-users"></i>
+               </button>
+               <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
+                  <div class="body-notification users-tab">
+                      <ul class="tabs">
+                        <li class="tab-link current" data-tab="tab-1">FIND EMPLOYEE</li>
+                        <li class="tab-link" data-tab="tab-2">MY CO-WORKERS ({{employees.length}})</li>
+                      </ul>
+
+                        <div id="tab-1" class="tab-content current emp-tab">
+                            <div class="search-group">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search employees" name="searchEmp" id="searchEmp" ng-model="searchEmp">
+                                <i ng-show="searchEmp" ng-click="searchEmp = ''" class="fas fa-times"></i>
+                            </div>
+                            <p style="margin-left: 16px; ;color: #a7aaa9; font-size: 13px;">Found {{employees.length}} matching employees</p>
+                            <div class="section-employee" ng-repeat="item in employees | filter:searchEmp">
+                                <img class="avatar-employee" ng-src="{{item.AvatarEmp}}">
+                                <div class="detail-employee">
+                                    <span class="name-employee">{{item.FirstName}} {{item.LastName}}</span>
+                                    <span class="role-employee">Roles: <span style="margin-left: 100px;color: black;">Role in {{item.Role}} ^^</span></span>
+                                    <span class="role-employee">{{item.Working}}</span>
+                                </div>
+                                <div class="dropdown action-dropdown">
+                                    <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#">Email</a></li>
+                                      <li><a href="#">Message</a></li>
+                                    </ul>
+                                  </div>
+                            </div>
+                            
+                        </div>
+                        <div id="tab-2" class="tab-content emp-tab">
+                           <div class="section-employee" ng-repeat="item in employees">
+                                <img class="avatar-employee" ng-src="{{item.AvatarEmp}}">
+                                <div class="detail-employee">
+                                    <span class="name-employee">{{item.FirstName}} {{item.LastName}}</span>
+                                    <span class="role-employee">Roles: <span style="margin-left: 100px;color: black;">Role in {{item.Role}} ^^</span></span>
+                                    <span class="role-employee">{{item.Working}}</span>
+                                </div>
+                                <div class="dropdown action-dropdown">
+                                    <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#">Email</a></li>
+                                      <li><a href="#">Message</a></li>
+                                    </ul>
+                                  </div>
+                            </div>
+                        </div>
+                  </div>
+                  <a class="footer-notification">
+                      All Employees
+                  </a>
+                </div>
+            </div>
+            <div class="nav-right-header dropdown" href="">
+                <button class="has-badge dropdown-toggle" data-toggle="dropdown">
+                   <span>23</span>
+                <i class="fas fa-comment-alt"></i>
+               </button>
+               <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
+                  <div class="header-notification">
+                      RECENT MESSAGES
+                  </div>
+                  <div class="body-notification">
+                      <p class="notfound-text">You don't have rencent messages</p>
+                  </div>
+                  <a class="footer-notification">
+                      View all messages
+                  </a>
+                </div>
+            </div>
+            <div class="nav-right-header dropdown" href="">
+               <button class="has-badge dropdown-toggle" data-toggle="dropdown">
+                   <span>23</span>
+                    <i class="fas fa-bell" ></i>
+               </button>
+               <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
+                  <div class="header-notification">
+                      NOTIFICATION
+                  </div>
+                  <div class="body-notification">
+                      <div class="section-notification" ng-repeat="item in notifications">
+                          <img class="avatar-notification" ng-src="{{item.avatar}}">
+                          <div class="detail-notification">
+                            <span title="{{item.title}}" class="title-notification">{{item.title | limitTo : 90}}{{item.title.length > 90 ? '...' : ''}}</span>
+                            <span class="time-notification">{{item.time}}</span>
+                          </div>
+                          <div class="dropdown action-dropdown" >
+                            <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Mark as read</a></li>
+                              <li><a href="#">Delete</a></li>
+                            </ul>
+                          </div>
+
+                      </div>
+                      
+                      
+                  </div>
+                  <a class="footer-notification">
+                      All notification
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container body-content">
         @RenderBody()
     </div>
@@ -30,7 +201,7 @@
     <script src="/Scripts/app/config.js"></script>
     <script src="/Scripts/app/services.js"></script>
     <script src="/Scripts/app/directives.js"></script>
-
     <script src="/Scripts/app/loginctrl.js"></script>
+    <script type="text/javascript" src="/Scripts/app/mainctrl.js"></script>
 </body>
 </html>

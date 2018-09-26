@@ -1,0 +1,392 @@
+a{
+	text-decoration: none;
+}
+
+*{
+	font-family: 'Roboto', sans-serif;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+.header-bar-layout{
+	height: 48px;
+	width: 100%;
+	background: rgba(0,0,0,.7);
+}
+.left-header{
+	height: 48px;
+	display: inline-block;
+	float: left;
+}
+.right-header{
+	height: 48px;
+	display: inline-block;
+	float: right;
+}
+.left-header .logo img{
+	height: 40px;
+	width: 40px;
+	margin: 4px;
+}
+
+.left-header .nav-left-header{
+	font-size: 13px;
+	font-weight: 500;
+	display: inline-block;
+	float: left;
+	color: white;
+	line-height: 48px;
+	padding: 0 16px;
+}
+
+.right-header .nav-right-header{
+	font-size: 13px;
+	display: inline-block;
+	float: right;
+	color: white;
+	line-height: 48px;
+}
+
+.left-header .nav-left-header:first-child{
+	line-height: 0;
+	padding: 0 10px;
+	margin-left: 10px;
+}
+
+.left-header .nav-left-header span{
+	float: right;
+	padding-left: 16px;
+	font-size: 17px;
+	line-height: 48px;
+}
+
+.left-header .nav-left-header:hover,.left-header .nav-left-header.active{
+	background: #08b0a0;
+}
+
+.right-header .has-badge{
+	position: relative;
+}
+.has-badge span{
+	display: inline-block;
+	border-radius: 50%;
+	position: absolute;
+	top: 8px;
+	right: 7px;
+	color: white;
+	background: #c62817;
+	line-height: 16px;
+	padding: 0 3px;
+	font-size: 10px;
+}
+.has-badge i{
+	font-size: 16px;
+	color: #c1c4c5;
+}
+
+.right-header .has-badge:hover i{
+	color: white;
+}
+.user-nav .avatar-user{
+	height: 36px;
+	width: 36px;
+}
+.user-nav .user-name-box{
+	height: 48px;
+	display: inline-block;
+	float: right;
+	line-height: normal;
+	padding: 8px 0 0 10px;
+	width: 100px;
+
+}
+.user-nav .user-name-box span{
+	display: block;
+}
+
+.user-nav .user-name-box span.user-small-name{
+	color: #c1c4c5;
+}
+
+.right-header .left-hr{
+	height: 38px;
+	border-right: 1px solid  #c1c4c5;
+	font-weight: 400;
+	padding: 0;
+	padding-left: 20px;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+button.has-badge{
+	height: 48px;
+	width: 45px;
+	border: none;
+	background: transparent;
+}
+
+.right-header .dropdown-menu{
+	margin: 0;
+	top: 98%;
+	left: auto;
+	right: 0;
+	color: black;
+}
+
+.dropdown-menu.notification{
+	width: 400px;
+	max-height: 400px;
+	padding: 0;
+	line-height: normal;
+}
+.header-notification{
+	height: 41px;
+	line-height: 41px;
+	padding: 0 16px;
+}
+.body-notification{
+	border-top: 1px solid #c1c4c5;
+	border-bottom: 1px solid #c1c4c5;
+	max-height: 320px;
+	overflow-y: auto;
+}
+.avatar-notification{
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	margin: 5px 7px 7px 0;
+	float: left;
+}
+.detail-notification{
+	display: inline-block;
+	width: 320px;
+	float: left;
+	
+}
+
+.section-notification{
+	overflow: hidden;
+	border-bottom: 1px solid #c1c4c5;
+	padding: 7px;
+	display: block;
+	height: 64px;
+	color: black;
+	cursor: pointer;
+}
+
+.section-notification:hover{
+	background: #c1c4c54f;
+}
+
+.section-notification:last-child{
+	border: none;
+}
+
+.avatar-employee{
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	margin: 5px 7px 7px 0;
+	float: left;
+}
+.detail-employee{
+	padding-top: 4px;
+	display: inline-block;
+	width: 300px;
+	float: left;
+	
+}
+
+.title-notification{
+	font-weight: 600;
+	font-size: 13px;
+	display: block;
+}
+
+.time-notification{
+	color: #c1c4c5;
+	font-size: 12px;
+	display: block;
+}
+
+.section-employee{
+	padding: 7px;
+	overflow: hidden;
+	border-top: 1px solid #c1c4c5;
+	display: block;
+	height: 64px;
+	color: black;
+	cursor: pointer;
+}
+
+.role-employee{
+	display: block;
+	font-size: 12px;
+	color: #c1c4c5;
+}
+.footer-notification{
+	display: block;
+	width: 100%;
+	height: 40px;
+	padding: 0 16px;
+	line-height: 40px;
+	background: #f1f1f1;
+	cursor: pointer;
+	color: black;
+	text-decoration: none;
+}
+.footer-notification:hover{
+	text-decoration: none;
+	color: black;
+}
+.notfound-text{
+	margin: 0;
+	color: #c1c4c5;
+	padding: 20px 16px;
+}
+.users-tab {
+    background-color: white;
+}
+
+    .users-tab ul.tabs {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        display: flex;
+    }
+
+        .users-tab ul.tabs li {
+            text-align: center;
+            background: white;
+            opacity: 0.4;
+            color: black;
+            display: inline-block;
+            padding: 13px 0;
+            cursor: pointer;
+            width: 50%;
+            margin: 0;
+            height: 41px;
+            font-weight: 500; 
+            border-bottom: 1px solid #c1c4c5;
+        }
+
+            .users-tab ul.tabs li.current {
+                opacity: 1;
+                border-bottom: 1px solid #08b0a0;
+            }
+
+.users-tab .tab-content {
+    display: none;
+    background: white;
+    
+}
+
+.users-tab .tab-content.current {
+    display: inherit;
+    overflow: hidden;
+}
+
+#searchEmp{
+	width: calc(100% - 36px);
+	border: none;
+	background: white;
+	margin-left: 5px;
+	color: #c1c4c5;
+	padding: 5px 0;
+}
+.emp-tab .search-group{
+	border: 1px solid #c1c4c5;
+	padding: 7px;
+	margin: 10px 16px;
+
+}
+.emp-tab .search-group i{
+	color: #c1c4c5;
+}
+.emp-tab .search-group i:last-child{
+	cursor: pointer;
+}
+
+.emp-tab .name-employee{
+	font-weight: 500;
+	font-size: 14px;
+	color: #2f6092;
+	margin-bottom: 3px
+}
+
+.user-nav .dropdown-toggle{
+	border: none;
+	background: transparent;
+}
+
+.right-header .user-nav{
+	line-height: 43px;
+}
+
+.user-nav .dropdown-menu{
+	width: 300px;
+}
+
+.user-nav .dropdown-menu li:first-child{
+	padding: 3px 20px;
+	line-height: auto;
+	margin-bottom: 10px;
+	height: 77px;
+}
+
+.user-nav .dropdown-menu .big-avatar{
+	height: 55px;
+	width: 55px;
+	border-radius: 50%;
+	border: 1px solid #c1c4c5;
+	float: left;
+}
+
+.user-nav .dropdown-menu .detail-user-big{
+	display: inline-block;
+	width: calc(100% - 120px);
+	margin-left: 20px;
+	float: left;
+}
+
+.user-nav .dropdown-menu .name-user-big{
+	font-size: 16px;
+	display: block;
+	height: 20px;
+}
+
+.user-nav .dropdown-menu .email-user-big{
+	font-size: 12px;
+	color: #c1c4c5;
+	display: block;
+	height: 20px;
+}
+
+.user-nav .dropdown-menu li{
+	line-height: 36px;
+}
+
+.section-employee, .section-notification{
+	position: relative;
+}
+
+.section-employee .action-dropdown, .section-notification  .action-dropdown{
+	position: absolute;
+	right: 7px;
+	top: 15px;
+	visibility: hidden;
+}
+
+.section-employee:hover{
+	background: #c1c4c54f;
+}
+
+.section-employee:hover .action-dropdown, .section-notification:hover .action-dropdown{
+	visibility: visible;
+}
+
+.action-btn{
+	border: none;
+	background: transparent;
+	color: #c1c4c5;
+}
