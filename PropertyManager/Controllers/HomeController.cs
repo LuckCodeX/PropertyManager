@@ -25,5 +25,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult Account()
+        {
+            return View();
+        }
+
+        public ActionResult AccountDetail()
+        {
+            return View();
+        }
     }
 }

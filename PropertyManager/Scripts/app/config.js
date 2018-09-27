@@ -23,6 +23,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
                 url: "/dashboard",
                 templateUrl: "html/dashboard.html"
             })
+        .state('account',
+            {
+                url: "/account",
+                templateUrl: "html/account.html"
+        })
+            .state('accountdetail',
+                {
+                    url: "/account-detail/:id",
+                    templateUrl: "html/accountdetail.html"
+                })
         ;
 }
 

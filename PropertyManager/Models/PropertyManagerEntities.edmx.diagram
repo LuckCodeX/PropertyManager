@@ -32,6 +32,7 @@
         <AssociationConnector Association="PropertyManagerModel.FK__project_c__proje__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_acco__user___1273C1CD" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="PropertyManagerModel.FK__admin__parent_id__02084FDA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

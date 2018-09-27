@@ -8,6 +8,10 @@
     <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="role" Type="Int32" Nullable="false" />
+    <Property Name="parent_id" Type="Int32" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="admin1" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin" ToRole="admin1" />
+    <NavigationProperty Name="admin2" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin1" ToRole="admin" />
   </EntityType>
   <EntityType Name="aparment_image">
     <Key>
@@ -53,8 +57,8 @@
     <Property Name="apartment_content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="apartment_id" Type="Int32" Nullable="false" />
     <Property Name="language" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="apartment" Relationship="Self.FK__apartment__apart__1A14E395" FromRole="apartment_content" ToRole="apartment" />
   </EntityType>
   <EntityType Name="apartment_facility">
@@ -411,5 +415,21 @@
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_visit" EntitySet="user_visit" />
     </AssociationSet>
+    <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="PropertyManagerModel.FK__admin__parent_id__02084FDA">
+      <End Role="admin" EntitySet="admins" />
+      <End Role="admin1" EntitySet="admins" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK__admin__parent_id__02084FDA">
+    <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
+    <End Type="PropertyManagerModel.admin" Role="admin1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="admin_id" />
+      </Principal>
+      <Dependent Role="admin1">
+        <PropertyRef Name="parent_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

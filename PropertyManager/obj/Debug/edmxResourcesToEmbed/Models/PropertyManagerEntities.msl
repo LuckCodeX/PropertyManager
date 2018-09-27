@@ -4,6 +4,8 @@
     <EntitySetMapping Name="admins">
       <EntityTypeMapping TypeName="PropertyManagerModel.admin">
         <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="parent_id" ColumnName="parent_id" />
           <ScalarProperty Name="admin_id" ColumnName="admin_id" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />

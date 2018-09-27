@@ -14,9 +14,21 @@ namespace PropertyManager.Models
     
     public partial class admin
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public admin()
+        {
+            this.admin1 = new HashSet<admin>();
+        }
+    
         public int admin_id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public int role { get; set; }
+        public Nullable<int> parent_id { get; set; }
+        public int status { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<admin> admin1 { get; set; }
+        public virtual admin admin2 { get; set; }
     }
 }

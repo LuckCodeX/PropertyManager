@@ -195,8 +195,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ACLFilter.cs" />
     <Compile Include="Helper\ConvertDatetime.cs" />
     <Compile Include="Helper\Encrypt.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\LoginActionFilter.cs" />
     <Compile Include="Models\admin.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
@@ -226,6 +228,7 @@
     <Compile Include="Models\facility_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PagingResult.cs" />
     <Compile Include="Models\project.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -277,6 +280,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="html\account.html" />
+    <Content Include="html\accountdetail.html" />
     <Content Include="html\dashboard.html" />
     <Content Include="Models\PropertyManagerEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -356,6 +361,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\Account.cshtml" />
+    <Content Include="Views\Home\AccountDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

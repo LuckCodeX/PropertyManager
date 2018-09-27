@@ -12,5 +12,8 @@ namespace PropertyManager.Models
         public string Password { get; set; }
         public string Token { get; set; }
         public int Role { get; set; }
+        public string RoleName { get; set; }
+        public int? ParentId { get; set; }
+        public AdminModel Parent { get; set; }
     }
 }

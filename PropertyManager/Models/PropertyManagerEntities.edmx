@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PropertyManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PropertyManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -13,6 +13,8 @@
           <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="parent_id" Type="int" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="aparment_image">
           <Key>
@@ -51,8 +53,8 @@
           <Property Name="apartment_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="apartment_id" Type="int" Nullable="false" />
           <Property Name="language" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="description" Type="ntext" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="ntext" />
         </EntityType>
         <EntityType Name="apartment_facility">
           <Key>
@@ -162,6 +164,18 @@
           <Property Name="user_profile_id" Type="int" Nullable="false" />
           <Property Name="apartment_id" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__admin__parent_id__02084FDA">
+          <End Role="admin" Type="Self.admin" Multiplicity="0..1" />
+          <End Role="admin1" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="admin1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__aparment___apart__1ED998B2">
           <End Role="apartment" Type="Self.apartment" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -344,6 +358,10 @@
           <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="Self.FK__admin__parent_id__02084FDA">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="admin1" EntitySet="admin" />
+          </AssociationSet>
           <AssociationSet Name="FK__aparment___apart__1ED998B2" Association="Self.FK__aparment___apart__1ED998B2">
             <End Role="apartment" EntitySet="apartment" />
             <End Role="aparment_image" EntitySet="aparment_image" />
@@ -393,8 +411,7 @@
             <End Role="user_visit" EntitySet="user_visit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PropertyManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -406,6 +423,10 @@
           <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="parent_id" Type="Int32" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="admin1" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin" ToRole="admin1" />
+          <NavigationProperty Name="admin2" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin1" ToRole="admin" />
         </EntityType>
         <EntityType Name="aparment_image">
           <Key>
@@ -451,8 +472,8 @@
           <Property Name="apartment_content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="apartment_id" Type="Int32" Nullable="false" />
           <Property Name="language" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="apartment" Relationship="Self.FK__apartment__apart__1A14E395" FromRole="apartment_content" ToRole="apartment" />
         </EntityType>
         <EntityType Name="apartment_facility">
@@ -809,7 +830,23 @@
             <End Role="user_profile" EntitySet="user_profile" />
             <End Role="user_visit" EntitySet="user_visit" />
           </AssociationSet>
+          <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="PropertyManagerModel.FK__admin__parent_id__02084FDA">
+            <End Role="admin" EntitySet="admins" />
+            <End Role="admin1" EntitySet="admins" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__admin__parent_id__02084FDA">
+          <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.admin" Role="admin1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="admin1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -819,6 +856,8 @@
           <EntitySetMapping Name="admins">
             <EntityTypeMapping TypeName="PropertyManagerModel.admin">
               <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />

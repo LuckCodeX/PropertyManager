@@ -11,5 +11,9 @@ namespace PropertyManager.Services
     {
         admin GetAdminByToken(TokenModel token);
         admin LoginAdmin(AdminModel model);
+        List<admin> SuperAdminGetListAdmin(string search);
+        List<admin> GetListAdminByParentId(string search, int id);
+        string GetRoleName(int role);
+        admin GetAdminById(int id);
     }
 }
