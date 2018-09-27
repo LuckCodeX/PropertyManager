@@ -35,5 +35,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult Apartment()
+        {
+            return View();
+        }
+
+        public ActionResult ApartmentDetail()
+        {
+            return View();
+        }
     }
 }

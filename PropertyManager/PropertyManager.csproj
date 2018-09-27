@@ -282,6 +282,8 @@
     <Content Include="Global.asax" />
     <Content Include="html\account.html" />
     <Content Include="html\accountdetail.html" />
+    <Content Include="html\apartment.html" />
+    <Content Include="html\apartmentdetail.html" />
     <Content Include="html\dashboard.html" />
     <Content Include="Models\PropertyManagerEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -363,6 +365,8 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
     <Content Include="Views\Home\AccountDetail.cshtml" />
+    <Content Include="Views\Home\Apartment.cshtml" />
+    <Content Include="Views\Home\ApartmentDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

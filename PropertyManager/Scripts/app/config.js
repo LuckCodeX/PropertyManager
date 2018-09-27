@@ -27,12 +27,22 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/account",
                 templateUrl: "html/account.html"
-        })
-            .state('accountdetail',
-                {
-                    url: "/account-detail/:id",
-                    templateUrl: "html/accountdetail.html"
-                })
+            })
+        .state('accountdetail',
+            {
+                url: "/account-detail/:id",
+                templateUrl: "html/accountdetail.html"
+            })
+        .state('apartment',
+            {
+                url: "/apartment",
+                templateUrl: "html/apartment.html"
+            })
+        .state('apartmentdetail',
+            {
+                url: "/apartment-detail/:id",
+                templateUrl: "html/apartmentdetail.html"
+            })
         ;
 }
 
