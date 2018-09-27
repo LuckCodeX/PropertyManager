@@ -15,5 +15,7 @@ namespace PropertyManager.Services
         List<admin> GetListAdminByParentId(string search, int id);
         string GetRoleName(int role);
         admin GetAdminById(int id);
+        List<admin> GetListLeader();
+        void SaveAdmin(admin acc);
     }
 }

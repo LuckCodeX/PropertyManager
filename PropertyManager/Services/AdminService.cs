@@ -53,5 +53,15 @@ namespace PropertyManager.Services
         {
             return AdminRepository.FindBy(p => p.admin_id == id && p.status == 1).FirstOrDefault();
         }
+
+        public List<admin> GetListLeader()
+        {
+            return AdminRepository.FindBy(p => Equals(p.parent_id, null) && p.status == 1 && p.role != (int)RoleAdmin.AdminWeb && p.role != (int)RoleAdmin.SuperAdmin).ToList();
+        }
+
+        public void SaveAdmin(admin acc)
+        {
+            AdminRepository.Save(acc);
+        }
     }
 }

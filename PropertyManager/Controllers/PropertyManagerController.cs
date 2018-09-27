@@ -46,7 +46,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetListAccount/{page}/{search?}")]
-        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.ApartmentManager, (int)RoleAdmin.CustomerManager })]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public PagingResult<AdminModel> GetListAccount(int page, string search = null)
         {
             if (this.Request.Headers.TryGetValues("Token", out var values))
@@ -86,7 +86,7 @@ namespace PropertyManager.Controllers
         [HttpGet]
         [Route("GetAccountDetail/{id}")]
         [ACLFilter(AccessRoles = new int[]
-            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.ApartmentManager, (int) RoleAdmin.CustomerManager})]
+            {(int) RoleAdmin.SuperAdmin})]
         public AdminModel GetAccountDetail(int id)
         {
             if (this.Request.Headers.TryGetValues("Token", out var values))
@@ -114,6 +114,56 @@ namespace PropertyManager.Controllers
                 };
             }
             return new AdminModel();
+        }
+
+        [HttpGet]
+        [Route("GetListLeader")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public List<AdminModel> GetListLeader()
+        {
+            var admins = _service.GetListLeader();
+            return admins.Select(p => new AdminModel()
+            {
+                Id = p.admin_id,
+                Username = p.username,
+                Role = p.role
+            }).ToList();
+        }
+
+        [HttpPost]
+        [Route("SaveAccount")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public void SaveAccount(AdminModel model)
+        {
+            var acc = _service.GetAdminById(model.Id);
+            if (Equals(acc, null))
+            {
+                acc = new admin()
+                {
+                    admin_id = 0,
+                    status = 1
+                };
+            }
+
+            acc.role = model.Role;
+            acc.parent_id = model.ParentId;
+            acc.username = model.Username;
+            if (!Equals(model.Password, null))
+                acc.password = Encrypt.EncodePassword(model.Password);
+            _service.SaveAdmin(acc);
+        }
+
+        [HttpDelete]
+        [Route("DeleteAccount/{id}")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public void DeleteAccount(int id)
+        {
+            var acc = _service.GetAdminById(id);
+            if (!Equals(acc, null))
+            {
+                acc.status = 2;
+                _service.SaveAdmin(acc);
+            }
         }
     }
 }
