@@ -13,19 +13,16 @@
 <body>
     <div class="header-bar-layout" ng-controller="MainCtrl" ng-init="loadLayout()">
         <div class="left-header">
-            <a class="logo nav-left-header" href="">
-                <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC'/>
-                <span>TitanPlan</span>
+            <a class="logo nav-left-header active" ui-sref="dashboard">
+                <img src='/Images/logo.png'/>
+                <span>P+</span>
             </a>
-            <a class="nav-left-header" href="">Shift Plan</a>
-            <a class="nav-left-header" href="">Messenger</a>
-            <a class="nav-left-header" href="">Calendar</a>
-            <a class="nav-left-header" href="">Timesheets</a>
-            <a class="nav-left-header" href="">Requests</a>
-            <a class="nav-left-header" href="">Report</a>
-            <a class="nav-left-header" href="">Setting</a>
+            <a class="nav-left-header" href="">Tài khoản</a>
+            <a class="nav-left-header" href="">Căn hộ</a>
+            <a class="nav-left-header" href="">Khách hàng</a>
+            <a class="nav-left-header" href="">Nhà Mới</a>
         </div>
-        <div class="right-header">
+        <!-- <div class="right-header">
             <div class="nav-right-header user-nav dropdown" href="">
                 <button class="dropdown-toggle" data-toggle="dropdown">
                    <img class="avatar-user" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC'/>
@@ -42,11 +39,11 @@
                         <span class="email-user-big">adminadmin@gmail.com</span>
                     </div>
                 </li>
-                <li><a href="#">User Profile</a></li>
-                <li><a href="#">Notification Settings</a></li>
-                <li><a href="#">Quick support</a></li>
+                <li><a href="#">Hồ sơ người dùng</a></li>
+                <li><a href="#">Chỉnh sửa</a></li>
+                <li><a href="#">Hỗ trợ</a></li>
                 <li class="divider"></li>
-                <li><a href="#">LOGOUT</a></li>
+                <li><a href="#">Thoát</a></li>
               </ul>
             </div>
             <div class="nav-right-header left-hr">
@@ -57,9 +54,9 @@
                   <i class="fas fa-plus-circle"></i>
                </button>
                <ul class="dropdown-menu">
-                <li><a href="#">Time-Off request</a></li>
-                <li><a href="#">Set availability</a></li>
-                <li><a href="#">New Event</a></li>
+                <li><a href="#">Thời gian nghỉ</a></li>
+                <li><a href="#">Chỉnh sửa hiệu lực</a></li>
+                <li><a href="#">Sự kiện mới</a></li>
               </ul>
             </div>
             <div class="nav-right-header dropdown" href="">
@@ -70,8 +67,8 @@
                <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
                   <div class="body-notification users-tab">
                       <ul class="tabs">
-                        <li class="tab-link current" data-tab="tab-1">FIND EMPLOYEE</li>
-                        <li class="tab-link" data-tab="tab-2">MY CO-WORKERS ({{employees.length}})</li>
+                        <li class="tab-link current" data-tab="tab-1">Tìm nhân viên</li>
+                        <li class="tab-link" data-tab="tab-2">Đồng nghiệp của tôi ({{employees.length}})</li>
                       </ul>
 
                         <div id="tab-1" class="tab-content current emp-tab">
@@ -80,12 +77,12 @@
                                 <input type="text" placeholder="Search employees" name="searchEmp" id="searchEmp" ng-model="searchEmp">
                                 <i ng-show="searchEmp" ng-click="searchEmp = ''" class="fas fa-times"></i>
                             </div>
-                            <p style="margin-left: 16px; ;color: #a7aaa9; font-size: 13px;">Found {{employees.length}} matching employees</p>
+                            <p style="margin-left: 16px; ;color: #a7aaa9; font-size: 13px;">Tìm thấy {{employees.length}} nhân viên</p>
                             <div class="section-employee" ng-repeat="item in employees | filter:searchEmp">
                                 <img class="avatar-employee" ng-src="{{item.AvatarEmp}}">
                                 <div class="detail-employee">
                                     <span class="name-employee">{{item.FirstName}} {{item.LastName}}</span>
-                                    <span class="role-employee">Roles: <span style="margin-left: 100px;color: black;">Role in {{item.Role}} ^^</span></span>
+                                    <span class="role-employee">Vị trí: <span style="margin-left: 100px;color: black;">vị trí ở {{item.Role}} ^^</span></span>
                                     <span class="role-employee">{{item.Working}}</span>
                                 </div>
                                 <div class="dropdown action-dropdown">
@@ -94,7 +91,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                       <li><a href="#">Email</a></li>
-                                      <li><a href="#">Message</a></li>
+                                      <li><a href="#">Tin nhắn</a></li>
                                     </ul>
                                   </div>
                             </div>
@@ -105,7 +102,7 @@
                                 <img class="avatar-employee" ng-src="{{item.AvatarEmp}}">
                                 <div class="detail-employee">
                                     <span class="name-employee">{{item.FirstName}} {{item.LastName}}</span>
-                                    <span class="role-employee">Roles: <span style="margin-left: 100px;color: black;">Role in {{item.Role}} ^^</span></span>
+                                    <span class="role-employee">Vị trí: <span style="margin-left: 100px;color: black;">Vị trí ở {{item.Role}} ^^</span></span>
                                     <span class="role-employee">{{item.Working}}</span>
                                 </div>
                                 <div class="dropdown action-dropdown">
@@ -114,14 +111,14 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                       <li><a href="#">Email</a></li>
-                                      <li><a href="#">Message</a></li>
+                                      <li><a href="#">Tin nhắn</a></li>
                                     </ul>
                                   </div>
                             </div>
                         </div>
                   </div>
                   <a class="footer-notification">
-                      All Employees
+                      Tất cả nhân viên
                   </a>
                 </div>
             </div>
@@ -132,13 +129,13 @@
                </button>
                <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
                   <div class="header-notification">
-                      RECENT MESSAGES
+                      TIN NHẮN GẦN ĐÂY
                   </div>
                   <div class="body-notification">
-                      <p class="notfound-text">You don't have rencent messages</p>
+                      <p class="notfound-text">Bạn không có tin nhắn nào gần đây</p>
                   </div>
                   <a class="footer-notification">
-                      View all messages
+                      Xem tất cả tin nhắn
                   </a>
                 </div>
             </div>
@@ -149,7 +146,7 @@
                </button>
                <div class="dropdown-menu notification" ng-click="$event.stopPropagation();">
                   <div class="header-notification">
-                      NOTIFICATION
+                      THÔNG BÁO
                   </div>
                   <div class="body-notification">
                       <div class="section-notification" ng-repeat="item in notifications">
@@ -163,8 +160,8 @@
                                 <i class="fas fa-ellipsis-v"></i>
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a href="#">Mark as read</a></li>
-                              <li><a href="#">Delete</a></li>
+                              <li><a href="#">Đánh dấu đã đọc</a></li>
+                              <li><a href="#">Xóa</a></li>
                             </ul>
                           </div>
 
@@ -173,11 +170,11 @@
                       
                   </div>
                   <a class="footer-notification">
-                      All notification
+                      Tất cả thông báo
                   </a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="container body-content">
         @RenderBody()
