@@ -1,1 +1,65 @@
-﻿<h1>Account Detail</h1>
+﻿<div class="account-view" ng-init="loadAccountDetail()" ng-controller="AccountCtrl">
+	<div class="warp container">
+		<div class="header-warp">
+			<div class="title-warp">Quản lý tài khoản</div>
+		</div>
+		<div class="body-warp">
+			<div class="account-detail-view">
+			  <form class="form-horizontal" name="myForm" ng-submit="saveAccount()">
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Tài khoản:</label>
+			      <div class="col-sm-9">
+			        <input type="text" class="form-ctrl" ng-minlength="6" name="username" ng-readonly="data.Id" ng-model="data.Username" required="">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Quyền:</label>
+			      <div class="col-md-3">          
+			        <select class="form-ctrl" ng-model="data.Role" ng-options="option.value as option.name for option in roles">
+			        </select>
+			      </div>
+			      <label  ng-if="data.Role == 4 || data.Role == 5" class="control-label col-sm-2" for="">Trưởng nhóm:</label>
+			      <div  ng-if="data.Role == 4 || data.Role == 5" class="col-sm-3">          
+			        <select class="form-ctrl" ng-model="data.ParentId" >
+			        	<option selected value="">Trưởng nhóm</option>
+			        	<option value="{{leader.Id}}" ng-show="((leader.Role == 2 && data.Role == 4) ||(leader.Role == 3 && data.Role == 5)) && leader.Id != data.Id " ng-repeat = "leader in listLeader">
+			        		{{leader.Username}}
+			        	</option>
+			        </select>
+			      </div>
+			    </div>
+			    <!-- <div class="form-group"  ng-if="data.Role == 4 || data.Role == 5">
+			      <label class="control-label col-sm-1" for="">Trưởng nhóm:</label>
+			      <div class="col-sm-3">          
+			        <select class="form-ctrl">
+			        	<option selected="">1</option>
+			        </select>
+			      </div>
+			    </div> -->
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Mật khẩu: <span style="color: red">*</span></label>
+			      <div class="col-sm-9">          
+			        <input type="password" class="form-ctrl" ng-minlength="6" name="pwd" ng-model="data.Password"  ng-required="!data.Id">
+			      </div>
+			      <label style="color:red;" class="col-sm-6 col-sm-offset-3" ng-show="myForm.pwd.$dirty && myForm.pwd.$invalid">Mật khẩu phải có 6 ký tự trở lên</label>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Xác nhận mật khẩu: <span style="color: red">*</span></label>
+			      <div class="col-sm-9">          
+			        <input type="password" class="form-ctrl" name="rePwd" ng-model="rePassword" ng-required="!data.Id">
+			      </div>
+			      <label style="color:red;" class="col-sm-6 col-sm-offset-3" ng-show="myForm.rePwd.$dirty && myForm.rePwd.$invalid || rePassword != data.Password">Mật khẩu không khớp</label>
+			    </div>
+			    <div class="form-group">        
+			      <div class="col-sm-offset-3 col-sm-9">
+			      	<button type="submit" ng-disabled="((!myForm.pwd.$valid || !myForm.username.$valid) && !data.Id) || (data.Password != rePassword)" class="btn btn-save">Lưu</button>
+			      	<button type="button" ui-sref="account" class="btn btn-back">Thoát</button>
+			      </div>
+			    </div>
+			  </form>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
