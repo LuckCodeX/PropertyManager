@@ -24,9 +24,9 @@ textarea:focus, input:focus{
 	float: right;
 }
 .left-header .logo img{
-	height: 40px;
-	width: 40px;
-	margin: 4px;
+	height: 30px;
+	width: 30px;
+	margin: 8px 0;
 }
 
 .left-header .nav-left-header{

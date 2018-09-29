@@ -46,7 +46,24 @@ namespace PropertyManager.Services
 
         public string GetRoleName(int role)
         {
-            return role == (int)RoleAdmin.ApartmentManager ? "Quản lý nhóm căn hộ" : (role == (int)RoleAdmin.CustomerManager ? "Quản lý nhóm khách hàng" : (role == (int)RoleAdmin.ApartmentEmployee ? "Nhân viên nhóm căn hộ" : "Nhân viên nhóm khách hàng"));
+            switch (role)
+            {
+                case (int)RoleAdmin.SuperAdmin:
+                    return "Admin tổng";
+                case (int)RoleAdmin.AdminWeb:
+                    return "Admin website";
+                case (int)RoleAdmin.ApartmentEmployee:
+                    return "Nhân viên nhóm căn hộ";
+                case (int)RoleAdmin.ApartmentManager:
+                    return "Quản lý nhóm căn hộ";
+                case (int)RoleAdmin.CustomerEmployee:
+                    return "Nhân viên nhóm khách hàng";
+                case (int)RoleAdmin.CustomerManager:
+                    return "Quản lý nhóm khách hàng";
+                default:
+                    return null;
+            }
+            
         }
 
         public admin GetAdminById(int id)
