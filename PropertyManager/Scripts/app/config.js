@@ -25,7 +25,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             })
         .state('account',
             {
-                url: "/account",
+                url: "/account?page&search",
                 templateUrl: "html/account.html"
             })
         .state('accountdetail',

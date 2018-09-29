@@ -3,6 +3,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 *{
+	color: rgba(0,0,0,0.87);
 	font-family: 'Roboto', sans-serif;
 }
 textarea:focus, input:focus{
@@ -27,6 +28,10 @@ textarea:focus, input:focus{
 	height: 40px;
 	width: 40px;
 	margin: 4px;
+}
+
+.logo.nav-left-header span{
+	color: white;
 }
 
 .left-header .nav-left-header{
@@ -288,23 +293,24 @@ button.has-badge{
 }
 
 #searchEmp{
-	width: calc(100% - 36px);
+	width: calc(100% - 41px);
 	border: none;
 	background: white;
 	margin-left: 5px;
-	color: #c1c4c5;
+	color: black;
 	padding: 5px 0;
 }
-.emp-tab .search-group{
+.search-group{
 	border: 1px solid #c1c4c5;
 	padding: 7px;
-	margin: 10px 16px;
+	margin: 7px 16px;
 
 }
-.emp-tab .search-group i{
+.search-group i{
 	color: #c1c4c5;
 }
-.emp-tab .search-group i:last-child{
+.search-group i:last-child{
+	margin-right: 5px;
 	cursor: pointer;
 }
 
@@ -389,5 +395,181 @@ button.has-badge{
 .action-btn{
 	border: none;
 	background: transparent;
-	color: #c1c4c5;
+	opacity: .5;
+	font-size: 12px;
+}
+
+.action-btn:hover{
+	opacity: 1;
+}
+
+.search-box{
+	float: right;
+	width: 250px;
+	display: inline-block;
+}
+
+.btn-new a{
+	padding: 9px 16px;
+	display: inline-block;
+	width: 88px;
+	height: 36px;
+	background-color: rgb(7,147,133);
+	color: white;
+	border: none;
+}
+
+.btn-new{
+	float: right;
+	display: inline-block;
+}
+
+.search-box .search-group{
+	padding: 2px 7px;
+	margin: 0;
+	margin-right: 15px;
+}
+
+.warp{
+	background: white;	
+	min-height: 80vh;
+}
+
+#table-account{
+	clear: both;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.header-warp{
+	padding-bottom: 5px;
+	border-bottom:solid 1px #d5d6d9 ;
+}
+
+.body-warp{
+	padding-top: 20px;
+}
+
+.title-warp{
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.warp{
+	padding: 30px
+}
+
+#table-account th{
+	font-size: 12px;
+	background: #f7f7f7;
+	border: none;
+}
+#table-account td{
+	font-size: 12px;
+	height: 40px;
+	line-height: 40px;
+}
+.action-dropdown-table .dropdown-menu{
+	position: absolute;
+	top:0;
+	left: -100px;
+}
+
+.link{
+	color: #2F6089;
+}
+
+.avatar-table{
+	border-radius: 50%;
+	margin-right: 10px; 
+	width: 40px;
+	height: 40px;
+}
+
+.status-active{
+	padding: 3px;
+	border-radius: 3px;
+	background: #08b0a0;
+	color: white;
+}
+
+.pagination-employee{
+	float: right;
+}
+
+.pagination-page a ,.pagination-prev a, .pagination-next a{
+	font-size: 12px;
+	border: none !important;
+	color: rgba(0,0,0,0.87) !important;
+}
+.pagination-page.active a{
+	background: rgba(0,0,0,.12);
+	border: none;
+}
+
+.pagination-page.active:hover a{
+	background: rgba(0,0,0,.12);
+	border: none;
+}
+
+.pagination-page:hover a{
+	background: rgba(0,0,0,.12);
+	border: none;
+}
+
+.body-content{
+	background: #e8e6e7;
+	padding-top: 30px;
+	min-height: 90vh;
+}
+
+.form-ctrl{
+	padding: 6px 12px;
+	width: 100%;
+	border: solid 1px #d5d6d9;
+	border-radius: 1px; 
+}
+
+.account-detail-view{
+	
+	padding: 30px;
+}
+
+.btn-save{
+	background: #1bb394;
+	border-radius: 4px; 
+	color: white;
+	border-color: #d5d6d9;
+	margin-right: 25px;
+}
+.btn-save:hover{
+	color: white;
+	opacity: .7;
+}
+.btn-back{
+	background: white;
+	border-radius: 4px; 
+	color: black;
+	border-color: #d5d6d9;
+}
+
+.account-detail-view .form-group{
+	border-bottom:  dashed 1px #d5d6d9;
+	padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.account-detail-view .form-group:last-child{
+	border: none;
+}
+
+input:read-only {
+    background-color: #d5d6d9;
+}
+
+button:focus {outline:0;}
+
+.action-dropdown-table .dropdown-menu li a{
+	padding: 10px 16px ;
+	font-size: 12px
 }
