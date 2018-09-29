@@ -1,1 +1,59 @@
-﻿<h1>Account</h1>
+﻿<div class="account-view" ng-init="loadAccount()" ng-controller="AccountCtrl">
+	<div class="warp container">
+		<div class="header-warp">
+			<div class="title-warp">QUẢN LÝ TÀI KHOẢN</div>
+		</div>
+		<div class="body-warp">
+			<div style="overflow: hidden;">
+				<div class="btn-new">
+				<a ui-sref="accountdetail">+ THÊM</a>
+			</div>
+			<form class="search-box" ng-submit="pageChanged()">
+				<div class="search-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Tìm nhân viên" name="searchEmp" id="searchEmp" ng-model="searchEmp2">
+                    <i ng-show="searchEmp2" ng-click="searchEmp2 = '';pageChanged()" class="fas fa-times"></i>
+                    <button type="submit" style="width: 0;height: 0;border: none;padding: 0"></button>
+                </div>
+			</form>
+			</div>
+			<table class="table table-hover" id="table-account">
+				<tr>
+					<th>Tài khoản</th>
+					<th>Quyền</th>
+					<th>Nhóm</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in accountList">
+					<td><a class="" ui-sref="accountdetail({id:item.Id})">{{item.Username}}</a></td>
+					<td>{{item.RoleName}}</td>
+					<td><a class="" ui-sref="accountdetail({id:item.Parent.Id})">{{item.Parent.Username}}</a></td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+	                            <i class="fas fa-ellipsis-v"></i>
+	                        </button>
+	                        <ul class="dropdown-menu">
+	                          <li><a ui-sref="accountdetail({id:item.Id})">Chỉnh sửa</a></li>
+
+						      <!-- <li><a href=""
+								   ng-confirm-click="Bạn có muốn xóa tài khoản {{item.Username}} này ?"
+								   confirmed-click="deleteAccount({{item.id}})"> Xóa
+								</a></li> -->
+								<li><a href="" ng-click="deleteAccount(item)"> Xóa
+								</a></li>
+	                        </ul>
+	                      </div>
+						
+					</td>
+				</tr>
+				
+			</table>
+			<div class="pagination-employee">
+				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
