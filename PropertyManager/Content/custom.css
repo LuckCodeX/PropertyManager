@@ -25,9 +25,9 @@ textarea:focus, input:focus{
 	float: right;
 }
 .left-header .logo img{
-	height: 30px;
-	width: 30px;
-	margin: 8px 0;
+	height: 40px;
+	width: 40px;
+	margin: 4px;
 }
 
 .logo.nav-left-header span{
@@ -572,4 +572,13 @@ button:focus {outline:0;}
 .action-dropdown-table .dropdown-menu li a{
 	padding: 10px 16px ;
 	font-size: 12px
+}
+.footer{
+	padding: 15px 30px;
+}
+.float-left{
+	float: left !important;
+}
+.float-right{
+	float: right !important; 
 }
