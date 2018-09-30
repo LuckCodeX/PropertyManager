@@ -210,6 +210,7 @@
     <Compile Include="Models\apartment.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApartmentModel.cs" />
     <Compile Include="Models\apartment_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -225,6 +226,7 @@
     <Compile Include="Models\facility.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FacilityModel.cs" />
     <Compile Include="Models\facility_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -232,6 +234,7 @@
     <Compile Include="Models\project.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\project_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -254,6 +257,7 @@
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TokenModel.cs" />
+    <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -265,6 +269,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\ApartmentService.cs" />
+    <Compile Include="Services\FacilityService.cs" />
     <Compile Include="Services\GenericRepository.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\Service.cs" />

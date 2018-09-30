@@ -17,8 +17,8 @@ namespace PropertyManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public project()
         {
-            this.apartments = new HashSet<apartment>();
             this.project_content = new HashSet<project_content>();
+            this.apartments = new HashSet<apartment>();
         }
     
         public int project_id { get; set; }
@@ -26,8 +26,8 @@ namespace PropertyManager.Models
         public int status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<apartment> apartments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<project_content> project_content { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<apartment> apartments { get; set; }
     }
 }

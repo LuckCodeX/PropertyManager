@@ -28,7 +28,7 @@ namespace PropertyManager.Models
         public int created_date { get; set; }
         public int status { get; set; }
         public string code { get; set; }
-        public int price { get; set; }
+        public decimal price { get; set; }
         public decimal area { get; set; }
         public int no_bedroom { get; set; }
         public int no_bathroom { get; set; }
@@ -38,7 +38,7 @@ namespace PropertyManager.Models
         public string city { get; set; }
         public Nullable<int> project_id { get; set; }
         public int type { get; set; }
-        public int management_fee { get; set; }
+        public decimal management_fee { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aparment_image> aparment_image { get; set; }

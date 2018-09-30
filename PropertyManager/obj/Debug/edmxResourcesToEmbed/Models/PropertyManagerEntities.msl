@@ -23,28 +23,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="apartments">
-      <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
-        <MappingFragment StoreEntitySet="apartment">
-          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-          <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
-          <ScalarProperty Name="created_date" ColumnName="created_date" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="area" ColumnName="area" />
-          <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
-          <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="latitude" ColumnName="latitude" />
-          <ScalarProperty Name="longitude" ColumnName="longitude" />
-          <ScalarProperty Name="city" ColumnName="city" />
-          <ScalarProperty Name="project_id" ColumnName="project_id" />
-          <ScalarProperty Name="type" ColumnName="type" />
-          <ScalarProperty Name="management_fee" ColumnName="management_fee" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="apartment_content">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment_content">
         <MappingFragment StoreEntitySet="apartment_content">
@@ -171,6 +149,28 @@
         <MappingFragment StoreEntitySet="user_visit">
           <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
           <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartments">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
+        <MappingFragment StoreEntitySet="apartment">
+          <ScalarProperty Name="management_fee" ColumnName="management_fee" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
+          <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
           <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
         </MappingFragment>
       </EntityTypeMapping>

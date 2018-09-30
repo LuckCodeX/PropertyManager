@@ -34,7 +34,7 @@
           <Property Name="created_date" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="area" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="no_bedroom" Type="int" Nullable="false" />
           <Property Name="no_bathroom" Type="int" Nullable="false" />
@@ -44,7 +44,7 @@
           <Property Name="city" Type="nvarchar" MaxLength="50" />
           <Property Name="project_id" Type="int" />
           <Property Name="type" Type="int" Nullable="false" />
-          <Property Name="management_fee" Type="int" Nullable="false" />
+          <Property Name="management_fee" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="apartment_content">
           <Key>
@@ -436,34 +436,7 @@
           <Property Name="type" Type="Int32" Nullable="false" />
           <Property Name="apartment_id" Type="Int32" Nullable="false" />
           <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="apartment" Relationship="Self.FK__aparment___apart__1ED998B2" FromRole="aparment_image" ToRole="apartment" />
-        </EntityType>
-        <EntityType Name="apartment">
-          <Key>
-            <PropertyRef Name="apartment_id" />
-          </Key>
-          <Property Name="apartment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_profile_owner_id" Type="Int32" Nullable="false" />
-          <Property Name="created_date" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="price" Type="Int32" Nullable="false" />
-          <Property Name="area" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="no_bedroom" Type="Int32" Nullable="false" />
-          <Property Name="no_bathroom" Type="Int32" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="latitude" Type="Double" Nullable="false" />
-          <Property Name="longitude" Type="Double" Nullable="false" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="project_id" Type="Int32" />
-          <Property Name="type" Type="Int32" Nullable="false" />
-          <Property Name="management_fee" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="aparment_image" Relationship="Self.FK__aparment___apart__1ED998B2" FromRole="apartment" ToRole="aparment_image" />
-          <NavigationProperty Name="apartment_content" Relationship="Self.FK__apartment__apart__1A14E395" FromRole="apartment" ToRole="apartment_content" />
-          <NavigationProperty Name="apartment_facility" Relationship="Self.FK__apartment__apart__276EDEB3" FromRole="apartment" ToRole="apartment_facility" />
-          <NavigationProperty Name="project" Relationship="Self.FK__apartment__proje__4AB81AF0" FromRole="apartment" ToRole="project" />
-          <NavigationProperty Name="user_profile" Relationship="Self.FK__apartment__user___164452B1" FromRole="apartment" ToRole="user_profile" />
-          <NavigationProperty Name="user_visit" Relationship="Self.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__aparment___apart__1ED998B2" FromRole="aparment_image" ToRole="apartment" />
         </EntityType>
         <EntityType Name="apartment_content">
           <Key>
@@ -474,7 +447,7 @@
           <Property Name="language" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="apartment" Relationship="Self.FK__apartment__apart__1A14E395" FromRole="apartment_content" ToRole="apartment" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__apartment__apart__1A14E395" FromRole="apartment_content" ToRole="apartment" />
         </EntityType>
         <EntityType Name="apartment_facility">
           <Key>
@@ -483,8 +456,8 @@
           <Property Name="apartment_facility_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="apartment_id" Type="Int32" Nullable="false" />
           <Property Name="facility_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="apartment" Relationship="Self.FK__apartment__apart__276EDEB3" FromRole="apartment_facility" ToRole="apartment" />
           <NavigationProperty Name="facility" Relationship="Self.FK__apartment__facil__286302EC" FromRole="apartment_facility" ToRole="facility" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__apartment__apart__276EDEB3" FromRole="apartment_facility" ToRole="apartment" />
         </EntityType>
         <EntityType Name="blog">
           <Key>
@@ -535,8 +508,8 @@
           <Property Name="project_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="apartments" Relationship="Self.FK__apartment__proje__4AB81AF0" FromRole="project" ToRole="apartment" />
           <NavigationProperty Name="project_content" Relationship="Self.FK__project_c__proje__4E88ABD4" FromRole="project" ToRole="project_content" />
+          <NavigationProperty Name="apartments" Relationship="PropertyManagerModel.FK__apartment__proje__4AB81AF0" FromRole="project" ToRole="apartment" />
         </EntityType>
         <EntityType Name="project_content">
           <Key>
@@ -586,9 +559,9 @@
           <Property Name="contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="apartments" Relationship="Self.FK__apartment__user___164452B1" FromRole="user_profile" ToRole="apartment" />
           <NavigationProperty Name="user_account" Relationship="Self.FK__user_acco__user___1273C1CD" FromRole="user_profile" ToRole="user_account" />
           <NavigationProperty Name="user_visit" Relationship="Self.FK__user_visi__user___440B1D61" FromRole="user_profile" ToRole="user_visit" />
+          <NavigationProperty Name="apartments" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="user_profile" ToRole="apartment" />
         </EntityType>
         <EntityType Name="user_visit">
           <Key>
@@ -597,91 +570,9 @@
           <Property Name="user_visit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_profile_id" Type="Int32" Nullable="false" />
           <Property Name="apartment_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="apartment" Relationship="Self.FK__user_visi__apart__44FF419A" FromRole="user_visit" ToRole="apartment" />
           <NavigationProperty Name="user_profile" Relationship="Self.FK__user_visi__user___440B1D61" FromRole="user_visit" ToRole="user_profile" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="user_visit" ToRole="apartment" />
         </EntityType>
-        <Association Name="FK__aparment___apart__1ED998B2">
-          <End Role="apartment" Type="Self.apartment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="aparment_image" Type="Self.aparment_image" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="aparment_image">
-              <PropertyRef Name="apartment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__apartment__apart__1A14E395">
-          <End Role="apartment" Type="Self.apartment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="apartment_content" Type="Self.apartment_content" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="apartment_content">
-              <PropertyRef Name="apartment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__apartment__apart__276EDEB3">
-          <End Role="apartment" Type="Self.apartment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="apartment_facility" Type="Self.apartment_facility" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="apartment_facility">
-              <PropertyRef Name="apartment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__apartment__proje__4AB81AF0">
-          <End Role="project" Type="Self.project" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="apartment" Type="Self.apartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="project">
-              <PropertyRef Name="project_id" />
-            </Principal>
-            <Dependent Role="apartment">
-              <PropertyRef Name="project_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__apartment__user___164452B1">
-          <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="apartment" Type="Self.apartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user_profile">
-              <PropertyRef Name="user_profile_id" />
-            </Principal>
-            <Dependent Role="apartment">
-              <PropertyRef Name="user_profile_owner_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__user_visi__apart__44FF419A">
-          <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
-          <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="user_visit">
-              <PropertyRef Name="apartment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__apartment__facil__286302EC">
           <End Role="facility" Type="Self.facility" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -769,7 +660,6 @@
         <EntityContainer Name="PropertyManagerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admins" EntityType="Self.admin" />
           <EntitySet Name="aparment_image" EntityType="Self.aparment_image" />
-          <EntitySet Name="apartments" EntityType="Self.apartment" />
           <EntitySet Name="apartment_content" EntityType="Self.apartment_content" />
           <EntitySet Name="apartment_facility" EntityType="Self.apartment_facility" />
           <EntitySet Name="blogs" EntityType="Self.blog" />
@@ -782,30 +672,6 @@
           <EntitySet Name="user_account" EntityType="Self.user_account" />
           <EntitySet Name="user_profile" EntityType="Self.user_profile" />
           <EntitySet Name="user_visit" EntityType="Self.user_visit" />
-          <AssociationSet Name="FK__aparment___apart__1ED998B2" Association="Self.FK__aparment___apart__1ED998B2">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="aparment_image" EntitySet="aparment_image" />
-          </AssociationSet>
-          <AssociationSet Name="FK__apartment__apart__1A14E395" Association="Self.FK__apartment__apart__1A14E395">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="apartment_content" EntitySet="apartment_content" />
-          </AssociationSet>
-          <AssociationSet Name="FK__apartment__apart__276EDEB3" Association="Self.FK__apartment__apart__276EDEB3">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="apartment_facility" EntitySet="apartment_facility" />
-          </AssociationSet>
-          <AssociationSet Name="FK__apartment__proje__4AB81AF0" Association="Self.FK__apartment__proje__4AB81AF0">
-            <End Role="project" EntitySet="projects" />
-            <End Role="apartment" EntitySet="apartments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__apartment__user___164452B1" Association="Self.FK__apartment__user___164452B1">
-            <End Role="user_profile" EntitySet="user_profile" />
-            <End Role="apartment" EntitySet="apartments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="user_visit" EntitySet="user_visit" />
-          </AssociationSet>
           <AssociationSet Name="FK__apartment__facil__286302EC" Association="Self.FK__apartment__facil__286302EC">
             <End Role="facility" EntitySet="facilities" />
             <End Role="apartment_facility" EntitySet="apartment_facility" />
@@ -834,6 +700,31 @@
             <End Role="admin" EntitySet="admins" />
             <End Role="admin1" EntitySet="admins" />
           </AssociationSet>
+          <EntitySet Name="apartments" EntityType="PropertyManagerModel.apartment" />
+          <AssociationSet Name="FK__aparment___apart__1ED998B2" Association="PropertyManagerModel.FK__aparment___apart__1ED998B2">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="aparment_image" EntitySet="aparment_image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__apartment__apart__1A14E395" Association="PropertyManagerModel.FK__apartment__apart__1A14E395">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="apartment_content" EntitySet="apartment_content" />
+          </AssociationSet>
+          <AssociationSet Name="FK__apartment__apart__276EDEB3" Association="PropertyManagerModel.FK__apartment__apart__276EDEB3">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="apartment_facility" EntitySet="apartment_facility" />
+          </AssociationSet>
+          <AssociationSet Name="FK__apartment__proje__4AB81AF0" Association="PropertyManagerModel.FK__apartment__proje__4AB81AF0">
+            <End Role="project" EntitySet="projects" />
+            <End Role="apartment" EntitySet="apartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__apartment__user___164452B1" Association="PropertyManagerModel.FK__apartment__user___164452B1">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="apartment" EntitySet="apartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="PropertyManagerModel.FK__user_visi__apart__44FF419A">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="user_visit" EntitySet="user_visit" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -844,6 +735,115 @@
             </Principal>
             <Dependent Role="admin1">
               <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="apartment">
+          <Key>
+            <PropertyRef Name="apartment_id" />
+          </Key>
+          <Property Name="apartment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_profile_owner_id" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="area" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="no_bedroom" Type="Int32" Nullable="false" />
+          <Property Name="no_bathroom" Type="Int32" Nullable="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="management_fee" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="aparment_image" Relationship="PropertyManagerModel.FK__aparment___apart__1ED998B2" FromRole="apartment" ToRole="aparment_image" />
+          <NavigationProperty Name="apartment_content" Relationship="PropertyManagerModel.FK__apartment__apart__1A14E395" FromRole="apartment" ToRole="apartment_content" />
+          <NavigationProperty Name="apartment_facility" Relationship="PropertyManagerModel.FK__apartment__apart__276EDEB3" FromRole="apartment" ToRole="apartment_facility" />
+          <NavigationProperty Name="project" Relationship="PropertyManagerModel.FK__apartment__proje__4AB81AF0" FromRole="apartment" ToRole="project" />
+          <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="apartment" ToRole="user_profile" />
+          <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit" />
+        </EntityType>
+        <Association Name="FK__aparment___apart__1ED998B2">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.aparment_image" Role="aparment_image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="aparment_image">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__apartment__apart__1A14E395">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.apartment_content" Role="apartment_content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="apartment_content">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__apartment__apart__276EDEB3">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.apartment_facility" Role="apartment_facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="apartment_facility">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__apartment__proje__4AB81AF0">
+          <End Type="PropertyManagerModel.project" Role="project" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="project_id" />
+            </Principal>
+            <Dependent Role="apartment">
+              <PropertyRef Name="project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__apartment__user___164452B1">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="apartment">
+              <PropertyRef Name="user_profile_owner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__user_visi__apart__44FF419A">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1" />
+          <End Type="PropertyManagerModel.user_visit" Role="user_visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="user_visit">
+              <PropertyRef Name="apartment_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -872,28 +872,6 @@
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
                 <ScalarProperty Name="img" ColumnName="img" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="apartments">
-            <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
-              <MappingFragment StoreEntitySet="apartment">
-                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-                <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
-                <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="latitude" ColumnName="latitude" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="project_id" ColumnName="project_id" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="management_fee" ColumnName="management_fee" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1023,6 +1001,28 @@
               <MappingFragment StoreEntitySet="user_visit">
                 <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
                 <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="apartments">
+            <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
+              <MappingFragment StoreEntitySet="apartment">
+                <ScalarProperty Name="management_fee" ColumnName="management_fee" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
+                <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
                 <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
               </MappingFragment>
             </EntityTypeMapping>

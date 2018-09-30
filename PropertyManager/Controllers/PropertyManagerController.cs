@@ -165,5 +165,80 @@ namespace PropertyManager.Controllers
                 _service.SaveAdmin(acc);
             }
         }
+
+        [HttpGet]
+        [Route("GetListApartment/{page}/{status}/{search?}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
+        public PagingResult<ApartmentModel> GetListApartment(int page, int status, string search = null)
+        {
+            var apartments = _service.GetListApartment(status, search);
+            var apartmentList = apartments.Select(p => new ApartmentModel()
+            {
+                Id = p.apartment_id,
+                Address = p.address,
+                City = p.city,
+                Code = p.code,
+                ManagementFee = p.management_fee,
+                Price = p.price,
+                NoBathRoom = p.no_bathroom,
+                NoBedRoom = p.no_bedroom,
+                ProjectId = p.project_id,
+                Status = p.status,
+                Type = p.type,
+                UserProfileOwnerId = p.user_profile_owner_id,
+                UserProfileOwner = new UserProfileModel()
+                {
+                    Id = p.user_profile.user_profile_id,
+                    Avatar = p.user_profile.avatar,
+                    Email = p.user_profile.email,
+                    FirstName = p.user_profile.first_name,
+                    LastName = p.user_profile.last_name
+                }
+            }).Skip((page - 1) * 10).Take(10).ToList();
+            return new PagingResult<ApartmentModel>()
+            {
+                total = apartments.Count,
+                data = apartmentList
+            };
+        }
+
+        [HttpGet]
+        [Route("GetApartmentDetail/{id}")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public ApartmentModel GetApartmentDetail(int id)
+        {
+            var apartment = _service.GetApartmentById(id);
+            return new ApartmentModel()
+            {
+                Id = apartment.apartment_id,
+                Address = apartment.address,
+                City = apartment.city,
+                Area = apartment.area,
+                NoBedRoom = apartment.no_bedroom,
+                Code = apartment.code,
+                Latitude = apartment.latitude,
+                Longitude = apartment.longitude,
+                ManagementFee = apartment.management_fee,
+                NoBathRoom = apartment.no_bathroom,
+                Price = apartment.price,
+                ProjectId = apartment.project_id,
+                Status = apartment.status,
+                Type = apartment.type,
+                UserProfileOwnerId = apartment.user_profile_owner_id,
+                UserProfileOwner = new UserProfileModel()
+                {
+                    Id = apartment.user_profile.user_profile_id,
+                    FirstName = apartment.user_profile.first_name,
+                    LastName = apartment.user_profile.last_name,
+                    Avatar = apartment.user_profile.avatar
+                },
+                FacilityList = apartment.apartment_facility.Select(q => new FacilityModel()
+                {
+                    Id = q.facility.facility_id,
+                    Img = q.facility.img,
+                    Content = _service.ConvertFacilityContentToModel(q.facility.facility_content.FirstOrDefault(p => p.language == 0))
+                }).ToList()
+            };
+        }
     }
 }

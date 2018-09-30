@@ -602,6 +602,36 @@ function googleplace() {
     };
 }
 
+function stringToNumber() {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            ngModel.$parsers.push(function (value) {
+                return '' + value;
+            });
+            ngModel.$formatters.push(function (value) {
+                return parseFloat(value);
+            });
+        }
+    };
+}
+
+function numberToString() {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            ngModel.$parsers.push(function (value) {
+                return '' + value;
+            });
+            ngModel.$formatters.push(function (value) {
+                if (value === undefined)
+                    return '';
+                return value.toString();
+            });
+        }
+    };
+}
+
 /**
  *
  * Pass all functions into module
@@ -630,5 +660,7 @@ app.directive('pageTitle', pageTitle)
     .directive('filereaded', fileReaded)
     .directive('openHour', openHour)
     .directive('googleplace', googleplace)
-    .directive('uploadImg', uploadImg);
+    .directive('uploadImg', uploadImg)
+    .directive('stringToNumber', stringToNumber)
+    .directive('numberToString', numberToString);
 

@@ -27,7 +27,6 @@ namespace PropertyManager.Models
     
         public virtual DbSet<admin> admins { get; set; }
         public virtual DbSet<aparment_image> aparment_image { get; set; }
-        public virtual DbSet<apartment> apartments { get; set; }
         public virtual DbSet<apartment_content> apartment_content { get; set; }
         public virtual DbSet<apartment_facility> apartment_facility { get; set; }
         public virtual DbSet<blog> blogs { get; set; }
@@ -40,5 +39,6 @@ namespace PropertyManager.Models
         public virtual DbSet<user_account> user_account { get; set; }
         public virtual DbSet<user_profile> user_profile { get; set; }
         public virtual DbSet<user_visit> user_visit { get; set; }
+        public virtual DbSet<apartment> apartments { get; set; }
     }
 }

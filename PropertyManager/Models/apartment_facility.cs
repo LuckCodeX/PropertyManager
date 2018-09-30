@@ -18,7 +18,7 @@ namespace PropertyManager.Models
         public int apartment_id { get; set; }
         public int facility_id { get; set; }
     
-        public virtual apartment apartment { get; set; }
         public virtual facility facility { get; set; }
+        public virtual apartment apartment { get; set; }
     }
 }

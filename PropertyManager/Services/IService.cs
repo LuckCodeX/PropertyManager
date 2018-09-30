@@ -17,5 +17,8 @@ namespace PropertyManager.Services
         admin GetAdminById(int id);
         List<admin> GetListLeader();
         void SaveAdmin(admin acc);
+        List<apartment> GetListApartment(int status, string search);
+        apartment GetApartmentById(int id);
+        FacilityContentModel ConvertFacilityContentToModel(facility_content model);
     }
 }
