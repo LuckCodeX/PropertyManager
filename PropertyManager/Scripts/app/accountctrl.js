@@ -1,13 +1,7 @@
 function AccountCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrService,$anchorScroll) {
     $scope.roles=[
 	{name:"Quản lý website",value:0},{name:"Quản lý nhóm căn hộ",value:2},
-	{name:"Quản lý nhóm khách hàng",value:3}];
-	$scope.leader = new Map();
-	$scope.leader.set(2, 4);
-	$scope.leader.set(3, 5);
-	$scope.emp = new Map();
-	$scope.emp.set(4, 2);
-	$scope.emp.set(5, 3);
+	{name:"Quản lý nhóm khách hàng",value:3},{name:"Nhân viên nhóm căn hộ",value:4},{name:"Nhân viên nhóm khách hàng",value:5}];
     
 	$scope.loadAccount = function(){
 		$scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
@@ -32,6 +26,7 @@ function AccountCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrServ
   			xhrService.get("GetAccountDetail/"+$stateParams.id)
 		    .then(function (data) {
 		        $scope.data = data.data;
+		        loadListLeader();
 		    },
 		    function (error) {
 		    	
@@ -39,28 +34,36 @@ function AccountCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrServ
 		    });
   		}else{
   			$scope.data.Role = 0;
+  			$scope.data.ParentId = '';
+  			loadListLeader();
   		}
-  		
-		xhrService.get("GetListLeader")
+
+	  }
+
+	  function loadListLeader(){
+	  	xhrService.get("GetListLeader")
 		    .then(function (data) {
 		       $scope.listLeader = data.data;
-		       var status1 = true;
-		       var status2 = true;
-		       for (var i = 0; i < $scope.listLeader.length; i++) {
-		       		if($scope.listLeader[i].Role == 3 && status1 && $scope.listLeader[i].Id != $stateParams.id){
-		       			$scope.roles.push({name:"Nhân viên nhóm khách hàng",value:5});
-		       			status1 = false;
-		       		}else if($scope.listLeader[i].Role == 2 && status2 && $scope.listLeader[i].Id != $stateParams.id){
-		       			$scope.roles.push({name:"Nhân viên nhóm căn hộ",value:4});
-		       			status2 = false;
-		       		}
-		       }
+		       filterRole();
+		       $scope.roleChange();
 		    },
 		    function (error) {
 		    	$scope.data.Role = 0;
 		        console.log(error.statusText);
 		    });
 	  }
+
+	  function filterRole(){
+	  	var role1ListTmp = $scope.listLeader.filter((p) => (p.Role == 2 && p.Id != $scope.data.Id));
+	  	var role2ListTmp = $scope.listLeader.filter((p) => (p.Role == 3 && p.Id != $scope.data.Id));
+	  	$scope.roleListTmp = $scope.roles.filter((p) => ((p.value < 4 ) || (p.value == 4 &&  role1ListTmp.length>0) || (p.value == 5 &&  role2ListTmp.length>0)));
+	  }
+
+	  $scope.roleChange = function(){
+	  		$scope.leaderListTmp = $scope.listLeader.filter((p) => (((p.Role == 2 && $scope.data.Role == 4) ||(p.Role == 3 && $scope.data.Role == 5)) && p.Id != $scope.data.Id));
+	  		
+	  }
+
 	  $scope.saveAccount = function(){
 	  	xhrService.post("SaveAccount",$scope.data)
 		    .then(function (data) {
