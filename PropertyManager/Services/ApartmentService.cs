@@ -63,8 +63,78 @@ namespace PropertyManager.Services
 
         public apartment GetApartmentById(int id)
         {
-            return ApartmentRepository.FindBy(p => p.apartment_id == id).Include(p => p.user_profile).Include(p => p.apartment_content)
+            return ApartmentRepository.FindBy(p => p.apartment_id == id && p.status != 2).Include(p => p.user_profile).Include(p => p.apartment_content)
                 .Include(p => p.aparment_image).Include(p => p.apartment_facility.Select(q => q.facility)).FirstOrDefault();
+        }
+
+        public List<ApartmentContentModel> GetApartmentContentList(ICollection<apartment_content> apartmentApartmentContent)
+        {
+            var result = new List<ApartmentContentModel>();
+            for (int i = 0; i <= 2; i++)
+            {
+                var flag = false;
+                foreach (var item in apartmentApartmentContent)
+                {
+                    if (item.language == i)
+                    {
+                        flag = true;
+                        result.Add(new ApartmentContentModel()
+                        {
+                            Id = item.apartment_content_id,
+                            Name = item.name,
+                            Description = item.description,
+                            Language = item.language
+                        });
+                        break;
+                    }
+                }
+
+                if (!flag)
+                {
+                    result.Add(new ApartmentContentModel()
+                    {
+                        Id = 0,
+                        Language = i
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        public void SaveApartment(apartment apartment)
+        {
+            ApartmentRepository.Save(apartment);
+        }
+
+        public void SaveApartmentImage(aparment_image img)
+        {
+            ApartmentImageRepository.Save(img);
+        }
+
+        public void DeleteApartmentImage(aparment_image item)
+        {
+            ApartmentImageRepository.Delete(item);
+        }
+
+        public void SaveApartmentFacility(apartment_facility aptFac)
+        {
+            ApartmentFacilityRepository.Save(aptFac);
+        }
+
+        public void DeleteApartmentFacility(apartment_facility item)
+        {
+            ApartmentFacilityRepository.Delete(item);
+        }
+
+        public apartment_content GetApartmentContentById(int id)
+        {
+            return ApartmentContentRepository.FindBy(p => p.apartment_content_id == id).FirstOrDefault();
+        }
+
+        public void SaveApartmentContent(apartment_content content)
+        {
+            ApartmentContentRepository.Save(content);
         }
     }
 }

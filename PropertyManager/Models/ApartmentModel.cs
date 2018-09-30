@@ -25,8 +25,8 @@ namespace PropertyManager.Models
         public ProjectModel Project { get; set; }
         public int Type { get; set; }
         public ApartmentContentModel Content { get; set; }
-        public List<ApartmentModel> ContentList { get; set; }
-        public List<ApartmentImage> ImgList { get; set; }
+        public List<ApartmentContentModel> ContentList { get; set; }
+        public List<ApartmentImageModel> ImgList { get; set; }
         public List<FacilityModel> FacilityList { get; set; }
     }
 
@@ -38,7 +38,7 @@ namespace PropertyManager.Models
         public int Language { get; set; }
     }
 
-    public class ApartmentImage
+    public class ApartmentImageModel
     {
         public int Id { get; set; }
         public int Type { get; set; }

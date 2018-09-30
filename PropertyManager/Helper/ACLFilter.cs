@@ -28,6 +28,7 @@ namespace PropertyManager.Helper
                     {
                         ReasonPhrase = "Tài khoản của bạn không có quyền với chức năng này"
                     };
+                    response.Headers.Add("status", "Tài khoản của bạn không có quyền với chức năng này");
                     throw new HttpResponseException(response);
                 }
             }
@@ -37,6 +38,7 @@ namespace PropertyManager.Helper
                 {
                     ReasonPhrase = "Tài khoản của bạn không có quyền với chức năng này"
                 };
+                response.Headers.Add("status", "Tài khoản của bạn không có quyền với chức năng này");
                 throw new HttpResponseException(response);
             }
             base.OnActionExecuting(filterContext);

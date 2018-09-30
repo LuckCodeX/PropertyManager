@@ -49,6 +49,8 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\roslyn\vbc.r
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\roslyn\VBCSCompiler.exe
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\roslyn\VBCSCompiler.exe.config
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Antlr3.Runtime.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Microsoft.AI.Agent.Intercept.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Microsoft.AI.DependencyCollector.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -72,6 +74,8 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Web.W
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Web.WebPages.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Web.WebPages.Razor.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\WebGrease.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.xml
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.xml
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Newtonsoft.Json.xml
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Formatting.xml
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Web.Helpers.xml
@@ -95,7 +99,3 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\Proper
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.CopyComplete
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.pdb
-H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.dll
-H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.dll
-H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.xml
-H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\EntityFramework.SqlServer.xml

@@ -20,5 +20,15 @@ namespace PropertyManager.Services
         List<apartment> GetListApartment(int status, string search);
         apartment GetApartmentById(int id);
         FacilityContentModel ConvertFacilityContentToModel(facility_content model);
+        List<ApartmentContentModel> GetApartmentContentList(ICollection<apartment_content> apartmentApartmentContent);
+        void SaveApartment(apartment apartment);
+        void Dispose();
+        string SaveImage(string path, string imageName, string image);
+        void SaveApartmentImage(aparment_image img);
+        void DeleteApartmentImage(aparment_image item);
+        void SaveApartmentFacility(apartment_facility aptFac);
+        void DeleteApartmentFacility(apartment_facility item);
+        apartment_content GetApartmentContentById(int id);
+        void SaveApartmentContent(apartment_content content);
     }
 }

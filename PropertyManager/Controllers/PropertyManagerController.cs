@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Transactions;
 using System.Web.Http;
 using Newtonsoft.Json;
 using PropertyManager.Helper;
@@ -12,7 +13,7 @@ using PropertyManager.Services;
 namespace PropertyManager.Controllers
 {
     [RoutePrefix("api/propertymanager")]
-    public class PropertyManagerController : ApiController
+    public class PropertyManagerController : BaseController
     {
         private readonly IService _service = new Service();
 
@@ -23,11 +24,7 @@ namespace PropertyManager.Controllers
             var admin = _service.LoginAdmin(model);
             if (Equals(admin, null))
             {
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    ReasonPhrase = "Email or Password is invalid"
-                };
-                throw new HttpResponseException(response);
+                ExceptionContent(HttpStatusCode.Unauthorized, "Tài khoản hoặc mật khẩu sai");
             }
 
             var token = new TokenModel()
@@ -98,11 +95,7 @@ namespace PropertyManager.Controllers
                 {
                     if (admin.parent_id != tokenModel.Id)
                     {
-                        HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed)
-                        {
-                            ReasonPhrase = "Tài khoản của bạn không có quyền với chức năng này"
-                        };
-                        throw new HttpResponseException(response);
+                        ExceptionContent(HttpStatusCode.MethodNotAllowed, "Tài khoản của bạn không có quyền với chức năng này");
                     }
                 }
                 return new AdminModel()
@@ -118,7 +111,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetListLeader")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public List<AdminModel> GetListLeader()
         {
             var admins = _service.GetListLeader();
@@ -132,7 +125,7 @@ namespace PropertyManager.Controllers
 
         [HttpPost]
         [Route("SaveAccount")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public void SaveAccount(AdminModel model)
         {
             var acc = _service.GetAdminById(model.Id);
@@ -155,7 +148,7 @@ namespace PropertyManager.Controllers
 
         [HttpDelete]
         [Route("DeleteAccount/{id}")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public void DeleteAccount(int id)
         {
             var acc = _service.GetAdminById(id);
@@ -193,7 +186,13 @@ namespace PropertyManager.Controllers
                     Email = p.user_profile.email,
                     FirstName = p.user_profile.first_name,
                     LastName = p.user_profile.last_name
-                }
+                },
+                ImgList = p.aparment_image.Where(q => q.type == 0).OrderBy(q => q.type).Select(q => new ApartmentImageModel()
+                {
+                    Id = q.apartment_image_id,
+                    Type = q.type,
+                    Img = q.img
+                }).ToList()
             }).Skip((page - 1) * 10).Take(10).ToList();
             return new PagingResult<ApartmentModel>()
             {
@@ -204,10 +203,14 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetApartmentDetail/{id}")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public ApartmentModel GetApartmentDetail(int id)
         {
             var apartment = _service.GetApartmentById(id);
+            if (Equals(apartment, null))
+            {
+                ExceptionContent(HttpStatusCode.MethodNotAllowed, "Dữ liệu không tồn tại");
+            }
             return new ApartmentModel()
             {
                 Id = apartment.apartment_id,
@@ -236,9 +239,169 @@ namespace PropertyManager.Controllers
                 {
                     Id = q.facility.facility_id,
                     Img = q.facility.img,
+                    ApartmentFacilityId = q.apartment_facility_id,
                     Content = _service.ConvertFacilityContentToModel(q.facility.facility_content.FirstOrDefault(p => p.language == 0))
-                }).ToList()
+                }).ToList(),
+                ImgList = apartment.aparment_image.Select(p => new ApartmentImageModel()
+                {
+                    Id = p.apartment_image_id,
+                    Type = p.type,
+                    Img = p.img
+                }).ToList(),
+                ContentList = _service.GetApartmentContentList(apartment.apartment_content).ToList()
             };
+        }
+
+        [HttpDelete]
+        [Route("DeleteApartment/{id}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
+        public void DeleteApartment(int id)
+        {
+            var apartment = _service.GetApartmentById(id);
+            if (!Equals(apartment, null))
+            {
+                apartment.status = 2;
+                _service.SaveApartment(apartment);
+            }
+        }
+
+        [HttpPut]
+        [Route("SaveApartment")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
+        public void SaveApartment(ApartmentModel model)
+        {
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    var apartment = _service.GetApartmentById(model.Id);
+                    if (Equals(apartment, null))
+                        ExceptionContent(HttpStatusCode.NotFound, "err_apartment_not_found");
+                    apartment.address = model.Address;
+                    apartment.city = model.City;
+                    apartment.latitude = model.Latitude;
+                    apartment.longitude = model.Longitude;
+                    apartment.status = model.Status;
+                    apartment.area = model.Area;
+                    apartment.management_fee = model.ManagementFee;
+                    apartment.price = model.Price;
+                    apartment.no_bathroom = model.NoBathRoom;
+                    apartment.no_bedroom = model.NoBedRoom;
+                    apartment.project_id = model.ProjectId;
+                    apartment.type = model.Type;
+                    _service.SaveApartment(apartment);
+
+                    var imgIds = new List<int>();
+                    var imgIdx = 0;
+                    foreach (var item in model.ImgList)
+                    {
+                        imgIds.Add(item.Id);
+                        var flag = false;
+                        foreach (var img in apartment.aparment_image)
+                        {
+                            if (img.apartment_image_id == item.Id)
+                            {
+                                img.type = item.Type;
+                                if (!Equals(item.Img_Base64, null))
+                                {
+                                    img.img = _service.SaveImage("~/Upload/apartment/",
+                                        "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" +
+                                        img.apartment_image_id + ".png",
+                                        item.Img_Base64);
+                                }
+
+                                _service.SaveApartmentImage(img);
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (!flag)
+                        {
+                            var aptImg = new aparment_image()
+                            {
+                                apartment_image_id = 0,
+                                apartment_id = apartment.apartment_id,
+                                type = item.Type,
+                            };
+                            if (!Equals(item.Img_Base64, null))
+                            {
+                                aptImg.img = _service.SaveImage("~/Upload/apartment/",
+                                    "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + imgIdx
+                                     + ".png",
+                                    item.Img_Base64);
+                            }
+                        }
+
+                        imgIdx++;
+                    }
+
+                    foreach (var item in apartment.aparment_image)
+                    {
+                        if (imgIds.IndexOf(item.apartment_image_id) == -1)
+                        {
+                            _service.DeleteApartmentImage(item);
+                        }
+                    }
+
+                    var facIds = new List<int>();
+                    foreach (var item in model.FacilityList)
+                    {
+                        facIds.Add(item.ApartmentFacilityId);
+                        var flag = false;
+                        foreach (var fac in apartment.apartment_facility)
+                        {
+                            if (item.ApartmentFacilityId == fac.apartment_facility_id)
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (!flag)
+                        {
+                            var aptFac = new apartment_facility()
+                            {
+                                apartment_facility_id = 0,
+                                apartment_id = apartment.apartment_id,
+                                facility_id = item.Id
+                            };
+                            _service.SaveApartmentFacility(aptFac);
+                        }
+                    }
+
+                    foreach (var item in apartment.apartment_facility)
+                    {
+                        if (facIds.IndexOf(item.apartment_facility_id) == -1)
+                            _service.DeleteApartmentFacility(item);
+                    }
+
+                    foreach (var item in model.ContentList)
+                    {
+                        var content = _service.GetApartmentContentById(item.Id) ?? new apartment_content()
+                        {
+                            apartment_content_id = 0,
+                            apartment_id = apartment.apartment_id
+                        };
+
+                        content.name = item.Name;
+                        content.description = item.Description;
+                        content.language = item.Language;
+                        _service.SaveApartmentContent(content);
+                    }
+                    scope.Complete();
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _service.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
