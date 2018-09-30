@@ -33,7 +33,6 @@ function AccountCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrServ
 		        console.log(error.statusText);
 		    });
   		}else{
-  			console.log('ok');
   			$scope.data.Role = 0;
   			$scope.data.ParentId = '';
   			loadListLeader();
@@ -47,7 +46,6 @@ function AccountCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrServ
 		       $scope.listLeader = data.data;
 		       filterRole();
 		       $scope.roleChange();
-		       console.log(data);
 		    },
 		    function (error) {
 		    	$scope.data.Role = 0;
