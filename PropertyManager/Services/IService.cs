@@ -30,5 +30,6 @@ namespace PropertyManager.Services
         void DeleteApartmentFacility(apartment_facility item);
         apartment_content GetApartmentContentById(int id);
         void SaveApartmentContent(apartment_content content);
+        List<facility> GetAllFacilities();
     }
 }

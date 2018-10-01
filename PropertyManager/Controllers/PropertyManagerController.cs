@@ -398,6 +398,21 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllFacilities")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public List<FacilityModel> GetAllFacilities()
+        {
+            return _service.GetAllFacilities().Select(p => new FacilityModel()
+            {
+                Id = p.facility_id,
+                Content = new FacilityContentModel()
+                {
+                    Name = p.facility_content.FirstOrDefault(q => q.language == 1).name
+                }
+            }).ToList();
+        }
+
         protected override void Dispose(bool disposing)
         {
             _service.Dispose();

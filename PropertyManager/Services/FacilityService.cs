@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using PropertyManager.Models;
@@ -27,6 +28,11 @@ namespace PropertyManager.Services
                 Language = model.language,
                 Name = model.name
             };
+        }
+
+        public List<facility> GetAllFacilities()
+        {
+            return FacilityRepository.FindBy(p => p.status == 1).Include(p => p.facility_content).ToList();
         }
     }
 }
