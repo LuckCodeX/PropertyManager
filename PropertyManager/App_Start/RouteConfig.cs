@@ -26,18 +26,6 @@ namespace PropertyManager
             );
 
             routes.MapRoute(
-                name: "Account",
-                url: "account",
-                defaults: new { controller = "Home", action = "Account", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "AccountDetail",
-                url: "account-detail/{id}",
-                defaults: new { controller = "Home", action = "AccountDetail", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 name: "Apartment",
                 url: "apartment",
                 defaults: new { controller = "Home", action = "Apartment", id = UrlParameter.Optional }
@@ -47,6 +35,30 @@ namespace PropertyManager
                 name: "ApartmentDetail",
                 url: "apartment-detail/{id}",
                 defaults: new { controller = "Home", action = "ApartmentDetail", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Account",
+                url: "system/account",
+                defaults: new { controller = "Home", action = "Account", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AccountDetail",
+                url: "system/account-detail/{id}",
+                defaults: new { controller = "Home", action = "AccountDetail", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ImportCustomer",
+                url: "system/import-customer",
+                defaults: new { controller = "Home", action = "ImportCustomer", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ImportApartment",
+                url: "system/import-apartment",
+                defaults: new { controller = "Home", action = "ImportApartment", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

@@ -82,8 +82,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetAccountDetail/{id}")]
-        [ACLFilter(AccessRoles = new int[]
-            {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public AdminModel GetAccountDetail(int id)
         {
             if (this.Request.Headers.TryGetValues("Token", out var values))
@@ -400,7 +399,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetAllFacilities")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public List<FacilityModel> GetAllFacilities()
         {
             return _service.GetAllFacilities().Select(p => new FacilityModel()
