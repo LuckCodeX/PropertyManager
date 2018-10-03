@@ -1,8 +1,8 @@
 function ApartmentCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrService,$anchorScroll) {
-	$scope.allType = [{name:"Ảnh xác minh",value:1,maximum:5},{name:"Ảnh Banner",value:0,maximum:1},
+	$scope.allType = [{name:"Ảnh chưa xác định",value:-1,maximum:100},{name:"Ảnh Banner",value:0,maximum:1},
 					{name:"Ảnh phòng khách",value:2,maximum:4},{name:"Ảnh phòng tắm",value:4,maximum:4},
 					{name:"Ảnh phòng ngủ",value:3,maximum:4},{name:"Ảnh khác",value:5,maximum:4},
-					{name:"Ảnh chưa xác định",value:-1,maximum:100}];
+					{name:"Ảnh xác minh",value:1,maximum:5}];
 	
     $scope.loadApartment = function(){
 		$scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
@@ -60,8 +60,12 @@ function ApartmentCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrSe
 	        	length = $scope.allImg[type].length;
 	        	$scope.allImg[type]; 
 	        	if (length > 0) {
-	        		if (($scope.allImg[type][length-1].Img_Base64 != undefined || $scope.allImg[type][length-1].Img != undefined)  && length < $scope.allType[i].maximum) {
-		        		$scope.allImg[type].push({ Img: null, Img_Base64: null,Type:type,Id:0 });
+	        		if ($scope.allImg[type][length-1].Img_Base64 != undefined || $scope.allImg[type][length-1].Img != undefined) {
+	        			if(type == -1 && length == 1){
+	        				$scope.allType.splice(i,1);
+	        			}else if (length < $scope.allType[i].maximum) {
+	        				$scope.allImg[type].push({ Img: null, Img_Base64: null,Type:type,Id:0 });
+	        			}
 		        	};
 	        	}
 	        	
@@ -84,7 +88,9 @@ function ApartmentCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrSe
 			$scope.allImg[list[i].Type].push(list[i]);
 		}
 		for (var i = 0; i < $scope.allType.length; i++) {
-			if($scope.allImg[$scope.allType[i].value].length < $scope.allType[i].maximum){
+			if ($scope.allImg[$scope.allType[i].value].length == 0 && $scope.allType[i].value == -1) {
+				$scope.allType.splice(i,1);
+			}else if($scope.allImg[$scope.allType[i].value].length < $scope.allType[i].maximum){
 				$scope.allImg[$scope.allType[i].value].push({ Img: null, Img_Base64: null,Type:$scope.allType[i].value,Id:0 });
 			};
 		};
