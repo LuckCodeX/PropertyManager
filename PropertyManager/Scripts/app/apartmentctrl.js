@@ -51,45 +51,6 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
         });
 
     }
-    function watchImgList() {
-        var type, length;
-        for (var j = 0; j < $scope.allType.length; j++) {
-            $scope.$watchCollection('allImg[' + $scope.allType[j].value + ']', function () {
-                for (var i = 0; i < $scope.allType.length; i++) {
-                    type = $scope.allType[i].value;
-                    length = $scope.allImg[type].length;
-                    $scope.allImg[type];
-                    if (length > 0) {
-                        if (($scope.allImg[type][length - 1].Img_Base64 != undefined || $scope.allImg[type][length - 1].Img != undefined) && length < $scope.allType[i].maximum) {
-                            $scope.allImg[type].push({ Img: null, Img_Base64: null, Type: type, Id: 0 });
-                        };
-                    }
-
-                }
-                return;
-            });
-        }
-
-    }
-
-    //ham chia imglist thanh cac array khac nhau
-    function listToManyList(list) {
-        $scope.allImg = {};
-        //tao array cho moi kieu anh
-        for (var i = 0; i < $scope.allType.length; i++) {
-            $scope.allImg[$scope.allType[i].value] = [];
-        };
-        //add anh vao cac array tuong ung - theo type
-        for (var i = 0; i < list.length; i++) {
-            $scope.allImg[list[i].Type].push(list[i]);
-        }
-        for (var i = 0; i < $scope.allType.length; i++) {
-            if ($scope.allImg[$scope.allType[i].value].length < $scope.allType[i].maximum) {
-                $scope.allImg[$scope.allType[i].value].push({ Img: null, Img_Base64: null, Type: $scope.allType[i].value, Id: 0 });
-            };
-        };
-        watchImgList();
-    }
 
     $scope.pageChanged = function () {
         $location.path("/apartment").search({ page: $scope.bigCurrentPage, search: $scope.searchApm, type: $scope.typeStatus });
@@ -244,7 +205,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
                 function (error) {
                     console.log(error.statusText);
                 });
-    }
+    };
 
     $scope.deleteApartment = function (item) {
         swal({
@@ -262,20 +223,22 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
                     xhrService.delete("DeleteApartment/" + item.Id)
                         .then(function (data) {
                             $scope.loadAccount();
-                            swal("Xóa chung cư, căn hộ thành công!", {
-                                icon: "success",
-                            });
+                            swal("Xóa chung cư, căn hộ thành công!",
+                                {
+                                    icon: "success",
+                                });
 
                         },
                             function (error) {
-                                swal("Xóa chung cư, căn hộ thất bại!", {
-                                    icon: "error",
-                                });
+                                swal("Xóa chung cư, căn hộ thất bại!",
+                                    {
+                                        icon: "error",
+                                    });
                             });
 
                 }
             });
-    }
+    };
 
 }
 app.controller('ApartmentCtrl', ApartmentCtrl);
