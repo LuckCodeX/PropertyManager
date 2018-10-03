@@ -13,7 +13,7 @@ namespace PropertyManager.Controllers
         {
             var response = new HttpResponseMessage(code)
             {
-                ReasonPhrase = "Tài khoản hoặc mật khẩu sai"
+                ReasonPhrase = message
             };
             response.Headers.Add("status", message);
             throw new HttpResponseException(response);

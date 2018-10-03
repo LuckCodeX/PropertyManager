@@ -13,7 +13,7 @@
                 $window.location.href = "/dashboard";
             }
         }, function (error) {
-            $scope.errorText = error.statusText;
+            $scope.errorText = decodeURIComponent(error.statusText);
         });
     }
 }

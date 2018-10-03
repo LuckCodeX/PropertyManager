@@ -292,18 +292,19 @@ namespace PropertyManager.Controllers
 
                     var imgIds = new List<int>();
                     var imgIdx = 0;
+                    var imgList = apartment.aparment_image.ToList();
                     foreach (var item in model.ImgList)
                     {
                         imgIds.Add(item.Id);
                         var flag = false;
-                        foreach (var img in apartment.aparment_image)
+                        foreach (var img in imgList)
                         {
                             if (img.apartment_image_id == item.Id)
                             {
                                 img.type = item.Type;
                                 if (!Equals(item.Img_Base64, null))
                                 {
-                                    img.img = _service.SaveImage("~/Upload/apartment/",
+                                    img.img = "http://manager.propertyplus.com.vn/Upload/apartment/" + _service.SaveImage("~/Upload/apartment/",
                                         "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" +
                                         img.apartment_image_id + ".png",
                                         item.Img_Base64);
@@ -329,13 +330,14 @@ namespace PropertyManager.Controllers
                                     "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + imgIdx
                                      + ".png",
                                     item.Img_Base64);
+                                _service.SaveApartmentImage(aptImg);
                             }
                         }
 
                         imgIdx++;
                     }
 
-                    foreach (var item in apartment.aparment_image)
+                    foreach (var item in imgList)
                     {
                         if (imgIds.IndexOf(item.apartment_image_id) == -1)
                         {
@@ -344,11 +346,12 @@ namespace PropertyManager.Controllers
                     }
 
                     var facIds = new List<int>();
+                    var facList = apartment.apartment_facility.ToList();
                     foreach (var item in model.FacilityList)
                     {
                         facIds.Add(item.ApartmentFacilityId);
                         var flag = false;
-                        foreach (var fac in apartment.apartment_facility)
+                        foreach (var fac in facList)
                         {
                             if (item.ApartmentFacilityId == fac.apartment_facility_id)
                             {
@@ -369,7 +372,7 @@ namespace PropertyManager.Controllers
                         }
                     }
 
-                    foreach (var item in apartment.apartment_facility)
+                    foreach (var item in facList)
                     {
                         if (facIds.IndexOf(item.apartment_facility_id) == -1)
                             _service.DeleteApartmentFacility(item);

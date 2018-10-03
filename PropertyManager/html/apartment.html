@@ -40,7 +40,7 @@
 					<th>&nbsp;</th>
 				</tr>
 				<tr ng-repeat="item in apartmentList">
-					<td><a class="" ui-sref="apartmentdetail({id:item.Id})"><img class="img-apartment-table" ng-src="http://propertyplus.com.vn/Upload/apartment/{{item.ImgList[0].Img}}"/></a></td>
+					<td><a class="" ui-sref="apartmentdetail({id:item.Id})"><img class="img-apartment-table" ng-src="{{item.ImgList[0].Img}}"/></a></td>
 					<td>{{item.Address | limitTo : 50}}{{item.Address.length > 50 ? '...' : ''}}</td>
 					<td><a href="" class="">{{item.UserProfileOwner.FirstName}} {{item.UserProfileOwner.LastName}}</a></td>
 					<td>0948664870</td>
