@@ -294,6 +294,9 @@
     <Content Include="html\apartment.html" />
     <Content Include="html\apartmentdetail.html" />
     <Content Include="html\dashboard.html" />
+    <Content Include="html\importapartment.html" />
+    <Content Include="html\importcustomer.html" />
+    <Content Include="html\system.html" />
     <Content Include="Models\PropertyManagerEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PropertyManagerEntities.Context.cs</LastGenOutput>
@@ -376,6 +379,8 @@
     <Content Include="Views\Home\AccountDetail.cshtml" />
     <Content Include="Views\Home\Apartment.cshtml" />
     <Content Include="Views\Home\ApartmentDetail.cshtml" />
+    <Content Include="Views\Home\ImportApartment.cshtml" />
+    <Content Include="Views\Home\ImportCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

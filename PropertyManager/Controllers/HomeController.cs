@@ -45,5 +45,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult ImportApartment()
+        {
+            return View();
+        }
+
+        public ActionResult ImportCustomer()
+        {
+            return View();
+        }
     }
 }

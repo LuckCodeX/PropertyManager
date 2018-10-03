@@ -23,16 +23,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
                 url: "/dashboard",
                 templateUrl: "html/dashboard.html"
             })
-        .state('account',
-            {
-                url: "/account?page&search",
-                templateUrl: "html/account.html"
-            })
-        .state('accountdetail',
-            {
-                url: "/account-detail/:id",
-                templateUrl: "html/accountdetail.html"
-            })
         .state('apartment',
             {
                 url: "/apartment?page&type&search",
@@ -42,6 +32,32 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/apartment-detail/:id",
                 templateUrl: "html/apartmentdetail.html"
+            })
+        .state('system',
+            {
+                url: "/system",
+                abstract: true,
+                templateUrl: "html/system.html",
+            })
+        .state('system.account',
+            {
+                url: "/account?page&search",
+                templateUrl: "html/account.html"
+            })
+        .state('system.accountdetail',
+            {
+                url: "/account-detail/:id",
+                templateUrl: "html/accountdetail.html"
+            })
+        .state('system.importcustomer',
+            {
+                url: "/import-customer",
+                templateUrl: "html/importcustomer.html"
+            })
+        .state('system.importapartment',
+            {
+                url: "/import-apartment",
+                templateUrl: "html/importapartment.html"
             })
         ;
 }
