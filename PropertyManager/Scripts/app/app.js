@@ -3,11 +3,13 @@
     'ui.router',                    // Routing
     'oc.lazyLoad',                  // ocLazyLoad
     'ui.bootstrap',                 // Ui Bootstrap
-    'ngIdle',                       // Idle timer
+    'ngIdle',  						 // Idle timer
+    'imageupload',                    
     //'ui.select',
     'ngSanitize',                   // ngSanitize
     //'ngCsv',
     'ngAnimate',
+    'ngCkeditor'
 ]);
 
 var API = "http://localhost:22918/api/propertymanager/";

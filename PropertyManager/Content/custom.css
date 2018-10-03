@@ -2,6 +2,14 @@ a, a:hover, a:active, a:visited, a:focus {
     text-decoration:none;
 }
 
+button:focus,a:focus{
+	outline: none !important;
+}
+
+a.btn:focus{
+	color: white;
+}
+
 *{
 	color: rgba(0,0,0,0.87);
 	font-family: 'Roboto', sans-serif;
@@ -419,6 +427,21 @@ button.has-badge{
 	border: none;
 }
 
+.btn-blue{
+	background-color: #2B7BAC;
+	color: white;
+	border: none;
+	border-radius: 4px; 
+}
+
+.btn-blue i{
+	color: white;
+}
+.btn-blue:hover{
+	color: white;
+	opacity: 0.7;
+}
+
 .btn-new{
 	float: right;
 	display: inline-block;
@@ -431,11 +454,14 @@ button.has-badge{
 }
 
 .warp{
-	background: white;	
-	min-height: 80vh;
+	background: white;
 }
 
-#table-account{
+.warp.full-height{
+	min-height: 85vh;
+}
+
+.table-list{
 	clear: both;
 	width: 100%;
 	margin-top: 20px;
@@ -459,12 +485,12 @@ button.has-badge{
 	padding: 30px
 }
 
-#table-account th{
+.table-list th{
 	font-size: 12px;
 	background: #f7f7f7;
 	border: none;
 }
-#table-account td{
+.table-list td{
 	font-size: 12px;
 	height: 40px;
 	line-height: 40px;
@@ -486,10 +512,17 @@ button.has-badge{
 	height: 40px;
 }
 
-.status-active{
+.text-success{
 	padding: 3px;
 	border-radius: 3px;
 	background: #08b0a0;
+	color: white;
+}
+
+.text-warning{
+	padding: 3px;
+	border-radius: 3px;
+	background: #db3836;
 	color: white;
 }
 
@@ -546,6 +579,9 @@ button.has-badge{
 	color: white;
 	opacity: .7;
 }
+.btn-save:focus{
+	color: white;
+}
 .btn-back{
 	background: white;
 	border-radius: 4px; 
@@ -582,3 +618,223 @@ button:focus {outline:0;}
 .float-right{
 	float: right !important; 
 }
+
+.short-warp{
+	padding: 0 30px;
+}
+.short-warp .body-warp{
+	padding: 20px 0 10px 0;
+}
+.img-apartment-table{
+	width: 120px;
+	height: 70px;
+}
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.img-upload-current {
+    position: relative;
+}
+.btn-upload {
+    margin-bottom: -4px;
+    float: right;
+    display: inline-block;
+    width: 94px;
+}
+    .img-upload-current .img {
+        width: calc(100% - 30px);
+        height: 153px;
+        position: absolute;
+        top: 0;
+        left: 15px;
+        border-radius: 3px;
+    }
+
+    .btn-upload .btn-file {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding: 9px 24px 10px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #473D6F;
+    color: white;
+}
+
+.apartment-view .btn-upload{
+    width: 100%;
+    height: 153px;
+}
+
+    .apartment-view .btn-upload .btn-file p, .apartment-view .btn-upload .btn-file i {
+        color: #9A9A9A;
+    }
+.apartment-view .btn-upload .btn-file i {
+    font-size: 22px;
+}
+
+.apartment-view .btn-file {
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    padding-top: 50px;
+    background-color: transparent;
+    border: 1px dashed #707070;
+}
+
+    .btn-upload .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 999px;
+        text-align: right;
+        opacity: 0;
+        outline: none;
+        background: #fff;
+        cursor: pointer;
+        display: block;
+    }
+
+.img-upload-current:hover .remove-img-btn{
+    visibility: visible;
+}
+.img-upload-current .remove-img-btn{
+    visibility: hidden;
+    position: absolute;
+    top: 7px;
+    right: 24px;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  opacity: 0.9;
+}
+
+.margin-bot-15{
+	margin-bottom: 15px;
+}
+
+.opacityZero{
+	opacity: 0;
+}
+
+.material-checkbox {
+    position: relative;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    font-family: "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+    .material-checkbox > input {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        position: absolute;
+        z-index: -1;
+        left: -15px;
+        top: -15px;
+        display: block;
+        margin: 0;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        background-color: rgba(0, 0, 0, 0.42);
+        outline: none;
+        opacity: 0;
+        transform: scale(1);
+        -ms-transform: scale(0); /* Graceful degradation for IE */
+        transition: opacity 0.5s, transform 0.5s;
+    }
+
+        .material-checkbox > input:checked {
+            background-color: #2196f3;
+        }
+
+    .material-checkbox:active > input {
+        opacity: 1;
+        transform: scale(0);
+        transition: opacity 0s, transform 0s;
+    }
+
+    .material-checkbox > input:disabled {
+        opacity: 0;
+    }
+
+        .material-checkbox > input:disabled + span {
+            color: rgba(0, 0, 0, 0.38);
+            cursor: initial;
+        }
+
+    .material-checkbox > span::before {
+        content: "";
+        display: inline-block;
+        margin-right: 15px;
+        border: solid 2px #56be8e;
+        border-radius: 2px;
+        width: 19px;
+        height: 19px;
+        vertical-align: -4px;
+        transition: border-color 0.5s, background-color 0.5s;
+    }
+
+    .material-checkbox > input:checked + span::before {
+        border-color: #56be8e;
+        background-color: #56be8e;
+    }
+
+    .material-checkbox > input:active + span::before {
+        border-color: #56be8e;
+    }
+
+    .material-checkbox > input:checked:active + span::before {
+        border-color: transparent;
+        background-color: rgba(0, 0, 0, 0.42);
+    }
+
+    .material-checkbox > input:disabled + span::before {
+        border-color: rgba(0, 0, 0, 0.26);
+    }
+
+    .material-checkbox > input:checked:disabled + span::before {
+        border-color: transparent;
+        background-color: rgba(0, 0, 0, 0.26);
+    }
+
+    .material-checkbox > span::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: 7px;
+        height: 13px;
+        border: solid 2px transparent;
+        border-left: none;
+        border-top: none;
+        transform: translate(5.5px, 1px) rotate(45deg);
+        -ms-transform: translate(5.5px, 2px) rotate(45deg);
+    }
+
+    .material-checkbox > input:checked + span::after {
+        border-color: #fff;
+    }
+    .checkbox-facility{
+    	margin-left: 10px;
+    }
+    .ckedit-tab{
+    	padding-top: 15px;
+    }

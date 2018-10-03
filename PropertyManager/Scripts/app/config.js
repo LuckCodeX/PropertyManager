@@ -25,7 +25,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             })
         .state('apartment',
             {
-                url: "/apartment",
+                url: "/apartment?page&type&search",
                 templateUrl: "html/apartment.html"
             })
         .state('apartmentdetail',

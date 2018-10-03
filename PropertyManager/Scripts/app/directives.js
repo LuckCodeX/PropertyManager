@@ -570,31 +570,29 @@ function googleplace() {
         scope: {
             ngModel: '=',
             details: '=?',
-            listcity: '='
+            //listcity: '='
         },
         link: function (scope, element, attrs, model) {
             var options = {
                 types: [],
-                componentRestrictions: {}
+                componentRestrictions: {
+                    country: 'vn'
+                }
             };
+           
             var autocomplete = new google.maps.places.Autocomplete(element[0], options);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 scope.$apply(function () {
                     var place = autocomplete.getPlace();
                     // console.log(place);
-                    scope.details.lat = place.geometry.location.lat();
-                    scope.details.long = place.geometry.location.lng();
-                    scope.details.city = place.address_components.filter(function (component) {
-                        if (component.types[0] == "locality")
+                    scope.details.Latitude = place.geometry.location.lat();
+                    scope.details.Longitude = place.geometry.location.lng();
+                    scope.details.City = place.address_components.filter(function (component) {
+                        if (component.types[0] == "administrative_area_level_1")
                             return true;
                     }).map(function (obj) {
                         return obj.long_name;
-                    })[0];
-                    var city = scope.listcity.filter(function (obj) {
-                        if (obj.name == scope.details.city)
-                            return true;
-                    })[0]
-                    scope.details.city_id = city === undefined ? null : city.city_id;
+                        })[0];
                     model.$setViewValue(element.val());
                 });
             });

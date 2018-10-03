@@ -1,1 +1,70 @@
-﻿<h1>Apartment</h1>
+﻿<div class="account-view" ng-init="loadApartment()" ng-controller="ApartmentCtrl">
+	<!-- <div class="warp container short-warp">
+		<div class="body-warp">
+			
+		</div>
+	</div> -->
+	<div class="warp container full-height">
+		<div class="header-warp">
+			<div class="title-warp">QUẢN LÝ CHUNG CƯ, CĂN HỘ</div>
+		</div>
+		<div class="body-warp">
+			<div class="row">
+				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
+				 	<div class="col-sm-7">
+					    <div class="form-group">
+					      <div class="col-sm-6">  
+					        <select class="form-ctrl" number-to-string ng-model="typeStatus">
+					        	<option value="1">Đã duyệt</option>
+					        	<option value="0">Chưa duyệt</option>
+					        </select>
+					      </div>
+					      <div class="col-sm-6">
+					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm chung cư, căn hộ" name="searchApartment" ng-model="searchApm">
+					      </div>
+					    </div>
+					</div>
+				    <div class="col-sm-5">
+						<button type="submit" class="btn btn-save">Tìm kiếm</button>
+					</div>	
+				 </form>
+				
+			</div>
+			<table class="table table-hover table-list">
+				<tr>
+					<th>Ảnh</th>
+					<th>Địa chỉ</th>
+					<th>Chủ nhà</th>
+					<th>Số điện thoại</th>
+					<th>Trạng thái</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in apartmentList">
+					<td><a class="" ui-sref="apartmentdetail({id:item.Id})"><img class="img-apartment-table" ng-src="http://propertyplus.com.vn/Upload/apartment/{{item.ImgList[0].Img}}"/></a></td>
+					<td>{{item.Address | limitTo : 50}}{{item.Address.length > 50 ? '...' : ''}}</td>
+					<td><a href="" class="">{{item.UserProfileOwner.FirstName}} {{item.UserProfileOwner.LastName}}</a></td>
+					<td>0948664870</td>
+					<td><span ng-if="item.Status == 1" class="text-success">Đã duyệt</span><span class="text-warning" ng-if="item.Status == 0">Chưa duyệt</span></td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+	                            <i class="fas fa-ellipsis-v"></i>
+	                        </button>
+	                        <ul class="dropdown-menu">
+	                          <li><a ui-sref="apartmentdetail({id:item.Id})">Chỉnh sửa</a></li>
+								<li><a href="" ng-click="deleteApartment(item)"> Xóa
+								</a></li>
+	                        </ul>
+	                      </div>
+					</td>
+				</tr>
+				
+			</table>
+			<div class="pagination-employee">
+				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
