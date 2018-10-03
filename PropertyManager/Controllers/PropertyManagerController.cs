@@ -288,6 +288,7 @@ namespace PropertyManager.Controllers
                     apartment.no_bedroom = model.NoBedRoom;
                     apartment.project_id = model.ProjectId;
                     apartment.type = model.Type;
+                    apartment.status = model.Status;
                     _service.SaveApartment(apartment);
 
                     var imgIds = new List<int>();
@@ -391,6 +392,7 @@ namespace PropertyManager.Controllers
                         content.language = item.Language;
                         _service.SaveApartmentContent(content);
                     }
+
                     scope.Complete();
                 }
             }
