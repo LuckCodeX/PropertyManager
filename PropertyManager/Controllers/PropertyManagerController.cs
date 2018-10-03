@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Transactions;
+using System.Web;
 using System.Web.Http;
+using ExcelDataReader;
 using Newtonsoft.Json;
 using PropertyManager.Helper;
 using PropertyManager.Models;
@@ -415,6 +418,31 @@ namespace PropertyManager.Controllers
                     Name = p.facility_content.FirstOrDefault(q => q.language == 1).name
                 }
             }).ToList();
+        }
+
+        [HttpPost]
+        [Route("PostFile")]
+        public void PostFile()
+        {
+            string sPath = "";
+            sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Upload/file");
+
+            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+
+            for (int i = 0; i <= hfc.Count - 1; i++)
+            {
+                System.Web.HttpPostedFile hpf = hfc[i];
+                if (hpf.ContentLength > 0)
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(hpf.InputStream))
+                    {
+                        var result = reader.AsDataSet();
+                        var dataTable = result.Tables[0];
+                        var row1 = dataTable.Rows[0][0];
+                        var row2 = dataTable.Rows[7][1];
+                    }
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)

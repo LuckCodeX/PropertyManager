@@ -99,3 +99,7 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\Proper
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.CopyComplete
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.dll
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.pdb
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\ExcelDataReader.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\ExcelDataReader.xml
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\ExcelDataReader.DataSet.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\ExcelDataReader.DataSet.xml

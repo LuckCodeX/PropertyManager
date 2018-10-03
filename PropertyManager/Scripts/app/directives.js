@@ -332,13 +332,13 @@ function dropZone() {
             paramName: "uploadfile",
             maxThumbnailFilesize: 5,
             init: function () {
-                scope.files.push({file: 'added'});
+                scope.files.push({ file: 'added' });
                 this.on('success', function (file, json) {
                 });
                 this.on('addedfile', function (file) {
                     scope.$apply(function () {
                         alert(file);
-                        scope.files.push({file: 'added'});
+                        scope.files.push({ file: 'added' });
                     });
                 });
                 this.on('drop', function (file) {
@@ -494,13 +494,13 @@ function fileRead() {
         },
         link: function (scope, element, attributes) {
             element.bind("change", function (changeEvent) {
-                if (changeEvent.target.files[0].size >= 512000){
+                if (changeEvent.target.files[0].size >= 512000) {
                     alert("Image too large! Max size is 500kb");
                     return;
                 }
                 var reader = new FileReader();
                 reader.onload = function (loadEvent) {
-                    if(scope.fileread.length >10){
+                    if (scope.fileread.length > 10) {
                         alert("Max file is 10 images");
                         return;
                     }
@@ -526,7 +526,7 @@ function fileReaded() {
         },
         link: function (scope, element, attributes) {
             element.bind("change", function (changeEvent) {
-                if (changeEvent.target.files[0].size >= 512000){
+                if (changeEvent.target.files[0].size >= 512000) {
                     alert("Image too large! Max size is 500kb");
                     return;
                 }
@@ -557,11 +557,27 @@ function openHour() {
 function uploadImg() {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
+        link: function (scope, element, attrs) {
             var onChangeHandler = scope.$eval(attrs.uploadImg);
             element.bind('change', onChangeHandler);
         }
     }
+}
+
+function uploadFiles() {
+    return {
+        scope: true,        //create a new scope  
+        link: function (scope, el, attrs) {
+            el.bind('change', function (event) {
+                var files = event.target.files;
+                //iterate files since 'multiple' may be specified on the element  
+                for (var i = 0; i < files.length; i++) {
+                    //emit event upward  
+                    scope.$emit("seletedFile", { file: files[i] });
+                }
+            });
+        }
+    };
 }
 
 function googleplace() {
@@ -579,7 +595,7 @@ function googleplace() {
                     country: 'vn'
                 }
             };
-           
+
             var autocomplete = new google.maps.places.Autocomplete(element[0], options);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 scope.$apply(function () {
@@ -592,7 +608,7 @@ function googleplace() {
                             return true;
                     }).map(function (obj) {
                         return obj.long_name;
-                        })[0];
+                    })[0];
                     model.$setViewValue(element.val());
                 });
             });
@@ -660,5 +676,6 @@ app.directive('pageTitle', pageTitle)
     .directive('googleplace', googleplace)
     .directive('uploadImg', uploadImg)
     .directive('stringToNumber', stringToNumber)
-    .directive('numberToString', numberToString);
+    .directive('numberToString', numberToString)
+    .directive('uploadFiles', uploadFiles);
 

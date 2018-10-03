@@ -13,7 +13,7 @@
                 $window.location.href = "/dashboard";
             }
         }, function (error) {
-            $scope.errorText = decodeURIComponent(error.statusText);
+            $scope.errorText = "Tài khoản hoặc mật khẩu sai";
         });
     }
 }
