@@ -47,6 +47,15 @@
 			            </div>
 			        </div>
 			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Trạng thái:</label>
+			            <div class="col-sm-3">
+			                <select class="form-ctrl" ng-model="data.Status" number-to-string>
+			                    <option value="1">Đã duyệt</option>
+			                    <option value="0">Chưa duyệt</option>
+			                </select>
+			            </div>
+			        </div>
+			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Dịch vụ:</label>
 			            <div class="col-sm-3">
 			                <span class="checkbox-facility" ng-repeat="facility in facilityList track by $index">
@@ -59,7 +68,7 @@
 			            </div>
 			        </div>
 
-			        <div class="form-group" ng-show="allImg[imgType.value].length > 0" ng-repeat="imgType in allType">
+			        <div class="form-group" ng-show="allImg[imgType.value].length > 0 " ng-repeat="imgType in allType">
 			            <label class="control-label col-sm-3" for="">{{imgType.name}}:</label>
 			            <div class="col-sm-9">
 			                <div class="margin-bot-15" ng-repeat="image in allImg[imgType.value] track by $index">
@@ -82,7 +91,7 @@
 			                        </div>
 			                        <div class="col-sm-3">
 			                            <select class="form-ctrl" ng-model="allImg[imgType.value][$index].Type" ng-change="changeType(imgType.value,$index,image,image.Type)" ng-disabled="imgType.value == 0 || (image.Img == undefined && image.Img_Base64 == undefined)" number-to-string>
-			                                <option ng-repeat="type in allType" ng-hide=" allImg[type.value].length >= type.maximum && (allImg[type.value][allImg[type.value].length - 1].Img_Base64 == undefined || allImg[type.value][allImg[type.value].length - 1].Img == undefined)" value="{{type.value}}">{{type.name}}</option>
+			                                <option ng-repeat="type in allType" ng-hide=" allImg[type.value].length >= type.maximum && (allImg[type.value][allImg[type.value].length - 1].Img_Base64 != undefined || allImg[type.value][allImg[type.value].length - 1].Img != undefined)" value="{{type.value}}">{{type.name}}</option>
 			                            </select>
 			                        </div>
 			                    </div>
