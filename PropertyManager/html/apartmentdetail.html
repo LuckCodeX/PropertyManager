@@ -1,1 +1,151 @@
-﻿<h1>Apartment Detail</h1>
+﻿<div class="apartment-view" ng-init="loadApartmentDetail()" ng-controller="ApartmentCtrl">
+	<div class="warp container full-height">
+		<div class="header-warp">
+			<div class="title-warp">CHI TIẾT QUẢN LÝ CHUNG CƯ, CĂN HỘ</div>
+		</div>
+		<div class="body-warp">
+			<div class="account-detail-view">
+			  <form class="form-horizontal" name="myForm" ng-submit="submitApartment()">
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Chủ nhà:</label>
+			      <div class="col-sm-8">
+			        <input type="text" class="form-ctrl" name="username" readonly ng-model="FullName">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Địa chỉ:</label>
+			      <div class="col-sm-8">
+			        <input type="text" class="form-ctrl" googleplace ng-change="changeAddress()" details="data"  name="address" ng-model="data.Address" />
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Loại:</label>
+			      <div class="col-sm-3">  
+			        <select class="form-ctrl" ng-model="data.Type" number-to-string>
+			        	<option value="1">Apartment</option>
+			        </select>
+			      </div>
+			      <label class="control-label col-sm-2" for="">Diện tích:</label>
+			      <div class="col-sm-3">
+			        <input type="number" min="0" class="form-ctrl" name="area" ng-model="data.Area">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Số phòng ngủ:</label>
+			      <div class="col-sm-3">
+			        <input type="number" min="0" class="form-ctrl" name="bedRoom" ng-model="data.NoBedRoom">
+			      </div>
+			      <label class="control-label col-sm-2" for="">Số phòng tắm:</label>
+			      <div class="col-sm-3">
+			        <input type="number" min="0" class="form-ctrl" name="bathRoom" ng-model="data.NoBathRoom">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Dịch vụ:</label>
+			      <div class="col-sm-3">
+			        <span class="checkbox-facility" ng-repeat="facility in facilityList track by $index">
+		                <label class="material-checkbox">
+		                    <input type="checkbox" ng-model="facility.Status">
+		                    <span></span>
+		                </label>
+		                {{facility.Content.Name}}
+		            </span>
+			      </div>
+			    </div>
+			   
+			    <div class="form-group" ng-show="allImg[imgType.value].length > 0" ng-repeat="imgType in allType">
+			      <label class="control-label col-sm-3" for="">{{imgType.name}}:</label>
+			      <div class="col-sm-9">
+			        <div class="margin-bot-15" ng-repeat="image in allImg[imgType.value] track by $index">
+				    	<div class="row">
+				    		<div class="col-sm-6 col-md-5  img-upload-current">
+				    			<i ng-click="allImg[imgType.value].splice($index, 1)" ng-if="(image.Img || image.Img_Base64) && image.Type !== 0" class="remove-img-btn fas fa-times"></i>
+			                    <img ng-if="image.Img_Base64" class="img" ng-src="{{image.Img_Base64}}" />
+			                    <img ng-if="image.Img" class="img" ng-src="http://propertyplus.com.vn/Upload/apartment/{{image.Img}}" />
+			                    <div class="btn-upload" ng-class="image.Img || image.Img_Base64 ? 'opacityZero':''">
+			                        <span class="btn-file">
+			                            <p> <i class="fas fa-plus"></i></p>
+			                            <p>add another</p>
+			                            <input ng-if="imgType.value != 0" type="file" accept="image/*" type-img="imgType.value" upload-img="uploadImg"  image="allImg[imgType.value][$index]"
+			                                   resize-max-height="300"
+			                                   resize-max-width="250"
+			                                   resize-quality="0.7" />
+			                            <input ng-if="imgType.value == 0" accept="image/*" type-img="imgType.value" upload-img="uploadImg" image="allImg[imgType.value][$index]" type="file" />
+			                        </span>
+			                    </div>
+				    		</div>
+				    		<div class="col-sm-3">
+						        <select class="form-ctrl" ng-model="allImg[imgType.value][$index].Type" ng-change="changeType(imgType.value,$index,image,image.Type)" ng-disabled="imgType.value == 0 || (image.Img == undefined && image.Img_Base64 == undefined)" number-to-string>
+						        	<option ng-repeat="type in allType" ng-hide=" allImg[type.value].length >= type.maximum && (allImg[type.value][allImg[type.value].length - 1].Img_Base64 == undefined || allImg[type.value][allImg[type.value].length - 1].Img == undefined)" value="{{type.value}}">{{type.name}}</option>
+						        </select>
+						      </div>
+				    	</div>
+	                </div>
+			      </div>
+			      
+			    </div>
+			    <div class="form-group">
+			       <div class="users-tab">
+                      <ul class="tabs">
+                        <li class="tab-link current" data-tab="tab-1">Tiếng Việt</li>
+                        <li class="tab-link" data-tab="tab-2">Tiếng Anh</li>
+                        <li class="tab-link" data-tab="tab-3">Tiếng Nhật</li>
+                      </ul>
+
+                        <div id="tab-1" class="tab-content current emp-tab ckedit-tab">
+                            <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Tên (optional):</label>
+						      <div class="col-sm-8">  
+						        <input type="text" class="form-ctrl" ng-model="data.ContentList[0].Name">
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Mô tả (optional):</label>
+						      <div class="col-sm-8"> 
+						       <textarea type="text" ckeditor="editorOptions"  ng-model="data.ContentList[0].Description" value="" />
+						      </div>
+						    </div>
+                        </div>
+                        <div id="tab-2" class="tab-content emp-tab ckedit-tab">
+                           <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Tên (optional):</label>
+						      <div class="col-sm-8">  
+						        <input type="text" class="form-ctrl" ng-model="data.ContentList[1].Name">
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Mô tả (optional):</label>
+						      <div class="col-sm-8"> 
+						       <textarea type="text" ckeditor="editorOptions"  ng-model="data.ContentList[1].Description" value="" />
+						      </div>
+						    </div>
+                        </div>
+                        <div id="tab-3" class="tab-content emp-tab ckedit-tab">
+                           <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Tên (optional):</label>
+						      <div class="col-sm-8">  
+						        <input type="text" class="form-ctrl" ng-model="data.ContentList[2].Name">
+						      </div>
+						    </div>
+						    <div class="form-group">
+						      <label class="control-label col-sm-3" for="">Mô tả (optional):</label>
+						      <div class="col-sm-8"> 
+						       <textarea type="text" ckeditor="editorOptions"   ng-model="data.ContentList[2].Description" value="" />
+						      </div>
+						    </div>
+                        </div>
+                  </div>
+			    </div>
+			    <div class="form-group">        
+			      <div class="col-sm-offset-3 col-sm-9">
+			      	<button type="submit" ng-disabled="!statusAddress" class="btn btn-save">Lưu</button>
+			      	<button type="button" ui-sref="account" class="btn btn-back">Thoát</button>
+			      </div>
+			    </div>
+			  </form>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
