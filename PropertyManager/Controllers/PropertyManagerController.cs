@@ -325,7 +325,7 @@ namespace PropertyManager.Controllers
                             };
                             if (!Equals(item.Img_Base64, null))
                             {
-                                aptImg.img = _service.SaveImage("~/Upload/apartment/",
+                                aptImg.img = "http://manager.propertyplus.com.vn/Upload/apartment/" + _service.SaveImage("~/Upload/apartment/",
                                     "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + imgIdx
                                      + ".png",
                                     item.Img_Base64);
