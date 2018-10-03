@@ -51,41 +51,6 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
         });
 
     }
-
-    $scope.pageChanged = function () {
-        $location.path("/apartment").search({ page: $scope.bigCurrentPage, search: $scope.searchApm, type: $scope.typeStatus });
-    };
-
-    $scope.loadApartmentDetail = function () {
-        $scope.statusAddress = true;
-        $scope.data = {};
-        xhrService.get("GetApartmentDetail/" + $stateParams.id)
-            .then(function (data) {
-                $scope.data = data.data;
-                getAllFacilities();
-                $scope.FullName = $scope.data.UserProfileOwner.FirstName + $scope.data.UserProfileOwner.LastName;
-                listToManyList($scope.data.ImgList);
-            },
-                function (error) {
-                    console.log(error.statusText);
-                });
-
-        $scope.editorOptions = {
-            language: 'vi'
-        };
-        // doi tab o view
-        $(document).ready(function () {
-            $('ul.tabs li').click(function () {
-                var tab_id = $(this).attr('data-tab');
-                $('ul.tabs li').removeClass('current');
-                $('.tab-content').removeClass('current');
-                $(this).addClass('current');
-                $("#" + tab_id).addClass('current');
-            })
-
-        });
-
-    }
     function watchImgList() {
         var type, length;
         for (var j = 0; j < $scope.allType.length; j++) {
