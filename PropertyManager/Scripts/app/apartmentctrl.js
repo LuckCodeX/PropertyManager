@@ -142,7 +142,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
 
     $scope.submitApartment = function () {
         $scope.data.ImgList = [];
-        $scope.FacilityList = [];
+        $scope.data.FacilityList = [];
         for (var i = 0; i < $scope.allType.length; i++) {
             for (var j = 0; j < $scope.allImg[$scope.allType[i].value].length; j++) {
                 var item = $scope.allImg[$scope.allType[i].value][j];
