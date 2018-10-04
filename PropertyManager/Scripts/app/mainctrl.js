@@ -1,5 +1,7 @@
 function MainCtrl($scope,$rootScope,$stateParams, $location,$timeout, xhrService,$anchorScroll) {
     $scope.loadLayout = function(){
+    	// $scope.leftMenu = [{name:"Tài khoản",value:[{name:"Quản lý tài khoản",link:"account"}]},
+    	// 					{name:"Chung cư, căn hộ",value:[{name:"Quản lý chung cư, căn hộ",link:"apartment"}]}];
     	if (!(localStorage && localStorage.getItem('admin'))) {
             window.location.href = "/login";
         };
