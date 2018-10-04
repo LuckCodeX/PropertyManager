@@ -838,3 +838,27 @@ input::-webkit-inner-spin-button {
     .ckedit-tab{
     	padding-top: 15px;
     }
+
+    .body-main-content{
+    	width: calc(100% - 245px);
+    	display: inline-block;
+    }
+    .left-side-bar{
+    	width: 240px;
+    	display: inline-block;
+    	float: left;
+    	padding-top: 30px;
+    	padding-left: 30px;
+    }
+
+    .left-side-bar .nav-menu-parent a,.left-side-bar .nav-menu-child a{
+    	color: black;
+    	line-height: 40px;
+    	display: block;
+    }
+    .left-side-bar .nav-menu-parent a.active,.left-side-bar .nav-menu-child a.active{
+    	font-weight: 500; 
+    }
+    .left-side-bar .nav-menu-child{
+    	padding-left: 20px;
+    }

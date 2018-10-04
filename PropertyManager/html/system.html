@@ -1,4 +1,20 @@
 ﻿<div>
-    <h1>Left menu</h1>
-    <div ui-view></div>
+    <div class="left-side-bar">
+    	<div class="nav-menu-left">
+    		<div class="nav-menu-parent">
+	    		<a ui-sref="system.account">Tài khoản CRM</a>
+	    	</div>
+    	</div>
+    	<div class="nav-menu-left">
+    		<div class="nav-menu-parent">
+	    		<a data-toggle="collapse" href="#collapse1">Nhập dữ liệu</a>
+	    	</div>
+	    	<div id="collapse1" class="nav-menu-child collapse in">
+	        	<a class="active" ui-sref="system.importcustomer">Khách hàng</a>
+	        	<a ui-sref="system.importapartment">Căn hộ</a>
+	      	</div>
+    	</div>
+    	
+    </div>
+    <div class="body-main-content" ui-view></div>
 </div>
