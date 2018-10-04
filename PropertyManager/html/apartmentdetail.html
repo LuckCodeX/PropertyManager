@@ -47,6 +47,16 @@
 			            </div>
 			        </div>
 			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Giá chung cư, căn hộ ($):</label>
+			            <div class="col-sm-3">
+			                <input type="number" min="0" class="form-ctrl" ng-model="data.Price">
+			            </div>
+			            <label class="control-label col-sm-2" for="">Phí dịch vụ ($):</label>
+			            <div class="col-sm-3">
+			                <input type="number" min="0" class="form-ctrl"  ng-model="data.ManagementFee">
+			            </div>
+			        </div>
+			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Trạng thái:</label>
 			            <div class="col-sm-3">
 			                <select class="form-ctrl" ng-model="data.Status" number-to-string>
