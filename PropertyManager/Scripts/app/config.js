@@ -33,6 +33,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
                 url: "/apartment-detail/:id",
                 templateUrl: "html/apartmentdetail.html"
             })
+        .state('customerlist',
+            {
+                url: "/customer-list",
+                templateUrl: "html/customerlist.html"
+            })
+        .state('apartmentlist',
+            {
+                url: "/apartment-list",
+                templateUrl: "html/apartmentlist.html"
+            })
         .state('system',
             {
                 url: "/system",

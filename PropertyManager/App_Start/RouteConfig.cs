@@ -62,6 +62,18 @@ namespace PropertyManager
             );
 
             routes.MapRoute(
+                name: "CustomerList",
+                url: "system/customer-list",
+                defaults: new { controller = "Home", action = "CustomerList", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ApartmentList",
+                url: "system/apartment-list",
+                defaults: new { controller = "Home", action = "ApartmentList", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

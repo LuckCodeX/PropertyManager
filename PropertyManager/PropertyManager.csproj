@@ -637,6 +637,8 @@
     <Content Include="html\accountdetail.html" />
     <Content Include="html\apartment.html" />
     <Content Include="html\apartmentdetail.html" />
+    <Content Include="html\apartmentlist.html" />
+    <Content Include="html\customerlist.html" />
     <Content Include="html\dashboard.html" />
     <Content Include="html\importapartment.html" />
     <Content Include="html\importcustomer.html" />
@@ -747,6 +749,8 @@
     <Content Include="Views\Home\ApartmentDetail.cshtml" />
     <Content Include="Views\Home\ImportApartment.cshtml" />
     <Content Include="Views\Home\ImportCustomer.cshtml" />
+    <Content Include="Views\Home\CustomerList.cshtml" />
+    <Content Include="Views\Home\ApartmentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

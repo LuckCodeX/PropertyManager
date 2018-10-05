@@ -55,5 +55,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult CustomerList()
+        {
+            return View();
+        }
+
+        public ActionResult ApartmentList()
+        {
+            return View();
+        }
     }
 }
