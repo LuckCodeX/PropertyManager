@@ -14,10 +14,11 @@
 				 	<div class="col-sm-7">
 					    <div class="form-group">
 					      <div class="col-sm-6">  
-					        <select class="form-ctrl" number-to-string ng-model="typeStatus">
-					        	<option value="1">Đã duyệt</option>
-					        	<option value="0">Chưa duyệt</option>
-					        </select>
+					          <select class="form-ctrl" number-to-string ng-model="typeStatus">
+					              <option value="-1">Tất cả</option>
+					              <option value="1">Đã duyệt</option>
+					              <option value="0">Chưa duyệt</option>
+					          </select>
 					      </div>
 					      <div class="col-sm-6">
 					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm chung cư, căn hộ" name="searchApartment" ng-model="searchApm">
@@ -43,7 +44,7 @@
 					<td><a class="" ui-sref="apartmentdetail({id:item.Id})"><img class="img-apartment-table" ng-src="{{item.ImgList[0].Img}}"/></a></td>
 					<td>{{item.Address | limitTo : 50}}{{item.Address.length > 50 ? '...' : ''}}</td>
 					<td><a href="" class="">{{item.UserProfileOwner.FirstName}} {{item.UserProfileOwner.LastName}}</a></td>
-					<td>0948664870</td>
+                    <td>{{item.UserProfileOwner.Phone}}</td>
 					<td><span ng-if="item.Status == 1" class="text-success">Đã duyệt</span><span class="text-warning" ng-if="item.Status == 0">Chưa duyệt</span></td>
 					<td>
 						<div class="dropdown action-dropdown-table">

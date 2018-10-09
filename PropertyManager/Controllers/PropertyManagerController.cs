@@ -187,7 +187,8 @@ namespace PropertyManager.Controllers
                     Avatar = p.user_profile.avatar,
                     Email = p.user_profile.email,
                     FirstName = p.user_profile.first_name,
-                    LastName = p.user_profile.last_name
+                    LastName = p.user_profile.last_name,
+                    Phone = p.user_profile.phone
                 },
                 ImgList = p.aparment_image.Where(q => q.type == 0).OrderBy(q => q.type).Select(q => new ApartmentImageModel()
                 {

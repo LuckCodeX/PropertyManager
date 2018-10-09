@@ -513,7 +513,7 @@ button.has-badge{
 }
 
 .text-success{
-	padding: 3px;
+	padding: 5px 10px;
 	border-radius: 3px;
 	background: #08b0a0;
 	color: white;

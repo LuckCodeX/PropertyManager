@@ -6,7 +6,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
 
     $scope.loadApartment = function () {
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
-        $scope.typeStatus = $stateParams.type === undefined ? 1 : $stateParams.type;
+        $scope.typeStatus = $stateParams.type === undefined ? -1 : $stateParams.type;
         $scope.searchApm = $stateParams.search === undefined ? '' : $stateParams.search;
         xhrService.get("GetListApartment/" + $scope.bigCurrentPage + "/" + $scope.typeStatus + "/" + $scope.searchApm)
             .then(function (data) {

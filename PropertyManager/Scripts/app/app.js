@@ -12,5 +12,6 @@
     'ngCkeditor'
 ]);
 
-var API = "http://localhost:22918/api/propertymanager/";
+//var API = "http://localhost:22918/api/propertymanager/";
 //var API = "http://localhost:54105/api/propertymanager/";
+var API = "http://manager.propertyplus.com.vn/api/propertymanager/";

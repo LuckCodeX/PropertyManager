@@ -13,5 +13,6 @@ namespace PropertyManager.Models
         public string Avatar { get; set; }
         public string Avatar_Base64 { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
     }
 }
