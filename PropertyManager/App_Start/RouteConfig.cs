@@ -63,13 +63,13 @@ namespace PropertyManager
 
             routes.MapRoute(
                 name: "CustomerList",
-                url: "system/customer-list",
+                url: "customer-list",
                 defaults: new { controller = "Home", action = "CustomerList", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "ApartmentList",
-                url: "system/apartment-list",
+                url: "apartment-list",
                 defaults: new { controller = "Home", action = "ApartmentList", id = UrlParameter.Optional }
             );
 
