@@ -48,10 +48,6 @@
         
     };
 
-    $('#myfile').change(function() {
-    $('#mytext').val($(this).val());
-});
-
 
 }
 
