@@ -708,18 +708,24 @@ input::-webkit-inner-spin-button {
     visibility: visible;
 }
 .img-upload-current .remove-img-btn{
-    visibility: hidden;
+        visibility: hidden;
     position: absolute;
     top: 7px;
     right: 24px;
-    font-size: 22px;
+    font-size: 17px;
     color: white;
     cursor: pointer;
     z-index: 10;
-    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
-  opacity: 0.9;
+    /* -webkit-text-fill-color: white; */
+    /* -webkit-text-stroke-width: 1px; */
+    /* -webkit-text-stroke-color: black; */
+    opacity: 0.9;
+    background: #676767;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    padding-left: 5.1px;
+    line-height: 21px;
 }
 
 .margin-bot-15{

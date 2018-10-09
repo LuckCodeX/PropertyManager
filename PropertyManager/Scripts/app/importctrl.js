@@ -1,5 +1,6 @@
 ﻿function ImportCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll, $http) {
     $scope.files = [];
+    $scope.items = [];
     $scope.uploadFile = function() {
         $http({
                 method: 'POST',
@@ -29,7 +30,29 @@
             //add the file object to the scope's files collection  
             $scope.files.push(args.file);
         });
-    });  
+    });
+
+    $scope.submitEmployee = function(soluong,nhanvien){
+        var emp={
+            soluong:soluong,
+            nhanvien:nhanvien
+        };
+        $scope.items.push(emp);
+    };
+
+ $scope.deleteitems = function(index) {
+      
+       if($scope.items.length){
+          $scope.items.splice(index, 1);
+        }
+        
+    };
+
+    $('#myfile').change(function() {
+    $('#mytext').val($(this).val());
+});
+
+
 }
 
 app.controller('ImportCtrl', ImportCtrl);
