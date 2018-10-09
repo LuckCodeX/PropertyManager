@@ -1,7 +1,68 @@
-﻿<h1>Import Apartment</h1>
-<div ng-controller="ImportCtrl">
+﻿<div  ng-controller="ImportCtrl">
+	<div class="canho-header">
+<span>CĂN HỘ</span>	
+
+<div class="upload-btn">
     <form ng-submit="uploadFile()">
-        <input type="file" upload-files/>
+        <label class="fileContainer">
+	Choose file 
+     <input type="file" id="myfile" upload-files/>
+</label>     
+<input type="text" id="mytext">
         <button type="submit">Upload</button>
     </form>
 </div>
+<div class="banner"></div>
+</div>
+
+<div class="canho-header" style="margin-top: 35px;
+    margin-left: 40px;">
+	<form ng-submit="submitEmployee(soluong,nhanvien)">
+		
+			<div class="row">
+		<span class="number col-md-4" style="margin-bottom: 30px;">
+		<span>Số lượng</span>
+		<input type="number" placeholder="Nhập số lượng" ng-model="soluong" required="">
+		</span>
+		<div class="select-main col-md-4">
+		<p class="select-info-text">Nhân viên</p>
+                <select class="select-info" ng-model="nhanvien" required="">
+                    <option value="Nghia" >Nghia</option>
+                    <option value="Nghia1">Nghia1</option>
+                    <option value="Nghia2">Nghia2</option>
+                </select>
+         </div>
+
+         <input type="submit" class="submit-button col-md-4" id="submit" value="Submit" />
+         
+         </div>
+	</form>
+
+	<table class="table table-hover table-list">
+				<tr>
+					<th>Nhân viên</th>
+					<th>Số lượng</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in items" style="list-style: none;">
+    <td>{{item.nhanvien}}</td>
+    <td>{{item.soluong}}</td>
+    <td><li><a style="cursor: pointer;"  ng-click="deleteitems($index)"> Xóa
+								</a></li></td>
+  </tr>
+  
+				
+			</table>
+
+
+
+
+			
+</div>
+</div>
+
+<script type="text/javascript">
+	 $('#myfile').change(function() {
+    $('#mytext').val($(this).val());
+});
+</script>

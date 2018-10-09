@@ -1,0 +1,129 @@
+
+.canho-header {
+	    margin-top: 35px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+
+.canho-header span{
+	font-size: 18px;
+    font-weight: 500;
+    
+}
+
+.upload-btn{
+	margin-top: 20px;
+}
+
+.banner{
+	padding-bottom: 30px;
+    border-bottom: solid 1px #d5d6d9;
+}
+
+.canho-header input{
+display: inline-block;
+font-size: 14px;
+}
+
+.canho-header button{
+display: inline-block;
+width: 88px;
+    height: 36px;
+    background-color: rgb(7,147,133);
+    color: white;
+    border: none;
+    margin-left: 100px;
+}
+
+.number{
+	margin-top: 20px;
+}
+
+
+.number input{
+	height: 35px;
+	padding-left: 5px;
+}
+.select-info-text{
+	display: block;
+    margin-bottom: 20px;
+    font-size: 18px;
+	
+}
+
+.select-info{
+	width: 250px;
+    height: 35px;
+}
+
+.select-main{
+	margin-top: 20px;
+}
+
+.number span{
+	display: block;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.submit-button{
+	padding: 9px 16px;
+	width: 88px;
+    height: 36px;
+    background-color: rgb(7,147,133);
+    color: white;
+    border: none;
+    margin-top: 65px;
+    margin-left: 311px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+.fileContainer {
+    overflow: hidden;
+    position: absolute;
+    width: 86px;
+    display: inline-block;
+    height: 36px;
+    background-color: rgb(7,147,133);
+    color: white;
+    border: none;
+    text-align: center;
+    padding-top: 6px;
+    font-weight: unset;
+
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+    
+    position: absolute;
+    right: 0;
+    
+
+
+}
+
+
+#mytext{
+    margin-left: 95px;
+    width: 185px;
+    height: 36px;
+}
