@@ -33,7 +33,7 @@ width: 88px;
     background-color: rgb(7,147,133);
     color: white;
     border: none;
-    margin-left: 100px;
+    margin-left: 35px;
 }
 
 .number{
@@ -75,7 +75,7 @@ width: 88px;
     color: white;
     border: none;
     margin-top: 65px;
-    margin-left: 311px;
+    margin-left: 85px;
 }
 
 .fileUpload {
@@ -106,16 +106,14 @@ width: 88px;
     color: white;
     border: none;
     text-align: center;
-    padding-top: 6px;
+    padding-top: 8px;
     font-weight: unset;
+    cursor: pointer;
 
 }
 
 .fileContainer [type=file] {
-    cursor: pointer;
-    
-    position: absolute;
-    right: 0;
+   visibility: hidden;
     
 
 
@@ -126,4 +124,5 @@ width: 88px;
     margin-left: 95px;
     width: 185px;
     height: 36px;
+    background: #fff;
 }
