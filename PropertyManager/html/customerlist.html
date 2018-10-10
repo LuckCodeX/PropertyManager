@@ -1,1 +1,99 @@
-﻿<h1>Customer List</h1>
+﻿<div class="" ng-controller="CustomerListCtrl" ng-init='loadApartmentList()'>
+	<div class="warp no-padding-lr">
+		<div class="header-warp">
+			<div class="title-warp">QUẢN LÝ KHÁCH HÀNG</div>
+		</div>
+		<div class="body-warp">
+			<div id="tableApartmentList">
+				<div class="col-sm-7 col-md-5 option-block-table">
+					<div class="row">
+						<div class="col-sm-4">
+							<select class="form-ctrl">
+				              <option value="-1">Tất cả</option>
+				              <option value="1">Đã duyệt</option>
+				              <option value="0">Chưa duyệt</option>
+				          </select>
+						</div>
+						<div class="col-sm-4">
+							<select class="form-ctrl">
+				              <option value="-1">Tất cả</option>
+				              <option value="1">Đã duyệt</option>
+				              <option value="0">Chưa duyệt</option>
+				          </select>
+						</div>
+						<div class="col-sm-4">
+							<select class="form-ctrl">
+				              <option value="-1">Tất cả</option>
+				              <option value="1">Đã duyệt</option>
+				              <option value="0">Chưa duyệt</option>
+				          </select>
+						</div>
+					</div>
+				</div>
+				<table rz-table rz-options="options" rz-mode="tableMode" rz-model="table" rz-profile="profile" class="table bordered table-striped table-condensed js-basic-example dataTable ui single line customer-table unstackable selectable fixed compact torrent table" id="resizeTable">
+		          <thead>
+		              <tr>
+		                  <th id="colIndex" class="col-left colSort" rz-col="'colIndex'">STT</th>
+				              <th rz-col="'colNameCompany'" class="col-left colProject colSort" id="colProject" >Tên công ty</th>
+			                <th rz-col="'colFaxCode'" class="col-left colApartment colSort" id="colApartment">Địa chỉ</th>
+			                <th rz-col="'colEmail'" class="col-left colCountHouse colSort" id="colCountHouse">Số máy bàn</th>
+			                <th rz-col="'colTaxCode'" class="col-left colArea colSort haveWarp" id="colArea">Tên nhân sự/khách hàng</th>
+			                  <th  rz-col="'colIdNumber'" class="colSort" >
+			                  Số di động</th>
+			                  <th  rz-col="'colAddress'" class="colSort" >
+			                  Email</th>
+			                  <th  rz-col="'colCountInteractive'" class="colSort" >
+			                  Phân loại khách hàng</th>
+			                  <th  rz-col="'colBankId'" class="colSort" >
+			                  Bộ đếm tương tác</th>
+			                  <th  rz-col="'colBankName'" class="colSort" >
+			                  Mã số thuế</th>
+			                  <th  rz-col="'colPrice'" class="colSort" >
+			                  Số TK Ngân hàng</th>
+			                  <th  rz-col="'colEmptyDay'" class="colSort" >
+			                  Tên ngân hàng</th>
+			                  <th  rz-col="'colCallDay'" class="colSort" >
+			                  Chi nhánh</th>
+			                  <th  rz-col="'colNote'" class="colSort" >
+			                  Thời gian gọi lại</th>
+			                  <th  rz-col="'colCallPerson'" class="colSort" >
+			                  Người gọi</th>
+			                  <th  rz-col="'colNameOwner'" class="colSort" >
+			                  Note</th>
+			                  <th  rz-col="'colPhoneNumber'" class="colSort" >
+			                  Người gọi</th>
+		              </tr>
+		          </thead>
+		          <tbody>
+		              <tr ng-repeat="item in items track by $index">
+		                  <td class="indexCol"><span>{{$index+1}}</span></td>
+		                  <td class="col-left colProject" ><input type="text" ng-model="items[$index].colProject" ng-attr-tabindex="{{$index*16}}" class="input-row"><span class="hide">{{items[$index].colProject}}</span></td>
+		                  <td class="col-left colApartment"><input type="text" ng-model="items[$index].colApartment" ng-attr-tabindex="{{$index*16 + 1}}" class="input-row"><span class="hide">{{items[$index].colApartment}}</span></td>
+		                  <td class="col-left colCountHouse" ><input type="text" ng-model="items[$index].colCountHouse" ng-attr-tabindex="{{$index*16 + 2}}" class="input-row"><span class="hide">{{items[$index].colCountHouse}}</span></td>
+		                  <td class="col-left colArea"><input type="text" ng-model="items[$index].colArea" ng-attr-tabindex="{{$index*16 + 3}}" class="input-row"><span class="hide">{{items[$index].colArea}}</span></td>
+		                  <td ><input type="text" ng-model="items[$index].colBedroom" ng-attr-tabindex="{{$index*16 + 4}}" class="input-row"><span class="hide">{{items[$index].colBedroom}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colNameOwner" ng-attr-tabindex="{{$index*16 + 5}}" class="input-row"><span class="hide">{{items[$index].colNameOwner}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colPhoneNumber" ng-attr-tabindex="{{$index*16 + 6}}" class="input-row"><span class="hide">{{items[$index].colPhoneNumber}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colEmail" ng-attr-tabindex="{{$index*16 + 7}}" class="input-row"><span class="hide">{{items[$index].colEmail}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colTaxCode" ng-attr-tabindex="{{$index*16 + 8}}" class="input-row"><span class="hide">{{items[$index].colTaxCode}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colIdNumber" ng-attr-tabindex="{{$index*16 + 9}}" class="input-row"><span class="hide">{{items[$index].colIdNumber}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colAddress" ng-attr-tabindex="{{$index*16 + 10}}" class="input-row"><span class="hide">{{items[$index].colAddress}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colCountInteractive" ng-attr-tabindex="{{$index*16 + 11}}" class="input-row"><span class="hide">{{items[$index].colCountInteractive}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colBankId" ng-attr-tabindex="{{$index*16 + 12}}" class="input-row"><span class="hide">{{items[$index].colBankId}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colBankName" ng-attr-tabindex="{{$index*16 + 13}}" class="input-row"><span class="hide">{{items[$index].colBankName}}</span></td>
+		                  <td><input type="text" ng-model="items[$index].colPrice" ng-attr-tabindex="{{$index*16 + 14}}" class="input-row"><span class="hide">{{items[$index].colPrice}}</span></td>
+		                  <td>
+		                  	<select ng-model="items[$index].colCallPerson" ng-attr-tabindex="{{$index*16 + 15}}" class="input-row">
+		                  		<option value="{{items[$index].colCallPerson}}">Sang Beo</option>
+		                  		<option>2</option>
+		                  	</select>
+		                  	<span class="hide">{{items[$index].colEmptyDay}}</span></td>
+		                 
+		              </tr>
+		          </tbody>
+		      </table>
+			</div>
+		</div>
+	</div>
+	
+</div>

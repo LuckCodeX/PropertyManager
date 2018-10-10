@@ -869,3 +869,170 @@ input::-webkit-inner-spin-button {
     .left-side-bar .nav-menu-child{
     	padding-left: 20px;
     }
+
+    table.rz-table {
+	   table-layout: fixed;
+	   border-collapse: collapse;
+	 }
+
+	table.rz-table th {
+	    position: relative;
+	    min-width: 25px;
+	}
+
+	table.rz-table th .rz-handle {
+	    width: 6px;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    cursor: ew-resize !important;
+		background: #ddd;
+		border-left: 4px solid #f7f7f7;
+	}
+
+	table.rz-table th .rz-handle.rz-handle-active {
+	    border-right: 1px dotted #000;
+	}
+
+	#resizeTable{
+		background: white;
+		margin-bottom: 0 !important;
+	}
+
+	#resizeTable thead tr th{
+	    position: sticky;
+	    top: 0px;
+	    font-size: 12px; 
+	    z-index: 5;
+	    background: #f7f7f7;
+	    text-align: center;
+	    white-space: nowrap;
+	    overflow: hidden;
+    text-overflow: ellipsis;
+	  }
+	  #resizeTable thead tr:last-child th{
+	    top: 47px;
+	  }
+	  #resizeTable thead tr th:first-child{
+	    position: sticky;
+	    left: 1px;
+
+	  }
+	  #resizeTable tr td:first-child{
+	    position: sticky;
+	    left: 1px;
+	     z-index: 4 ;
+	  
+	  }
+	  #resizeTable thead tr{
+	  	background: #f7f7f7;
+	  	height: 36px;
+	  }
+
+	  #resizeTable thead tr th{
+	  	line-height: 36px;
+	  	border-bottom-width: 1px;
+	  }
+
+	   #resizeTable tr td{
+	    background: white;
+	    font-size: 12px; 
+	    padding: 0px;
+	    height: 30px;
+	    padding-left: 10px; 
+	    white-space: nowrap;
+	   }
+	   #resizeTable .colApartment,
+	   #resizeTable .colProject,
+	   #resizeTable .colCountHouse,
+	   #resizeTable .colArea,
+	   #resizeTable .colBedroom,
+	   #colIndex{
+	      position: sticky;
+
+	   }
+	   #resizeTable .col-left{
+	    z-index: 7 !important;
+	   }
+	   #resizeTable th.col-left{
+	    z-index: 8 !important;
+	   }
+	   #resizeTable .input-row{
+	    padding: 3px;
+	      width: 100%;
+	      height: 100%;
+	      border: none;
+	      background: transparent;
+	   }
+	   #resizeTable .indexCol{
+	      font-weight: 600;
+	   }
+
+	   #resizeTable #colIndex{
+	   	left: 1px;
+	   }
+	   #resizeTable_wrapper > .row{
+	   	margin-right: 0 !important;
+	   }
+	   #resizeTable_wrapper > .row:nth-child(2){
+	   	margin-top: 20px;
+	   }
+	   #resizeTable_wrapper > .row:nth-child(2) > .col-sm-12{
+	   	overflow: scroll;
+	   	height: calc(100vh - 100px);
+	   }
+	   /*#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12 table{
+	   	padding-bottom: 10px; 
+	   }*/
+
+	   #resizeTable tbody tr:last-child td{
+	   		border-bottom: 1px solid #ddd;
+	   }
+
+	   #tableApartmentList{
+	   	background: white;
+	   	position: relative;
+	   }
+	   .option-block-table{
+	   	position: absolute;
+	   	left: 0;
+	   	top: 0;
+	   	padding-left: 10px;
+	   }
+	   .body-content #tableApartmentList{
+	   	overflow: none !important;
+	   }
+
+	   .col2row{
+	   		line-height: 80px !important;
+	   }
+
+	   #resizeTable thead:after {
+		    content: "-";
+		    display: block;
+		    line-height: 10px;
+		    color: transparent;
+		}
+
+		#resizeTable tr td{
+			border-right: 2px solid #ddd;
+		}
+
+		.input-row.btn.btn-save{
+			background: #1bb394 !important;
+		}
+		.rowBtn{
+			padding: 3px 10px !important;
+		}
+		.no-padding-lr{
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+		.no-padding-lr .header-warp{
+			padding-left: 10px !important;
+			padding-right: 10px !important;
+		}
+		.customer-table tr th{
+			top: 0 !important;
+		}

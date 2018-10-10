@@ -9,7 +9,9 @@
     'ngSanitize',                   // ngSanitize
     //'ngCsv',
     'ngAnimate',
-    'ngCkeditor'
+    'ngCkeditor',
+    'rzTable',
+    'ui.utils'
 ]);
 
 //var API = "http://localhost:22918/api/propertymanager/";
