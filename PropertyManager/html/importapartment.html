@@ -4,11 +4,19 @@
 
 <div class="upload-btn">
     <form ng-submit="uploadFile()">
+
+
+
 <label class="fileContainer">
 	Chọn file
-     <input type="file" id="myfile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" upload-files/>
+     <input type="file" name="myfile" id="myfile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" upload-files/>
 </label>     
 <input type="text" id="mytext" readonly />
+ 
+
+
+
+
  <button type="submit">Tải lên</button>
 
        
@@ -22,11 +30,12 @@
 	<form ng-submit="submitEmployee(soluong,nhanvien)">
 		
 			<div class="row">
-		<span class="number col-md-2" style="margin-bottom: 30px;">
+				<div class="col-md-12">
+		<span class="number " style="margin-bottom: 30px;margin-right: 20px;display: inline-block;">
 		<span>Số lượng</span>
 		<input type="number" placeholder="Nhập số lượng" ng-model="soluong" required="">
 		</span>
-		<div class="select-main col-md-2">
+		<div class="select-main " style="margin-right: -50px;display: inline-block;">
 		<p class="select-info-text">Nhân viên</p>
                 <select class="select-info" ng-model="nhanvien" required="">
                     <option value="Nghia" >Nghia</option>
@@ -34,9 +43,10 @@
                     <option value="Nghia2">Nghia2</option>
                 </select>
          </div>
-<div class="col-md-2">
+<div class="" style="display: inline-block;" >
          <input type="submit" class="submit-button" id="submit" value="Nhập" />
                   </div>
+              </div>
                   <div class="col-md-12">
                   <table class="table table-hover table-list">
 				<tr>
@@ -69,7 +79,13 @@
 
 
 <script type="text/javascript">
-	 $('#myfile').change(function() {
-    $('#mytext').val($(this).val());
-});
+
+
+
+	$('#myfile').on('change',function(){
+		var nameFile = $('#myfile').val().replace(/C:\\fakepath\\/i, '');
+		$('#mytext').val(nameFile);
+	});
+
+
 </script>
