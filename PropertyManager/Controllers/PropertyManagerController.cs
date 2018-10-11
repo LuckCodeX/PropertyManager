@@ -268,7 +268,7 @@ namespace PropertyManager.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("SaveApartment")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public void SaveApartment(ApartmentModel model)
@@ -439,8 +439,10 @@ namespace PropertyManager.Controllers
                     {
                         var result = reader.AsDataSet();
                         var dataTable = result.Tables[0];
-                        var row1 = dataTable.Rows[0][0];
-                        var row2 = dataTable.Rows[7][1];
+                        for (int j = 0; j < dataTable.Rows.Count; j++)
+                        {
+                            var row1 = dataTable.Rows[j][1];
+                        }
                     }
                 }
             }

@@ -159,7 +159,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
                 });
             }
         };
-        xhrService.put("SaveApartment", $scope.data)
+        xhrService.post("SaveApartment", $scope.data)
             .then(function (data) {
                 swal("Thành công!", "", "success")
                     .then((value) => {
