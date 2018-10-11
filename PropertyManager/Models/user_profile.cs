@@ -17,17 +17,16 @@ namespace PropertyManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user_profile()
         {
+            this.apartments = new HashSet<apartment>();
             this.user_account = new HashSet<user_account>();
             this.user_visit = new HashSet<user_visit>();
-            this.apartments = new HashSet<apartment>();
         }
     
         public int user_profile_id { get; set; }
         public string email { get; set; }
         public int status { get; set; }
         public int created_date { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
+        public string full_name { get; set; }
         public Nullable<int> gender { get; set; }
         public Nullable<int> birthday { get; set; }
         public string phone { get; set; }
@@ -37,12 +36,18 @@ namespace PropertyManager.Models
         public string contact { get; set; }
         public string description { get; set; }
         public string avatar { get; set; }
+        public string work_phone { get; set; }
+        public string tax_code { get; set; }
+        public string bank_account { get; set; }
+        public string bank_name { get; set; }
+        public string bank_number { get; set; }
+        public string bank_branch { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<apartment> apartments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_account> user_account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_visit> user_visit { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<apartment> apartments { get; set; }
     }
 }

@@ -186,8 +186,7 @@ namespace PropertyManager.Controllers
                     Id = p.user_profile.user_profile_id,
                     Avatar = p.user_profile.avatar,
                     Email = p.user_profile.email,
-                    FirstName = p.user_profile.first_name,
-                    LastName = p.user_profile.last_name,
+                    FullName = p.user_profile.full_name,
                     Phone = p.user_profile.phone
                 },
                 ImgList = p.aparment_image.Where(q => q.type == 0).OrderBy(q => q.type).Select(q => new ApartmentImageModel()
@@ -234,8 +233,7 @@ namespace PropertyManager.Controllers
                 UserProfileOwner = new UserProfileModel()
                 {
                     Id = apartment.user_profile.user_profile_id,
-                    FirstName = apartment.user_profile.first_name,
-                    LastName = apartment.user_profile.last_name,
+                    FullName = apartment.user_profile.full_name,
                     Avatar = apartment.user_profile.avatar
                 },
                 FacilityList = apartment.apartment_facility.Select(q => new FacilityModel()

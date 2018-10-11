@@ -58,7 +58,7 @@ namespace PropertyManager.Services
             return ApartmentRepository.FindBy(p =>
                     ((status == -1 && p.status != 2) || p.status == status) && (Equals(search, null) || p.city.Contains(search) ||
                                                              p.address.Contains(search) ||
-                                                             p.code.Contains(search)) || (p.user_profile.first_name + " " + p.user_profile.last_name).Contains(search) || p.user_profile.phone.Contains(search)).Include(p => p.apartment_content).Include(p => p.user_profile).Include(p => p.aparment_image).Include(p => p.apartment_facility).OrderByDescending(p => p.apartment_id).ToList();
+                                                             p.code.Contains(search)) || (p.user_profile.full_name).Contains(search) || p.user_profile.phone.Contains(search)).Include(p => p.apartment_content).Include(p => p.user_profile).Include(p => p.aparment_image).Include(p => p.apartment_facility).OrderByDescending(p => p.apartment_id).ToList();
         }
 
         public apartment GetApartmentById(int id)
