@@ -79,7 +79,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
         model.assign(scope.$parent, {
             update: function() {
                 cleanUpAll(table)
-                initialiseAll(table, attr, scope)
+                initialiseAll(table, attr, scope,1)
             },
             reset: function() {
                 resetTable(table)
@@ -110,7 +110,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
         handles = []
     }
 
-    function initialiseAll(table, attr, scope) {
+    function initialiseAll(table, attr, scope,statuss) {
         // If busy, postpone initialization
         if (scope.busy) return
 
@@ -141,7 +141,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
         resizer.setup();
 
         // Set column sizes from cache
-        setColumnSizes(cache);
+        setColumnSizes(cache,1);
 
         // Initialise all handlers for every column
         handleColumns.each(function(index, column) {
@@ -303,7 +303,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
             resizer.onEndDrag();
 
             saveColumnSizes();
-            setColumnSizes(1);
+            setColumnSizes(cache,1);
         }
     }
 
@@ -321,19 +321,19 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
         resizeStorage.saveTableSizes(table, mode, profile, cache);
     }
 
-    function setColumnSizes(cache) {
+    function setColumnSizes(cache,test) {
         if (!cache) {
             return;
         }
 
-        if (cache == 1) {
+        if (test == 1) {
             $(table).width('auto');
 
             ctrlColumns.each(function(index, column){
                 var colScope = angular.element(column).scope()
                 var id = colScope.rzCol || $(column).attr('id')
                 var cacheWidth = cache[id];
-                $(column).css({ width: Number(cacheWidth) - 23 });
+                $(column).css({ width: Number(cacheWidth) - 25 });
             })
 
             resizer.onTableReady();

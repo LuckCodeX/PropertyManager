@@ -1,12 +1,16 @@
 function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
+	var saveCol = true;
+    var colOld = {index: 0,type:"asc"};
 	$scope.loadApartmentList = function(){
 		$scope.status = false;
 		$scope.tableMode = "OverflowResizer";
 	    $scope.profile = 'one';
 	    $scope.options = {
+	    	onResizeStarted: function(){
+	    		saveCol = false;
+	    	},
 	      onResizeEnded: function() {
 	        $scope.checkResize();
-
 	      }
 	    };
 	    var profileOne = {
@@ -81,8 +85,11 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	    	$scope.status = true;
 	    });
 
-	    $("#resizeTable").on("click",".colSort",function(){
+	    $("#resizeTable tr th.colSort").on("click",function(event){
+			var currentIndex = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][0];
+	    	var currentType = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][1];
 	    	var index = $(this).index();
+	    	var searchText = $('#resizeTable_filter input').val();
 	    	if (index != 0) {
 	    		if($(this).hasClass('col2row')){
 	    			index += 4;
@@ -90,35 +97,48 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	    			index += 1;
 	    		}
 	    	};
-	    	if ($scope.status) {
-			      var searchText = $('#resizeTable_filter input').val();
-			      if($(this).hasClass('sorting_asc')){
-			        $('.js-basic-example').DataTable().destroy();
-			        $('.js-basic-example').DataTable( {
-			          "order": [[ index, "asc" ]],
-			          paging: false,
-			          "language": {
-					    "search": "Tìm kiếm:"
-					  }
-			        });
-			        $('.js-basic-example').DataTable().search(searchText).draw();
-			       
-			      }else if($(this).hasClass('sorting_desc')){
-			        $('.js-basic-example').DataTable().destroy();
-			        $('.js-basic-example').DataTable( {
-			          "order": [[ index, "desc" ]],
-			          paging: false,
-			          "language": {
-					    "search": "Tìm kiếm:"
-					  }
-			        });
-			        $('.js-basic-example').DataTable().search(searchText).draw();
-			      }
-			    $scope.status = false;
+	    	if (saveCol) {
+	    		if ($(this).hasClass('sorting_asc')) {
+	                colOld = {index:index,type: "asc"};
+	            }else if($(this).hasClass('sorting_desc')){
+	                colOld = [[ index, "desc" ]];
+	            };
+	            if ($scope.status) {
+	            	event.stopImmediatePropagation();
+				      if(currentIndex == index && currentType == "asc"){
+				      		$('.js-basic-example').DataTable().destroy();
+					        $('.js-basic-example').DataTable( {
+					          "order": [[ index, "desc" ]],
+					          paging: false,
+					          "language": {
+							    "search": "Tìm kiếm:"
+							  }
+					        });
+				        	$('.js-basic-example').DataTable().search(searchText).draw();
+				      }else{
+				      		$('.js-basic-example').DataTable().destroy();
+					        $('.js-basic-example').DataTable( {
+					          "order": [[ index, "asc" ]],
+					          paging: false,
+					          "language": {
+							    "search": "Tìm kiếm:"
+							  }
+					        });
+				        	$('.js-basic-example').DataTable().search(searchText).draw();
+				      }
+				      $scope.table.update();
+				      $scope.checkResize();
+			    	  $scope.status = false;
+		    	}
+	    	}else{
+	    		event.stopImmediatePropagation();
 	    	}
+	    	saveCol = true;
 	    });
-
 	    
+	    window.onbeforeunload = function(){
+		  localStorage.removeItem('ngColumnResize.resizeTable.OverflowResizer.one');
+		};
 
 	    $timeout(function() {
 	         $('.js-basic-example').DataTable({
