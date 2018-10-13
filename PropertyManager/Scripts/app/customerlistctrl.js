@@ -141,7 +141,7 @@ function CustomerListCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 	}
 	
     $scope.checkResize = function(){
-        var width = 1;
+        var width = 0;
         width += document.getElementById('colIndex').offsetWidth;
         $('.colProject').css("left",width+"px");
         width += document.getElementById('colProject').offsetWidth;

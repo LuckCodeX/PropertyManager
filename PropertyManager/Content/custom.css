@@ -2,6 +2,10 @@ a, a:hover, a:active, a:visited, a:focus {
     text-decoration:none;
 }
 
+body{
+	background: #e8e6e7;
+}
+
 button:focus,a:focus{
 	outline: none !important;
 }
@@ -460,6 +464,9 @@ button.has-badge{
 .warp.full-height{
 	min-height: calc(100vh - 250px);
 }
+.warp.full-height.has-table{
+	max-height: calc(100vh - 118px);
+}
 
 .table-list{
 	clear: both;
@@ -610,8 +617,12 @@ button:focus {outline:0;}
 	font-size: 12px
 }
 .footer{
+	overflow: hidden;
+	margin-top: 30px;
+	background: white;
 	padding: 0 30px;
-    line-height: 30px
+    line-height: 40px;
+    height: 40px;
 }
 .float-left{
 	float: left !important;
@@ -881,7 +892,7 @@ input::-webkit-inner-spin-button {
 	}
 
 	table.rz-table th .rz-handle {
-	    width: 6px;
+	    width: 5px;
 	    height: 100%;
 	    position: absolute;
 	    top: 0;
@@ -912,7 +923,7 @@ input::-webkit-inner-spin-button {
     text-overflow: ellipsis;
 	  }
 	  #resizeTable thead tr:last-child th{
-	    top: 47px;
+	    top: 46px;
 	  }
 	  #resizeTable thead tr th:first-child{
 	    position: sticky;
@@ -970,7 +981,7 @@ input::-webkit-inner-spin-button {
 	   }
 
 	   #resizeTable #colIndex{
-	   	left: 1px;
+	   	left: 0px;
 	   }
 	   #resizeTable_wrapper > .row{
 	   	margin-right: 0 !important;
