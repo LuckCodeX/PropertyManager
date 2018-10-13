@@ -981,7 +981,7 @@ input::-webkit-inner-spin-button {
 	   }
 
 	   #resizeTable #colIndex{
-	   	left: 1px;
+	   	left: 0px;
 	   }
 	   #resizeTable_wrapper > .row{
 	   	margin-right: 0 !important;
