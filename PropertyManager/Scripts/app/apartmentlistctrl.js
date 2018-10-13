@@ -86,6 +86,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	    });
 
 	    $("#resizeTable tr th.colSort").on("click",function(event){
+	    	var scrollPx = $("#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12").scrollLeft();
 			var currentIndex = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][0];
 	    	var currentType = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][1];
 	    	var index = $(this).index();
@@ -104,6 +105,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	                colOld = [[ index, "desc" ]];
 	            };
 	            if ($scope.status) {
+
 	            	event.stopImmediatePropagation();
 				      if(currentIndex == index && currentType == "asc"){
 				      		$('.js-basic-example').DataTable().destroy();
@@ -128,6 +130,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 				      }
 				      $scope.table.update();
 				      $scope.checkResize();
+				      $("#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12").scrollLeft(scrollPx);
 			    	  $scope.status = false;
 		    	}
 	    	}else{
@@ -152,7 +155,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	}
 	
     $scope.checkResize = function(){
-        var width = 1;
+        var width = 0;
         width += document.getElementById('colIndex').offsetWidth;
         $('.colProject').css("left",width+"px");
         width += document.getElementById('colProject').offsetWidth;
