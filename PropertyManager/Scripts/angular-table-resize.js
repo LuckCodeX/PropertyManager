@@ -79,7 +79,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
         model.assign(scope.$parent, {
             update: function() {
                 cleanUpAll(table)
-                initialiseAll(table, attr, scope,1)
+                initialiseAll(table, attr, scope)
             },
             reset: function() {
                 resetTable(table)
@@ -333,7 +333,7 @@ angular.module("rzTable").directive('rzTable', ['resizeStorage', '$injector', '$
                 var colScope = angular.element(column).scope()
                 var id = colScope.rzCol || $(column).attr('id')
                 var cacheWidth = cache[id];
-                $(column).css({ width: Number(cacheWidth) - 25 });
+                $(column).css({ width: cacheWidth });
             })
 
             resizer.onTableReady();

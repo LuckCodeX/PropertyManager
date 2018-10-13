@@ -164,7 +164,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $('.colCountHouse').css("left",width+"px");
         width += document.getElementById('colCountHouse').offsetWidth;
         $('.colArea').css("left",width+"px");
-        width += document.getElementById('colArea').offsetWidth;
+        width += document.getElementById('colArea').offsetWidth ;
         $('.colBedroom').css("left",width+"px");
     };
 

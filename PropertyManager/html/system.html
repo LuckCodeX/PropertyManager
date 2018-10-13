@@ -2,16 +2,16 @@
     <div class="left-side-bar">
     	<div class="nav-menu-left">
     		<div class="nav-menu-parent">
-	    		<a ui-sref="system.account">Tài khoản CRM</a>
+	    		<a ui-sref="system.account" ng-class="{active: $state.includes('system.account')}">Tài khoản CRM</a>
 	    	</div>
     	</div>
     	<div class="nav-menu-left">
     		<div class="nav-menu-parent">
-	    		<a data-toggle="collapse" href="#collapse1">Nhập dữ liệu</a>
+	    		<a data-toggle="collapse" href="#" data-target="#collapse1" ng-class="{active: $state.includes('system.importcustomer') || $state.includes('system.importapartment')}">Nhập dữ liệu</a>
 	    	</div>
-	    	<div id="collapse1" class="nav-menu-child collapse in">
-	        	<a class="active" ui-sref="system.importcustomer">Khách hàng</a>
-	        	<a ui-sref="system.importapartment">Căn hộ</a>
+	    	<div id="collapse1" class="nav-menu-child collapse" ng-class="{in: $state.includes('system.importcustomer') || $state.includes('system.importapartment')}">
+	        	<a ui-sref="system.importcustomer" ng-class="{active: $state.includes('system.importcustomer')}">Khách hàng</a>
+	        	<a ui-sref="system.importapartment" ng-class="{active: $state.includes('system.importapartment')}">Căn hộ</a>
 	      	</div>
     	</div>
     	

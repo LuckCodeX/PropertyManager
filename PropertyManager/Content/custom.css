@@ -892,14 +892,13 @@ input::-webkit-inner-spin-button {
 	}
 
 	table.rz-table th .rz-handle {
-	    width: 5px;
+	    width: 10px;
 	    height: 100%;
 	    position: absolute;
 	    top: 0;
 	    right: 0;
 	    cursor: ew-resize !important;
-		background: #ddd;
-		border-left: 4px solid #f7f7f7;
+		background: #f7f7f7;;
 	}
 
 	table.rz-table th .rz-handle.rz-handle-active {
@@ -921,9 +920,10 @@ input::-webkit-inner-spin-button {
 	    white-space: nowrap;
 	    overflow: hidden;
     text-overflow: ellipsis;
+	
 	  }
 	  #resizeTable thead tr:last-child th{
-	    top: 46px;
+	    top: 48px;
 	  }
 	  #resizeTable thead tr th:first-child{
 	    position: sticky;
@@ -932,7 +932,7 @@ input::-webkit-inner-spin-button {
 	  }
 	  #resizeTable tr td:first-child{
 	    position: sticky;
-	    left: 1px;
+	    left: 0px;
 	     z-index: 4 ;
 	  
 	  }
@@ -1053,4 +1053,7 @@ input::-webkit-inner-spin-button {
 		}
 		#resizeTable_filter{
 			margin-right: -15px;
+		}
+		#resizeTable tr th, #resizeTable tr td{
+			border: 1px solid #ddd;
 		}
