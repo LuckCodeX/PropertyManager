@@ -458,7 +458,7 @@ button.has-badge{
 }
 
 .warp.full-height{
-	min-height: 85vh;
+	min-height: calc(100vh - 250px);
 }
 
 .table-list{
@@ -473,7 +473,7 @@ button.has-badge{
 }
 
 .body-warp{
-	padding-top: 20px;
+	padding: 20px 30px 0 30px;
 }
 
 .title-warp{
@@ -553,7 +553,7 @@ button.has-badge{
 .body-content{
 	background: #e8e6e7;
 	/*padding-top: 30px;*/
-	min-height: 90vh;
+	min-height: calc(80vh - 250px );
 }
 
 .form-ctrl{
@@ -977,10 +977,14 @@ input::-webkit-inner-spin-button {
 	   }
 	   #resizeTable_wrapper > .row:nth-child(2){
 	   	margin-top: 20px;
+	   	margin-left: 0;
+
 	   }
 	   #resizeTable_wrapper > .row:nth-child(2) > .col-sm-12{
 	   	overflow: scroll;
-	   	height: calc(100vh - 100px);
+	   	padding: 0;
+	   	height: calc(100vh - 300px);
+	   	border: 1px solid #ddd;
 	   }
 	   /*#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12 table{
 	   	padding-bottom: 10px; 
@@ -998,7 +1002,7 @@ input::-webkit-inner-spin-button {
 	   	position: absolute;
 	   	left: 0;
 	   	top: 0;
-	   	padding-left: 10px;
+	   	padding-left: 0px;
 	   }
 	   .body-content #tableApartmentList{
 	   	overflow: none !important;
@@ -1016,7 +1020,7 @@ input::-webkit-inner-spin-button {
 		}
 
 		#resizeTable tr td{
-			border-right: 2px solid #ddd;
+			border-right: 1px solid #ddd;
 		}
 
 		.input-row.btn.btn-save{
@@ -1030,9 +1034,12 @@ input::-webkit-inner-spin-button {
 			padding-right: 0 !important;
 		}
 		.no-padding-lr .header-warp{
-			padding-left: 10px !important;
-			padding-right: 10px !important;
+			padding-left: 30px !important;
+			padding-right: 30px !important;
 		}
 		.customer-table tr th{
 			top: 0 !important;
+		}
+		#resizeTable_filter{
+			margin-right: -15px;
 		}
