@@ -86,6 +86,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	    });
 
 	    $("#resizeTable tr th.colSort").on("click",function(event){
+	    	console.log($scope.table);
 	    	var scrollPx = $("#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12").scrollLeft();
 			var currentIndex = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][0];
 	    	var currentType = $('.js-basic-example').dataTable().fnSettings().aaSorting[0][1];
@@ -134,6 +135,7 @@ function ApartmentListCtrl($scope, $rootScope, $stateParams, $location, $timeout
 			    	  $scope.status = false;
 		    	}
 	    	}else{
+	    		console.log("wrong!");
 	    		event.stopImmediatePropagation();
 	    	}
 	    	saveCol = true;

@@ -116,6 +116,7 @@ function CustomerListCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 					        });
 				        	$('.js-basic-example').DataTable().search(searchText).draw();
 				      }
+				      $scope.table.update();
 				      $scope.checkResize();
 			    	  $scope.status = false;
 		    	}
