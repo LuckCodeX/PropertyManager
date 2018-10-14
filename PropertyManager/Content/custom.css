@@ -465,7 +465,7 @@ button.has-badge{
 	min-height: calc(100vh - 250px);
 }
 .warp.full-height.has-table{
-	max-height: calc(100vh - 118px);
+	max-height: calc(100vh - 110px);
 }
 
 .table-list{
@@ -618,7 +618,7 @@ button:focus {outline:0;}
 }
 .footer{
 	overflow: hidden;
-	margin-top: 30px;
+	margin-top: 20px;
 	background: white;
 	padding: 0 30px;
     line-height: 40px;
@@ -923,7 +923,7 @@ input::-webkit-inner-spin-button {
 	
 	  }
 	  #resizeTable thead tr:last-child th{
-	    top: 48px;
+	    top: 47px;
 	  }
 	  #resizeTable thead tr th:first-child{
 	    position: sticky;
@@ -933,8 +933,8 @@ input::-webkit-inner-spin-button {
 	  #resizeTable tr td:first-child{
 	    position: sticky;
 	    left: 0px;
-	     z-index: 4 ;
-	  
+	    z-index: 4 ;
+	  	line-height: 30px;
 	  }
 	  #resizeTable thead tr{
 	  	background: #f7f7f7;
@@ -943,7 +943,8 @@ input::-webkit-inner-spin-button {
 
 	  #resizeTable thead tr th{
 	  	line-height: 36px;
-	  	border-bottom-width: 1px;
+	  	/*border-bottom-width: 1px;*/
+	  	border-bottom: 1px solid #ddd;
 	  }
 
 	   #resizeTable tr td{
@@ -997,12 +998,20 @@ input::-webkit-inner-spin-button {
 	   	height: calc(100vh - 300px);
 	   	border: 1px solid #ddd;
 	   }
+
+	   #resizeTable_wrapper > .row:nth-child(3){
+	   		padding-top: 7px;
+
+	   }
+	   #resizeTable_wrapper > .row:nth-child(3) > .col-sm-7{
+	   	padding-right: 0;
+	   }
 	   /*#resizeTable_wrapper > .row:nth-child(2) > .col-sm-12 table{
 	   	padding-bottom: 10px; 
 	   }*/
 
 	   #resizeTable tbody tr:last-child td{
-	   		border-bottom: 1px solid #ddd;
+	   		/*border-bottom: 1px solid #ddd;*/
 	   }
 
 	   #tableApartmentList{
@@ -1023,14 +1032,18 @@ input::-webkit-inner-spin-button {
 	   		line-height: 80px !important;
 	   }
 
+	   #resizeTable > tbody > tr:first-child > td{
+	   	border-top: none;
+	   }
+/*
 	   #resizeTable thead:after {
 		    content: "-";
 		    display: block;
 		    line-height: 10px;
 		    color: transparent;
-		}
+		}*/
 
-		#resizeTable tr td{
+		#resizeTable tr td,#resizeTable tr th{
 			border-right: 1px solid #ddd;
 		}
 
@@ -1055,5 +1068,8 @@ input::-webkit-inner-spin-button {
 			margin-right: -15px;
 		}
 		#resizeTable tr th, #resizeTable tr td{
-			border: 1px solid #ddd;
+			/*border: 0.5px solid #ddd;*/
+		}
+		.no-padding-lr{
+			padding-bottom: 10px;
 		}

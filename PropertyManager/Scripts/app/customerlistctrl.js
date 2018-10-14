@@ -14,7 +14,7 @@ function CustomerListCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 
 	      }
 	    };
-	    var profileOne = {"colIndex":135,"colNameCompany":135,
+	    var profileOne = {"colIndex":50,"colNameCompany":135,
 					    "colFaxCode":135,"colEmail":135,"colTaxCode":135,
 					    "colIdNumber":157,"colAddress":135,
 					    "colCountInteractive":135,"colBankId":135,
@@ -99,20 +99,32 @@ function CustomerListCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 				      		$('.js-basic-example').DataTable().destroy();
 					        $('.js-basic-example').DataTable( {
 					          "order": [[ index, "desc" ]],
-					          paging: false,
+					          "pageLength": 50,
+	         				  "bLengthChange": false,
 					          "language": {
-							    "search": "Tìm kiếm:"
-							  }
+								    "search": "Tìm kiếm:",
+								    "info": "Hiện từ _START_ đến _END_ trên tổng _TOTAL_",
+								    "paginate": {
+								      "previous": "Trước",
+								      "next":"Sau"
+								    }
+							 	 }
 					        });
 				        	$('.js-basic-example').DataTable().search(searchText).draw();
 				      }else{
 				      		$('.js-basic-example').DataTable().destroy();
 					        $('.js-basic-example').DataTable( {
 					          "order": [[ index, "asc" ]],
-					          paging: false,
+					          "pageLength": 50,
+	         				  "bLengthChange": false,
 					          "language": {
-							    "search": "Tìm kiếm:"
-							  }
+								    "search": "Tìm kiếm:",
+								    "info": "Hiện từ _START_ đến _END_ trên tổng _TOTAL_",
+								    "paginate": {
+								      "previous": "Trước",
+								      "next":"Sau"
+								    }
+							 	 }
 					        });
 				        	$('.js-basic-example').DataTable().search(searchText).draw();
 				      }
@@ -132,10 +144,17 @@ function CustomerListCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 
 	    $timeout(function() {
 	         $('.js-basic-example').DataTable({
-	         	paging: false,
+	         	"pageLength": 50,
+	         	"bLengthChange": false,
 	         	"language": {
-				    "search": "Tìm kiếm:"
-				  }});
+				    "search": "Tìm kiếm:",
+				    "info": "Hiện từ _START_ đến _END_ trên tổng _TOTAL_",
+				    "paginate": {
+				      "previous": "Trước",
+				      "next":"Sau"
+				    }
+			 	 }
+	         });
 	         $scope.checkResize();
 	         $("input[type='search']").addClass('form-ctrl');
 	    }, 500);
