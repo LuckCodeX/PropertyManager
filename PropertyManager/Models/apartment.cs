@@ -28,17 +28,19 @@ namespace PropertyManager.Models
         public int created_date { get; set; }
         public int status { get; set; }
         public string code { get; set; }
-        public decimal price { get; set; }
-        public decimal area { get; set; }
-        public int no_bedroom { get; set; }
-        public int no_bathroom { get; set; }
+        public Nullable<decimal> price { get; set; }
+        public Nullable<decimal> area { get; set; }
+        public Nullable<int> no_bedroom { get; set; }
+        public Nullable<int> no_bathroom { get; set; }
         public string address { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
+        public Nullable<double> latitude { get; set; }
+        public Nullable<double> longitude { get; set; }
         public string city { get; set; }
         public Nullable<int> project_id { get; set; }
         public int type { get; set; }
-        public decimal management_fee { get; set; }
+        public Nullable<decimal> management_fee { get; set; }
+        public string no_apartment { get; set; }
+        public string building { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aparment_image> aparment_image { get; set; }
@@ -47,8 +49,8 @@ namespace PropertyManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment_facility> apartment_facility { get; set; }
         public virtual project project { get; set; }
+        public virtual user_profile user_profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_visit> user_visit { get; set; }
-        public virtual user_profile user_profile { get; set; }
     }
 }

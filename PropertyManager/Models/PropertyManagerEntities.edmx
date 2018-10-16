@@ -34,17 +34,19 @@
           <Property Name="created_date" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="area" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="no_bedroom" Type="int" Nullable="false" />
-          <Property Name="no_bathroom" Type="int" Nullable="false" />
-          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="latitude" Type="float" Nullable="false" />
-          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="area" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="no_bedroom" Type="int" />
+          <Property Name="no_bathroom" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
           <Property Name="city" Type="nvarchar" MaxLength="50" />
           <Property Name="project_id" Type="int" />
           <Property Name="type" Type="int" Nullable="false" />
-          <Property Name="management_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="management_fee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="no_apartment" Type="nvarchar" MaxLength="10" />
+          <Property Name="building" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="apartment_content">
           <Key>
@@ -141,7 +143,7 @@
             <PropertyRef Name="user_profile_id" />
           </Key>
           <Property Name="user_profile_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="created_date" Type="int" Nullable="false" />
           <Property Name="full_name" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -153,13 +155,23 @@
           <Property Name="work" Type="nvarchar" MaxLength="255" />
           <Property Name="contact" Type="nvarchar" MaxLength="255" />
           <Property Name="description" Type="ntext" />
-          <Property Name="avatar" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="avatar" Type="varchar" MaxLength="255" />
           <Property Name="work_phone" Type="varchar" MaxLength="50" />
           <Property Name="tax_code" Type="varchar" MaxLength="50" />
           <Property Name="bank_account" Type="varchar" MaxLength="100" />
           <Property Name="bank_name" Type="nvarchar" MaxLength="255" />
           <Property Name="bank_number" Type="varchar" MaxLength="50" />
           <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="user_social">
+          <Key>
+            <PropertyRef Name="user_social_id" />
+          </Key>
+          <Property Name="user_social_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_profile_id" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user_visit">
           <Key>
@@ -331,6 +343,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__user_goog__user___29221CFB">
+          <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="user_social" Type="Self.user_social" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_social">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__user_visi__apart__44FF419A">
           <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
           <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
@@ -372,6 +398,7 @@
           <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="Self.FK__admin__parent_id__02084FDA">
             <End Role="admin" EntitySet="admin" />
@@ -416,6 +443,10 @@
           <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="Self.FK__user_acco__user___1273C1CD">
             <End Role="user_profile" EntitySet="user_profile" />
             <End Role="user_account" EntitySet="user_account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_goog__user___29221CFB" Association="Self.FK__user_goog__user___29221CFB">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_social" EntitySet="user_social" />
           </AssociationSet>
           <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
             <End Role="apartment" EntitySet="apartment" />
@@ -562,7 +593,6 @@
           <Property Name="user_visit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_profile_id" Type="Int32" Nullable="false" />
           <Property Name="apartment_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="user_visit" ToRole="apartment" />
           <Property Name="is_management_fee" Type="Boolean" Nullable="false" />
           <Property Name="is_internet_wifi" Type="Boolean" Nullable="false" />
           <Property Name="tv_type" Type="Int32" Nullable="false" />
@@ -574,6 +604,7 @@
           <Property Name="total_price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="service_price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__user_visi__user___440B1D61" FromRole="user_visit" ToRole="user_profile" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="user_visit" ToRole="apartment" />
         </EntityType>
         <Association Name="FK__apartment__facil__286302EC">
           <End Role="facility" Type="Self.facility" Multiplicity="1">
@@ -665,6 +696,20 @@
             <End Role="admin" EntitySet="admins" />
             <End Role="admin1" EntitySet="admins" />
           </AssociationSet>
+          <EntitySet Name="user_profile" EntityType="PropertyManagerModel.user_profile" />
+          <EntitySet Name="user_social" EntityType="PropertyManagerModel.user_social" />
+          <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="PropertyManagerModel.FK__user_acco__user___1273C1CD">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_account" EntitySet="user_account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_goog__user___29221CFB" Association="PropertyManagerModel.FK__user_goog__user___29221CFB">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_social" EntitySet="user_social" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_visi__user___440B1D61" Association="PropertyManagerModel.FK__user_visi__user___440B1D61">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_visit" EntitySet="user_visit" />
+          </AssociationSet>
           <EntitySet Name="apartments" EntityType="PropertyManagerModel.apartment" />
           <AssociationSet Name="FK__aparment___apart__1ED998B2" Association="PropertyManagerModel.FK__aparment___apart__1ED998B2">
             <End Role="apartment" EntitySet="apartments" />
@@ -682,24 +727,15 @@
             <End Role="project" EntitySet="projects" />
             <End Role="apartment" EntitySet="apartments" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="PropertyManagerModel.FK__user_visi__apart__44FF419A">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="user_visit" EntitySet="user_visit" />
-          </AssociationSet>
-          <EntitySet Name="user_profile" EntityType="PropertyManagerModel.user_profile" />
           <AssociationSet Name="FK__apartment__user___164452B1" Association="PropertyManagerModel.FK__apartment__user___164452B1">
             <End Role="user_profile" EntitySet="user_profile" />
             <End Role="apartment" EntitySet="apartments" />
           </AssociationSet>
-          <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="PropertyManagerModel.FK__user_acco__user___1273C1CD">
-            <End Role="user_profile" EntitySet="user_profile" />
-            <End Role="user_account" EntitySet="user_account" />
-          </AssociationSet>
-          <AssociationSet Name="FK__user_visi__user___440B1D61" Association="PropertyManagerModel.FK__user_visi__user___440B1D61">
-            <End Role="user_profile" EntitySet="user_profile" />
+          <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="PropertyManagerModel.FK__user_visi__apart__44FF419A">
+            <End Role="apartment" EntitySet="apartments" />
             <End Role="user_visit" EntitySet="user_visit" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
           <End Type="PropertyManagerModel.admin" Role="admin1" Multiplicity="*" />
@@ -712,6 +748,88 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="user_profile">
+          <Key>
+            <PropertyRef Name="user_profile_id" />
+          </Key>
+          <Property Name="user_profile_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="full_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="Int32" />
+          <Property Name="birthday" Type="Int32" />
+          <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="img_verification_1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="img_verification_2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="work" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="work_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tax_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bank_account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user_account" Relationship="PropertyManagerModel.FK__user_acco__user___1273C1CD" FromRole="user_profile" ToRole="user_account" />
+          <NavigationProperty Name="user_social" Relationship="PropertyManagerModel.FK__user_goog__user___29221CFB" FromRole="user_profile" ToRole="user_social" />
+          <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__user___440B1D61" FromRole="user_profile" ToRole="user_visit" />
+          <NavigationProperty Name="apartments" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="user_profile" ToRole="apartment" />
+        </EntityType>
+        <EntityType Name="user_social">
+          <Key>
+            <PropertyRef Name="user_social_id" />
+          </Key>
+          <Property Name="user_social_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_profile_id" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__user_goog__user___29221CFB" FromRole="user_social" ToRole="user_profile" />
+        </EntityType>
+        <Association Name="FK__user_acco__user___1273C1CD">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.user_account" Role="user_account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_account">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__user_goog__user___29221CFB">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.user_social" Role="user_social" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_social">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__user_visi__user___440B1D61">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.user_visit" Role="user_visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_visit">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="apartment">
           <Key>
             <PropertyRef Name="apartment_id" />
@@ -721,23 +839,25 @@
           <Property Name="created_date" Type="Int32" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="area" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="no_bedroom" Type="Int32" Nullable="false" />
-          <Property Name="no_bathroom" Type="Int32" Nullable="false" />
-          <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="latitude" Type="Double" Nullable="false" />
-          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="area" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="no_bedroom" Type="Int32" />
+          <Property Name="no_bathroom" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="project_id" Type="Int32" />
           <Property Name="type" Type="Int32" Nullable="false" />
-          <Property Name="management_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="management_fee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="no_apartment" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="building" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="aparment_image" Relationship="PropertyManagerModel.FK__aparment___apart__1ED998B2" FromRole="apartment" ToRole="aparment_image" />
           <NavigationProperty Name="apartment_content" Relationship="PropertyManagerModel.FK__apartment__apart__1A14E395" FromRole="apartment" ToRole="apartment_content" />
           <NavigationProperty Name="apartment_facility" Relationship="PropertyManagerModel.FK__apartment__apart__276EDEB3" FromRole="apartment" ToRole="apartment_facility" />
           <NavigationProperty Name="project" Relationship="PropertyManagerModel.FK__apartment__proje__4AB81AF0" FromRole="apartment" ToRole="project" />
-          <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit" />
           <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="apartment" ToRole="user_profile" />
+          <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit" />
         </EntityType>
         <Association Name="FK__aparment___apart__1ED998B2">
           <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
@@ -795,46 +915,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_visi__apart__44FF419A">
-          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1" />
-          <End Type="PropertyManagerModel.user_visit" Role="user_visit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="user_visit">
-              <PropertyRef Name="apartment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="user_profile">
-          <Key>
-            <PropertyRef Name="user_profile_id" />
-          </Key>
-          <Property Name="user_profile_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="created_date" Type="Int32" Nullable="false" />
-          <Property Name="full_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="gender" Type="Int32" />
-          <Property Name="birthday" Type="Int32" />
-          <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="img_verification_1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="img_verification_2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="work" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="avatar" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="work_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="tax_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="bank_account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="apartments" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="user_profile" ToRole="apartment" />
-          <NavigationProperty Name="user_account" Relationship="PropertyManagerModel.FK__user_acco__user___1273C1CD" FromRole="user_profile" ToRole="user_account" />
-          <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__user___440B1D61" FromRole="user_profile" ToRole="user_visit" />
-        </EntityType>
         <Association Name="FK__apartment__user___164452B1">
           <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -849,35 +929,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__user_acco__user___1273C1CD">
-          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="PropertyManagerModel.user_account" Role="user_account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user_profile">
-              <PropertyRef Name="user_profile_id" />
-            </Principal>
-            <Dependent Role="user_account">
-              <PropertyRef Name="user_profile_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__user_visi__user___440B1D61">
-          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__user_visi__apart__44FF419A">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1" />
           <End Type="PropertyManagerModel.user_visit" Role="user_visit" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="user_profile">
-              <PropertyRef Name="user_profile_id" />
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
             </Principal>
             <Dependent Role="user_visit">
-              <PropertyRef Name="user_profile_id" />
+              <PropertyRef Name="apartment_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1024,31 +1088,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="apartments">
-            <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
-              <MappingFragment StoreEntitySet="apartment">
-                <ScalarProperty Name="management_fee" ColumnName="management_fee" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="project_id" ColumnName="project_id" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="latitude" ColumnName="latitude" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
-                <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
-                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="user_profile">
             <EntityTypeMapping TypeName="PropertyManagerModel.user_profile">
               <MappingFragment StoreEntitySet="user_profile">
+                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
                 <ScalarProperty Name="bank_number" ColumnName="bank_number" />
                 <ScalarProperty Name="bank_name" ColumnName="bank_name" />
@@ -1069,6 +1112,40 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_social">
+            <EntityTypeMapping TypeName="PropertyManagerModel.user_social">
+              <MappingFragment StoreEntitySet="user_social">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="user_social_id" ColumnName="user_social_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="apartments">
+            <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
+              <MappingFragment StoreEntitySet="apartment">
+                <ScalarProperty Name="building" ColumnName="building" />
+                <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />
+                <ScalarProperty Name="management_fee" ColumnName="management_fee" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="no_bathroom" ColumnName="no_bathroom" />
+                <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
+                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

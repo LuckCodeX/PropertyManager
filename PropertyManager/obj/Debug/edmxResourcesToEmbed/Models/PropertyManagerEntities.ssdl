@@ -29,17 +29,19 @@
     <Property Name="created_date" Type="int" Nullable="false" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="area" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="no_bedroom" Type="int" Nullable="false" />
-    <Property Name="no_bathroom" Type="int" Nullable="false" />
-    <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
-    <Property Name="latitude" Type="float" Nullable="false" />
-    <Property Name="longitude" Type="float" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="area" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="no_bedroom" Type="int" />
+    <Property Name="no_bathroom" Type="int" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="latitude" Type="float" />
+    <Property Name="longitude" Type="float" />
     <Property Name="city" Type="nvarchar" MaxLength="50" />
     <Property Name="project_id" Type="int" />
     <Property Name="type" Type="int" Nullable="false" />
-    <Property Name="management_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="management_fee" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="no_apartment" Type="nvarchar" MaxLength="10" />
+    <Property Name="building" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="apartment_content">
     <Key>
@@ -136,7 +138,7 @@
       <PropertyRef Name="user_profile_id" />
     </Key>
     <Property Name="user_profile_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
     <Property Name="full_name" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -148,13 +150,23 @@
     <Property Name="work" Type="nvarchar" MaxLength="255" />
     <Property Name="contact" Type="nvarchar" MaxLength="255" />
     <Property Name="description" Type="ntext" />
-    <Property Name="avatar" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="avatar" Type="varchar" MaxLength="255" />
     <Property Name="work_phone" Type="varchar" MaxLength="50" />
     <Property Name="tax_code" Type="varchar" MaxLength="50" />
     <Property Name="bank_account" Type="varchar" MaxLength="100" />
     <Property Name="bank_name" Type="nvarchar" MaxLength="255" />
     <Property Name="bank_number" Type="varchar" MaxLength="50" />
     <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="user_social">
+    <Key>
+      <PropertyRef Name="user_social_id" />
+    </Key>
+    <Property Name="user_social_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="user_profile_id" Type="int" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="user_visit">
     <Key>
@@ -326,6 +338,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__user_goog__user___29221CFB">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user_social" Type="Self.user_social" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="user_profile_id" />
+      </Principal>
+      <Dependent Role="user_social">
+        <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__user_visi__apart__44FF419A">
     <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
     <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
@@ -367,6 +393,7 @@
     <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="Self.FK__admin__parent_id__02084FDA">
       <End Role="admin" EntitySet="admin" />
@@ -411,6 +438,10 @@
     <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="Self.FK__user_acco__user___1273C1CD">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_account" EntitySet="user_account" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_goog__user___29221CFB" Association="Self.FK__user_goog__user___29221CFB">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="user_social" EntitySet="user_social" />
     </AssociationSet>
     <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
       <End Role="apartment" EntitySet="apartment" />

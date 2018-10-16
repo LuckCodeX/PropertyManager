@@ -267,10 +267,14 @@
     </Compile>
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_profile.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user_social.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_visit.cs">
@@ -282,6 +286,7 @@
     <Compile Include="Services\FacilityService.cs" />
     <Compile Include="Services\GenericRepository.cs" />
     <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\Service.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -638,6 +643,8 @@
     <Content Include="html\apartment.html" />
     <Content Include="html\apartmentdetail.html" />
     <Content Include="html\apartmentlist.html" />
+    <Content Include="html\contract.html" />
+    <Content Include="html\contractdetail.html" />
     <Content Include="html\customerlist.html" />
     <Content Include="html\dashboard.html" />
     <Content Include="html\importapartment.html" />
@@ -756,6 +763,8 @@
     <Content Include="Views\Home\ImportCustomer.cshtml" />
     <Content Include="Views\Home\CustomerList.cshtml" />
     <Content Include="Views\Home\ApartmentList.cshtml" />
+    <Content Include="Views\Home\Contract.cshtml" />
+    <Content Include="Views\Home\ContractDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

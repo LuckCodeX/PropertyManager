@@ -12,15 +12,15 @@ namespace PropertyManager.Models
         public UserProfileModel UserProfileOwner { get; set; }
         public int Status { get; set; }
         public string Code { get; set; }
-        public decimal Price { get; set; }
-        public decimal ManagementFee { get; set; }
-        public decimal Area { get; set; }
-        public int NoBedRoom { get; set; }
-        public int NoBathRoom { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? ManagementFee { get; set; }
+        public decimal? Area { get; set; }
+        public int? NoBedRoom { get; set; }
+        public int? NoBathRoom { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
         public int? ProjectId { get; set; }
         public ProjectModel Project { get; set; }
         public int Type { get; set; }

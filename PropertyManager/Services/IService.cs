@@ -31,5 +31,11 @@ namespace PropertyManager.Services
         apartment_content GetApartmentContentById(int id);
         void SaveApartmentContent(apartment_content content);
         List<facility> GetAllFacilities();
+        project GetProjectByName(string name);
+        void SaveProject(project project);
+        void SaveProjectContent(project_content content);
+        user_profile GetUserProfileByNameAndPhone(string name, string phone);
+        void SaveUserProfile(user_profile userProfile);
+        void SaveListApartment(List<apartment> lst);
     }
 }

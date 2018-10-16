@@ -65,5 +65,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult Contract()
+        {
+            return View();
+        }
+
+        public ActionResult ContractDetail()
+        {
+            return View();
+        }
     }
 }

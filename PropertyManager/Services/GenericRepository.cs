@@ -36,6 +36,12 @@ namespace PropertyManager.Services
             Save();
         }
 
+        public virtual void SaveList(List<T> entity)
+        {
+            dbSet.AddRange(entity);
+            Save();
+        }
+
         //public virtual void Update(T entity)
         //{
         //    dbSet.Attach(entity);

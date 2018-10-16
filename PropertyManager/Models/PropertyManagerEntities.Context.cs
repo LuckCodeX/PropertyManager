@@ -38,7 +38,8 @@ namespace PropertyManager.Models
         public virtual DbSet<slide> slides { get; set; }
         public virtual DbSet<user_account> user_account { get; set; }
         public virtual DbSet<user_visit> user_visit { get; set; }
-        public virtual DbSet<apartment> apartments { get; set; }
         public virtual DbSet<user_profile> user_profile { get; set; }
+        public virtual DbSet<user_social> user_social { get; set; }
+        public virtual DbSet<apartment> apartments { get; set; }
     }
 }

@@ -21,8 +21,8 @@
                 <img src='/Images/logo.png' />
                 <span>Property +</span>
             </a>
-            <a class="nav-left-header" ui-sref="customerlist">Khách hàng</a>
-            <a class="nav-left-header" ui-sref="apartmentlist">Căn hộ</a>
+            <a class="nav-left-header" ui-sref="customerlist" ng-class="{active: $state.includes('customerlist')}">Khách hàng</a>
+            <a class="nav-left-header" ui-sref="apartmentlist" ng-class="{active: $state.includes('apartmentlist')}">Căn hộ</a>
             <a class="nav-left-header" ui-sref="apartment" ng-class="{active: $state.includes('apartment') || $state.includes('apartmentdetail')}">Nhà Mới</a>
             <a class="nav-left-header" ui-sref="system.account" ng-class="{active: $state.includes('system.account')}">Hệ thống</a>
         </div>

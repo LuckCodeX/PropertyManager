@@ -23,17 +23,19 @@
         <AssociationConnector Association="PropertyManagerModel.FK__facility___facil__24927208" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__project_c__proje__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__admin__parent_id__02084FDA" />
-        <EntityTypeShape EntityType="PropertyManagerModel.apartment" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_profile" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_social" Width="1.5" PointX="3" PointY="16.5" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_acco__user___1273C1CD" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_goog__user___29221CFB" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___440B1D61" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment" Width="1.5" PointX="3" PointY="4.875" />
         <AssociationConnector Association="PropertyManagerModel.FK__aparment___apart__1ED998B2" />
         <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__1A14E395" />
         <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__276EDEB3" />
         <AssociationConnector Association="PropertyManagerModel.FK__apartment__proje__4AB81AF0" />
-        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__apart__44FF419A" />
-        <EntityTypeShape EntityType="PropertyManagerModel.user_profile" Width="1.5" PointX="0.75" PointY="6.75" />
         <AssociationConnector Association="PropertyManagerModel.FK__apartment__user___164452B1" />
-        <AssociationConnector Association="PropertyManagerModel.FK__user_acco__user___1273C1CD" />
-        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___440B1D61" />
-      </Diagram>
+        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__apart__44FF419A" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

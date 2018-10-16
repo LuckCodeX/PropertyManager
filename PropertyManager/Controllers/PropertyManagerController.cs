@@ -282,7 +282,6 @@ namespace PropertyManager.Controllers
                     apartment.city = model.City;
                     apartment.latitude = model.Latitude;
                     apartment.longitude = model.Longitude;
-                    apartment.status = model.Status;
                     apartment.area = model.Area;
                     apartment.management_fee = model.ManagementFee;
                     apartment.price = model.Price;
@@ -420,11 +419,11 @@ namespace PropertyManager.Controllers
         }
 
         [HttpPost]
-        [Route("PostFile")]
-        public void PostFile()
+        [Route("PostApartmentFile")]
+        public void PostApartmentFile()
         {
-            string sPath = "";
-            sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Upload/file");
+            //string sPath = "";
+            //sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Upload/file");
 
             System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
 
@@ -437,9 +436,72 @@ namespace PropertyManager.Controllers
                     {
                         var result = reader.AsDataSet();
                         var dataTable = result.Tables[0];
-                        for (int j = 0; j < dataTable.Rows.Count; j++)
+                        using (var scope = new TransactionScope())
                         {
-                            var row1 = dataTable.Rows[j][1];
+                            try
+                            {
+                                //var lst = new List<apartment>();
+                                for (int j = 2; j < dataTable.Rows.Count; j++)
+                                {
+                                    if (dataTable.Rows[j][0].ToString().Length == 0)
+                                        continue;
+                                    var project = _service.GetProjectByName(dataTable.Rows[j][0].ToString());
+                                    if (Equals(project, null))
+                                    {
+                                        project = new project()
+                                        {
+                                            status = 1,
+                                            project_id = 0,
+                                        };
+                                        _service.SaveProject(project);
+
+                                        var content = new project_content()
+                                        {
+                                            project_id = project.project_id,
+                                            language = 0,
+                                            name = dataTable.Rows[j][0].ToString(),
+                                            project_content_id = 0
+                                        };
+                                        _service.SaveProjectContent(content);
+                                    }
+
+                                    var userProfile =
+                                        _service.GetUserProfileByNameAndPhone(dataTable.Rows[j][5].ToString(), dataTable.Rows[j][6].ToString());
+                                    if (Equals(userProfile, null))
+                                    {
+                                        userProfile = new user_profile()
+                                        {
+                                            user_profile_id = 0,
+                                            status = 4,
+                                            full_name = dataTable.Rows[j][5].ToString(),
+                                            phone = dataTable.Rows[j][6].ToString(),
+                                            created_date = ConvertDatetime.GetCurrentUnixTimeStamp()
+                                        };
+                                        _service.SaveUserProfile(userProfile);
+                                    }
+
+                                    var apartment = new apartment()
+                                    {
+                                        project_id = project.project_id,
+                                        status = 4,
+                                        building = dataTable.Rows[j][1].ToString(),
+                                        no_apartment = dataTable.Rows[j][2].ToString(),
+                                        area = Convert.ToDecimal(dataTable.Rows[j][3]),
+                                        no_bedroom = Convert.ToInt32(dataTable.Rows[j][4]),
+                                        user_profile_owner_id = userProfile.user_profile_id,
+                                        type = 1,
+                                        code = "AID_" + userProfile.user_profile_id.ToString().PadLeft(5, '0') + "_001",
+                                    };
+                                    _service.SaveApartment(apartment);
+                                    //lst.Add(apartment);
+                                }
+                                scope.Complete();
+                                //_service.SaveListApartment(lst);
+                            }
+                            catch (Exception e)
+                            {
+                                ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
+                            }
                         }
                     }
                 }
