@@ -98,7 +98,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
     }
 
     function getAllFacilities() {
-        xhrService.get("GetAllFacilities/")
+        xhrService.get("GetAllFacilities")
             .then(function (data) {
                 $scope.facilityList = data.data;
                 for (var j = 0; j < $scope.facilityList.length; j++) {
