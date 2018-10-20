@@ -11,7 +11,8 @@
     'ngAnimate',
     'ngCkeditor',
     'rzTable',
-    'ui.utils'
+    'ui.utils',
+    'selectize'
 ]);
 
 var API = "http://localhost:22918/api/propertymanager/";
