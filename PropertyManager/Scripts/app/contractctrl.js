@@ -20,6 +20,10 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	}
 
 	$scope.loadContractDetail = function(){
+		$scope.aptModel = {};
+		$scope.apt = {};
+		$scope.cus = {};
+		$scope.cusModel = {};
 		$(document).ready(function () {
             $('ul.tabs li').click(function () {
                 var tab_id = $(this).attr('data-tab');
@@ -29,23 +33,60 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
                 $("#" + tab_id).addClass('current');
             })
         });
-        $scope.apartmentList = ["Royal City1","Time City1","Time City2","Time City3","Royal City2"];
-        $scope.employeeList = ["Hoàng Sang","Bùi Hải","Tuấn Nghĩa","Trần Hoàn","Quang Tuấn"];
-        $scope.customerList =  ["Hoàng Sang","Bùi Hải","Tuấn Nghĩa","Trần Hoàn","Quang Tuấn"];
+        $scope.apartmentList = [{name:"Royal City1",value:1},
+        						{name:"Royal City2",value:2},
+        						{name:"Times City1",value:3},
+        						{name:"Times City2",value:4},
+        						{name:"Times City3",value:5}];
+        $scope.employeeList = [{name:"Hoàng Sang",value:1},
+        						{name:"Bùi Hải",value:2},
+        						{name:"Tuấn Nghĩa",value:3},
+        						{name:"Trần Hoàn",value:4},
+        						{name:"Quang Tuấn",value:5}];
+        $scope.customerList =  [{name:"Hoàng Sang",value:1},
+        						{name:"Bùi Hải",value:2},
+        						{name:"Tuấn Nghĩa",value:3},
+        						{name:"Trần Hoàn",value:4},
+        						{name:"Quang Tuấn",value:5}];
             // {name: "Daryl", surname: "Rowland",},
             // {name: "Alan", surname: "Partridge"},
             // {name: "Annie", surname: "Rowland"}
         
-		$( "#autocomplete" ).autocomplete({
-			source: $scope.apartmentList
-		});
-		$( "#acEmployee" ).autocomplete({
-			source: $scope.employeeList
-		});
-		$( "#acCustomer" ).autocomplete({
-			source: $scope.customerList
-		});
-		
+		// $( "#autocomplete" ).autocomplete({
+		// 	source: $scope.apartmentList
+		// });
+		// $( "#acEmployee" ).autocomplete({
+		// 	source: $scope.employeeList
+		// });
+		// $( "#acCustomer" ).autocomplete({
+		// 	source: $scope.customerList
+		// });
+		$scope.disable = false;
+		$scope.myConfig = {
+			maxItems: 1,
+		  valueField: 'value',
+		  labelField: 'name'
+		};
+	}
+
+	$scope.saveModalCustomer = function(){
+		$scope.cus.company = $scope.cusModel.company;
+		$scope.cus.address = $scope.cusModel.address;
+		$scope.cus.customer = $scope.cusModel.customer;
+		$scope.cus.phone = $scope.cusModel.phone;
+		$scope.cus.email = $scope.cusModel.email;
+		 $('#customerModal').modal('hide');
+	}
+
+	$scope.saveModalApartment = function(){
+		$scope.apt.project = $scope.aptModel.project;
+		$scope.apt.apartment = $scope.aptModel.apartment;
+		$scope.apt.countApartment = $scope.aptModel.countApartment;
+		$scope.apt.area = $scope.aptModel.area;
+		$scope.apt.bedrooms = $scope.aptModel.bedrooms;
+		$scope.apt.ownerName = $scope.aptModel.ownerName;
+		$scope.apt.phone = $scope.aptModel.phone;
+		 $('#apartmentModal').modal('hide');
 	}
 }
 app.controller('ContractCtrl', ContractCtrl);
