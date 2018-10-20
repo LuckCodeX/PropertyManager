@@ -1,1 +1,54 @@
-﻿<h1>Contract</h1>
+﻿<div class="account-view" ng-init="loadContract()" ng-controller="ContractCtrl">
+	<div class="warp container full-height">
+		<div class="header-warp">
+			<div class="title-warp">QUẢN LÝ HỢP ĐỒNG</div>
+		</div>
+		<div class="body-warp">
+			<div class="row">
+				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
+				 	<div class="col-sm-12">
+					    <div class="form-group">
+					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp đông" style="margin-left: 15px;width: 300px" name="seachContract" ng-model="searchContract">
+					      	<button type="submit" class="btn btn-save">Tìm kiếm</button>
+					    </div>
+					</div>
+				 </form>
+				
+			</div>
+			<table class="table table-hover table-list table-contract">
+				<tr>
+					<th>Mã nhà</th>
+					<th>Tên chủ nhà</th>
+					<th>SĐT chủ nhà</th>
+					<th>Tên khách hàng</th>
+					<th>SĐT khách hàng</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in contractList">
+					<td><a ui-sref="contractdetail({id:item.Id})">{{item.Apartment.Code}}</a></td>
+					<td>{{item.UserProfileOwner.FullName}}</td>
+					<td>{{item.UserProfileOwner.Phone}}</td>
+                    <td>{{item.Customer.FullName}}</td>
+                    <td>{{item.Customer.Phone}}</td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+	                            <i class="fas fa-ellipsis-v"></i>
+	                        </button>
+	                        <ul class="dropdown-menu">
+	                          <li><a ui-sref="contractdetail({id:item.Id})">Chỉnh sửa</a></li>
+								<li><a href="" ng-click="deleteContract(item)"> Xóa
+								</a></li>
+	                        </ul>
+	                      </div>
+					</td>
+				</tr>
+				
+			</table>
+			<div class="pagination-employee">
+				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div>
+			
+		</div>
+	</div>
+</div>
