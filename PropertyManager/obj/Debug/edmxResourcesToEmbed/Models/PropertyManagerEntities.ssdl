@@ -174,6 +174,13 @@
     </Key>
     <Property Name="user_visit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_profile_id" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_visit_item">
+    <Key>
+      <PropertyRef Name="user_visit_item_id" />
+    </Key>
+    <Property Name="user_visit_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="apartment_id" Type="int" Nullable="false" />
     <Property Name="is_management_fee" Type="bit" Nullable="false" />
     <Property Name="is_internet_wifi" Type="bit" Nullable="false" />
@@ -185,6 +192,8 @@
     <Property Name="is_include_tax" Type="bit" Nullable="false" />
     <Property Name="total_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="service_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="user_visit_id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Role="admin" Type="Self.admin" Multiplicity="0..1" />
@@ -354,17 +363,17 @@
   </Association>
   <Association Name="FK__user_visi__apart__44FF419A">
     <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
-    <End Role="user_visit" Type="Self.user_visit" Multiplicity="*" />
+    <End Role="user_visit_item" Type="Self.user_visit_item" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="apartment">
         <PropertyRef Name="apartment_id" />
       </Principal>
-      <Dependent Role="user_visit">
+      <Dependent Role="user_visit_item">
         <PropertyRef Name="apartment_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__user_visi__user___440B1D61">
+  <Association Name="FK__user_visi__user___3D2915A8">
     <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -375,6 +384,20 @@
       </Principal>
       <Dependent Role="user_visit">
         <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_visi__user___40058253">
+    <End Role="user_visit" Type="Self.user_visit" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user_visit_item" Type="Self.user_visit_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_visit">
+        <PropertyRef Name="user_visit_id" />
+      </Principal>
+      <Dependent Role="user_visit_item">
+        <PropertyRef Name="user_visit_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -395,6 +418,7 @@
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_visit_item" EntityType="Self.user_visit_item" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="Self.FK__admin__parent_id__02084FDA">
       <End Role="admin" EntitySet="admin" />
       <End Role="admin1" EntitySet="admin" />
@@ -445,11 +469,15 @@
     </AssociationSet>
     <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
       <End Role="apartment" EntitySet="apartment" />
-      <End Role="user_visit" EntitySet="user_visit" />
+      <End Role="user_visit_item" EntitySet="user_visit_item" />
     </AssociationSet>
-    <AssociationSet Name="FK__user_visi__user___440B1D61" Association="Self.FK__user_visi__user___440B1D61">
+    <AssociationSet Name="FK__user_visi__user___3D2915A8" Association="Self.FK__user_visi__user___3D2915A8">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_visit" EntitySet="user_visit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_visi__user___40058253" Association="Self.FK__user_visi__user___40058253">
+      <End Role="user_visit" EntitySet="user_visit" />
+      <End Role="user_visit_item" EntitySet="user_visit_item" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

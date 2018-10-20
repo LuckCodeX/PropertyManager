@@ -123,25 +123,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="user_visit">
-      <EntityTypeMapping TypeName="PropertyManagerModel.user_visit">
-        <MappingFragment StoreEntitySet="user_visit">
-          <ScalarProperty Name="service_price" ColumnName="service_price" />
-          <ScalarProperty Name="total_price" ColumnName="total_price" />
-          <ScalarProperty Name="is_include_tax" ColumnName="is_include_tax" />
-          <ScalarProperty Name="bill" ColumnName="bill" />
-          <ScalarProperty Name="is_detergent" ColumnName="is_detergent" />
-          <ScalarProperty Name="water" ColumnName="water" />
-          <ScalarProperty Name="cleaning" ColumnName="cleaning" />
-          <ScalarProperty Name="tv_type" ColumnName="tv_type" />
-          <ScalarProperty Name="is_internet_wifi" ColumnName="is_internet_wifi" />
-          <ScalarProperty Name="is_management_fee" ColumnName="is_management_fee" />
-          <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
-          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
-          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="user_profile">
       <EntityTypeMapping TypeName="PropertyManagerModel.user_profile">
         <MappingFragment StoreEntitySet="user_profile">
@@ -200,6 +181,35 @@
           <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="user_profile_owner_id" ColumnName="user_profile_owner_id" />
           <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_visit">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_visit">
+        <MappingFragment StoreEntitySet="user_visit">
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_visit_item">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_visit_item">
+        <MappingFragment StoreEntitySet="user_visit_item">
+          <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="service_price" ColumnName="service_price" />
+          <ScalarProperty Name="total_price" ColumnName="total_price" />
+          <ScalarProperty Name="is_include_tax" ColumnName="is_include_tax" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="is_detergent" ColumnName="is_detergent" />
+          <ScalarProperty Name="water" ColumnName="water" />
+          <ScalarProperty Name="cleaning" ColumnName="cleaning" />
+          <ScalarProperty Name="tv_type" ColumnName="tv_type" />
+          <ScalarProperty Name="is_internet_wifi" ColumnName="is_internet_wifi" />
+          <ScalarProperty Name="is_management_fee" ColumnName="is_management_fee" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="user_visit_item_id" ColumnName="user_visit_item_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

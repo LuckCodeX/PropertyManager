@@ -19,8 +19,8 @@ namespace PropertyManager.Models
         {
             this.user_account = new HashSet<user_account>();
             this.user_social = new HashSet<user_social>();
-            this.user_visit = new HashSet<user_visit>();
             this.apartments = new HashSet<apartment>();
+            this.user_visit = new HashSet<user_visit>();
         }
     
         public int user_profile_id { get; set; }
@@ -50,8 +50,8 @@ namespace PropertyManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_social> user_social { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_visit> user_visit { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment> apartments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_visit> user_visit { get; set; }
     }
 }

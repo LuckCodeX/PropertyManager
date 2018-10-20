@@ -14,21 +14,18 @@ namespace PropertyManager.Models
     
     public partial class user_visit
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public user_visit()
+        {
+            this.user_visit_item = new HashSet<user_visit_item>();
+        }
+    
         public int user_visit_id { get; set; }
         public int user_profile_id { get; set; }
-        public int apartment_id { get; set; }
-        public bool is_management_fee { get; set; }
-        public bool is_internet_wifi { get; set; }
-        public int tv_type { get; set; }
-        public int cleaning { get; set; }
-        public int water { get; set; }
-        public bool is_detergent { get; set; }
-        public decimal bill { get; set; }
-        public bool is_include_tax { get; set; }
-        public decimal total_price { get; set; }
-        public decimal service_price { get; set; }
+        public int created_at { get; set; }
     
         public virtual user_profile user_profile { get; set; }
-        public virtual apartment apartment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_visit_item> user_visit_item { get; set; }
     }
 }

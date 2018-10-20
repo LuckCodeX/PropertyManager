@@ -267,6 +267,9 @@
     </Compile>
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="Models\user_visit_item.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
