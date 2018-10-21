@@ -163,6 +163,7 @@
     <EntitySetMapping Name="apartments">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
         <MappingFragment StoreEntitySet="apartment">
+          <ScalarProperty Name="phone" ColumnName="phone" />
           <ScalarProperty Name="building" ColumnName="building" />
           <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />
           <ScalarProperty Name="management_fee" ColumnName="management_fee" />
@@ -187,6 +188,7 @@
     <EntitySetMapping Name="user_visit">
       <EntityTypeMapping TypeName="PropertyManagerModel.user_visit">
         <MappingFragment StoreEntitySet="user_visit">
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="created_at" ColumnName="created_at" />
           <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
           <ScalarProperty Name="user_visit_id" ColumnName="user_visit_id" />
@@ -210,6 +212,16 @@
           <ScalarProperty Name="is_management_fee" ColumnName="is_management_fee" />
           <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
           <ScalarProperty Name="user_visit_item_id" ColumnName="user_visit_item_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_visit_history">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_visit_history">
+        <MappingFragment StoreEntitySet="user_visit_history">
+          <ScalarProperty Name="actual_date" ColumnName="actual_date" />
+          <ScalarProperty Name="expected_date" ColumnName="expected_date" />
+          <ScalarProperty Name="user_visit_item_id" ColumnName="user_visit_item_id" />
+          <ScalarProperty Name="user_visit_history_id" ColumnName="user_visit_history_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

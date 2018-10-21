@@ -42,6 +42,7 @@
     <Property Name="management_fee" Type="decimal" Precision="18" Scale="2" />
     <Property Name="no_apartment" Type="nvarchar" MaxLength="10" />
     <Property Name="building" Type="nvarchar" MaxLength="10" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="apartment_content">
     <Key>
@@ -175,6 +176,16 @@
     <Property Name="user_visit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_profile_id" Type="int" Nullable="false" />
     <Property Name="created_at" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_visit_history">
+    <Key>
+      <PropertyRef Name="user_visit_history_id" />
+    </Key>
+    <Property Name="user_visit_history_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_visit_item_id" Type="int" Nullable="false" />
+    <Property Name="expected_date" Type="int" Nullable="false" />
+    <Property Name="actual_date" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="user_visit_item">
     <Key>
@@ -401,6 +412,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__user_visi__user___4F47C5E3">
+    <End Role="user_visit_item" Type="Self.user_visit_item" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="user_visit_history" Type="Self.user_visit_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_visit_item">
+        <PropertyRef Name="user_visit_item_id" />
+      </Principal>
+      <Dependent Role="user_visit_history">
+        <PropertyRef Name="user_visit_item_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="PropertyManagerModelStoreContainer">
     <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="aparment_image" EntityType="Self.aparment_image" Schema="dbo" store:Type="Tables" />
@@ -418,6 +443,7 @@
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_visit_history" EntityType="Self.user_visit_history" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit_item" EntityType="Self.user_visit_item" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__admin__parent_id__02084FDA" Association="Self.FK__admin__parent_id__02084FDA">
       <End Role="admin" EntitySet="admin" />
@@ -478,6 +504,10 @@
     <AssociationSet Name="FK__user_visi__user___40058253" Association="Self.FK__user_visi__user___40058253">
       <End Role="user_visit" EntitySet="user_visit" />
       <End Role="user_visit_item" EntitySet="user_visit_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_visi__user___4F47C5E3" Association="Self.FK__user_visi__user___4F47C5E3">
+      <End Role="user_visit_item" EntitySet="user_visit_item" />
+      <End Role="user_visit_history" EntitySet="user_visit_history" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

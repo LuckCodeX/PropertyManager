@@ -37,5 +37,14 @@ namespace PropertyManager.Services
         user_profile GetUserProfileByNameAndPhone(string name, string phone);
         void SaveUserProfile(user_profile userProfile);
         void SaveListApartment(List<apartment> lst);
+        List<user_visit> SearchListUserVisit(int status);
+        user_visit GetUserVisitById(int id);
+        void DeleteUserVisit(user_visit userVisit);
+        user_profile GetUserProfileById(int userProfileId);
+        user_visit_item GetUserVisitItemById(int id);
+        void SaveUserVisit(user_visit visit);
+        void SaveUserVisitItem(user_visit_item visitItem);
+        user_visit_history GetUserVisitHistoryById(int id);
+        void SaveUserVisitHistory(user_visit_history his);
     }
 }

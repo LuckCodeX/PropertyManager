@@ -420,6 +420,7 @@ namespace PropertyManager.Controllers
 
         [HttpPost]
         [Route("PostApartmentFile")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public void PostApartmentFile()
         {
             //string sPath = "";
@@ -503,6 +504,132 @@ namespace PropertyManager.Controllers
                                 ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        [HttpGet]
+        [Route("GetListUserVisit/{page}/{status}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerManager })]
+        public PagingResult<UserVisitModel> GetListUserVisit(int page, int status)
+        {
+            var visits = _service.SearchListUserVisit(status);
+            var visitList = visits.Select(p => new UserVisitModel()
+            {
+                UserProfile = new UserProfileModel()
+                {
+                    Id = p.user_profile_id,
+                    FullName = p.user_profile.full_name,
+                    Phone = p.user_profile.phone,
+                    Email = p.user_profile.email
+                },
+                CreatedAt = p.created_at,
+                Id = p.user_visit_id,
+                TotalItems = p.user_visit_item.Count
+            }).Skip((page - 1) * 10).Take(10).ToList();
+            return new PagingResult<UserVisitModel>()
+            {
+                total = visits.Count,
+                data = visitList
+            };
+        }
+
+        [HttpDelete]
+        [Route("DeleteUserVisit/{id}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerManager })]
+        public void DeleteUserVisit(int id)
+        {
+            var userVisit = _service.GetUserVisitById(id);
+            if (!Equals(userVisit, null))
+                _service.DeleteUserVisit(userVisit);
+        }
+
+        [HttpGet]
+        [Route("GetUserVisitDetail/{id}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerManager })]
+        public UserVisitModel GetUserVisitDetail(int id)
+        {
+            var visit = _service.GetUserVisitById(id);
+            if (!Equals(visit, null))
+            {
+                return new UserVisitModel()
+                {
+                    Id = visit.user_visit_id,
+                    CreatedAt = visit.created_at,
+                    UserProfile = new UserProfileModel()
+                    {
+                        Id = visit.user_profile_id,
+                        FullName = visit.user_profile.full_name,
+                        Phone = visit.user_profile.phone,
+                        Email = visit.user_profile.email
+                    },
+                    Items = visit.user_visit_item.Select(p => new UserVisitItemModel()
+                    {
+                        Id = p.user_visit_item_id,
+                        Status = p.status,
+                        Apartment = new ApartmentModel()
+                        {
+                            Id = p.apartment_id,
+                            Code = p.apartment.code,
+                            Address = p.apartment.address,
+                            ImgList = p.apartment.aparment_image.Where(q => q.type == 0).Select(q => new ApartmentImageModel()
+                            {
+                                Id = q.apartment_image_id,
+                                Type = q.type,
+                                Img = q.img
+                            }).ToList(),
+                        },
+                        Histories = p.user_visit_history.Select(q => new UserVisitHistoryModel()
+                        {
+                            Id = q.user_visit_history_id,
+                            ActualDate = q.actual_date,
+                            ExpectedDate = q.expected_date
+                        }).ToList()
+                    }).ToList()
+                };
+            }
+            return new UserVisitModel();
+        }
+
+        [HttpPut]
+        [Route("SaveUserVisit")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerManager })]
+        public void SaveUserVisit(UserVisitModel model)
+        {
+            var visit = _service.GetUserVisitById(model.Id);
+            if (!Equals(visit, null))
+            {
+                var userProfile = _service.GetUserProfileById(model.UserProfile.Id);
+                if (!Equals(userProfile, null))
+                {
+                    userProfile.phone = model.UserProfile.Phone;
+                    _service.SaveUserProfile(userProfile);
+                }
+                visit.status = model.Status;
+                _service.SaveUserVisit(visit);
+
+                foreach (var item in model.Items)
+                {
+                    var visitItem = _service.GetUserVisitItemById(item.Id);
+                    visitItem.status = item.Status;
+                    _service.SaveUserVisitItem(visitItem);
+
+                    foreach (var history in item.Histories)
+                    {
+                        var his = _service.GetUserVisitHistoryById(history.Id);
+                        if (Equals(his, null))
+                        {
+                            his = new user_visit_history()
+                            {
+                                user_visit_history_id = 0,
+                                user_visit_item_id = visitItem.user_visit_item_id
+                            };
+                        }
+
+                        his.actual_date = history.ActualDate;
+                        his.expected_date = history.ExpectedDate;
+                        _service.SaveUserVisitHistory(his);
                     }
                 }
             }

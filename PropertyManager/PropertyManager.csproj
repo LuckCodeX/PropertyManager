@@ -267,6 +267,10 @@
     </Compile>
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="Models\UserVisitModel.cs" />
+    <Compile Include="Models\user_visit_history.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user_visit_item.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -291,6 +295,7 @@
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\VisitService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

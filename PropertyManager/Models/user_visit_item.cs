@@ -14,6 +14,12 @@ namespace PropertyManager.Models
     
     public partial class user_visit_item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public user_visit_item()
+        {
+            this.user_visit_history = new HashSet<user_visit_history>();
+        }
+    
         public int user_visit_item_id { get; set; }
         public int apartment_id { get; set; }
         public bool is_management_fee { get; set; }
@@ -31,5 +37,7 @@ namespace PropertyManager.Models
     
         public virtual apartment apartment { get; set; }
         public virtual user_visit user_visit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_visit_history> user_visit_history { get; set; }
     }
 }

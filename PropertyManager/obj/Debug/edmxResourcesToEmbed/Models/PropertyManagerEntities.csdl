@@ -259,6 +259,11 @@
       <End Role="user_visit" EntitySet="user_visit" />
       <End Role="user_visit_item" EntitySet="user_visit_item" />
     </AssociationSet>
+    <EntitySet Name="user_visit_history" EntityType="PropertyManagerModel.user_visit_history" />
+    <AssociationSet Name="FK__user_visi__user___4F47C5E3" Association="PropertyManagerModel.FK__user_visi__user___4F47C5E3">
+      <End Role="user_visit_item" EntitySet="user_visit_item" />
+      <End Role="user_visit_history" EntitySet="user_visit_history" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -368,6 +373,7 @@
     <NavigationProperty Name="project" Relationship="PropertyManagerModel.FK__apartment__proje__4AB81AF0" FromRole="apartment" ToRole="project" />
     <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="apartment" ToRole="user_profile" />
     <NavigationProperty Name="user_visit_item" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit_item" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK__aparment___apart__1ED998B2">
     <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
@@ -448,6 +454,7 @@
     <Property Name="created_at" Type="Int32" Nullable="false" />
     <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__user_visi__user___3D2915A8" FromRole="user_visit" ToRole="user_profile" />
     <NavigationProperty Name="user_visit_item" Relationship="PropertyManagerModel.FK__user_visi__user___40058253" FromRole="user_visit" ToRole="user_visit_item" />
+    <Property Name="status" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="user_visit_item">
     <Key>
@@ -469,6 +476,7 @@
     <Property Name="user_visit_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="user_visit_item" ToRole="apartment" />
     <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__user___40058253" FromRole="user_visit_item" ToRole="user_visit" />
+    <NavigationProperty Name="user_visit_history" Relationship="PropertyManagerModel.FK__user_visi__user___4F47C5E3" FromRole="user_visit_item" ToRole="user_visit_history" />
   </EntityType>
   <Association Name="FK__user_visi__apart__44FF419A">
     <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1" />
@@ -507,6 +515,30 @@
       </Principal>
       <Dependent Role="user_visit_item">
         <PropertyRef Name="user_visit_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="user_visit_history">
+    <Key>
+      <PropertyRef Name="user_visit_history_id" />
+    </Key>
+    <Property Name="user_visit_history_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_visit_item_id" Type="Int32" Nullable="false" />
+    <Property Name="expected_date" Type="Int32" Nullable="false" />
+    <Property Name="actual_date" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user_visit_item" Relationship="PropertyManagerModel.FK__user_visi__user___4F47C5E3" FromRole="user_visit_history" ToRole="user_visit_item" />
+  </EntityType>
+  <Association Name="FK__user_visi__user___4F47C5E3">
+    <End Type="PropertyManagerModel.user_visit_item" Role="user_visit_item" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PropertyManagerModel.user_visit_history" Role="user_visit_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_visit_item">
+        <PropertyRef Name="user_visit_item_id" />
+      </Principal>
+      <Dependent Role="user_visit_history">
+        <PropertyRef Name="user_visit_item_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

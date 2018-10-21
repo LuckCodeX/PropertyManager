@@ -29,5 +29,10 @@ namespace PropertyManager.Services
         {
             UserProfileRepository.Save(userProfile);
         }
+
+        public user_profile GetUserProfileById(int userProfileId)
+        {
+            return UserProfileRepository.FindBy(p => p.user_profile_id == userProfileId).FirstOrDefault();
+        }
     }
 }

@@ -37,6 +37,8 @@
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__apart__44FF419A" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___3D2915A8" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___40058253" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_visit_history" Width="1.5" PointX="7.5" PointY="12.25" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___4F47C5E3" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

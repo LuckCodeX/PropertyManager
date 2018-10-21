@@ -23,6 +23,7 @@ namespace PropertyManager.Models
         public int user_visit_id { get; set; }
         public int user_profile_id { get; set; }
         public int created_at { get; set; }
+        public int status { get; set; }
     
         public virtual user_profile user_profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

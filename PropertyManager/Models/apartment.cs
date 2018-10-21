@@ -41,6 +41,7 @@ namespace PropertyManager.Models
         public Nullable<decimal> management_fee { get; set; }
         public string no_apartment { get; set; }
         public string building { get; set; }
+        public string phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aparment_image> aparment_image { get; set; }
