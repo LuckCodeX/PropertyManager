@@ -18,12 +18,15 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		}
 		
 	}
-
+	$scope.addPassport = function(){
+		$scope.passportList.push({ownerName:"",passport:""});
+	}
 	$scope.loadContractDetail = function(){
 		$scope.aptModel = {};
 		$scope.apt = {};
 		$scope.cus = {};
 		$scope.cusModel = {};
+		$scope.passportList = [{ownerName:"",passport:""}];
 		$(document).ready(function () {
             $('ul.tabs li').click(function () {
                 var tab_id = $(this).attr('data-tab');
@@ -65,7 +68,8 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.myConfig = {
 			maxItems: 1,
 		  valueField: 'value',
-		  labelField: 'name'
+		  labelField: 'name',
+		  searchField: ['name'],
 		};
 	}
 
