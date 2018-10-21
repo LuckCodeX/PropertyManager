@@ -273,16 +273,19 @@
 			                            <input type="text" class="form-ctrl" >
 			                        </div>
 			                    </div>
-			                    <div class="form-group">
+			                    <div class="form-group" ng-repeat="passport in passportList">
 			                        <label class="control-label col-sm-3" for="">Tên người ở: <span style="color: red">*</span></label>
-			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                        <div class="col-sm-3">
+			                            <input type="text" class="form-ctrl" ng-model="passport.ownerName" required="">
+			                        </div>
+			                        <label class="control-label col-sm-2" for="">Passport: <span style="color: red">*</span></label>
+			                        <div class="col-sm-2">
+			                            <input type="text" class="form-ctrl" ng-model="passport.passport" ng required="">
 			                        </div>
 			                    </div>
-			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">Passport: <span style="color: red">*</span></label>
-			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                    <div class="form-group" style="padding: 0; margin: 0">
+			                        <div class="col-sm-7 col-sm-offset-3">
+			                            <button type="button" ng-click="addPassport()" style="width: 300px;display: block; margin: 0 auto" class="btn btn-save"><i style="color: white;" class="fas fa-plus"></i> Thêm mới</button>
 			                        </div>
 			                    </div>
 			                </div>
@@ -817,7 +820,7 @@
 	<div id="apartmentModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
-	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveModalApartment()">
+	    <form class="form-horizontal modal-content" name="myForm" >
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Tạo Mới Căn Hộ</h4>
@@ -831,6 +834,12 @@
                         	<option value="1">Times City</option>
                         	<option value="2">Royal City</option>
                         </select>
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Địa chỉ:</label>
+		            <div class="col-sm-8">
+		            	<input type="text" class="form-ctrl" googleplace ng-model-options="{ debounce: 500 }" details="data" name="address" ng-model="aptModel.address" required="" />
 		            </div>
 		        </div>
 		        <div class="form-group">
@@ -871,7 +880,7 @@
 		        </div>
 		    </div>
 	      <div class="modal-footer">
-	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Tạo mới</button>
+	      	<button type="button" ng-click="saveModalApartment()" class="btn btn-save" style="margin-right: 10px;">Tạo mới</button>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
 	      </div>
 	    </form>
@@ -887,6 +896,12 @@
 	        <h4 class="modal-title">Tạo Mới Khách Hàng</h4>
 	      </div>
 	      <div class="modal-body account-detail-view">
+	      		<div class="form-group">
+		            <label class="control-label col-sm-3" for="">Tên khách hàng:</label>
+		            <div class="col-sm-8">
+		            	<selectize placeholder='Chọn khách hàng...' options='customerList' config="myConfig" ng-model="cusModel.customer" ng-disabled='disable' required='true'></selectize>
+		            </div>
+		        </div>
 		        <div class="form-group">
 		            <label class="control-label col-sm-3" for="">Tên công ty:</label>
 		            <div class="col-sm-8">
@@ -897,12 +912,6 @@
 		            <label class="control-label col-sm-3" for="">Địa chỉ:</label>
 		            <div class="col-sm-8">
 		                <input type="text" class="form-ctrl" ng-model="cusModel.address">
-		            </div>
-		        </div>
-		        <div class="form-group">
-		            <label class="control-label col-sm-3" for="">Tên khách hàng:</label>
-		            <div class="col-sm-8">
-		            	<selectize placeholder='Chọn khách hàng...' options='customerList' config="myConfig" ng-model="cusModel.customer" ng-disabled='disable' required='true'></selectize>
 		            </div>
 		        </div>
 		        <div class="form-group">

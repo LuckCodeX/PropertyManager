@@ -6,11 +6,12 @@
 		<div class="body-warp">
 			<div class="row">
 				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
-				 	<div class="col-sm-12">
-					    <div class="form-group">
+				 	<div class="col-sm-12" >
+					    <div style="display: inline-block" class="form-group">
 					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp đông" style="margin-left: 15px;width: 300px" name="seachContract" ng-model="searchContract">
 					      	<button type="submit" class="btn btn-save">Tìm kiếm</button>
 					    </div>
+					    <a style="margin-right: 0" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>
 					</div>
 				 </form>
 				
@@ -46,7 +47,7 @@
 				
 			</table>
 			<div class="pagination-employee">
-				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+				<ul uib-pagination total-items="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
 			</div>
 			
 		</div>
