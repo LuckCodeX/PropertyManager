@@ -75,5 +75,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult Visit()
+        {
+            return View();
+        }
+
+        public ActionResult VisitDetail()
+        {
+            return View();
+        }
     }
 }

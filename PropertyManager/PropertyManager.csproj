@@ -653,6 +653,8 @@
     <Content Include="html\importapartment.html" />
     <Content Include="html\importcustomer.html" />
     <Content Include="html\system.html" />
+    <Content Include="html\visit.html" />
+    <Content Include="html\visitdetail.html" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\under_maintenance_dribbble.png" />
     <Content Include="Models\PropertyManagerEntities.Context.tt">
@@ -768,6 +770,8 @@
     <Content Include="Views\Home\ApartmentList.cshtml" />
     <Content Include="Views\Home\Contract.cshtml" />
     <Content Include="Views\Home\ContractDetail.cshtml" />
+    <Content Include="Views\Home\Visit.cshtml" />
+    <Content Include="Views\Home\VisitDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
