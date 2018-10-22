@@ -557,6 +557,7 @@ namespace PropertyManager.Controllers
                 {
                     Id = visit.user_visit_id,
                     CreatedAt = visit.created_at,
+                    Status = visit.status,
                     UserProfile = new UserProfileModel()
                     {
                         Id = visit.user_profile_id,
