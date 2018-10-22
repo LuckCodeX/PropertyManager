@@ -526,7 +526,8 @@ namespace PropertyManager.Controllers
                 },
                 CreatedAt = p.created_at,
                 Id = p.user_visit_id,
-                TotalItems = p.user_visit_item.Count
+                TotalItems = p.user_visit_item.Count,
+                Status = p.status
             }).Skip((page - 1) * 10).Take(10).ToList();
             return new PagingResult<UserVisitModel>()
             {
