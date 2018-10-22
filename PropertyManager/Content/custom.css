@@ -553,7 +553,12 @@ button.has-badge {
     background: #db3836;
     color: white;
 }
-
+.text-notify {
+    padding: 3px;
+    border-radius: 3px;
+    background: #388E8E;
+    color: white;
+}
 .pagination-employee {
     float: right;
 }
@@ -1225,7 +1230,7 @@ table.rz-table {
     border-top: 1px solid #d5d6d9;
 }
 .apartment-visit{
-    padding-top: 10px;
+    padding-top: 10px
 }
 .overflow-hidden{
     overflow: hidden;

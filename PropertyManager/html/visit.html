@@ -27,6 +27,7 @@
 					<th>Email</th>
 					<th>Số nhà đặt lịch</th>
 					<th>Ngày tạo</th>
+					<th>Trạng thái</th>
 					<th>&nbsp;</th>
 				</tr>
 				<tr ng-repeat="item in visitList">
@@ -35,6 +36,9 @@
 					<td>{{item.UserProfile.Email}}</td>
 					<td>{{item.TotalItems}}</td>
                     <td ng-bind="convertDate(item.CreatedAt)"></td>
+                    <td><span ng-if="item.Status == 1" class="text-success">Đã hoàn thành</span>
+                    	<span class="text-notify" ng-if="item.Status == 2">Đang duyệt</span>
+                    	<span ng-if="item.Status == 0" class="text-warning">Chưa duyệt</span></td>
 					<td>
 						<div class="dropdown action-dropdown-table">
 	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">

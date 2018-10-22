@@ -1,5 +1,4 @@
 function VisitCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
-	$scope.monthText = ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"];
 	$scope.loadVisit = function(){
 		// $scope.visitList = [];
 		// for (var i = 0; i < 20; i++) {
@@ -40,11 +39,15 @@ function VisitCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrSer
 		// return apt;
 	}
 	function convertDateToUnixTimeStamp(datestring){
-		var date = new Date(datestring);
-		return date.getTime()/1000;
+		if (datestring) {
+			var date = new Date(datestring);
+			return date.getTime()/1000;
+		}else{
+			return '';
+		}
+		
 	}
 	$scope.submitVisit = function(){
-		console.log($scope.visit);
 		var data= {
 			"Id": $scope.visit.Id,
 			"Status":$scope.visit.Status,
@@ -61,7 +64,7 @@ function VisitCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrSer
 				"Histories":[]
 			};
 			for (var j = 0; j < $scope.visit.Items[i].Histories.length; j++) {
-				if($scope.visit.Items[i].Histories[j].ActualDate && $scope.visit.Items[i].Histories[j].ExpectedDate){
+				if($scope.visit.Items[i].Histories[j].ActualDate != "" || $scope.visit.Items[i].Histories[j].ExpectedDate != ""){
 					var history = {
 						"Id":$scope.visit.Items[i].Histories[j].Id,
 						"ActualDate":convertDateToUnixTimeStamp($scope.visit.Items[i].Histories[j].ActualDate),
@@ -72,9 +75,10 @@ function VisitCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrSer
 			}
 			data.Items.push(item);
 		};
+		console.log(data);
 		xhrService.post("SaveUserVisit",data)
             .then(function (data) {
-            	console.log(data)
+            	$location.url('/visit');
             },
             function (error) {
                 console.log(error.statusText);
@@ -137,6 +141,18 @@ function VisitCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrSer
 				  };
 				  $scope.format = 'dd/MM/yyyy';
 				for (var i = 0; i < $scope.itemList.length; i++) {
+					for (var j = 0; j < $scope.itemList[i].Histories.length; j++) {
+						if ($scope.itemList[i].Histories[j].ActualDate == 0) {
+							$scope.itemList[i].Histories[j].ActualDate = "";
+						}else{
+							$scope.itemList[i].Histories[j].ActualDate = new Date(Number($scope.itemList[i].Histories[j].ActualDate)*1000);
+						}
+						if ($scope.itemList[i].Histories[j].ExpectedDate == "0") {
+							$scope.itemList[i].Histories[j].ExpectedDate = "";
+						}else{
+							$scope.itemList[i].Histories[j].ExpectedDate = new Date(Number($scope.itemList[i].Histories[j].ExpectedDate)*1000);
+						}
+					}
 					if($scope.itemList[i].Histories.length == 0){
 						$scope.itemList[i].Histories.push({
 							"Id":"0",
