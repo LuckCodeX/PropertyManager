@@ -1,1 +1,59 @@
-﻿<h1>Visit List</h1>
+﻿<div class="account-view" ng-init="loadVisit()" ng-controller="VisitCtrl">
+	<div class="warp container full-height">
+		<div class="header-warp">
+			<div class="title-warp">QUẢN LÝ LỊCH HẸN</div>
+		</div>
+		<div class="body-warp">
+			<div class="row">
+				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
+				 	<div class="col-sm-12" >
+					    <div style="display: inline-block;margin-left: 0px;" class="form-group">
+
+					        <select  ng-change="pageChanged()" number-to-string ng-model="typeStatus" class="form-ctrl">
+					        	<option value="-1">Tất cả</option>
+					        	<option value="0">Chưa duyệt</option>
+					        	<option value="1">Đã hoàn thành</option>
+					        	<option value="2">Đang duyệt</option>
+					        </select>
+					    </div>
+					</div>
+				 </form>
+				
+			</div>
+			<table class="table table-hover table-list table-contract">
+				<tr>
+					<th>Tên khách hàng</th>
+					<th>Số điện thoại</th>
+					<th>Email</th>
+					<th>Số nhà đặt lịch</th>
+					<th>Ngày tạo</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in visitList">
+					<td>{{item.UserProfile.FullName}}</td>
+					<td>{{item.UserProfile.Phone}}</td>
+					<td>{{item.UserProfile.Email}}</td>
+					<td>{{item.TotalItems}}</td>
+                    <td ng-bind="convertDate(item.CreatedAt)"></td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+	                            <i class="fas fa-ellipsis-v"></i>
+	                        </button>
+	                        <ul class="dropdown-menu">
+	                          <li><a ui-sref="visitdetail({id:item.Id})">Chỉnh sửa</a></li>
+								<li><a href="" ng-click="deleteVisit(item.Id)"> Xóa
+								</a></li>
+	                        </ul>
+	                      </div>
+					</td>
+				</tr>
+				
+			</table>
+			<div class="pagination-employee">
+				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div>
+			
+		</div>
+	</div>
+</div>
