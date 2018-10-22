@@ -592,7 +592,7 @@ namespace PropertyManager.Controllers
             return new UserVisitModel();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("SaveUserVisit")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerManager })]
         public void SaveUserVisit(UserVisitModel model)
