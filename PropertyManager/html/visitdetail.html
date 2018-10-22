@@ -6,7 +6,16 @@
 		<div class="body-warp">
 			<div class="account-detail-view contract-detail-view">
 			    <form class="form-horizontal" name="myForm" ng-submit="submitVisit()">
-			    	<div class="border-bottom p-b-10" style="font-size: 19px;">Khách Hàng: <b>{{visit.UserProfile.FullName}}</b></div>
+			    	<div class="border-bottom p-b-10" style="font-size: 18px;">
+			    		<p>Khách Hàng: <b>{{visit.UserProfile.FullName}}</b></p>
+			    		<p>Email: <b>{{visit.UserProfile.Email}}</b></p>
+			    		<p>Số điện thoại: <b>{{visit.UserProfile.Phone}}</b></p>
+			    		<p>Trạng thái: <select number-to-string ng-model="visit.Status" style="width: 150px;" class="form-ctrl">
+					        	<option value="0">Chưa duyệt</option>
+					        	<option value="1">Đã hoàn thành</option>
+					        	<option value="2">Đang duyệt</option>
+					        </select></p>
+			    	</div>
 			    	<div class="overflow-hidden m-t-15 border-bottom p-b-15" >
 			    		<div class="col-sm-4 text-center">
 			    			<span class="label-visit">Danh sách căn hộ</span>
