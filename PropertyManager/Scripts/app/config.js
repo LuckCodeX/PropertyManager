@@ -55,7 +55,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             })
         .state('visit',
             {
-                url: "/visit?page",
+                url: "/visit?page&status",
                 templateUrl: "html/visit.html"
             })
         .state('visitdetail',
