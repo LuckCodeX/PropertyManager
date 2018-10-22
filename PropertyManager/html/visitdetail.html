@@ -7,14 +7,37 @@
 			<div class="account-detail-view contract-detail-view">
 			    <form class="form-horizontal" name="myForm" ng-submit="submitVisit()">
 			    	<div class="border-bottom p-b-10" style="font-size: 18px;">
-			    		<p>Khách Hàng: <b>{{visit.UserProfile.FullName}}</b></p>
-			    		<p>Email: <b>{{visit.UserProfile.Email}}</b></p>
-			    		<p>Số điện thoại: <b>{{visit.UserProfile.Phone}}</b></p>
-			    		<p>Trạng thái: <select number-to-string ng-model="visit.Status" style="width: 150px;" class="form-ctrl">
-					        	<option value="0">Chưa duyệt</option>
-					        	<option value="1">Đã hoàn thành</option>
-					        	<option value="2">Đang duyệt</option>
-					        </select></p>
+			    		Thông Tin Khách Hàng
+			    	</div>
+			    	<div class="border-bottom p-b-10">
+			    		<div class="form-group m-t-15">
+				            <label class="control-label col-sm-3" for="">Khách Hàng:</label>
+				            <div class="col-sm-7">
+				                <input type="text" class="form-ctrl" ng-model="visit.UserProfile.FullName" readonly="" name="">
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label class="control-label col-sm-3" for="">Email:</label>
+				            <div class="col-sm-7">
+				                <input type="text" class="form-ctrl" ng-model="visit.UserProfile.Email" readonly="" name="">
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label class="control-label col-sm-3" for="">Số điện thoại:</label>
+				            <div class="col-sm-7">
+				                <input type="text" class="form-ctrl" ng-model="visit.UserProfile.Phone" name="">
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label class="control-label col-sm-3" for="">Trạng thái:</label>
+				            <div class="col-sm-5">
+				                <select number-to-string ng-model="visit.Status" style="width: 150px;" class="form-ctrl">
+						        	<option value="0">Chưa duyệt</option>
+						        	<option value="1">Đã hoàn thành</option>
+						        	<option value="2">Đang duyệt</option>
+						        </select>
+				            </div>
+				        </div>
 			    	</div>
 			    	<div class="overflow-hidden m-t-15 border-bottom p-b-15" >
 			    		<div class="col-sm-4 text-center">
