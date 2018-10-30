@@ -187,7 +187,7 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
                 if (willDelete) {
                     xhrService.delete("DeleteApartment/" + item.Id)
                         .then(function (data) {
-                            $scope.loadAccount();
+                            $scope.loadApartment();
                             swal("Xóa chung cư, căn hộ thành công!",
                                 {
                                     icon: "success",
