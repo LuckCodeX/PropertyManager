@@ -15,7 +15,7 @@
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Chủ nhà:</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-ctrl" name="username" readonly ng-model="FullName">
+			                <input type="text" class="form-ctrl" name="username" readonly ng-model="data.UserProfileOwner.FullName">
 			            </div>
 			        </div>
 			        <div class="form-group">
@@ -67,14 +67,18 @@
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Dịch vụ:</label>
-			            <div class="col-sm-3">
-			                <span class="checkbox-facility" ng-repeat="facility in facilityList track by $index">
-			                    <label class="material-checkbox">
-			                        <input type="checkbox" ng-model="facility.Status">
-			                        <span></span>
-			                    </label>
-			                    {{facility.Content.Name}}
-			                </span>
+			            <div class="col-sm-9">
+			                <div class="row">
+			                    <div class="col-sm-6" ng-repeat="facility in facilityList track by $index">
+			                        <span class="checkbox-facility" >
+			                            <label class="material-checkbox">
+			                                <input type="checkbox" ng-model="facility.Status">
+			                                <span></span>
+			                            </label>
+			                            {{facility.Content.Name}}
+			                        </span>
+			                    </div>
+			                </div>
 			            </div>
 			        </div>
 

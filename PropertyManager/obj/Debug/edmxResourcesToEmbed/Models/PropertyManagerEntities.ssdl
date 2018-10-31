@@ -106,6 +106,15 @@
     <Property Name="project_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="img" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
+    <Property Name="slide_1" Type="varchar" MaxLength="100" />
+    <Property Name="slide_2" Type="varchar" MaxLength="100" />
+    <Property Name="slide_3" Type="varchar" MaxLength="100" />
+    <Property Name="logo" Type="varchar" MaxLength="100" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="latitude" Type="float" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="url" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="project_content">
     <Key>
@@ -115,6 +124,24 @@
     <Property Name="project_id" Type="int" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="description" Type="ntext" />
+  </EntityType>
+  <EntityType Name="project_facility">
+    <Key>
+      <PropertyRef Name="project_facility_id" />
+    </Key>
+    <Property Name="project_facility_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="project_id" Type="int" Nullable="false" />
+    <Property Name="facility_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="project_overview">
+    <Key>
+      <PropertyRef Name="project_overview_id" />
+    </Key>
+    <Property Name="project_overview_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="content" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="project_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="slide">
     <Key>
@@ -344,6 +371,48 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__project_f__facil__6442E2C9">
+    <End Role="facility" Type="Self.facility" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="project_facility" Type="Self.project_facility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="facility">
+        <PropertyRef Name="facility_id" />
+      </Principal>
+      <Dependent Role="project_facility">
+        <PropertyRef Name="facility_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__project_f__proje__634EBE90">
+    <End Role="project" Type="Self.project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="project_facility" Type="Self.project_facility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="project_id" />
+      </Principal>
+      <Dependent Role="project_facility">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__project_o__proje__681373AD">
+    <End Role="project" Type="Self.project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="project_overview" Type="Self.project_overview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="project_id" />
+      </Principal>
+      <Dependent Role="project_overview">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__user_acco__user___1273C1CD">
     <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -438,6 +507,8 @@
     <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project_content" EntityType="Self.project_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project_facility" EntityType="Self.project_facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project_overview" EntityType="Self.project_overview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
@@ -484,6 +555,18 @@
     <AssociationSet Name="FK__project_c__proje__4E88ABD4" Association="Self.FK__project_c__proje__4E88ABD4">
       <End Role="project" EntitySet="project" />
       <End Role="project_content" EntitySet="project_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project_f__facil__6442E2C9" Association="Self.FK__project_f__facil__6442E2C9">
+      <End Role="facility" EntitySet="facility" />
+      <End Role="project_facility" EntitySet="project_facility" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project_f__proje__634EBE90" Association="Self.FK__project_f__proje__634EBE90">
+      <End Role="project" EntitySet="project" />
+      <End Role="project_facility" EntitySet="project_facility" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project_o__proje__681373AD" Association="Self.FK__project_o__proje__681373AD">
+      <End Role="project" EntitySet="project" />
+      <End Role="project_overview" EntitySet="project_overview" />
     </AssociationSet>
     <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="Self.FK__user_acco__user___1273C1CD">
       <End Role="user_profile" EntitySet="user_profile" />

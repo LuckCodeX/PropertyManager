@@ -19,15 +19,30 @@ namespace PropertyManager.Models
         {
             this.project_content = new HashSet<project_content>();
             this.apartments = new HashSet<apartment>();
+            this.project_facility = new HashSet<project_facility>();
+            this.project_overview = new HashSet<project_overview>();
         }
     
         public int project_id { get; set; }
         public string img { get; set; }
         public int status { get; set; }
+        public int type { get; set; }
+        public string slide_1 { get; set; }
+        public string slide_2 { get; set; }
+        public string slide_3 { get; set; }
+        public string logo { get; set; }
+        public string address { get; set; }
+        public Nullable<double> latitude { get; set; }
+        public Nullable<double> longitude { get; set; }
+        public string url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<project_content> project_content { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment> apartments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<project_facility> project_facility { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<project_overview> project_overview { get; set; }
     }
 }

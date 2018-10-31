@@ -12,13 +12,12 @@ namespace PropertyManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class project_content
+    public partial class project_overview
     {
-        public int project_content_id { get; set; }
-        public int project_id { get; set; }
-        public string name { get; set; }
+        public int project_overview_id { get; set; }
+        public string content { get; set; }
         public int language { get; set; }
-        public string description { get; set; }
+        public int project_id { get; set; }
     
         public virtual project project { get; set; }
     }

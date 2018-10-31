@@ -87,6 +87,15 @@
     <EntitySetMapping Name="projects">
       <EntityTypeMapping TypeName="PropertyManagerModel.project">
         <MappingFragment StoreEntitySet="project">
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+          <ScalarProperty Name="slide_3" ColumnName="slide_3" />
+          <ScalarProperty Name="slide_2" ColumnName="slide_2" />
+          <ScalarProperty Name="slide_1" ColumnName="slide_1" />
+          <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="project_id" ColumnName="project_id" />
           <ScalarProperty Name="img" ColumnName="img" />
           <ScalarProperty Name="status" ColumnName="status" />
@@ -96,6 +105,7 @@
     <EntitySetMapping Name="project_content">
       <EntityTypeMapping TypeName="PropertyManagerModel.project_content">
         <MappingFragment StoreEntitySet="project_content">
+          <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="project_content_id" ColumnName="project_content_id" />
           <ScalarProperty Name="project_id" ColumnName="project_id" />
           <ScalarProperty Name="name" ColumnName="name" />
@@ -222,6 +232,25 @@
           <ScalarProperty Name="expected_date" ColumnName="expected_date" />
           <ScalarProperty Name="user_visit_item_id" ColumnName="user_visit_item_id" />
           <ScalarProperty Name="user_visit_history_id" ColumnName="user_visit_history_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="project_facility">
+      <EntityTypeMapping TypeName="PropertyManagerModel.project_facility">
+        <MappingFragment StoreEntitySet="project_facility">
+          <ScalarProperty Name="facility_id" ColumnName="facility_id" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="project_facility_id" ColumnName="project_facility_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="project_overview">
+      <EntityTypeMapping TypeName="PropertyManagerModel.project_overview">
+        <MappingFragment StoreEntitySet="project_overview">
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="project_overview_id" ColumnName="project_overview_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

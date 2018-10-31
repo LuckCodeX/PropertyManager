@@ -19,6 +19,7 @@ namespace PropertyManager.Models
         {
             this.apartment_facility = new HashSet<apartment_facility>();
             this.facility_content = new HashSet<facility_content>();
+            this.project_facility = new HashSet<project_facility>();
         }
     
         public int facility_id { get; set; }
@@ -29,5 +30,7 @@ namespace PropertyManager.Models
         public virtual ICollection<apartment_facility> apartment_facility { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<facility_content> facility_content { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<project_facility> project_facility { get; set; }
     }
 }

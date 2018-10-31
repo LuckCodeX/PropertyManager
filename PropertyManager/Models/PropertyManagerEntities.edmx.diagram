@@ -39,6 +39,11 @@
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___40058253" />
         <EntityTypeShape EntityType="PropertyManagerModel.user_visit_history" Width="1.5" PointX="7.5" PointY="12.25" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_visi__user___4F47C5E3" />
+        <EntityTypeShape EntityType="PropertyManagerModel.project_facility" Width="1.5" PointX="8.25" PointY="4.125" />
+        <EntityTypeShape EntityType="PropertyManagerModel.project_overview" Width="1.5" PointX="3" PointY="23.375" />
+        <AssociationConnector Association="PropertyManagerModel.FK__project_f__facil__6442E2C9" />
+        <AssociationConnector Association="PropertyManagerModel.FK__project_f__proje__634EBE90" />
+        <AssociationConnector Association="PropertyManagerModel.FK__project_o__proje__681373AD" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

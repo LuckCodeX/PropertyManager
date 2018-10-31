@@ -43,7 +43,7 @@
 				<tr ng-repeat="item in apartmentList">
 					<td><a class="" ui-sref="apartmentdetail({id:item.Id})"><img class="img-apartment-table" ng-src="{{item.ImgList[0].Img}}"/></a></td>
 					<td>{{item.Address | limitTo : 50}}{{item.Address.length > 50 ? '...' : ''}}</td>
-					<td><a href="" class="">{{item.UserProfileOwner.FirstName}} {{item.UserProfileOwner.LastName}}</a></td>
+					<td><a href="" class="">{{item.UserProfileOwner.FullName}}</a></td>
                     <td>{{item.UserProfileOwner.Phone}}</td>
 					<td><span ng-if="item.Status == 1" class="text-success">Đã duyệt</span><span class="text-warning" ng-if="item.Status == 0">Chưa duyệt</span></td>
 					<td>

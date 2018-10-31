@@ -44,7 +44,7 @@ namespace PropertyManager.Services
 
         public List<user_visit> SearchListUserVisit(int status)
         {
-            return UserVisitRepository.FindBy(p => status == -1 || p.status == status).Include(p => p.user_visit_item).Include(p => p.user_profile).ToList();
+            return UserVisitRepository.FindBy(p => status == -1 || p.status == status).Include(p => p.user_visit_item).Include(p => p.user_profile).OrderByDescending(p => p.user_visit_id).ToList();
         }
 
         public user_visit GetUserVisitById(int id)
