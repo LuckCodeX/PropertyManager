@@ -958,6 +958,7 @@ table.rz-table {
             }
 
 #resizeTable {
+    border-collapse: collapse;
     background: white;
     margin-bottom: 0 !important;
 }
@@ -975,7 +976,7 @@ table.rz-table {
     }
 
     #resizeTable thead tr:last-child th {
-        top: 46px;
+        top: 48px;
     }
 
     #resizeTable thead tr th:first-child {
@@ -998,7 +999,7 @@ table.rz-table {
         #resizeTable thead tr th {
             line-height: 36px;
             /*border-bottom-width: 1px;*/
-            border-bottom: 1px solid #ddd;
+            /*border-bottom: 1px solid #ddd;*/
         }
 
     #resizeTable tr td {
@@ -1056,7 +1057,7 @@ table.rz-table {
             overflow: scroll;
             padding: 0;
             height: calc(100vh - 300px);
-            border: 1px solid #ddd;
+            /*border: 1px solid #ddd;*/
         }
 
     #resizeTable_wrapper > .row:nth-child(3) {
@@ -1095,7 +1096,7 @@ table.rz-table {
 }
 
 #resizeTable > tbody > tr:first-child > td {
-    border-top: none;
+    /*border-top: none;*/
 }
 /*
 	   #resizeTable thead:after {
@@ -1106,7 +1107,24 @@ table.rz-table {
 		}*/
 
 #resizeTable tr td, #resizeTable tr th {
-    border-right: 1px solid #ddd;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-left: none;
+    outline: none !important; 
+}
+#resizeTable thead tr:first-child th{
+    border-top: 1px solid #ddd;
+}
+#resizeTable thead tr:first-child th:first-child{
+    border-left: 1px solid #ddd;
+}
+#resizeTable tbody tr td:first-child{
+    border-left: 1px solid #ddd;
+}
+
+#resizeTable .rz-handle{
+    /*border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd; */
 }
 
 .input-row.btn.btn-save {
@@ -1243,4 +1261,7 @@ hr.dashed {
   height:1px;
   width:100%;
   margin: 0 15px;
+}
+.m-r-0{
+    margin-right: 0 !important;
 }
