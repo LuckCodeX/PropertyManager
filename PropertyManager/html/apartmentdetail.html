@@ -67,18 +67,18 @@
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Dịch vụ:</label>
-			            <div class="col-sm-9">
-			                <div class="row">
-			                    <div class="col-sm-6" ng-repeat="facility in facilityList track by $index">
-			                        <span class="checkbox-facility" >
-			                            <label class="material-checkbox">
-			                                <input type="checkbox" ng-model="facility.Status">
-			                                <span></span>
-			                            </label>
-			                            {{facility.Content.Name}}
-			                        </span>
-			                    </div>
-			                </div>
+			            <div class="col-md-6 col-sm-9">
+			            	<div class="row">
+			            		<div class="col-sm-6" style="margin-top: 10px;" ng-repeat="facility in facilityList track by $index">
+				            		<span class="checkbox-facility">
+					                    <label class="material-checkbox">
+					                        <input type="checkbox" ng-model="facility.Status">
+					                        <span></span>
+					                    </label>
+					                    {{facility.Content.Name}}
+					                </span>
+				            	</div>
+			            	</div>
 			            </div>
 			        </div>
 

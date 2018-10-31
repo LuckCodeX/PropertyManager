@@ -5,9 +5,8 @@
 		</div>
 		<div class="body-warp">
 			<div style="overflow: hidden;">
-				<div class="btn-new">
-				<a ui-sref="accountdetail">+ THÊM</a>
-			</div>
+				
+				<a ui-sref="system.accountdetail"  class="m-r-0 float-right btn btn-save">+ THÊM</a>
 			<form class="search-box" ng-submit="pageChanged()">
 				<div class="search-group">
                     <i class="fas fa-search"></i>
@@ -25,16 +24,16 @@
 					<th>&nbsp;</th>
 				</tr>
 				<tr ng-repeat="item in accountList">
-					<td><a class="" ui-sref="accountdetail({id:item.Id})">{{item.Username}}</a></td>
+					<td><a class="" ui-sref="system.accountdetail({id:item.Id})">{{item.Username}}</a></td>
 					<td>{{item.RoleName}}</td>
-					<td><a class="" ui-sref="accountdetail({id:item.Parent.Id})">{{item.Parent.Username}}</a></td>
+					<td><a class="" ui-sref="system.accountdetail({id:item.Parent.Id})">{{item.Parent.Username}}</a></td>
 					<td>
 						<div class="dropdown action-dropdown-table">
 	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
 	                            <i class="fas fa-ellipsis-v"></i>
 	                        </button>
 	                        <ul class="dropdown-menu">
-	                          <li><a ui-sref="accountdetail({id:item.Id})">Chỉnh sửa</a></li>
+	                          <li><a ui-sref="system.accountdetail({id:item.Id})">Chỉnh sửa</a></li>
 
 						      <!-- <li><a href=""
 								   ng-confirm-click="Bạn có muốn xóa tài khoản {{item.Username}} này ?"
