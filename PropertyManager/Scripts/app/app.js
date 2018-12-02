@@ -10,7 +10,7 @@
     //'ngCsv',
     'ngAnimate',
     'ngCkeditor',
-    'rzTable',
+//    'rzTable',
     'ui.utils',
     'selectize'
 ]);

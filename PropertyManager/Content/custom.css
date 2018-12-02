@@ -1265,3 +1265,9 @@ hr.dashed {
 .m-r-0{
     margin-right: 0 !important;
 }
+.rowSub{
+    width: 70px !important;
+}
+.thead tr th{
+    min-width: 80px !important;
+}
