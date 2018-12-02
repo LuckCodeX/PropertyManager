@@ -29,7 +29,7 @@ function AccountCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrS
                     loadListLeader();
                 },
                     function (error) {
-
+                        loadListLeader();
                         console.log(error.statusText);
                     });
         } else {
