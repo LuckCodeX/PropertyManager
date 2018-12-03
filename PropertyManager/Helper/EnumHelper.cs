@@ -12,6 +12,7 @@ namespace PropertyManager.Helper
         ApartmentManager,
         CustomerManager,
         ApartmentEmployee,
-        CustomerEmployee
+        CustomerEmployee,
+        MaidManager
     }
 }

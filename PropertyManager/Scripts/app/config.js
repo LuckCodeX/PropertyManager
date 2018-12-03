@@ -89,6 +89,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
                 url: "/import-apartment",
                 templateUrl: "html/importapartment.html"
             })
+        .state('maid',
+            {
+                url: "/maid",
+                abstract: true,
+                templateUrl: "html/maid.html",
+            })
+        .state('maid.list',
+            {
+                url: "/list?page&search",
+                templateUrl: "html/maidlist.html"
+            })
         ;
 }
 

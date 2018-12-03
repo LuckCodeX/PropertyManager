@@ -663,6 +663,8 @@
     <Content Include="html\dashboard.html" />
     <Content Include="html\importapartment.html" />
     <Content Include="html\importcustomer.html" />
+    <Content Include="html\maid.html" />
+    <Content Include="html\maidlist.html" />
     <Content Include="html\system.html" />
     <Content Include="html\visit.html" />
     <Content Include="html\visitdetail.html" />
@@ -785,6 +787,7 @@
     <Content Include="Views\Home\ContractDetail.cshtml" />
     <Content Include="Views\Home\Visit.cshtml" />
     <Content Include="Views\Home\VisitDetail.cshtml" />
+    <Content Include="Views\Home\MaidList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

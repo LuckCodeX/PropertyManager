@@ -85,5 +85,10 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult MaidList()
+        {
+            return View();
+        }
     }
 }

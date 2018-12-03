@@ -98,6 +98,12 @@ namespace PropertyManager
             );
 
             routes.MapRoute(
+                name: "MaidList",
+                url: "maid/list",
+                defaults: new { controller = "Home", action = "MaidList", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
