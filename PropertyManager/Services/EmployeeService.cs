@@ -20,9 +20,9 @@ namespace PropertyManager.Services
             }
         }
 
-        public employee GetEmployeeById(int id)
+        public employee GetMaidById(int id)
         {
-            return EmployeeRepository.FindBy(p => p.employee_id == id).FirstOrDefault();
+            return EmployeeRepository.FindBy(p => p.employee_id == id && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
         }
 
         public void SaveEmployee(employee employee)
@@ -46,6 +46,11 @@ namespace PropertyManager.Services
                 default:
                     return "";
             }
+        }
+
+        public employee GetActiveMaidById(int id)
+        {
+            return EmployeeRepository.FindBy(p => p.employee_id == id && p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
         }
     }
 }

@@ -644,7 +644,7 @@ namespace PropertyManager.Controllers
         [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void SaveMaid(EmployeeModel model)
         {
-            var maid = _service.GetEmployeeById(model.Id);
+            var maid = _service.GetMaidById(model.Id);
             if (Equals(maid, null))
             {
                 maid = new employee()
@@ -699,6 +699,20 @@ namespace PropertyManager.Controllers
                 data = maidList
             };
         }
+
+        [HttpPost]
+        [Route("DeleteMaid/{id}")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void DeleteMaid(int id)
+        {
+            var maid = _service.GetActiveMaidById(id);
+            if (!Equals(maid, null))
+            {
+                maid.status = 2;
+                _service.SaveEmployee(maid);
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool disposing)
