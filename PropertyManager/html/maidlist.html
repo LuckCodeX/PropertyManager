@@ -1,1 +1,285 @@
-﻿<h1>Maid List</h1>
+﻿<div ng-controller="MaidCtrl" ng-init="loadMaidList()" class="view-maid-list">
+   <div class="container-fluid content-maid-list">
+       <div class="row">
+           <form class="form-horizontal" name="myForm">
+                <div class="col-sm-12" >
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Nhân viên:</label>
+                            <div class="col-sm-7">
+                                <select class="form-ctrl" number-to-string ng-model="employee">
+                                    <option value="">Chọn nhân viên</option>
+                                    <option value="0">Hoàng Sang</option>
+                                    <option value="1">Tuấn Nghĩa</option>
+                                    <option value="2">Bùi Hải</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Thời gian từ:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="history.StartDate" is-open="history.picker1" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Đến:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="history.EndDate" is-open="history.picker2" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;float: right">
+                            <button data-toggle="modal" data-target="#employeeModal" type="button" style="margin-right: 11px" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+             </form>
+			</div>
+           <table class="table table-hover table-list table-contract table-maid">
+                    <tr>
+                        <th colspan="6">Thông tin nhân viên</th>
+                        <th colspan="4">Số lượng căn phụ trách</th>
+                        <th rowspan="2" class="col2rows">Ghi chú</th>
+                    </tr>
+                    <tr>
+                        <th>Phân loại nhân viên</th>
+                        <th>Họ tên</th>  
+                        <th>Mã nhân viên</th>
+                        <th>Năm sinh</th>  
+                        <th>Vị trí</th>  
+                        <th>Điện thoại</th>
+                        <th>Tổng số căn phụ trách</th>
+                        <th>1 ngủ</th>
+                        <th>2 ngủ</th>
+                        <th>3 ngủ</th>
+                    </tr>
+                    <tr ng-repeat="item in maidList">
+                        <td>Trưởng phòng</td>
+                        <td><a href="#" data-toggle="modal" data-target="#employeeEditModal">Hoàng Sang</a></td>
+                        <td>A123</td>
+                        <td>1981</td>
+                        <td>Trưởng bộ Maid</td>
+                        <td>09486351351</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>Không có</td>
+                    </tr>
+                </table>
+<!--
+			<table class="table table-hover table-list table-contract table-maid">
+				<tr>
+					<th class="col2rows" rowspan="2">Họ tên nhân viên</th>
+					<th class="col2rows" rowspan="2">Ngày bắt đầu làm</th>
+					<th class="col2rows" rowspan="2">Ngày phép</th>
+					<th colspan="2">Trừ giờ</th>
+					<th colspan="2">Cộng giờ</th>
+					<th class="col2rows" rowspan="2">&nbsp;</th>
+				</tr>
+                <tr>
+                    <th>Ngày trừ</th>
+                    <th>Số giờ</th>  
+                    <th>Ngày cộng̀</th>
+                    <th>Số giờ</th>  
+                </tr>
+				<tr ng-repeat="item in maidList">
+					<td><a href="#">Hoàng Sang</a></td>
+					<td>11/2/2018</td>
+					<td>11/2/2018</td>
+                    <td>11/2/2018</td>
+                    <td>11</td>
+                    <td>11/2/2018</td>
+                    <td>12</td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Chỉnh sửa</a></li>
+                            <li><a href="#"> Xóa
+                            </a></li>
+                        </ul>
+                      </div>
+					</td>
+				</tr>
+			</table>
+-->
+<!--
+			<div class="pagination-employee">
+				<ul uib-pagination total-items="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div>
+-->
+    </div>
+    <div id="employeeModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <form class="form-horizontal modal-content" name="myForm">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Tạo Mới Nhân Viên</h4>
+	      </div>
+	      <div class="modal-body account-detail-view">
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Tài khoản:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl" >
+		            </div>
+		        </div>
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Mật khẩu:</label>
+		            <div class="col-sm-8">
+		                <input type="password" class="form-ctrl" >
+		            </div>
+		        </div>
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Xác nhận mật khẩu:</label>
+		            <div class="col-sm-8">
+		                <input type="password" class="form-ctrl" >
+		            </div>
+		        </div>
+	      		<div class="form-group">
+		            <label class="control-label col-sm-3" for="">Phân loại nhân viên:</label>
+		            <div class="col-sm-8">
+		            	<select class="form-ctrl" number-to-string >
+                            <option value="">Chọn nhân viên</option>
+                            <option value="0">Hoàng Sang</option>
+                            <option value="1">Tuấn Nghĩa</option>
+                            <option value="2">Bùi Hải</option>
+                        </select>
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Họ và tên:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl" >
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Năm sinh:</label>
+		            <div class="col-sm-8">
+		                <input type="text" min="0" class="form-ctrl" >
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Vị trí:</label>
+		            <div class="col-sm-8">
+		                <select class="form-ctrl" number-to-string >
+                            <option value="">Chọn nhân viên</option>
+                            <option value="0">Hoàng Sang</option>
+                            <option value="1">Tuấn Nghĩa</option>
+                            <option value="2">Bùi Hải</option>
+                        </select>
+		            </div>
+		        </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="">Số điện thoại:</label>
+                    <div class="col-sm-8">
+                        <input type="text" min="0" class="form-ctrl" >
+                    </div>
+                </div>
+		    </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Tạo mới</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+	      </div>
+	    </form>
+
+	  </div>
+	</div>
+    
+    <div id="employeeEditModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <form class="form-horizontal modal-content" name="myForm">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Thông Tin Nhân Viên</h4>
+	      </div>
+	      <div class="modal-body account-detail-view">
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Tài khoản:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl" readonly>
+		            </div>
+		        </div>
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Mật khẩu:</label>
+		            <div class="col-sm-8">
+		                <input type="password" class="form-ctrl" >
+		            </div>
+		        </div>
+              <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Xác nhận mật khẩu:</label>
+		            <div class="col-sm-8">
+		                <input type="password" class="form-ctrl" >
+		            </div>
+		        </div>
+	      		<div class="form-group">
+		            <label class="control-label col-sm-3" for="">Phân loại nhân viên:</label>
+		            <div class="col-sm-8">
+		            	<select class="form-ctrl" number-to-string >
+                            <option value="">Chọn nhân viên</option>
+                            <option value="0">Hoàng Sang</option>
+                            <option value="1">Tuấn Nghĩa</option>
+                            <option value="2">Bùi Hải</option>
+                        </select>
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Họ và tên:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl" >
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Mã nhân viên:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl" readonly>
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Năm sinh:</label>
+		            <div class="col-sm-8">
+		                <input type="text" min="0" class="form-ctrl" >
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Vị trí:</label>
+		            <div class="col-sm-8">
+		                <select class="form-ctrl" number-to-string >
+                            <option value="">Chọn nhân viên</option>
+                            <option value="0">Hoàng Sang</option>
+                            <option value="1">Tuấn Nghĩa</option>
+                            <option value="2">Bùi Hải</option>
+                        </select>
+		            </div>
+		        </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="">Số điện thoại:</label>
+                    <div class="col-sm-8">
+                        <input type="text" min="0" class="form-ctrl" >
+                    </div>
+                </div>
+		    </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Tạo mới</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+	      </div>
+	    </form>
+
+	  </div>
+	</div>
+</div> 
