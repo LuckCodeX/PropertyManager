@@ -276,6 +276,7 @@
     <Compile Include="Models\slide.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatisticModel.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\UserVisitModel.cs" />

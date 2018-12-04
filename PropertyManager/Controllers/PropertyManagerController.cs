@@ -686,6 +686,12 @@ namespace PropertyManager.Controllers
                     FirstName = p.first_name,
                     LastName = p.last_name,
                     RoleName = _service.GetEmployeeRoleName(p.role),
+                    Statistic = new StatisticModel()
+                    {
+                        Room1 = 0,
+                        Room2 = 0,
+                        Room3 = 0
+                    }
                 }).ToList();
             return new PagingResult<EmployeeModel>()
             {

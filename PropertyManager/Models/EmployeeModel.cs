@@ -19,5 +19,6 @@ namespace PropertyManager.Models
         public string LastName { get; set; }
         public string Type { get; set; }
         public string Code { get; set; }
+        public StatisticModel Statistic { get; set; }
     }
 }
