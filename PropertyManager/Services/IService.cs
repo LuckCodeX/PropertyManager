@@ -46,5 +46,9 @@ namespace PropertyManager.Services
         void SaveUserVisitItem(user_visit_item visitItem);
         user_visit_history GetUserVisitHistoryById(int id);
         void SaveUserVisitHistory(user_visit_history his);
+        employee GetEmployeeById(int id);
+        void SaveEmployee(employee employee);
+        List<employee> SearchListActiveMaid(FilterModel filter);
+        string GetEmployeeRoleName(int role);
     }
 }

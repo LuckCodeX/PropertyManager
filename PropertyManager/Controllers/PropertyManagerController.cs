@@ -637,6 +637,64 @@ namespace PropertyManager.Controllers
             }
         }
 
+        #region Maid
+
+        [HttpPost]
+        [Route("SaveMaid")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void SaveMaid(EmployeeModel model)
+        {
+            var maid = _service.GetEmployeeById(model.Id);
+            if (Equals(maid, null))
+            {
+                maid = new employee()
+                {
+                    employee_id = 0,
+                    status = 1,
+                    username = model.Username
+                };
+            }
+
+            maid.birthday = model.Birthday;
+            maid.code = model.Code;
+            maid.first_name = model.FirstName;
+            maid.last_name = model.LastName;
+            maid.phone = model.Phone;
+            maid.role = model.Role;
+            maid.type = model.Type;
+            if(!Equals(model.Password))
+                maid.password = Encrypt.EncodePassword(model.Password);
+            _service.SaveEmployee(maid);
+        }
+
+        [HttpPost]
+        [Route("GetListMaid")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public PagingResult<EmployeeModel> GetListMaid(FilterModel filter)
+        {
+            var maids = _service.SearchListActiveMaid(filter);
+            var maidList = maids.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit)
+                .Select(p => new EmployeeModel()
+                {
+                    Id = p.employee_id,
+                    Username = p.username,
+                    Phone = p.phone,
+                    Birthday = p.birthday,
+                    Type = p.type,
+                    Role = p.role,
+                    Code = p.code,
+                    FirstName = p.first_name,
+                    LastName = p.last_name,
+                    RoleName = _service.GetEmployeeRoleName(p.role),
+                }).ToList();
+            return new PagingResult<EmployeeModel>()
+            {
+                total = maids.Count,
+                data = maidList
+            };
+        }
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             _service.Dispose();

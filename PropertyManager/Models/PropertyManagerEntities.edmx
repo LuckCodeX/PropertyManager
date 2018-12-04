@@ -87,6 +87,22 @@
           <Property Name="description" Type="ntext" Nullable="false" />
           <Property Name="language" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="birthday" Type="varchar" MaxLength="11" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="255" />
+          <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="facility">
           <Key>
             <PropertyRef Name="facility_id" />
@@ -144,7 +160,7 @@
             <PropertyRef Name="project_overview_id" />
           </Key>
           <Property Name="project_overview_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="content" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="content" Type="ntext" Nullable="false" />
           <Property Name="language" Type="int" Nullable="false" />
           <Property Name="project_id" Type="int" Nullable="false" />
         </EntityType>
@@ -508,6 +524,7 @@
           <EntitySet Name="apartment_facility" EntityType="Self.apartment_facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="blog" EntityType="Self.blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="blog_content" EntityType="Self.blog_content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
@@ -893,6 +910,7 @@
             <End Role="project" EntitySet="projects" />
             <End Role="project_overview" EntitySet="project_overview" />
           </AssociationSet>
+          <EntitySet Name="employees" EntityType="PropertyManagerModel.employee" />
           </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -1186,7 +1204,7 @@
             <PropertyRef Name="project_overview_id" />
           </Key>
           <Property Name="project_overview_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="content" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="language" Type="Int32" Nullable="false" />
           <Property Name="project_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="project" Relationship="PropertyManagerModel.FK__project_o__proje__681373AD" FromRole="project_overview" ToRole="project" />
@@ -1233,6 +1251,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="birthday" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1489,6 +1523,23 @@
                 <ScalarProperty Name="language" ColumnName="language" />
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="project_overview_id" ColumnName="project_overview_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="PropertyManagerModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -45,5 +45,6 @@ namespace PropertyManager.Models
         public virtual DbSet<user_visit_history> user_visit_history { get; set; }
         public virtual DbSet<project_facility> project_facility { get; set; }
         public virtual DbSet<project_overview> project_overview { get; set; }
+        public virtual DbSet<employee> employees { get; set; }
     }
 }

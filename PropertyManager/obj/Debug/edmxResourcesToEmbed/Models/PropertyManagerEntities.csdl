@@ -291,6 +291,7 @@
       <End Role="project" EntitySet="projects" />
       <End Role="project_overview" EntitySet="project_overview" />
     </AssociationSet>
+    <EntitySet Name="employees" EntityType="PropertyManagerModel.employee" />
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -584,7 +585,7 @@
       <PropertyRef Name="project_overview_id" />
     </Key>
     <Property Name="project_overview_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="content" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="language" Type="Int32" Nullable="false" />
     <Property Name="project_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="project" Relationship="PropertyManagerModel.FK__project_o__proje__681373AD" FromRole="project_overview" ToRole="project" />
@@ -631,4 +632,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="role" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="birthday" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

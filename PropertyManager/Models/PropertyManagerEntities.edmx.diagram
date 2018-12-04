@@ -22,7 +22,7 @@
         <AssociationConnector Association="PropertyManagerModel.FK__facility___facil__24927208" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__project_c__proje__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="PropertyManagerModel.FK__admin__parent_id__02084FDA" />
-        <EntityTypeShape EntityType="PropertyManagerModel.user_profile" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_profile" Width="1.5" PointX="0.625" PointY="7.625" />
         <EntityTypeShape EntityType="PropertyManagerModel.user_social" Width="1.5" PointX="3" PointY="16.5" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_acco__user___1273C1CD" />
         <AssociationConnector Association="PropertyManagerModel.FK__user_goog__user___29221CFB" />
@@ -44,6 +44,7 @@
         <AssociationConnector Association="PropertyManagerModel.FK__project_f__facil__6442E2C9" />
         <AssociationConnector Association="PropertyManagerModel.FK__project_f__proje__634EBE90" />
         <AssociationConnector Association="PropertyManagerModel.FK__project_o__proje__681373AD" />
+        <EntityTypeShape EntityType="PropertyManagerModel.employee" Width="1.5" PointX="10.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,4 +15,10 @@ namespace PropertyManager.Helper
         CustomerEmployee,
         MaidManager
     }
+
+    public enum RoleEmployee
+    {
+        MaidManager,
+        Maid
+    }
 }

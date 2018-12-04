@@ -232,6 +232,10 @@
     <Compile Include="Models\blog_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\employee.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\facility.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -239,6 +243,7 @@
     <Compile Include="Models\facility_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\PagingResult.cs" />
     <Compile Include="Models\project.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
@@ -280,6 +285,7 @@
     <Compile Include="Models\user_visit_item.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>

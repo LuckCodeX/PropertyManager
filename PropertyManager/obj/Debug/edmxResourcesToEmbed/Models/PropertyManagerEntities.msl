@@ -254,5 +254,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="PropertyManagerModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
