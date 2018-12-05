@@ -67,7 +67,7 @@
                                 name: 'styles',
                                 items: ['Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat']
                             },
-                            { name: 'insert', items: ['Table', 'SpecialChar'] },
+                            { name: 'insert', items: ['Table', 'SpecialChar', 'Iframe'] },
                             { name: 'forms', items: ['Outdent', 'Indent'] },
                             { name: 'clipboard', items: ['Undo', 'Redo'] },
                             { name: 'document', items: ['PageBreak', 'Source'] }

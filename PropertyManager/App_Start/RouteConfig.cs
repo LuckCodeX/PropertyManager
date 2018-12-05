@@ -104,6 +104,18 @@ namespace PropertyManager
             );
 
             routes.MapRoute(
+                name: "MaidApartment",
+                url: "maid/apartment",
+                defaults: new { controller = "Home", action = "MaidApartment", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "MaidBusiness",
+                url: "maid/business",
+                defaults: new { controller = "Home", action = "MaidBusiness", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

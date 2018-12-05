@@ -90,5 +90,15 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult MaidApartment()
+        {
+            return View();
+        }
+
+        public ActionResult MaidBusiness()
+        {
+            return View();
+        }
     }
 }

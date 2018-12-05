@@ -99,7 +99,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/list?page&search",
                 templateUrl: "html/maidlist.html"
-            })
+        })
+            .state('maid.apartment',
+                {
+                    url: "/apartment?page&search",
+                    templateUrl: "html/maidapartment.html"
+        })
+            .state('maid.business',
+                {
+                    url: "/business?page&search",
+                    templateUrl: "html/maidbusiness.html"
+                })
         ;
 }
 
