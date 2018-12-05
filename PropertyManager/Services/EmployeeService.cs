@@ -52,5 +52,10 @@ namespace PropertyManager.Services
         {
             return EmployeeRepository.FindBy(p => p.employee_id == id && p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
         }
+
+        public List<employee> GetAllActiveMaid()
+        {
+            return EmployeeRepository.FindBy(p => p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).ToList();
+        }
     }
 }

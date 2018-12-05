@@ -713,6 +713,21 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllMaid")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public List<EmployeeModel> GetAllMaid()
+        {
+            var maids = _service.GetAllActiveMaid();
+            return maids.Select(p => new EmployeeModel()
+            {
+                Id = p.employee_id,
+                FirstName = p.first_name,
+                LastName = p.last_name,
+                Code = p.code
+            }).ToList();
+        }
+
         #endregion
 
         protected override void Dispose(bool disposing)

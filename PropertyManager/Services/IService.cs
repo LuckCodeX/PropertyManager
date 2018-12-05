@@ -51,5 +51,6 @@ namespace PropertyManager.Services
         List<employee> SearchListActiveMaid(FilterModel filter);
         string GetEmployeeRoleName(int role);
         employee GetActiveMaidById(int id);
+        List<employee> GetAllActiveMaid();
     }
 }
