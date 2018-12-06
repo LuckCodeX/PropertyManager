@@ -97,7 +97,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             })
         .state('maid.list',
             {
-                url: "/list?page&search",
+                url: "/list?page&empID&fromDate&toDate",
                 templateUrl: "html/maidlist.html"
             })
         ;

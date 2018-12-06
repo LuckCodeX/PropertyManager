@@ -1329,3 +1329,52 @@ hr.dashed {
 .view-maid-list .modal-dialog{
     width: 690px !important;
 }
+
+.view-maid-list .modal-header{
+    background: #08B0A0;
+    color: white;
+}
+.text-left{
+    text-align: left !important;
+}
+.view-maid-list .modal-content{
+    border-radius: 0;
+}
+.view-maid-list .modal-content .close{
+    opacity: 1
+}
+.view-maid-list .modal-content .close i{
+    font-size: 23px;
+    color: white;
+}
+.view-maid-list .modal-content .control-label{
+    color: #939394;
+
+}
+.maid-employee-modal .form-group{
+    padding-top: 15px;
+    padding-left: 10px;
+}
+.maid-employee-modal .form-group input,.maid-employee-modal .form-group select{
+    border: none;
+    border-bottom: 2px solid #93939469;
+    padding: 10px;
+
+}
+.input-datetime .input-group-btn{
+    padding: 0;
+}
+.input-datetime .input-group-btn button{
+    border:none;
+    bottom: -4px;
+    border-bottom: 2px solid #93939469;
+}
+.input-datetime .input-group>div{
+    position: relative;
+}
+.input-datetime .input-group>div>ul.uib-datepicker-popup{
+    top: 0px !important;
+}
+.selectize-dropdown-content .caption{
+    display: block;
+}
