@@ -2,6 +2,30 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     const firstDay = (new Date(2010,00,01)).getTime()/1000;
     const today = getEndDay(new Date());
 
+    $scope.replaceString = function (str) {
+        if (!str)
+            return null;
+        str = str.toLowerCase();
+        str = str.replace(/\ /g, "-");
+        str = str.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/\”|\“|\"|\[|\]|\?/g, "");
+        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
+        str = str.replace(/\u02C6|\u0306|\u031B/g, ""); 
+        return str;
+    };
+
+    $scope.convertString = function(str){
+        console.log($scope.replaceString('mèo'));
+        
+        return str;
+    }
+
     $scope.convertDate = function(timeString){
         var date = new Date(timeString*1000);
         var timeConvert = date.getDate() + "/" + Math.ceil(date.getMonth()+1) + "/" +date.getFullYear();
@@ -43,21 +67,39 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
         $scope.currentEmployee = $stateParams.empID === undefined ? '' : $stateParams.empID;
         
+        $("input#username").on({
+          keydown: function(e) {
+            if (e.which === 32)
+              return false;
+          },
+          change: function() {
+            this.value = this.value.replace(/\s/g, "");
+          }
+        });
+        
          xhrService.get("GetAllMaid",$scope.filterData)
             .then(function (data) {
                 $scope.employeeList = [];
+                $scope.employeeList.push({
+                    Id: -1,
+                    FirstName: 'Tất',
+                    LastName: "cả",
+                    Code: "0",
+                    value: -1
+                });
                 var dataEmp = data.data;
                 dataEmp.forEach(function(item, index){
                     let emp = {
                         Id: item.Id,
                         FirstName: item.FirstName,
                         LastName: item.LastName,
+                        LowerFirstName: $scope.replaceString(item.FirstName),
+                        LowerLastName: $scope.replaceString(item.LastName),
                         Code: item.Code,
                         value: item.Id
                     };
                     $scope.employeeList.push(emp);
                 });
-                console.log($scope.employeeList);
             },
             function (error) {
                 console.log(error.statusText);
@@ -67,7 +109,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2050, 5, 22),
-            minDate: new Date(2010,00,01),
+            minDate: new Date(1900,00,01),
             startingDay: 1
         };
         $scope.format = 'dd/MM/yyyy';
@@ -93,7 +135,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     $scope.myConfig = {
           maxItems: 1,
           labelField: 'FirstName',
-          searchField: ['FirstName','LastName'],
+          searchField: ['FirstName','LastName','LowerFirstName','LowerLastName'],
           render: {
             option: function(item, escape) {
                 var firstName = item.FirstName || item.LastName;
