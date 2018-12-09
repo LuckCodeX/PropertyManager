@@ -1,1 +1,176 @@
-﻿<h1>Apartment List</h1>
+﻿<div ng-controller="MaidApartmentCtrl" ng-init="loadMaidApartment()" class="view-maid-list">
+   <div class="container-fluid content-maid-list">
+       <div class="row">
+           <form class="form-horizontal" name="myForm">
+                <div class="col-sm-12" >
+                    <div class="row">
+                    	<p id="test"></p>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Nhân viên:</label>
+                            <div class="col-sm-7" style="color: black">
+                            	<selectize ng-change="changFilter()" placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Thời gian từ:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Đến:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+             </form>
+			</div>
+			<div style="overflow:auto; height: 600px">
+				<table class="table table-hover table-list table-contract table-maid table-maid-apartment">
+					<thead>
+						<tr class="first-row">
+		                    <th rowspan="2" class="col2rows">Ngày tương tác</th>
+		                    <th colspan="10">Thông tin căn hộ</th>
+		                    <th colspan="2">Thông tin liên lạc chủ hộ</th>
+		                    <th colspan="2">Thông tin khách ở</th>
+		                    <th colspan="2">Thời hạn hợp đồng</th>
+		                    <th colspan="5">Thông tin maid</th>
+		                    <th rowspan="2" class="col2rows">Đặc tính KH</th>
+		                    <th rowspan="2" class="col2rows">Loại sự việc</th>
+		                    <th rowspan="2" class="col2rows">Tóm tắt sự việc</th>
+		                    <th rowspan="2" class="col2rows">Mô tả sự việc</th>
+		                    <th rowspan="2" class="col2rows">Ưu tiên</th>
+		                    <th rowspan="2" class="col2rows">Giờ hẹn làm</th>
+		                    <th rowspan="2" class="col2rows">Giá thành</th>
+		                    <th rowspan="2" class="col2rows">Nhân viên làm</th>
+		                    <th rowspan="2" class="col2rows">Hoàn thành</th>
+		                    <th rowspan="2" class="col2rows">Chưa hoàn thành</th>
+		                    <th rowspan="2" class="col2rows">Ảnh sự</th>
+		                </tr>
+		                <tr class="second-row">
+		                    <th>Mã</th>
+		                    <th>Tòa</th>  
+		                    <th>Căn hộ</th>
+		                    <th>Khu</th>  
+		                    <th>Địa chỉ</th>  
+		                    <th>Họ và tên chủ hộ</th>
+		                    <th>Số phòng ngủ</th>
+		                    <th>Diện tích</th>
+		                    <th>Pass cửa</th>
+		                    <th>Pass wifi</th>
+		                    <th>Tên</th>
+		                    <th>SĐT</th>
+		                    <th>Tên khách ở</th>
+		                    <th>SĐT</th>
+		                    <th>Check in</th>
+		                    <th>Check out</th>
+		                    <th>Tên nhân viên</th>
+		                    <th>Số điện thoại</th>
+		                    <th>Mã nhân viên</th>
+		                    <th style="width:126px;">Số buổi/tuần</th>
+		                    <th>Giờ làm</th>
+		                </tr>
+					</thead>
+	                <tbody>
+	                	<tr ng-repeat="a in dataTest">
+		                	<td>12/12/2018</td>
+		                    <td>CH001</td>
+		                    <td>R1</td>  
+		                    <td>1611</td>
+		                    <td>Royal City</td>  
+		                    <td>50 Nguyễn Trãi</td>  
+		                    <td>Hoàng Thanh Tâm</td>
+		                    <td>3</td>
+		                    <td>152</td>
+		                    <td>1221111111</td>
+		                    <td>123456789</td>
+		                    <td>Đặng Thị Kim Oanh</td>
+		                    <td>09153515681</td>
+		                    <td>Mr. Takeshi Nakamura</td>
+		                    <td>09215354188</td>
+		                    <td>20/05/2018</td>
+		                    <td>20/05/2019</td>
+		                    <td>Nguyễn Thị Hương</td>
+		                    <td>09121351585</td>
+		                    <td>A001</td>
+		                    <td id="test" style="width:126px;">
+		                    	<div style="width:110px;" class="dropdown select-day-dropdown">
+								    <button class="btn btn-primary dropdown-toggle" type="button" >Chọn ngày 
+								    <span class="caret"></span></button>
+								    <ul class=" dropdown-menu">
+									    <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 2</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 3</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 4</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 5</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 6</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 7</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+						                <li style="padding-left: 30px;"><div style="width:73px; display:inline-block">Chủ nhật </div><label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" >
+						                        <span></span>
+						                    </label>
+						                </li>
+								    </ul>
+							  </div>
+							</td>
+		                    <td>12h30</td>
+		                    <td>Tự vào</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                    <td>0000000</td>
+		                </tr>
+	                </tbody>
+	                
+	            </table>
+			</div>
+           
+		<!-- <div class="pagination-employee">
+			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+		</div> -->
+    </div>
+    
+</div> 

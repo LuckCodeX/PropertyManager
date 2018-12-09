@@ -1272,7 +1272,7 @@ hr.dashed {
     min-width: 80px !important;
 }
 .list-tab-maid{
-    width: 400px;
+   text-align: center;
    margin: 0 auto;
 }
 .list-tab-maid a{
@@ -1377,4 +1377,35 @@ hr.dashed {
 }
 .selectize-dropdown-content .caption{
     display: block;
+}
+
+.table-maid-apartment th,.table-maid-apartment td{
+    min-width: 116px;
+}
+.table-maid-apartment .first-row th{
+   /* position: sticky;
+    top: 0;*/
+}
+.table-maid-apartment .second-row th{
+    /*position: sticky;
+    top: 56px;*/
+}
+.table-maid-apartment{
+    margin-top: 0;
+}
+.table-maid-apartment thead,.table-maid-apartment tbody{
+    display: block;
+   
+}
+.table-maid-apartment thead{
+    position: sticky;
+    top: 0px;
+    border-top: 1px solid #ddd;
+    z-index: 1001;
+}
+.table-maid-apartment>thead>tr>th{
+    border-bottom: 1px solid #ddd !important;
+}
+.table-maid-apartment tbody tr:first-child td{
+    border-top: none !important;
 }
