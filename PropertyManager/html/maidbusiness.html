@@ -1,14 +1,23 @@
 ﻿<div ng-controller="MaidCtrl" ng-init="" class="">
 	<div class="container-fluid content-maid-list">
 <div class="row">
-		<div class="form-group col-sm-4">
-                            <label style="padding-left: 115px;
-    padding-top: 8px;" class="control-label col-sm-5" for="">Nhân viên:</label>
+           <form class="form-horizontal" name="myForm">
+                <div class="col-sm-12" >
+                    <div class="row">
+                    	
+                        <div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Nhân viên:</label>
                             <div class="col-sm-7" style="color: black">
                             	<selectize ng-change="changFilter()" placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
                             </div>
                         </div>
-</div>
+                   
+                    </div>
+                    
+                    
+                </div>
+             </form>
+			</div>
 
 
 		<div id="table-wrapper">
