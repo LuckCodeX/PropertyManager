@@ -189,7 +189,7 @@ width: 88px;
     height: calc(100vh - 300px);
 }*/
 
-.row .col-sm-12{
+#table-wrapper .row .col-sm-12{
     overflow: scroll;
     padding: 0;
     height: calc(100vh - 300px);
