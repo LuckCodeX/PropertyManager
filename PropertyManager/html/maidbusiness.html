@@ -1,5 +1,5 @@
 ﻿<div ng-controller="MaidCtrl" ng-init="" class="">
-	<div class="container-fluid content-maid-list">
+	<div class="container-fluid content-maid-list" style="padding-top: 35px;">
 <div class="row">
            <form class="form-horizontal" name="myForm">
                 <div class="col-sm-12" >
@@ -11,7 +11,29 @@
                             	<selectize ng-change="changFilter()" placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
                             </div>
                         </div>
-                   
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Thời gian từ:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Đến:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        
                     </div>
                     
                     
