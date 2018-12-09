@@ -61,6 +61,11 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         return;
     }
 
+    $scope.changFilter = function(){
+        if($scope.currentEmployee)
+            $scope.changFilter($scope.pageChanged());
+    }
+
     $scope.loadMaidList = function(){
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
@@ -141,6 +146,11 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
                 var firstName = item.FirstName || item.LastName;
                 var lastName = item.FirstName ? item.LastName : null;
                 var code = item.FirstName ? item.Code : null;
+                if(code == 0){
+                    return '<div>' +
+                    '<span class="">'+ escape(firstName) + " " + escape(lastName) + '</span>' +
+                '</div>';
+                }
                 return '<div>' +
                     '<span class="">['+escape(code)+'] '+ escape(firstName) + " " + escape(lastName) + '</span>' +
                 '</div>';
@@ -150,6 +160,11 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
                 var firstName = item.FirstName || item.LastName;
                 var lastName = item.FirstName ? item.LastName : null;
                 var code = item.FirstName ? item.Code : null;
+                if(code == 0){
+                    return '<div>' +
+                    '<span class="">'+ escape(firstName) + " " + escape(lastName) + '</span>' +
+                '</div>';
+                }
                 return '<div>' +
                     '<span class="">['+escape(code)+'] '+ escape(firstName) + " " + escape(lastName) + '</span>' +
                 '</div>';
