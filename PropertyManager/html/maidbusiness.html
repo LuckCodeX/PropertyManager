@@ -1,1 +1,82 @@
-﻿<h1>Maid Business</h1>
+﻿<div ng-controller="MaidCtrl" ng-init="" class="">
+	<div class="container-fluid content-maid-list">
+<div class="row">
+		<div class="form-group col-sm-4">
+                            <label style="padding-left: 115px;
+    padding-top: 8px;" class="control-label col-sm-5" for="">Nhân viên:</label>
+                            <div class="col-sm-7" style="color: black">
+                            	<selectize ng-change="changFilter()" placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            </div>
+                        </div>
+</div>
+
+
+		<div id="table-wrapper">
+		<div class="row">
+			<div class="col-sm-12">
+		 <table style="border-collapse: separate;margin:0;border-left: 1px solid #ddd;" class="table table-hover table-list table-contract table-maid " id="pin-table">
+		 	<thead>
+                    <tr>
+                        <th class="col-pin"  colspan="4">Thông tin căn hộ</th>
+                        <th class="col-pin" colspan="4">Thông tin maid</th>
+                        <th class="col-pin" colspan="4">Thời gian làm việc</th>
+                        <th class="col-pin" colspan="6">Quy trình nghiệp vụ</th>
+                    </tr>
+                    <tr>
+                        <th>Mã HĐ</th>
+                        <th>Tòa</th>  
+                        <th>Căn hộ</th>
+                        <th>Khu</th>  
+                        <th>Buổi/tuần</th>  
+                        <th>Nhân viên</th>
+                        <th>Mã nhân viên</th>
+                        <th>Điện thoại</th>
+                        <th>Ngày</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Thời gian làm 1 căn</th>
+                        <th>Dọn phòng bếp</th>
+                        <th>Dọn phòng ngủ</th>
+                        <th>Dọn phòng khách</th>
+                        <th>Dọn phòng tắm</th>
+                        <th>Kiểm tra bếp</th>
+                        <th>Kiểm tra phòng khách</th>
+
+                    </tr>
+                </thead>
+                    <!-- <tr ng-repeat="item in maidList">
+                        <td>{{item.Type}}</td>
+                        <td><a href="#" ng-click="openPopup(item)" data-toggle="modal" data-target="#employeeModal">{{item.FirstName + ' ' + item.LastName}}</a></td>
+                        <td>{{item.Code}}</td>
+                        <td>{{convertDate(item.Birthday)}}</td>
+                        <td>{{item.RoleName}}</td>
+                        <td>{{item.Phone}}</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>Không có</td>
+                    </tr> -->
+                    <tbody>
+                    	<!-- <tr>
+                    		<td class="input-row"></td>
+                    		
+                    	</tr> -->
+                    	
+
+                    	
+
+
+                    </tbody>
+
+
+
+                </table>
+                </div>
+                </div>
+                </div>
+                <div class="pagination-employee">
+			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change=""></ul>	
+		</div>
+	</div>
+</div>
