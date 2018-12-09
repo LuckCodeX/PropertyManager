@@ -65,7 +65,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
-        $scope.currentEmployee = $stateParams.empID === undefined ? '' : $stateParams.empID;
+        $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
         
         $("input#username").on({
           keydown: function(e) {
@@ -93,8 +93,8 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
                         Id: item.Id,
                         FirstName: item.FirstName,
                         LastName: item.LastName,
-                        LowerFirstName: $scope.replaceString(item.FirstName),
-                        LowerLastName: $scope.replaceString(item.LastName),
+                        LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
+                        LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
                         Code: item.Code,
                         value: item.Id
                     };
