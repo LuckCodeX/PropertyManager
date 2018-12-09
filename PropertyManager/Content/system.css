@@ -125,3 +125,85 @@ width: 88px;
     background: #fff;
         padding-left: 5px;
 }
+
+
+
+
+
+
+
+
+#pin-table thead tr .col-pin{
+     position: sticky;
+     top: 0px;
+      z-index: 5;
+      border-top: 1px solid #ddd;
+}
+
+#pin-table thead tr th{
+     position: sticky;
+     top: 35px;
+      z-index: 5;
+      border-bottom: 1px solid #ddd;
+      border-top: none;
+}
+
+#pin-table thead tr th:first-child {
+        position: sticky;
+        z-index: 5;
+    }
+
+#pin-table tr td:first-child{
+     position: sticky;
+     z-index: 4;
+}
+
+
+#pin-table tbody tr td{
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+
+
+#pin-table .col-pin {
+        z-index: 7 !important;
+    }
+
+    #pin-table th.col-pin {
+        z-index: 8 !important;
+    }
+
+#pin-table .input-row {
+       /* padding: 3px;
+        width: 100%;
+        height: 100%;*/
+       /* border: none;*/
+        background: #fff;
+    }
+
+/*#table-wrapper > .row:nth-child(2) > .col-sm-12{
+    overflow: scroll;
+    padding: 0;
+    height: calc(100vh - 300px);
+}*/
+
+.row .col-sm-12{
+    overflow: scroll;
+    padding: 0;
+    height: calc(100vh - 300px);
+}
+
+
+#table-wrapper > .row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+     margin-top: 40px;
+}
+
+   
+
+
+
+
