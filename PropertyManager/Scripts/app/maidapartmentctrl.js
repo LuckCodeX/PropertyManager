@@ -1,6 +1,23 @@
-function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
-    const firstDay = (new Date(2010,00,01)).getTime()/1000;
+function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
+	 const firstDay = (new Date(2010,00,01)).getTime()/1000;
     const today = getEndDay(new Date());
+
+    function initDropdown(){
+    	$(document).ready(function(){
+		   $('.dropdown.select-day-dropdown button').on('click', function (event) {
+		  	  $(this).parent().toggleClass('open');
+			});
+			$('body').on('click', function (e) {
+			    if (!$('.dropdown.select-day-dropdown').is(e.target) 
+			        && $('.dropdown.select-day-dropdown').has(e.target).length === 0 
+			        && $('.open').has(e.target).length === 0
+			    ) {
+			        $('.dropdown.select-day-dropdown').removeClass('open');
+			    }
+			});
+	    	
+		});
+    }
 
     $scope.replaceString = function (str) {
         if (!str)
@@ -73,62 +90,48 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         }
     }
 
-    $scope.openPopup = function(maid){
-        $scope.currentMaid = JSON.parse(JSON.stringify(maid));
-        $scope.currentMaid.Birthday = new Date($scope.currentMaid.Birthday*1000);
-        return;
-    }
-
     $scope.changFilter = function(){
         if($scope.currentEmployee)
             $scope.changFilter($scope.pageChanged());
     }
 
-    $scope.loadMaidList = function(){
-        $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
-        $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
-        $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
-        $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
-        
-        $("input#username").on({
-          keydown: function(e) {
-            if (e.which === 32)
-              return false;
-          },
-          change: function() {
-            this.value = this.value.replace(/\s/g, "");
-          }
-        });
-        
-         xhrService.get("GetAllMaid",$scope.filterData)
-            .then(function (data) {
-                $scope.employeeList = [];
-                $scope.employeeList.push({
-                    Id: -1,
-                    FirstName: 'Tất',
-                    LastName: "cả",
-                    Code: "0",
-                    value: -1
-                });
-                var dataEmp = data.data;
-                dataEmp.forEach(function(item, index){
-                    let emp = {
-                        Id: item.Id,
-                        FirstName: item.FirstName,
-                        LastName: item.LastName,
-                        LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
-                        LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
-                        Code: item.Code,
-                        value: item.Id
-                    };
-                    $scope.employeeList.push(emp);
-                });
-            },
-            function (error) {
-                console.log(error.statusText);
-            });
+    $scope.loadMaidApartment = function(){
 
-        $scope.currentMaid = null;
+    	setTimeout(function(){ initDropdown() }, 1000);
+
+    	$scope.dataTest = [];
+    	for (var i = 0; i < 20; i++) {
+    		$scope.dataTest.push(i);
+    	};
+         xhrService.get("GetAllMaid",$scope.filterData)
+        .then(function (data) {
+            $scope.employeeList = [];
+            $scope.employeeList.push({
+                Id: -1,
+                FirstName: 'Tất',
+                LastName: "cả",
+                Code: "0",
+                value: -1
+            });
+            var dataEmp = data.data;
+            dataEmp.forEach(function(item, index){
+                let emp = {
+                    Id: item.Id,
+                    FirstName: item.FirstName,
+                    LastName: item.LastName,
+                    LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
+                    LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
+                    Code: item.Code,
+                    value: item.Id
+                };
+                $scope.employeeList.push(emp);
+            });
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+
+        
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2050, 5, 22),
@@ -137,23 +140,10 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         };
         $scope.format = 'dd/MM/yyyy';
           
-        $scope.filterData = {
-            "Page":$scope.bigCurrentPage,
-            "Limit":"20",
-            "Id":$scope.currentEmployee,
-            "FromDate":$scope.fromDate,
-            "ToDate":$scope.toDate
-        }
+        
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
-        xhrService.post("GetListMaid",$scope.filterData)
-            .then(function (data) {
-                $scope.totalMaid = data.data.total;
-                $scope.maidList = data.data.data;
-            },
-            function (error) {
-                console.log(error.statusText);
-            });
+      
     }
     $scope.myConfig = {
           maxItems: 1,
@@ -209,63 +199,9 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         }
     };
 
-    $scope.submitEmployee = function(employee){
-        var emp = JSON.parse(JSON.stringify(employee));
-        emp.Birthday = convertDateToUnixTimeStamp(emp.Birthday);
-        xhrService.post("SaveMaid",emp).then(function (data) {
-            swal("Thành công!", "", "success")
-            .then((value) => {
-                $('#employeeModal').modal('hide');
-                $scope.loadMaidList();
-            });
-        },
-        function (error) {
-            console.log(error.statusText);
-        });
-        
-    }
-    $scope.pageChanged = function () {
-        $location.path("/maid/list")
-        .search({ page: $scope.bigCurrentPage, 
-                fromDate: $scope.fromDatePicker.getTime()/1000,
-                toDate: getEndDay($scope.toDatePicker),
-                empID: $scope.currentEmployee });
-    };
+    $scope.pageChanged = function(){};
 
-    $scope.deleteEmployee = function(id){
-        console.log(id);
-        swal({
-            title: "Bạn có chắc chắn muốn xóa ?",
-            text: "Nhân viên đã xóa không thể khôi phục!",
-            icon: "warning",
-            buttons: [
-                'Không',
-                'Có'
-            ],
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                xhrService.delete("DeleteMaid/"+id)
-                .then(function (data) {
-                    $scope.loadMaidList();
-                    swal("Xóa nhân viên thành công!",
-                        {
-                            icon: "success",
-                        });
-
-                },
-                function (error) {
-                    swal("Xóa nhân viên thất bại!",
-                        {
-                            icon: "error",
-                        });
-                });
-
-            }
-        });
-    };
 	
-    
 }
-app.controller('MaidCtrl', MaidCtrl);
+
+app.controller('MaidApartmentCtrl', MaidApartmentCtrl);
