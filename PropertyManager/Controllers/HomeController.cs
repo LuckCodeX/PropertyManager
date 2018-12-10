@@ -36,6 +36,16 @@ namespace PropertyManager.Controllers
             return View();
         }
 
+        public ActionResult Issue()
+        {
+            return View();
+        }
+
+        public ActionResult IssueDetail()
+        {
+            return View();
+        }
+
         public ActionResult Apartment()
         {
             return View();

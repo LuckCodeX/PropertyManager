@@ -12,28 +12,35 @@ namespace PropertyManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class admin
+    public partial class company
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public admin()
+        public company()
         {
-            this.admin1 = new HashSet<admin>();
-            this.companies = new HashSet<company>();
             this.contracts = new HashSet<contract>();
         }
     
-        public int admin_id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public int role { get; set; }
-        public Nullable<int> parent_id { get; set; }
+        public int company_id { get; set; }
+        public string name { get; set; }
+        public string address { get; set; }
+        public string phone { get; set; }
+        public string employee_name { get; set; }
+        public string employee_phone { get; set; }
+        public string email { get; set; }
+        public Nullable<int> type { get; set; }
+        public int interactive_counter { get; set; }
+        public string tax_code { get; set; }
+        public string bank_name { get; set; }
+        public string bank_account { get; set; }
+        public string bank_branch { get; set; }
+        public string bank_number { get; set; }
+        public Nullable<int> call_date { get; set; }
+        public Nullable<int> call_again_date { get; set; }
+        public Nullable<int> admin_id { get; set; }
+        public string code { get; set; }
         public int status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<admin> admin1 { get; set; }
-        public virtual admin admin2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<company> companies { get; set; }
+        public virtual admin admin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contract> contracts { get; set; }
     }

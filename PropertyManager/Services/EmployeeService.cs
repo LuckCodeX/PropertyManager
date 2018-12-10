@@ -32,7 +32,7 @@ namespace PropertyManager.Services
 
         public List<employee> SearchListActiveMaid(FilterModel filter)
         {
-            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.first_name).ThenBy(p => p.last_name).ToList();
+            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).ToList();
         }
 
         public string GetEmployeeRoleName(int role)
@@ -55,7 +55,13 @@ namespace PropertyManager.Services
 
         public List<employee> GetAllActiveMaid()
         {
-            return EmployeeRepository.FindBy(p => p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).ToList();
+            return EmployeeRepository.FindBy(p => p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).ToList();
+        }
+
+        public employee MaidLogin(EmployeeModel model)
+        {
+            var pass = Encrypt.EncodePassword(model.Password);
+            return EmployeeRepository.FindBy(p => p.username == model.Username && p.password == pass && p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
         }
     }
 }

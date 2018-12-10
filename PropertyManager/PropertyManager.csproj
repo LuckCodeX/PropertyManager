@@ -199,6 +199,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropertyAppController.cs" />
     <Compile Include="Controllers\PropertyManagerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,6 +231,18 @@
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\blog_content.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\company.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contract.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contract_employee.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contract_note.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\employee.cs">
@@ -743,6 +756,8 @@
     <Content Include="html\dashboard.html" />
     <Content Include="html\importapartment.html" />
     <Content Include="html\importcustomer.html" />
+    <Content Include="html\issue.html" />
+    <Content Include="html\issuedetail.html" />
     <Content Include="html\maid.html" />
     <Content Include="html\maidapartment.html" />
     <Content Include="html\maidbusiness.html" />
@@ -777,6 +792,7 @@
     <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\importctrl.js" />
     <Content Include="Scripts\app\loginctrl.js" />
+    <Content Include="Scripts\app\maidctrl.js" />
     <Content Include="Scripts\app\mainctrl.js" />
     <Content Include="Scripts\app\services.js" />
     <Content Include="Scripts\base64.js" />
@@ -872,6 +888,8 @@
     <Content Include="Views\Home\MaidList.cshtml" />
     <Content Include="Views\Home\MaidApartment.cshtml" />
     <Content Include="Views\Home\MaidBusiness.cshtml" />
+    <Content Include="Views\Home\Issue.cshtml" />
+    <Content Include="Views\Home\IssueDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

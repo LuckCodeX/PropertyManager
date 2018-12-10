@@ -45,6 +45,21 @@
         <AssociationConnector Association="PropertyManagerModel.FK__project_f__proje__634EBE90" />
         <AssociationConnector Association="PropertyManagerModel.FK__project_o__proje__681373AD" />
         <EntityTypeShape EntityType="PropertyManagerModel.employee" Width="1.5" PointX="10.375" PointY="10.75" />
+        <EntityTypeShape EntityType="PropertyManagerModel.company" Width="1.5" PointX="10.75" PointY="15.75" />
+        <EntityTypeShape EntityType="PropertyManagerModel.contract" Width="1.5" PointX="13" PointY="4.625" />
+        <EntityTypeShape EntityType="PropertyManagerModel.contract_employee" Width="1.5" PointX="18.25" PointY="9" />
+        <EntityTypeShape EntityType="PropertyManagerModel.contract_note" Width="1.5" PointX="15.25" PointY="8.25" />
+        <AssociationConnector Association="PropertyManagerModel.FK__company__admin_i__1E6F845E" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__admin___27F8EE98" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__apartm__2704CA5F" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__compan__24285DB4" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract___contr__28ED12D1" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract___contr__2CBDA3B5" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__owner___2610A626" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__parent__3FD07829" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract__user_p__251C81ED" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__29E1370A" />
+        <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -271,5 +271,95 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="companies">
+      <EntityTypeMapping TypeName="PropertyManagerModel.company">
+        <MappingFragment StoreEntitySet="company">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="call_again_date" ColumnName="call_again_date" />
+          <ScalarProperty Name="call_date" ColumnName="call_date" />
+          <ScalarProperty Name="bank_number" ColumnName="bank_number" />
+          <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
+          <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+          <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+          <ScalarProperty Name="tax_code" ColumnName="tax_code" />
+          <ScalarProperty Name="interactive_counter" ColumnName="interactive_counter" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="employee_phone" ColumnName="employee_phone" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="company_id" ColumnName="company_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contracts">
+      <EntityTypeMapping TypeName="PropertyManagerModel.contract">
+        <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="tenant_bank_branch" ColumnName="tenant_bank_branch" />
+          <ScalarProperty Name="tenant_bank_number" ColumnName="tenant_bank_number" />
+          <ScalarProperty Name="tenant_bank_name" ColumnName="tenant_bank_name" />
+          <ScalarProperty Name="tenant_bank_account" ColumnName="tenant_bank_account" />
+          <ScalarProperty Name="tenant_address" ColumnName="tenant_address" />
+          <ScalarProperty Name="tenant_tax_code" ColumnName="tenant_tax_code" />
+          <ScalarProperty Name="tenant_phone" ColumnName="tenant_phone" />
+          <ScalarProperty Name="tenant_name" ColumnName="tenant_name" />
+          <ScalarProperty Name="owner_bank_branch" ColumnName="owner_bank_branch" />
+          <ScalarProperty Name="owner_bank_number" ColumnName="owner_bank_number" />
+          <ScalarProperty Name="owner_bank_name" ColumnName="owner_bank_name" />
+          <ScalarProperty Name="owner_bank_account" ColumnName="owner_bank_account" />
+          <ScalarProperty Name="owner_address" ColumnName="owner_address" />
+          <ScalarProperty Name="owner_tax_code" ColumnName="owner_tax_code" />
+          <ScalarProperty Name="owner_phone" ColumnName="owner_phone" />
+          <ScalarProperty Name="owner_name" ColumnName="owner_name" />
+          <ScalarProperty Name="pass_door" ColumnName="pass_door" />
+          <ScalarProperty Name="pass_wifi" ColumnName="pass_wifi" />
+          <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />
+          <ScalarProperty Name="building" ColumnName="building" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="owner_user_profile_id" ColumnName="owner_user_profile_id" />
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="company_id" ColumnName="company_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contract_employee">
+      <EntityTypeMapping TypeName="PropertyManagerModel.contract_employee">
+        <MappingFragment StoreEntitySet="contract_employee">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="to_date" ColumnName="to_date" />
+          <ScalarProperty Name="from_date" ColumnName="from_date" />
+          <ScalarProperty Name="work_hour" ColumnName="work_hour" />
+          <ScalarProperty Name="work_date" ColumnName="work_date" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+          <ScalarProperty Name="contract_employee_id" ColumnName="contract_employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contract_note">
+      <EntityTypeMapping TypeName="PropertyManagerModel.contract_note">
+        <MappingFragment StoreEntitySet="contract_note">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+          <ScalarProperty Name="contract_note_id" ColumnName="contract_note_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -46,5 +46,9 @@ namespace PropertyManager.Models
         public virtual DbSet<project_facility> project_facility { get; set; }
         public virtual DbSet<project_overview> project_overview { get; set; }
         public virtual DbSet<employee> employees { get; set; }
+        public virtual DbSet<company> companies { get; set; }
+        public virtual DbSet<contract> contracts { get; set; }
+        public virtual DbSet<contract_employee> contract_employee { get; set; }
+        public virtual DbSet<contract_note> contract_note { get; set; }
     }
 }

@@ -87,6 +87,92 @@
           <Property Name="description" Type="ntext" Nullable="false" />
           <Property Name="language" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="company_id" />
+          </Key>
+          <Property Name="company_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="employee_phone" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="type" Type="int" />
+          <Property Name="interactive_counter" Type="int" Nullable="false" />
+          <Property Name="tax_code" Type="varchar" MaxLength="50" />
+          <Property Name="bank_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="bank_account" Type="nvarchar" MaxLength="50" />
+          <Property Name="bank_branch" Type="nvarchar" MaxLength="50" />
+          <Property Name="bank_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="call_date" Type="int" />
+          <Property Name="call_again_date" Type="int" />
+          <Property Name="admin_id" Type="int" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="user_profile_id" Type="int" />
+          <Property Name="owner_user_profile_id" Type="int" />
+          <Property Name="created_date" Type="int" />
+          <Property Name="apartment_id" Type="int" />
+          <Property Name="building" Type="nvarchar" MaxLength="10" />
+          <Property Name="no_apartment" Type="varchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="area" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="no_bedroom" Type="int" />
+          <Property Name="pass_wifi" Type="nvarchar" MaxLength="50" />
+          <Property Name="pass_door" Type="nvarchar" MaxLength="50" />
+          <Property Name="owner_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="owner_phone" Type="varchar" MaxLength="20" />
+          <Property Name="owner_tax_code" Type="varchar" MaxLength="50" />
+          <Property Name="owner_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="owner_bank_account" Type="nvarchar" MaxLength="50" />
+          <Property Name="owner_bank_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="owner_bank_number" Type="varchar" MaxLength="50" />
+          <Property Name="owner_bank_branch" Type="nvarchar" MaxLength="100" />
+          <Property Name="tenant_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="tenant_phone" Type="varchar" MaxLength="20" />
+          <Property Name="tenant_tax_code" Type="varchar" MaxLength="50" />
+          <Property Name="tenant_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="tenant_bank_account" Type="nvarchar" MaxLength="50" />
+          <Property Name="tenant_bank_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="tenant_bank_number" Type="varchar" MaxLength="50" />
+          <Property Name="tenant_bank_branch" Type="nvarchar" MaxLength="100" />
+          <Property Name="admin_id" Type="int" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="parent_id" Type="int" />
+        </EntityType>
+        <EntityType Name="contract_employee">
+          <Key>
+            <PropertyRef Name="contract_employee_id" />
+          </Key>
+          <Property Name="contract_employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contract_id" Type="int" Nullable="false" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="work_date" Type="varchar" MaxLength="20" />
+          <Property Name="work_hour" Type="int" />
+          <Property Name="from_date" Type="int" Nullable="false" />
+          <Property Name="to_date" Type="int" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contract_note">
+          <Key>
+            <PropertyRef Name="contract_note_id" />
+          </Key>
+          <Property Name="contract_note_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contract_id" Type="int" Nullable="false" />
+          <Property Name="note" Type="ntext" Nullable="false" />
+          <Property Name="created_date" Type="int" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
+        </EntityType>
         <EntityType Name="employee">
           <Key>
             <PropertyRef Name="employee_id" />
@@ -364,6 +450,142 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__company__admin_i__1E6F845E">
+          <End Role="admin" Type="Self.admin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="company" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="company">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___contr__28ED12D1">
+          <End Role="contract" Type="Self.contract" Multiplicity="1" />
+          <End Role="contract_employee" Type="Self.contract_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract_employee">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___contr__2CBDA3B5">
+          <End Role="contract" Type="Self.contract" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="contract_note" Type="Self.contract_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract_note">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___emplo__29E1370A">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="contract_employee" Type="Self.contract_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="contract_employee">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___emplo__2DB1C7EE">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="contract_note" Type="Self.contract_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="contract_note">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__admin___27F8EE98">
+          <End Role="admin" Type="Self.admin" Multiplicity="0..1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__apartm__2704CA5F">
+          <End Role="apartment" Type="Self.apartment" Multiplicity="0..1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__compan__24285DB4">
+          <End Role="company" Type="Self.company" Multiplicity="0..1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="company_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__owner___2610A626">
+          <End Role="user_profile" Type="Self.user_profile" Multiplicity="0..1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="owner_user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__parent__3FD07829">
+          <End Role="contract" Type="Self.contract" Multiplicity="0..1" />
+          <End Role="contract1" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__user_p__251C81ED">
+          <End Role="user_profile" Type="Self.user_profile" Multiplicity="0..1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__facility___facil__24927208">
           <End Role="facility" Type="Self.facility" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -524,6 +746,10 @@
           <EntitySet Name="apartment_facility" EntityType="Self.apartment_facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="blog" EntityType="Self.blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="blog_content" EntityType="Self.blog_content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contract_employee" EntityType="Self.contract_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contract_note" EntityType="Self.contract_note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
@@ -569,6 +795,50 @@
           <AssociationSet Name="FK__blog_cont__blog___2E1BDC42" Association="Self.FK__blog_cont__blog___2E1BDC42">
             <End Role="blog" EntitySet="blog" />
             <End Role="blog_content" EntitySet="blog_content" />
+          </AssociationSet>
+          <AssociationSet Name="FK__company__admin_i__1E6F845E" Association="Self.FK__company__admin_i__1E6F845E">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="company" EntitySet="company" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___contr__28ED12D1" Association="Self.FK__contract___contr__28ED12D1">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="contract_employee" EntitySet="contract_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___contr__2CBDA3B5" Association="Self.FK__contract___contr__2CBDA3B5">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="contract_note" EntitySet="contract_note" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___emplo__29E1370A" Association="Self.FK__contract___emplo__29E1370A">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="contract_employee" EntitySet="contract_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___emplo__2DB1C7EE" Association="Self.FK__contract___emplo__2DB1C7EE">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="contract_note" EntitySet="contract_note" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__admin___27F8EE98" Association="Self.FK__contract__admin___27F8EE98">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__apartm__2704CA5F" Association="Self.FK__contract__apartm__2704CA5F">
+            <End Role="apartment" EntitySet="apartment" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__compan__24285DB4" Association="Self.FK__contract__compan__24285DB4">
+            <End Role="company" EntitySet="company" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__owner___2610A626" Association="Self.FK__contract__owner___2610A626">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__parent__3FD07829" Association="Self.FK__contract__parent__3FD07829">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="contract1" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__user_p__251C81ED" Association="Self.FK__contract__user_p__251C81ED">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="contract" EntitySet="contract" />
           </AssociationSet>
           <AssociationSet Name="FK__facility___facil__24927208" Association="Self.FK__facility___facil__24927208">
             <End Role="facility" EntitySet="facility" />
@@ -631,6 +901,8 @@
           <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="admin1" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin" ToRole="admin1" />
           <NavigationProperty Name="admin2" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin1" ToRole="admin" />
+          <NavigationProperty Name="companies" Relationship="PropertyManagerModel.FK__company__admin_i__1E6F845E" FromRole="admin" ToRole="company" />
+          <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__admin___27F8EE98" FromRole="admin" ToRole="contract" />
         </EntityType>
         <EntityType Name="aparment_image">
           <Key>
@@ -911,6 +1183,54 @@
             <End Role="project_overview" EntitySet="project_overview" />
           </AssociationSet>
           <EntitySet Name="employees" EntityType="PropertyManagerModel.employee" />
+          <EntitySet Name="companies" EntityType="PropertyManagerModel.company" />
+          <EntitySet Name="contracts" EntityType="PropertyManagerModel.contract" />
+          <EntitySet Name="contract_employee" EntityType="PropertyManagerModel.contract_employee" />
+          <EntitySet Name="contract_note" EntityType="PropertyManagerModel.contract_note" />
+          <AssociationSet Name="FK__company__admin_i__1E6F845E" Association="PropertyManagerModel.FK__company__admin_i__1E6F845E">
+            <End Role="admin" EntitySet="admins" />
+            <End Role="company" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__admin___27F8EE98" Association="PropertyManagerModel.FK__contract__admin___27F8EE98">
+            <End Role="admin" EntitySet="admins" />
+            <End Role="contract" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__apartm__2704CA5F" Association="PropertyManagerModel.FK__contract__apartm__2704CA5F">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="contract" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__compan__24285DB4" Association="PropertyManagerModel.FK__contract__compan__24285DB4">
+            <End Role="company" EntitySet="companies" />
+            <End Role="contract" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___contr__28ED12D1" Association="PropertyManagerModel.FK__contract___contr__28ED12D1">
+            <End Role="contract" EntitySet="contracts" />
+            <End Role="contract_employee" EntitySet="contract_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___contr__2CBDA3B5" Association="PropertyManagerModel.FK__contract___contr__2CBDA3B5">
+            <End Role="contract" EntitySet="contracts" />
+            <End Role="contract_note" EntitySet="contract_note" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__owner___2610A626" Association="PropertyManagerModel.FK__contract__owner___2610A626">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="contract" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__parent__3FD07829" Association="PropertyManagerModel.FK__contract__parent__3FD07829">
+            <End Role="contract" EntitySet="contracts" />
+            <End Role="contract1" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract__user_p__251C81ED" Association="PropertyManagerModel.FK__contract__user_p__251C81ED">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="contract" EntitySet="contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___emplo__29E1370A" Association="PropertyManagerModel.FK__contract___emplo__29E1370A">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="contract_employee" EntitySet="contract_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__contract___emplo__2DB1C7EE" Association="PropertyManagerModel.FK__contract___emplo__2DB1C7EE">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="contract_note" EntitySet="contract_note" />
+          </AssociationSet>
           </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -953,6 +1273,8 @@
           <NavigationProperty Name="user_social" Relationship="PropertyManagerModel.FK__user_goog__user___29221CFB" FromRole="user_profile" ToRole="user_social" />
           <NavigationProperty Name="apartments" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="user_profile" ToRole="apartment" />
           <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__user___3D2915A8" FromRole="user_profile" ToRole="user_visit" />
+          <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__owner___2610A626" FromRole="user_profile" ToRole="contract" />
+          <NavigationProperty Name="contracts1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="user_profile" ToRole="contract" />
         </EntityType>
         <EntityType Name="user_social">
           <Key>
@@ -1021,6 +1343,7 @@
           <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__apartment__user___164452B1" FromRole="apartment" ToRole="user_profile" />
           <NavigationProperty Name="user_visit_item" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit_item" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__apartm__2704CA5F" FromRole="apartment" ToRole="contract" />
         </EntityType>
         <Association Name="FK__aparment___apart__1ED998B2">
           <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
@@ -1266,7 +1589,246 @@
           <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contract_employee" Relationship="PropertyManagerModel.FK__contract___emplo__29E1370A" FromRole="employee" ToRole="contract_employee" />
+          <NavigationProperty Name="contract_note" Relationship="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" FromRole="employee" ToRole="contract_note" />
         </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="company_id" />
+          </Key>
+          <Property Name="company_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="employee_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="interactive_counter" Type="Int32" Nullable="false" />
+          <Property Name="tax_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="bank_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bank_branch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="call_date" Type="Int32" />
+          <Property Name="call_again_date" Type="Int32" />
+          <Property Name="admin_id" Type="Int32" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="admin" Relationship="PropertyManagerModel.FK__company__admin_i__1E6F845E" FromRole="company" ToRole="admin" />
+          <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__compan__24285DB4" FromRole="company" ToRole="contract" />
+        </EntityType>
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="user_profile_id" Type="Int32" />
+          <Property Name="owner_user_profile_id" Type="Int32" />
+          <Property Name="created_date" Type="Int32" />
+          <Property Name="apartment_id" Type="Int32" />
+          <Property Name="building" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="no_apartment" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="no_bedroom" Type="Int32" />
+          <Property Name="pass_wifi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pass_door" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="owner_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="owner_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="owner_tax_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="owner_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="owner_bank_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="owner_bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="owner_bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="owner_bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tenant_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="tenant_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tenant_tax_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tenant_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tenant_bank_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tenant_bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tenant_bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tenant_bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="admin_id" Type="Int32" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="parent_id" Type="Int32" />
+          <NavigationProperty Name="admin" Relationship="PropertyManagerModel.FK__contract__admin___27F8EE98" FromRole="contract" ToRole="admin" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__contract__apartm__2704CA5F" FromRole="contract" ToRole="apartment" />
+          <NavigationProperty Name="company" Relationship="PropertyManagerModel.FK__contract__compan__24285DB4" FromRole="contract" ToRole="company" />
+          <NavigationProperty Name="contract_employee" Relationship="PropertyManagerModel.FK__contract___contr__28ED12D1" FromRole="contract" ToRole="contract_employee" />
+          <NavigationProperty Name="contract_note" Relationship="PropertyManagerModel.FK__contract___contr__2CBDA3B5" FromRole="contract" ToRole="contract_note" />
+          <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__contract__owner___2610A626" FromRole="contract" ToRole="user_profile" />
+          <NavigationProperty Name="contract1" Relationship="PropertyManagerModel.FK__contract__parent__3FD07829" FromRole="contract" ToRole="contract1" />
+          <NavigationProperty Name="contract2" Relationship="PropertyManagerModel.FK__contract__parent__3FD07829" FromRole="contract1" ToRole="contract" />
+          <NavigationProperty Name="user_profile1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="contract" ToRole="user_profile" />
+        </EntityType>
+        <EntityType Name="contract_employee">
+          <Key>
+            <PropertyRef Name="contract_employee_id" />
+          </Key>
+          <Property Name="contract_employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contract_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="work_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="work_hour" Type="Int32" />
+          <Property Name="from_date" Type="Int32" Nullable="false" />
+          <Property Name="to_date" Type="Int32" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="contract" Relationship="PropertyManagerModel.FK__contract___contr__28ED12D1" FromRole="contract_employee" ToRole="contract" />
+          <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__contract___emplo__29E1370A" FromRole="contract_employee" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="contract_note">
+          <Key>
+            <PropertyRef Name="contract_note_id" />
+          </Key>
+          <Property Name="contract_note_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contract_id" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" />
+          <NavigationProperty Name="contract" Relationship="PropertyManagerModel.FK__contract___contr__2CBDA3B5" FromRole="contract_note" ToRole="contract" />
+          <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" FromRole="contract_note" ToRole="employee" />
+        </EntityType>
+        <Association Name="FK__company__admin_i__1E6F845E">
+          <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.company" Role="company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="company">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__admin___27F8EE98">
+          <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="admin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__apartm__2704CA5F">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__compan__24285DB4">
+          <End Type="PropertyManagerModel.company" Role="company" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="company_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___contr__28ED12D1">
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="1" />
+          <End Type="PropertyManagerModel.contract_employee" Role="contract_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract_employee">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___contr__2CBDA3B5">
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PropertyManagerModel.contract_note" Role="contract_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract_note">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__owner___2610A626">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="owner_user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__parent__3FD07829">
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="contract1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract__user_p__251C81ED">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___emplo__29E1370A">
+          <End Type="PropertyManagerModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="PropertyManagerModel.contract_employee" Role="contract_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="contract_employee">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__contract___emplo__2DB1C7EE">
+          <End Type="PropertyManagerModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.contract_note" Role="contract_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="contract_note">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1540,6 +2102,96 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="PropertyManagerModel.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="call_again_date" ColumnName="call_again_date" />
+                <ScalarProperty Name="call_date" ColumnName="call_date" />
+                <ScalarProperty Name="bank_number" ColumnName="bank_number" />
+                <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
+                <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+                <ScalarProperty Name="tax_code" ColumnName="tax_code" />
+                <ScalarProperty Name="interactive_counter" ColumnName="interactive_counter" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="employee_phone" ColumnName="employee_phone" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contracts">
+            <EntityTypeMapping TypeName="PropertyManagerModel.contract">
+              <MappingFragment StoreEntitySet="contract">
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="tenant_bank_branch" ColumnName="tenant_bank_branch" />
+                <ScalarProperty Name="tenant_bank_number" ColumnName="tenant_bank_number" />
+                <ScalarProperty Name="tenant_bank_name" ColumnName="tenant_bank_name" />
+                <ScalarProperty Name="tenant_bank_account" ColumnName="tenant_bank_account" />
+                <ScalarProperty Name="tenant_address" ColumnName="tenant_address" />
+                <ScalarProperty Name="tenant_tax_code" ColumnName="tenant_tax_code" />
+                <ScalarProperty Name="tenant_phone" ColumnName="tenant_phone" />
+                <ScalarProperty Name="tenant_name" ColumnName="tenant_name" />
+                <ScalarProperty Name="owner_bank_branch" ColumnName="owner_bank_branch" />
+                <ScalarProperty Name="owner_bank_number" ColumnName="owner_bank_number" />
+                <ScalarProperty Name="owner_bank_name" ColumnName="owner_bank_name" />
+                <ScalarProperty Name="owner_bank_account" ColumnName="owner_bank_account" />
+                <ScalarProperty Name="owner_address" ColumnName="owner_address" />
+                <ScalarProperty Name="owner_tax_code" ColumnName="owner_tax_code" />
+                <ScalarProperty Name="owner_phone" ColumnName="owner_phone" />
+                <ScalarProperty Name="owner_name" ColumnName="owner_name" />
+                <ScalarProperty Name="pass_door" ColumnName="pass_door" />
+                <ScalarProperty Name="pass_wifi" ColumnName="pass_wifi" />
+                <ScalarProperty Name="no_bedroom" ColumnName="no_bedroom" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />
+                <ScalarProperty Name="building" ColumnName="building" />
+                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="owner_user_profile_id" ColumnName="owner_user_profile_id" />
+                <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contract_employee">
+            <EntityTypeMapping TypeName="PropertyManagerModel.contract_employee">
+              <MappingFragment StoreEntitySet="contract_employee">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="work_hour" ColumnName="work_hour" />
+                <ScalarProperty Name="work_date" ColumnName="work_date" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="contract_employee_id" ColumnName="contract_employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contract_note">
+            <EntityTypeMapping TypeName="PropertyManagerModel.contract_note">
+              <MappingFragment StoreEntitySet="contract_note">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="contract_note_id" ColumnName="contract_note_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

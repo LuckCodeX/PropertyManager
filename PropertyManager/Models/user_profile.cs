@@ -21,6 +21,8 @@ namespace PropertyManager.Models
             this.user_social = new HashSet<user_social>();
             this.apartments = new HashSet<apartment>();
             this.user_visit = new HashSet<user_visit>();
+            this.contracts = new HashSet<contract>();
+            this.contracts1 = new HashSet<contract>();
         }
     
         public int user_profile_id { get; set; }
@@ -53,5 +55,9 @@ namespace PropertyManager.Models
         public virtual ICollection<apartment> apartments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_visit> user_visit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<contract> contracts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<contract> contracts1 { get; set; }
     }
 }

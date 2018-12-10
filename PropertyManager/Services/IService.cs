@@ -52,5 +52,6 @@ namespace PropertyManager.Services
         string GetEmployeeRoleName(int role);
         employee GetActiveMaidById(int id);
         List<employee> GetAllActiveMaid();
+        employee MaidLogin(EmployeeModel model);
     }
 }
