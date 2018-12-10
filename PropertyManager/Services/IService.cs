@@ -53,5 +53,8 @@ namespace PropertyManager.Services
         employee GetActiveMaidById(int id);
         List<employee> GetAllActiveMaid();
         employee MaidLogin(EmployeeModel model);
+        List<issue> GetAllIssue();
+        issue GetIssueById(int id);
+        void SaveIssue(issue issue);
     }
 }

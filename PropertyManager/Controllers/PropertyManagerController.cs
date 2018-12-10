@@ -20,6 +20,8 @@ namespace PropertyManager.Controllers
     {
         private readonly IService _service = new Service();
 
+        #region Account
+
         [HttpPost]
         [Route("Login")]
         public AdminModel Login(AdminModel model)
@@ -160,6 +162,10 @@ namespace PropertyManager.Controllers
                 _service.SaveAdmin(acc);
             }
         }
+
+        #endregion
+
+        #region Apartment
 
         [HttpGet]
         [Route("GetListApartment/{page}/{status}/{search?}")]
@@ -307,9 +313,9 @@ namespace PropertyManager.Controllers
                                 if (!Equals(item.Img_Base64, null))
                                 {
                                     img.img = "http://manager.propertyplus.com.vn/Upload/apartment/" + _service.SaveImage("~/Upload/apartment/",
-                                        "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" +
-                                        img.apartment_image_id + ".png",
-                                        item.Img_Base64);
+                                                  "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" +
+                                                  img.apartment_image_id + ".png",
+                                                  item.Img_Base64);
                                 }
 
                                 _service.SaveApartmentImage(img);
@@ -329,9 +335,9 @@ namespace PropertyManager.Controllers
                             if (!Equals(item.Img_Base64, null))
                             {
                                 aptImg.img = "http://manager.propertyplus.com.vn/Upload/apartment/" + _service.SaveImage("~/Upload/apartment/",
-                                    "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + imgIdx
-                                     + ".png",
-                                    item.Img_Base64);
+                                                 "apt_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + imgIdx
+                                                 + ".png",
+                                                 item.Img_Base64);
                                 _service.SaveApartmentImage(aptImg);
                             }
                         }
@@ -402,6 +408,8 @@ namespace PropertyManager.Controllers
                 ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        #endregion
 
         [HttpGet]
         [Route("GetAllFacilities")]
@@ -508,6 +516,8 @@ namespace PropertyManager.Controllers
                 }
             }
         }
+
+        #region Visit List
 
         [HttpGet]
         [Route("GetListUserVisit/{page}/{status}")]
@@ -637,11 +647,13 @@ namespace PropertyManager.Controllers
             }
         }
 
+        #endregion
+
         #region Maid
 
         [HttpPost]
         [Route("SaveMaid")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.MaidManager })]
         public void SaveMaid(EmployeeModel model)
         {
             var maid = _service.GetMaidById(model.Id);
@@ -662,14 +674,14 @@ namespace PropertyManager.Controllers
             maid.phone = model.Phone;
             maid.role = model.Role;
             maid.type = model.Type;
-            if(!Equals(model.Password))
+            if (!Equals(model.Password))
                 maid.password = Encrypt.EncodePassword(model.Password);
             _service.SaveEmployee(maid);
         }
 
         [HttpPost]
         [Route("GetListMaid")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.MaidManager })]
         public PagingResult<EmployeeModel> GetListMaid(FilterModel filter)
         {
             var maids = _service.SearchListActiveMaid(filter);
@@ -702,7 +714,7 @@ namespace PropertyManager.Controllers
 
         [HttpPost]
         [Route("DeleteMaid/{id}")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.MaidManager })]
         public void DeleteMaid(int id)
         {
             var maid = _service.GetActiveMaidById(id);
@@ -715,7 +727,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetAllMaid")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.MaidManager })]
         public List<EmployeeModel> GetAllMaid()
         {
             var maids = _service.GetAllActiveMaid();
@@ -726,6 +738,53 @@ namespace PropertyManager.Controllers
                 LastName = p.last_name,
                 Code = p.code
             }).ToList();
+        }
+
+        #endregion
+
+        #region Issue
+
+        [HttpGet]
+        [Route("GetAllIssue")]
+        public List<IssueModel> GetAllIssue()
+        {
+            var issues = _service.GetAllIssue();
+            return issues.Select(p => new IssueModel()
+            {
+                Id = p.issue_id,
+                Name = p.name,
+                Description = p.description
+            }).ToList();
+        }
+
+        [HttpPost]
+        [Route("SaveIssue")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
+        public void SaveIssue(IssueModel model)
+        {
+            var issue = _service.GetIssueById(model.Id);
+            if(Equals(issue, null))
+                issue = new issue()
+                {
+                    issue_id = 0,
+                    status =  1
+                };
+            issue.name = model.Name;
+            issue.description = model.Description;
+            _service.SaveIssue(issue);
+        }
+
+        [HttpDelete]
+        [Route("DeleteIssue/{id}")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public void DeleteIssue(int id)
+        {
+            var issue = _service.GetIssueById(id);
+            if (!Equals(issue, null))
+            {
+                issue.status = 2;
+                _service.SaveIssue(issue);
+            }
         }
 
         #endregion

@@ -50,5 +50,6 @@ namespace PropertyManager.Models
         public virtual DbSet<contract> contracts { get; set; }
         public virtual DbSet<contract_employee> contract_employee { get; set; }
         public virtual DbSet<contract_note> contract_note { get; set; }
+        public virtual DbSet<issue> issues { get; set; }
     }
 }

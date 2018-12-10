@@ -257,6 +257,10 @@
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\issue.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IssueModel.cs" />
     <Compile Include="Models\PagingResult.cs" />
     <Compile Include="Models\project.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
@@ -300,6 +304,7 @@
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\IssueService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>

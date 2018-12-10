@@ -60,6 +60,7 @@
         <AssociationConnector Association="PropertyManagerModel.FK__contract__user_p__251C81ED" />
         <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__29E1370A" />
         <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" />
+        <EntityTypeShape EntityType="PropertyManagerModel.issue" Width="1.5" PointX="7.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

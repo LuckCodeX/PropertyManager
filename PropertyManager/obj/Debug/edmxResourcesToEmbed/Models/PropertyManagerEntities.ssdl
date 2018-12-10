@@ -201,6 +201,15 @@
     <Property Name="language" Type="int" Nullable="false" />
     <Property Name="facility_id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="issue">
+    <Key>
+      <PropertyRef Name="issue_id" />
+    </Key>
+    <Property Name="issue_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="project">
     <Key>
       <PropertyRef Name="project_id" />
@@ -748,6 +757,7 @@
     <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="issue" EntityType="Self.issue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project_content" EntityType="Self.project_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project_facility" EntityType="Self.project_facility" Schema="dbo" store:Type="Tables" />

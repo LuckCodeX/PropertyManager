@@ -342,6 +342,7 @@
       <End Role="employee" EntitySet="employees" />
       <End Role="contract_note" EntitySet="contract_note" />
     </AssociationSet>
+    <EntitySet Name="issues" EntityType="PropertyManagerModel.issue" />
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -940,4 +941,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="issue">
+    <Key>
+      <PropertyRef Name="issue_id" />
+    </Key>
+    <Property Name="issue_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>
