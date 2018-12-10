@@ -1412,3 +1412,11 @@ hr.dashed {
 .selectize-control {
     z-index: 1002 !important;
 }
+.btn-ok{
+    padding: 3px 8px;
+    margin: 15px 24px 5px 0px;
+
+}
+.space-normal{
+    white-space: normal !important;
+}

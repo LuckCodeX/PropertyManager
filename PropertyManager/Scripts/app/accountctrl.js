@@ -6,14 +6,17 @@ function AccountCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrS
     $scope.loadAccount = function() {
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.searchEmp2 = $stateParams.search === undefined ? '' : $stateParams.search;
+        
         xhrService.get("GetListAccount/" + $scope.bigCurrentPage + "/" + $scope.searchEmp2)
-            .then(function(data) {
-                    $scope.accountList = data.data.data;
-                    $scope.totalItems = data.data.total;
-                },
-                function(error) {
-                    console.log(error.statusText);
-                });
+        .then(function(data) {
+                $scope.accountList = data.data.data;
+                $scope.totalItems = data.data.total;
+            },
+            function(error) {
+                console.log(error.statusText);
+            });
+        
+        
     };
     $scope.pageChanged = function () {
         $location.path("/account").search({ page: $scope.bigCurrentPage, search: $scope.searchEmp2 });
