@@ -1409,3 +1409,6 @@ hr.dashed {
 .table-maid-apartment tbody tr:first-child td{
     border-top: none !important;
 }
+.selectize-control {
+    z-index: 1002 !important;
+}
