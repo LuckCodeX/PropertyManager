@@ -86,7 +86,7 @@
 		                </tr>
 					</thead>
 	                <tbody>
-	                	<tr ng-repeat="a in dataTest">
+	                	<tr ng-repeat="apartment in dataTest">
 		                	<td>12/12/2018</td>
 		                    <td>CH001</td>
 		                    <td>R1</td>  
@@ -107,45 +107,18 @@
 		                    <td>Nguyễn Thị Hương</td>
 		                    <td>09121351585</td>
 		                    <td>A001</td>
-		                    <td id="test" style="width:126px;">
+		                    <td id="test" style="width:126px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
 		                    	<div style="width:110px;" class="dropdown select-day-dropdown">
-								    <button class="btn btn-primary dropdown-toggle" type="button" >Chọn ngày 
+								    <button class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textDay}}
 								    <span class="caret"></span></button>
 								    <ul class=" dropdown-menu">
-									    <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 2</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
+									    <li ng-repeat="apt in apartment.workdays" style="padding-left: 30px;"><div style="width:70px; display:inline-block">{{apt.value}}</div> <label class="material-checkbox m-l-10 has-checkbox">
+						                        <input type="checkbox" ng-model="apt.status">
 						                        <span></span>
 						                    </label>
 						                </li>
-						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 3</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
-						                </li>
-						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 4</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
-						                </li>
-						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 5</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
-						                </li>
-						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 6</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
-						                </li>
-						                <li style="padding-left: 30px;"><div style="width:70px; display:inline-block">Thứ 7</div> <label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
-						                </li>
-						                <li style="padding-left: 30px;"><div style="width:73px; display:inline-block">Chủ nhật </div><label class="material-checkbox m-l-10 has-checkbox">
-						                        <input type="checkbox" >
-						                        <span></span>
-						                    </label>
+						                <li style="float:right;">
+						                	<button ng-click="apartment.textDay = getTextDay(apartment.workdays)" class="btn btn-primary btn-ok">Xong</button>
 						                </li>
 								    </ul>
 							  </div>

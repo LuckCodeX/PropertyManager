@@ -2,11 +2,40 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	 const firstDay = (new Date(2010,00,01)).getTime()/1000;
     const today = getEndDay(new Date());
 
+    $scope.checkWorkday = function(days){
+        for (var i = 0; i < days.length; i++) {
+            if (days[i].status) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    $scope.getTextDay = function(days){
+        let content = "";
+        if($scope.checkWorkday(days)){
+            content = "Chọn ngày"
+        }else{
+            for (var i = 0; i < days.length; i++) {
+                if (days[i].status) {
+                    content += days[i].value;
+                    content += " ";
+                }
+            }
+        }
+        
+        return content;
+    }
+
     function initDropdown(){
     	$(document).ready(function(){
 		   $('.dropdown.select-day-dropdown button').on('click', function (event) {
 		  	  $(this).parent().toggleClass('open');
 			});
+            $('.btn-ok').on('click', function (event) {
+              $(this).parent().parent().parent().toggleClass('open');
+            });
 			$('body').on('click', function (e) {
 			    if (!$('.dropdown.select-day-dropdown').is(e.target) 
 			        && $('.dropdown.select-day-dropdown').has(e.target).length === 0 
@@ -101,7 +130,21 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
 
     	$scope.dataTest = [];
     	for (var i = 0; i < 20; i++) {
-    		$scope.dataTest.push(i);
+            let days = [
+                {value: "Thứ 2",status:false},
+                {value: "Thứ 3",status:false},
+                {value: "Thứ 4",status:false},
+                {value: "Thứ 5",status:false},
+                {value: "Thứ 6",status:false},
+                {value: "Thứ 7",status:false},
+                {value: "Chủ nhật",status:false}
+            ];
+            let data = {
+                value: i,
+                // textDay:
+                workdays: days
+            }
+    		$scope.dataTest.push(data);
     	};
          xhrService.get("GetAllMaid",$scope.filterData)
         .then(function (data) {

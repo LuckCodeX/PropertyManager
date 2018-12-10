@@ -8,7 +8,7 @@
 			  <form class="form-horizontal" name="myForm" ng-submit="saveAccount()">
 			    <div class="form-group">
 			      <label class="control-label col-sm-3" for="">Tài khoản:<span ng-show="!data.Id" style="color: red">*</span></label>
-			      <div class="col-sm-9">
+			      <div class="col-sm-6">
 			        <input type="text" class="form-ctrl" ng-minlength="6" name="username" ng-readonly="data.Id" ng-model="data.Username" required="">
 			      </div>
 			      <label style="color:red;" class="col-sm-6 col-sm-offset-3" ng-show="myForm.username.$dirty && myForm.username.$invalid">Tài khoản phải có 6 ký tự trở lên</label>
@@ -32,14 +32,14 @@
 			    </div>
 			    <div class="form-group">
 			      <label class="control-label col-sm-3" for="">Mật khẩu: <span style="color: red">*</span></label>
-			      <div class="col-sm-9">          
+			      <div class="col-sm-6">          
 			        <input type="password" class="form-ctrl" ng-minlength="6" name="pwd" ng-model="data.Password"  ng-required="!data.Id">
 			      </div>
 			      <label style="color:red;" class="col-sm-6 col-sm-offset-3" ng-show="myForm.pwd.$dirty && myForm.pwd.$invalid">Mật khẩu phải có 6 ký tự trở lên</label>
 			    </div>
 			    <div class="form-group">
 			      <label class="control-label col-sm-3" for="">Xác nhận mật khẩu: <span style="color: red">*</span></label>
-			      <div class="col-sm-9">          
+			      <div class="col-sm-6">          
 			        <input type="password" class="form-ctrl" name="rePwd" ng-model="rePassword" ng-required="!data.Id">
 			      </div>
 			      <label style="color:red;" class="col-sm-6 col-sm-offset-3" ng-show="myForm.rePwd.$dirty && myForm.rePwd.$invalid || rePassword != data.Password">Mật khẩu không khớp</label>
