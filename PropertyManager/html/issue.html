@@ -1,1 +1,44 @@
-﻿<h1>Issue</h1>
+﻿<div class="account-view" ng-init="loadIssue()" ng-controller="IssueCtrl">
+	<div class="warp full-height">
+		<div class="header-warp">
+			<div class="title-warp">DANH SÁCH SỰ CỐ</div>
+		</div>
+		<div class="body-warp">
+			<div style="overflow: hidden;">
+				
+				<a ui-sref="system.issuedetail"  class="m-r-0 float-right btn btn-save">+ THÊM</a>
+			
+			</div>
+			<table class="table table-hover table-list">
+				<tr>
+					<th>Tên sự cố</th>
+					<th>Mô tả</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr ng-repeat="item in issueList">
+					<td><a class="" ui-sref="system.issuedetail({id:item.Id})">{{item.Name}}</a></td>
+					<td>{{item.Description}}</td>
+					<td>
+						<div class="dropdown action-dropdown-table">
+	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
+	                            <i class="fas fa-ellipsis-v"></i>
+	                        </button>
+	                        <ul class="dropdown-menu">
+	                          <li><a ui-sref="system.issuedetail({id:item.Id})">Chỉnh sửa</a></li>
+								<li><a href="" ng-click="deleteIssue(item)"> Xóa
+								</a></li>
+	                        </ul>
+	                      </div>
+						
+					</td>
+				</tr>
+				
+			</table>
+			<!-- <div class="pagination-employee">
+				<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			</div> -->
+			
+		</div>
+	</div>
+	
+</div>
