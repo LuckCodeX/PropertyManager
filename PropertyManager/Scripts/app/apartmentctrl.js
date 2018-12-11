@@ -4,6 +4,26 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
     { name: "Ảnh phòng ngủ", value: 3, maximum: 4 }, { name: "Ảnh khác", value: 5, maximum: 4 },
     { name: "Ảnh xác minh", value: 1, maximum: 5 }];
 
+     $(document).ready(function() {
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": false,
+          "positionClass": "toast-bottom-full-width",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+     });
+
     $scope.loadApartment = function () {
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.typeStatus = $stateParams.type === undefined ? -1 : $stateParams.type;
@@ -161,14 +181,12 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
         };
         xhrService.post("SaveApartment", $scope.data)
             .then(function (data) {
-                swal("Thành công!", "", "success")
-                    .then((value) => {
-                        window.location.href = "/apartment";
-                    });
+                toastr.success('Thành công!');
+                setTimeout(function(){ window.location.href = "/apartment"; }, 1000);
 
             },
                 function (error) {
-                    console.log(error.statusText);
+                    toastr.error('Thất bại!');
                 });
     };
 
@@ -188,17 +206,11 @@ function ApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xh
                     xhrService.delete("DeleteApartment/" + item.Id)
                         .then(function (data) {
                             $scope.loadApartment();
-                            swal("Xóa chung cư, căn hộ thành công!",
-                                {
-                                    icon: "success",
-                                });
+                            toastr.success('Thành công!');
 
                         },
                             function (error) {
-                                swal("Xóa chung cư, căn hộ thất bại!",
-                                    {
-                                        icon: "error",
-                                    });
+                                toastr.error('Thất bại!');
                             });
 
                 }

@@ -2,7 +2,25 @@ function AccountCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrS
     $scope.roles = [
         { name: "Quản lý website", value: 0 }, { name: "Quản lý nhóm căn hộ", value: 2 },
         { name: "Quản lý nhóm khách hàng", value: 3 }, { name: "Nhân viên nhóm căn hộ", value: 4 }, { name: "Nhân viên nhóm khách hàng", value: 5 }];
-
+    $(document).ready(function() {
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": false,
+          "positionClass": "toast-bottom-full-width",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+  });
     $scope.loadAccount = function() {
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.searchEmp2 = $stateParams.search === undefined ? '' : $stateParams.search;
@@ -70,13 +88,13 @@ function AccountCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrS
     $scope.saveAccount = function () {
         xhrService.post("SaveAccount", $scope.data)
             .then(function (data) {
-                swal("Thành công!", "", "success")
-                    .then((value) => {
-                        window.location.href = "/account";
-                    });
+                toastr.success('Thành công!');
+                setTimeout(function(){ window.location.href = "/system/account"; }, 1000);
+                 
 
             },
                 function (error) {
+                    toastr.error('Thất bại!');
                     console.log(error.statusText);
                 });
     }
@@ -97,15 +115,11 @@ function AccountCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrS
                     xhrService.delete("DeleteAccount/" + item.Id)
                         .then(function (data) {
                             $scope.loadAccount();
-                            swal("Xóa tài khoản thành công!", {
-                                icon: "success",
-                            });
+                            toastr.success('Thành công!');
 
                         },
                             function (error) {
-                                swal("Xóa tài khoản thất bại!", {
-                                    icon: "error",
-                                });
+                                toastr.error('Thất bại!');
                             });
 
                 }
