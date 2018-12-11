@@ -1,1 +1,36 @@
-﻿<h1>Issue Detail</h1>
+﻿<div class="account-view" ng-init="loadIssueDetail()" ng-controller="IssueCtrl">
+	<div class="warp full-height">
+		<div class="header-warp">
+			<div class="title-warp">CHI TIẾT SỰ CỐ</div>
+		</div>
+		<div class="body-warp">
+			<div class="account-detail-view">
+			  <form class="form-horizontal" name="myForm" ng-submit="saveIssue()">
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Tên sự cố:<span ng-show="!data.Id" style="color: red">*</span></label>
+			      <div class="col-sm-9">
+			        <input type="text" class="form-ctrl" ng-minlength="6" name="username" ng-model="data.Name">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-3" for="">Mô tả: <span style="color: red">*</span></label>
+			      <div class="col-sm-9">          
+			        <input type="text" class="form-ctrl" ng-minlength="6"  ng-model="data.Description" >
+			      </div>
+			    </div>
+			    
+
+
+			    <div class="form-group">        
+			      <div class="col-sm-offset-3 col-sm-9">
+			      	<button type="submit"  class="btn btn-save">Lưu</button>
+			      	<button type="button" ui-sref="system.issue" class="btn btn-back">Thoát</button>
+			      </div>
+			    </div>
+			  </form>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
