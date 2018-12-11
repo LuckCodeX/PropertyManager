@@ -1409,8 +1409,11 @@ hr.dashed {
 .table-maid-apartment tbody tr:first-child td{
     border-top: none !important;
 }
-.selectize-control {
+.selectize-control .selectize-input{
     z-index: 1002 !important;
+}
+.selectize-control .selectize-dropdown{
+    z-index: 1003 !important;
 }
 .btn-ok{
     padding: 3px 8px;
@@ -1419,4 +1422,7 @@ hr.dashed {
 }
 .space-normal{
     white-space: normal !important;
+}
+.btn-save{
+    font-family: 'Roboto', sans-serif;
 }
