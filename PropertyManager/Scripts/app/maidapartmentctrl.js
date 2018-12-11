@@ -19,9 +19,12 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         }else{
             for (var i = 0; i < days.length; i++) {
                 if (days[i].status) {
-                    content += days[i].value;
-                    content += " ";
+                    content += days[i].shortValue;
+                    content += ",";
                 }
+            }
+            if (content != "") {
+                content = content.slice(0, content.length-1);
             }
         }
         
@@ -124,25 +127,51 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             $scope.changFilter($scope.pageChanged());
     }
 
+    $scope.openNote = function(apartment,index){
+        // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
+        $scope.currentApartment = apartment;
+        $scope.currentApartment.index = index;
+    }
+
+    $scope.addNote = function(){
+        $scope.currentApartment.notes.push({date:null,note:''});
+    }
+
+    $scope.saveNote = function(){
+        $scope.dataTest[$scope.currentApartment.index].notes = $scope.currentApartment.notes;
+        var length = $scope.dataTest[$scope.currentApartment.index].notes.length;
+        if(length > 0){
+            length -= 1;
+            $scope.dataTest[$scope.currentApartment.index].textNote = $scope.dataTest[$scope.currentApartment.index].notes[length].note;
+        }
+        
+        $('#employeeModal').modal('hide');
+    }
+
     $scope.loadMaidApartment = function(){
 
     	setTimeout(function(){ initDropdown() }, 1000);
-
+        $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
+        $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
+        $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
+        $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
     	$scope.dataTest = [];
     	for (var i = 0; i < 20; i++) {
             let days = [
-                {value: "Thứ 2",status:false},
-                {value: "Thứ 3",status:false},
-                {value: "Thứ 4",status:false},
-                {value: "Thứ 5",status:false},
-                {value: "Thứ 6",status:false},
-                {value: "Thứ 7",status:false},
-                {value: "Chủ nhật",status:false}
+                {value: "Thứ 2",shortValue:"2",status:false},
+                {value: "Thứ 3",shortValue:"3",status:false},
+                {value: "Thứ 4",shortValue:"4",status:false},
+                {value: "Thứ 5",shortValue:"5",status:false},
+                {value: "Thứ 6",shortValue:"6",status:false},
+                {value: "Thứ 7",shortValue:"7",status:false},
+                {value: "Chủ nhật",shortValue:"CN",status:false}
             ];
             let data = {
                 value: i,
                 // textDay:
-                workdays: days
+                workdays: days,
+                notes:[],
+                textNote : "Không có"
             }
     		$scope.dataTest.push(data);
     	};
@@ -166,7 +195,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                     LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
                     Code: item.Code,
                     value: item.Id
-                };
+                };               
                 $scope.employeeList.push(emp);
             });
         },

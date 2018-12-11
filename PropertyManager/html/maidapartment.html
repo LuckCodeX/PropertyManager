@@ -14,7 +14,7 @@
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Thời gian từ:</label>
                             <div class="col-sm-7">
-                                <p class="input-group" ng-init="apt.opened = false">
+                                <p style="z-index: 1004;" class="input-group" ng-init="apt.opened = false">
                                   <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -25,7 +25,7 @@
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Đến:</label>
                             <div class="col-sm-7">
-                                <p class="input-group" ng-init="apt.opened = false">
+                                <p style="z-index: 1004;" class="input-group" ng-init="apt.opened = false">
                                   <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -48,18 +48,8 @@
 		                    <th colspan="2">Thông tin liên lạc chủ hộ</th>
 		                    <th colspan="2">Thông tin khách ở</th>
 		                    <th colspan="2">Thời hạn hợp đồng</th>
-		                    <th colspan="5">Thông tin maid</th>
+		                    <th colspan="5">Thông tin nhân viên</th>
 		                    <th rowspan="2" class="col2rows">Đặc tính KH</th>
-		                    <th rowspan="2" class="col2rows">Loại sự việc</th>
-		                    <th rowspan="2" class="col2rows">Tóm tắt sự việc</th>
-		                    <th rowspan="2" class="col2rows">Mô tả sự việc</th>
-		                    <th rowspan="2" class="col2rows">Ưu tiên</th>
-		                    <th rowspan="2" class="col2rows">Giờ hẹn làm</th>
-		                    <th rowspan="2" class="col2rows">Giá thành</th>
-		                    <th rowspan="2" class="col2rows">Nhân viên làm</th>
-		                    <th rowspan="2" class="col2rows">Hoàn thành</th>
-		                    <th rowspan="2" class="col2rows">Chưa hoàn thành</th>
-		                    <th rowspan="2" class="col2rows">Ảnh sự</th>
 		                </tr>
 		                <tr class="second-row">
 		                    <th>Mã</th>
@@ -78,10 +68,10 @@
 		                    <th>SĐT</th>
 		                    <th>Check in</th>
 		                    <th>Check out</th>
-		                    <th>Tên nhân viên</th>
+		                    <th style="width: 200px">Tên nhân viên</th>
 		                    <th>Số điện thoại</th>
 		                    <th>Mã nhân viên</th>
-		                    <th style="width:126px;">Số buổi/tuần</th>
+		                    <th style="width:200px;">Số buổi/tuần</th>
 		                    <th>Giờ làm</th>
 		                </tr>
 					</thead>
@@ -104,7 +94,7 @@
 		                    <td>09215354188</td>
 		                    <td>20/05/2018</td>
 		                    <td>20/05/2019</td>
-		                    <td>Nguyễn Thị Hương</td>
+		                    <td><selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="apartment.employee" ng-disabled='disable' required='true'></selectize></td>
 		                    <td>09121351585</td>
 		                    <td>A001</td>
 		                    <td id="test" style="width:126px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
@@ -124,17 +114,7 @@
 							  </div>
 							</td>
 		                    <td>12h30</td>
-		                    <td>Tự vào</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
-		                    <td>0000000</td>
+		                    <td ng-click="openNote(apartment,$index)" data-toggle="modal" data-target="#employeeModal" >{{apartment.textNote}}</td>
 		                </tr>
 	                </tbody>
 	                
@@ -145,5 +125,45 @@
 			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
 		</div> -->
     </div>
-    
+    <div id="employeeModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveNote()">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times"></i></button>
+	        <h4 class="modal-title" style="color: #DFF5F3">Đặc tính khách hàng</h4>
+	      </div>
+	      <div class="modal-body maid-employee-modal">
+            
+      		<div class="form-group">
+	            <label class="control-label col-sm-6 text-left" for="">Ngày</label>
+	            <label class="control-label col-sm-6 text-left" for="">Ghi chú</label>
+	        </div>
+	       
+	        <div class="form-group" ng-repeat="item in currentApartment.notes">
+	            <div class="col-sm-5 input-datetime">
+	                <p class="input-group" ng-init="apt.opened = false">
+                      <input required="" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="item.date" is-open="history.picker3" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="history.picker3 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+	            </div>
+	            <div class="col-sm-5 col-sm-offset-1 input-datetime">
+	                <textarea style="resize: none;" class="form-ctrl" ng-model="item.note" id="username" />
+	            </div>
+	        </div>
+	       <div class="form-group">
+	       	<div  class="col-sm-offset-5">
+	       		<button type="button" class="btn btn-save" ng-click="addNote()"><i style="color: white;" class="fas fa-plus"/> Thêm mới</button>
+	       	</div>
+	       </div>
+	    </div>
+	    <div class="modal-footer">
+	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentApartment = null" data-dismiss="modal">Đóng</button>
+	    </div>
+	    </form>
+
+	  </div>
+	</div>
 </div> 
