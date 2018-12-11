@@ -757,6 +757,22 @@ namespace PropertyManager.Controllers
             }).ToList();
         }
 
+        [HttpGet]
+        [Route("GetIssueDetail/{id}")]
+        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        public IssueModel GetIssueDetail(int id)
+        {
+            var issue = _service.GetIssueById(id);
+            if (Equals(issue, null))
+                ExceptionContent(HttpStatusCode.MethodNotAllowed, "Dữ liệu không tồn tại");
+            return new IssueModel()
+            {
+                Id = issue.issue_id,
+                Name = issue.name,
+                Description = issue.description
+            };
+        }
+
         [HttpPost]
         [Route("SaveIssue")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
