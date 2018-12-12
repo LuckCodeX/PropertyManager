@@ -1,5 +1,6 @@
 function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
 	$scope.contractList = [];
+	$scope.contractType = [{value:0,name:"Hợp đồng giữa công ty và chủ nhà"}]
 	$scope.loadContract = function(){
 		for (var i = 0; i < 20; i++) {
 			$scope.contractList.push({
@@ -26,6 +27,8 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.apt = {};
 		$scope.cus = {};
 		$scope.cusModel = {};
+		$scope.company = {};
+		$scope.companyModel = {};
 		$scope.passportList = [{ownerName:"",passport:""}];
 		$(document).ready(function () {
             $('ul.tabs li').click(function () {
@@ -51,6 +54,8 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         						{name:"Tuấn Nghĩa",value:3},
         						{name:"Trần Hoàn",value:4},
         						{name:"Quang Tuấn",value:5}];
+        $scope.companyList =  [{name:"PropertyPlus",value:1},
+        						{name:"Teusoft",value:2}];	
             // {name: "Daryl", surname: "Rowland",},
             // {name: "Alan", surname: "Partridge"},
             // {name: "Annie", surname: "Rowland"}
@@ -91,6 +96,15 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.apt.ownerName = $scope.aptModel.ownerName;
 		$scope.apt.phone = $scope.aptModel.phone;
 		 $('#apartmentModal').modal('hide');
+	}
+	$scope.saveModalCompany = function(){
+		$scope.company.name = $scope.companyModel.name;
+		$scope.company.bankName = $scope.companyModel.bankName;
+		$scope.company.taxCode = $scope.companyModel.taxCode;
+		$scope.company.address = $scope.companyModel.address;
+		$scope.company.bankAddress = $scope.companyModel.bankAddress;
+		$scope.company.bankNumber = $scope.companyModel.bankNumber;
+		 $('#companyModal').modal('hide');
 	}
 }
 app.controller('ContractCtrl', ContractCtrl);
