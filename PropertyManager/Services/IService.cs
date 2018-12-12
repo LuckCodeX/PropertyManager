@@ -56,5 +56,7 @@ namespace PropertyManager.Services
         List<issue> GetAllIssue();
         issue GetIssueById(int id);
         void SaveIssue(issue issue);
+        contract GetContractById(int id);
+        void SaveContract(contract contract);
     }
 }

@@ -236,9 +236,11 @@
     <Compile Include="Models\company.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\contract.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\contract_employee.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -303,6 +305,7 @@
     <Compile Include="Models\user_visit_item.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IssueService.cs" />
     <Compile Include="Services\UserService.cs" />

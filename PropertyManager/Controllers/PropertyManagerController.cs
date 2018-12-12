@@ -820,6 +820,55 @@ namespace PropertyManager.Controllers
 
         #endregion
 
+        #region Contract
+
+        [HttpPost]
+        [Route("CreateContract")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public void CreateContract(ContractModel model)
+        {
+            var contract = _service.GetContractById(model.Id);
+            if(Equals(contract, null))
+                contract = new contract()
+                {
+                    contract_id = 0,
+                    created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                    code = ConvertDatetime.ConvertUnixTimeStampToDateTime(ConvertDatetime.GetCurrentUnixTimeStamp())
+                };
+            contract.type = model.Type;
+            contract.company_id = model.CompanyId;
+            contract.user_profile_id = model.UserProfileId;
+            contract.owner_user_profile_id = model.OwnerUserProfileId;
+            contract.apartment_id = model.ApartmentId;
+            contract.building = model.Building;
+            contract.no_apartment = model.NoApartment;
+            contract.address = model.Address;
+            contract.area = model.Area;
+            contract.no_bedroom = model.NoBedroom;
+            contract.pass_wifi = model.PassWifi;
+            contract.pass_door = model.PassDoor;
+            contract.owner_name = model.OwnerName;
+            contract.owner_phone = model.OwnerPhone;
+            contract.owner_tax_code = model.OwnerTaxCode;
+            contract.owner_address = model.OwnerAddress;
+            contract.owner_bank_account = model.OwnerBankAccount;
+            contract.owner_bank_name = model.OwnerBankName;
+            contract.owner_bank_number = model.OwnerBankNumber;
+            contract.owner_bank_branch = model.OwnerBankBranch;
+            contract.tenant_name = model.TenantName;
+            contract.tenant_address = model.TenantAddress;
+            contract.tenant_tax_code = model.TenantTaxCode;
+            contract.tenant_bank_name = model.TenantBankName;
+            contract.tenant_bank_number = model.TenantBankNumber;
+            contract.tenant_bank_account = model.TenantBankAccount;
+            contract.tenant_bank_branch = model.TenantBankBranch;
+            contract.admin_id = model.AdminId;
+            _service.SaveContract(contract);
+        }
+
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             _service.Dispose();
