@@ -107,7 +107,14 @@ namespace PropertyManager.Controllers
                     Id = admin.admin_id,
                     Username = admin.username,
                     Role = admin.role,
-                    ParentId = admin.parent_id
+                    ParentId = admin.parent_id,
+                    FullName = admin.full_name,
+                    Phone = admin.phone,
+                    Email = admin.email,
+                    BankAccount = admin.bank_account,
+                    BankName = admin.bank_name,
+                    BankNumber = admin.bank_number,
+                    BankBranch = admin.bank_branch
                 };
             }
             return new AdminModel();
@@ -145,6 +152,13 @@ namespace PropertyManager.Controllers
             acc.role = model.Role;
             acc.parent_id = model.ParentId;
             acc.username = model.Username;
+            acc.full_name = model.FullName;
+            acc.phone = model.Phone;
+            acc.email = model.Email;
+            acc.bank_account = model.BankAccount;
+            acc.bank_branch = model.BankBranch;
+            acc.bank_name = model.BankName;
+            acc.bank_number = model.BankNumber;
             if (!Equals(model.Password, null))
                 acc.password = Encrypt.EncodePassword(model.Password);
             _service.SaveAdmin(acc);
@@ -746,6 +760,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetAllIssue")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public List<IssueModel> GetAllIssue()
         {
             var issues = _service.GetAllIssue();

@@ -4,6 +4,13 @@
     <EntitySetMapping Name="admins">
       <EntityTypeMapping TypeName="PropertyManagerModel.admin">
         <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
+          <ScalarProperty Name="bank_number" ColumnName="bank_number" />
+          <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+          <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="parent_id" ColumnName="parent_id" />
           <ScalarProperty Name="admin_id" ColumnName="admin_id" />

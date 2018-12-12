@@ -14,6 +14,13 @@
     <NavigationProperty Name="admin2" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin1" ToRole="admin" />
     <NavigationProperty Name="companies" Relationship="PropertyManagerModel.FK__company__admin_i__1E6F845E" FromRole="admin" ToRole="company" />
     <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__admin___27F8EE98" FromRole="admin" ToRole="contract" />
+    <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="bank_account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="bank_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="aparment_image">
     <Key>

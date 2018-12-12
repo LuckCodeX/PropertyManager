@@ -47,5 +47,18 @@ namespace PropertyManager.Controllers
                 }
             };
         }
+
+        [HttpGet]
+        [Route("GetAllIssue")]
+        public List<IssueModel> GetAllIssue()
+        {
+            var issues = _service.GetAllIssue();
+            return issues.Select(p => new IssueModel()
+            {
+                Id = p.issue_id,
+                Name = p.name,
+                Description = p.description
+            }).ToList();
+        }
     }
 }

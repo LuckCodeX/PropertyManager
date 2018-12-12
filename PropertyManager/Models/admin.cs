@@ -28,6 +28,13 @@ namespace PropertyManager.Models
         public int role { get; set; }
         public Nullable<int> parent_id { get; set; }
         public int status { get; set; }
+        public string full_name { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string bank_account { get; set; }
+        public string bank_name { get; set; }
+        public string bank_number { get; set; }
+        public string bank_branch { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<admin> admin1 { get; set; }

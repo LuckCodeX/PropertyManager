@@ -10,6 +10,13 @@
     <Property Name="role" Type="int" Nullable="false" />
     <Property Name="parent_id" Type="int" />
     <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="full_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="bank_account" Type="varchar" MaxLength="100" />
+    <Property Name="bank_name" Type="nvarchar" MaxLength="100" />
+    <Property Name="bank_number" Type="varchar" MaxLength="50" />
+    <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="aparment_image">
     <Key>

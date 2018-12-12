@@ -15,6 +15,13 @@
           <Property Name="role" Type="int" Nullable="false" />
           <Property Name="parent_id" Type="int" />
           <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="full_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="bank_account" Type="varchar" MaxLength="100" />
+          <Property Name="bank_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="bank_number" Type="varchar" MaxLength="50" />
+          <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="aparment_image">
           <Key>
@@ -913,6 +920,13 @@
           <NavigationProperty Name="admin2" Relationship="PropertyManagerModel.FK__admin__parent_id__02084FDA" FromRole="admin1" ToRole="admin" />
           <NavigationProperty Name="companies" Relationship="PropertyManagerModel.FK__company__admin_i__1E6F845E" FromRole="admin" ToRole="company" />
           <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__admin___27F8EE98" FromRole="admin" ToRole="contract" />
+          <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bank_account" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bank_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="aparment_image">
           <Key>
@@ -1858,6 +1872,13 @@
           <EntitySetMapping Name="admins">
             <EntityTypeMapping TypeName="PropertyManagerModel.admin">
               <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
+                <ScalarProperty Name="bank_number" ColumnName="bank_number" />
+                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+                <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="parent_id" ColumnName="parent_id" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
