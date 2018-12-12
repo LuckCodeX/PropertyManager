@@ -9,6 +9,12 @@
 				 	<div class="col-sm-12" >
 					    <div style="display: inline-block" class="form-group">
 					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp đông" style="margin-left: 15px;width: 300px" name="seachContract" ng-model="searchContract">
+					        <select style="margin: 0 15px;width: 300px" number-to-string class="form-ctrl" ng-model="currentType">
+					        	<option value="">Loại hợp đồng</option>
+                            	<option ng-repeat= "type in contractType" value="{{type.value}}">{{type.name}}</option>
+                            	<!-- <option value="1">Times City</option>
+                            	<option value="2">Royal City</option> -->
+                            </select>
 					      	<button type="submit" class="btn btn-save">Tìm kiếm</button>
 					    </div>
 					    <a style="margin-right: 0" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>

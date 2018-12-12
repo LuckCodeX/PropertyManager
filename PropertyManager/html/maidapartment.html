@@ -7,9 +7,12 @@
                     	<p id="test"></p>
                         <div class="form-group col-sm-4">
                             <label class="control-label col-sm-5" for="">Nhân viên:</label>
-                            <div class="col-sm-7" style="color: black">
-                            	<selectize ng-change="changFilter()" placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            <div class="col-sm-7 selectize-on-all" style="color: black">
+                            	<selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
                             </div>
+                        </div>
+                        <div style="display: none;">
+                        	<selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-model="hiddenDropdown" ng-disabled='disable' required='true'></selectize>
                         </div>
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Thời gian từ:</label>
@@ -39,7 +42,7 @@
                 </div>
              </form>
 			</div>
-			<div style="overflow:auto; height: 600px">
+			<div id="tableMaid" style="overflow:auto; height: 600px">
 				<table class="table table-hover table-list table-contract table-maid table-maid-apartment">
 					<thead>
 						<tr class="first-row">
@@ -48,7 +51,7 @@
 		                    <th colspan="2">Thông tin liên lạc chủ hộ</th>
 		                    <th colspan="2">Thông tin khách ở</th>
 		                    <th colspan="2">Thời hạn hợp đồng</th>
-		                    <th colspan="5">Thông tin nhân viên</th>
+		                    <th colspan="4">Thông tin nhân viên</th>
 		                    <th rowspan="2" class="col2rows">Đặc tính KH</th>
 		                </tr>
 		                <tr class="second-row">
@@ -64,13 +67,12 @@
 		                    <th>Pass wifi</th>
 		                    <th>Tên</th>
 		                    <th>SĐT</th>
-		                    <th>Tên khách ở</th>
+		                    <th style="min-width: 160px">Tên khách ở</th>
 		                    <th>SĐT</th>
 		                    <th>Check in</th>
 		                    <th>Check out</th>
-		                    <th style="width: 200px">Tên nhân viên</th>
+		                    <th style="min-width: 250px">Tên nhân viên</th>
 		                    <th>Số điện thoại</th>
-		                    <th>Mã nhân viên</th>
 		                    <th style="width:200px;">Số buổi/tuần</th>
 		                    <th>Giờ làm</th>
 		                </tr>
@@ -90,13 +92,12 @@
 		                    <td>123456789</td>
 		                    <td>Đặng Thị Kim Oanh</td>
 		                    <td>09153515681</td>
-		                    <td>Mr. Takeshi Nakamura</td>
+		                    <td style="width: 160px">Mr. Takeshi Nakamura</td>
 		                    <td>09215354188</td>
 		                    <td>20/05/2018</td>
 		                    <td>20/05/2019</td>
-		                    <td><selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="apartment.employee" ng-disabled='disable' required='true'></selectize></td>
+		                    <td class="selectize-employee" style="width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-model="apartment.employee" ng-disabled='disable' required='true'></selectize></td>
 		                    <td>09121351585</td>
-		                    <td>A001</td>
 		                    <td id="test" style="width:126px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
 		                    	<div style="width:110px;" class="dropdown select-day-dropdown">
 								    <button class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textDay}}

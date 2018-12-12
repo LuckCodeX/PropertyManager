@@ -39,21 +39,21 @@
 			        </div>
 			        <div style="overflow: hidden;">
 			    		<div class="col-sm-3 title-form-group">
-			                Khách hàng
+			                Công ty
 			            </div>
 			    	</div>
 			        <div class="form-group has-child">
-			            <label class="control-label col-sm-3" for="">Khách hàng: <span style="color: red">*</span></label>
+			            <label class="control-label col-sm-3" for="">Tên công ty: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			            	<selectize placeholder='Chọn khách hàng...' options='customerList' config="myConfig" ng-model="cus.customer" ng-disabled='disable' required='true'></selectize>
+			            	<selectize placeholder='Chọn công ty...' options='companyList' config="myConfig" ng-model="currentCompany" ng-disabled='disable' required='true'></selectize>
 			                <!-- <input id="acCustomer" ng-model="customer" class="form-ctrl" title="type &quot;a&quot;"> -->
 			            </div>
-			            <button type="button" class="btn btn-save" data-toggle="modal" data-target="#customerModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
+			            <button type="button" class="btn btn-save" data-toggle="modal" data-target="#companyModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Số điện thoại: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			                <input type="text" class="form-ctrl" ng-model="cus.phone" ng-readonly="!cus.customer" name="">
+			                <input type="text" class="form-ctrl" ng-model="cus.phone" ng-readonly="!currentCompany" name="">
 			            </div>
 			        </div>
 			        <div style="overflow: hidden;">
@@ -80,11 +80,35 @@
 			                <input type="text" class="form-ctrl" ng-readonly="!employee" name="">
 			            </div>
 			        </div>
+			        <div style="overflow: hidden;">
+			    		<div class="col-sm-3 title-form-group">
+			                Tài khoản
+			            </div>
+			    	</div>
+			        <div class="form-group has-child">
+			            <label class="control-label col-sm-3" for="">Email: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<input type="text" class="form-ctrl" name="">
+			            </div>
+			        </div>
+			         <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Mật khẩu:</label>
+			            <div class="col-sm-7">
+			                <input type="password" class="form-ctrl" name="">
+			            </div>
+			        </div>
+			         <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Xác nhận mật khẩu: </label>
+			            <div class="col-sm-7">
+			                <input type="password" class="form-ctrl" name="">
+			            </div>
+			        </div>
 			        <div class="form-group">
 			            <div class="users-tab" style="padding-top: 10px;">
 			                <ul class="tabs">
 			                    <li class="tab-link current" style="font-size: 18px; padding-bottom: 45px;" data-tab="tab-1">Thông tin căn hộ</li>
-			                    <li class="tab-link" style="font-size: 18px; padding-bottom: 45px;" data-tab="tab-2">Thông tin khách hàng</li>
+			                    <li class="tab-link" style="font-size: 18px; padding-bottom: 45px;" data-tab="tab-2">Thông tin công ty</li>
+			                    <li class="tab-link" style="font-size: 18px; padding-bottom: 45px;" data-tab="tab-4">Nhân sự phụ trách</li>
 			                    <li class="tab-link" style="font-size: 18px; padding-bottom: 45px;" data-tab="tab-3">Thông tin dịch vụ</li>
 			                </ul>
 
@@ -183,10 +207,25 @@
 			                            <input type="text" class="form-ctrl" required="">
 			                        </div>
 			                    </div>
-			                    <div class="form-group">
+			                    <div class="form-group border-bottom">
 			                        <label class="control-label col-sm-3" for="">Tên chủ tài khoản: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
 			                            <input type="text" class="form-ctrl" required="">
+			                        </div>
+			                    </div>
+			                    <div class="form-group" ng-repeat="passport in passportList">
+			                        <label class="control-label col-sm-3" for="">Tên người ở: <span style="color: red">*</span></label>
+			                        <div class="col-sm-3">
+			                            <input type="text" class="form-ctrl" ng-model="passport.ownerName" required="">
+			                        </div>
+			                        <label class="control-label col-sm-2" for="">Passport: <span style="color: red">*</span></label>
+			                        <div class="col-sm-2">
+			                            <input type="text" class="form-ctrl" ng-model="passport.passport" ng required="">
+			                        </div>
+			                    </div>
+			                    <div class="form-group" style="padding: 0; margin: 0">
+			                        <div class="col-sm-7 col-sm-offset-3">
+			                            <button type="button" ng-click="addPassport()" style="width: 300px;display: block; margin: 0 auto" class="btn btn-save"><i style="color: white;" class="fas fa-plus"></i> Thêm mới</button>
 			                        </div>
 			                    </div>
 			                </div>
@@ -199,44 +238,42 @@
 			                    <div class="form-group has-child">
 			                        <label class="control-label col-sm-3" for="">Tên công ty: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" ng-model="cus.company" required="">
+			                            <input type="text" class="form-ctrl" ng-model="company.name" required="">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Địa chỉ công ty: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" ng-model="cus.address" required="">
+			                            <input type="text" class="form-ctrl" ng-model="company.address" required="">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Mã số thuế: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                            <input type="text" class="form-ctrl" required="" ng-model="company.taxCode">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                            <input type="text" class="form-ctrl" required="" ng-model="company.bankName">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Số TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                            <input type="text" class="form-ctrl" required="" ng-model="company.bankNumber">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Ngân hàng - chi nhánh: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="">
+			                            <input type="text" class="form-ctrl" required="" ng-model="company.bankAddress">
 			                        </div>
 			                    </div>
-			                    <div style="overflow: hidden;">
-						    		<div class="col-sm-3 title-form-group">
-						                Nhân sự phụ trách
-						            </div>
-						    	</div>
+			                    
+			                </div>
+			                <div id="tab-4" class="tab-content emp-tab ckedit-tab">
 			                    <div class="form-group has-child">
 			                        <label class="control-label col-sm-3" for="">Tên nhân sự phụ trách:</label>
 			                        <div class="col-sm-7">
@@ -267,25 +304,10 @@
 			                            <input type="text" class="form-ctrl" >
 			                        </div>
 			                    </div>	
-			                    <div class="form-group border-bottom">
+			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Ngân hàng - chi nhánh:</label>
 			                        <div class="col-sm-7">
 			                            <input type="text" class="form-ctrl" >
-			                        </div>
-			                    </div>
-			                    <div class="form-group" ng-repeat="passport in passportList">
-			                        <label class="control-label col-sm-3" for="">Tên người ở: <span style="color: red">*</span></label>
-			                        <div class="col-sm-3">
-			                            <input type="text" class="form-ctrl" ng-model="passport.ownerName" required="">
-			                        </div>
-			                        <label class="control-label col-sm-2" for="">Passport: <span style="color: red">*</span></label>
-			                        <div class="col-sm-2">
-			                            <input type="text" class="form-ctrl" ng-model="passport.passport" ng required="">
-			                        </div>
-			                    </div>
-			                    <div class="form-group" style="padding: 0; margin: 0">
-			                        <div class="col-sm-7 col-sm-offset-3">
-			                            <button type="button" ng-click="addPassport()" style="width: 300px;display: block; margin: 0 auto" class="btn btn-save"><i style="color: white;" class="fas fa-plus"></i> Thêm mới</button>
 			                        </div>
 			                    </div>
 			                </div>
@@ -887,43 +909,49 @@
 
 	  </div>
 	</div>
-	<div id="customerModal" class="modal fade" role="dialog">
+	<div id="companyModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
-	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveModalCustomer()">
+	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveModalCompany()">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Tạo Mới Khách Hàng</h4>
+	        <h4 class="modal-title">Tạo Mới Công Ty</h4>
 	      </div>
 	      <div class="modal-body account-detail-view">
 	      		<div class="form-group">
-		            <label class="control-label col-sm-3" for="">Tên khách hàng:</label>
-		            <div class="col-sm-8">
-		            	<selectize placeholder='Chọn khách hàng...' options='customerList' config="myConfig" ng-model="cusModel.customer" ng-disabled='disable' required='true'></selectize>
-		            </div>
-		        </div>
-		        <div class="form-group">
 		            <label class="control-label col-sm-3" for="">Tên công ty:</label>
 		            <div class="col-sm-8">
-		                <input type="text" class="form-ctrl"  ng-model="cusModel.company">
+		            	<input type="text" class="form-ctrl"  ng-model="companyModel.name">
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="control-label col-sm-3" for="">Địa chỉ:</label>
+		            <label class="control-label col-sm-3" for="">Địa chỉ công ty:</label>
 		            <div class="col-sm-8">
-		                <input type="text" class="form-ctrl" ng-model="cusModel.address">
+		                <input type="text" class="form-ctrl"  ng-model="companyModel.address">
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="control-label col-sm-3" for="">Số di động:</label>
+		            <label class="control-label col-sm-3" for="">Mã số thuế:</label>
 		            <div class="col-sm-8">
-		                <input type="text" min="0" class="form-ctrl"  ng-model="cusModel.phone">
+		                <input type="text" class="form-ctrl" ng-model="companyModel.taxCode">
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="control-label col-sm-3" for="">Email:</label>
+		            <label class="control-label col-sm-3" for="">Tên TK ngân hàng:</label>
 		            <div class="col-sm-8">
-		                <input type="text" class="form-ctrl"  ng-model="cusModel.email">
+		                <input type="text" min="0" class="form-ctrl"  ng-model="companyModel.bankName">
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Số TK ngân hàng:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl"  ng-model="companyModel.bankNumber">
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label col-sm-3" for="">Ngân hàng - chi nhánh:</label>
+		            <div class="col-sm-8">
+		                <input type="text" class="form-ctrl"  ng-model="companyModel.bankAddress">
 		            </div>
 		        </div>
 		    </div>

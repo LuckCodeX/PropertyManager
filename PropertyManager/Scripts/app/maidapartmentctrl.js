@@ -1,6 +1,7 @@
 function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
 	 const firstDay = (new Date(2010,00,01)).getTime()/1000;
     const today = getEndDay(new Date());
+    var currentScroll = 0;
 
     $scope.checkWorkday = function(days){
         for (var i = 0; i < days.length; i++) {
@@ -55,7 +56,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         if (!str)
             return null;
         str = str.toLowerCase();
-        str = str.replace(/\ /g, "-");
+        str = str.replace(/\ /g, " ");
         str = str.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
         str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
@@ -73,7 +74,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         if (!str)
             return null;
         str = str.toLowerCase();
-        str = str.replace(/\ /g, "-");
+        str = str.replace(/\ /g, " ");
         str = str.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
         str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
@@ -149,13 +150,14 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.loadMaidApartment = function(){
-
-    	setTimeout(function(){ initDropdown() }, 1000);
+        
+    	
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
     	$scope.dataTest = [];
+
     	for (var i = 0; i < 20; i++) {
             let days = [
                 {value: "Thứ 2",shortValue:"2",status:false},
@@ -175,9 +177,24 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             }
     		$scope.dataTest.push(data);
     	};
+
+        $(document).ready(function(){
+            $('.selectize-input').on('mousedown',function(e){
+                currentScroll = $("#tableMaid").scrollLeft();
+                setTimeout(function(){ $("#tableMaid").scrollLeft(currentScroll); }, 100);
+                
+            });
+            // $("#tableMaid").click(function(){
+            //     $("#tableMaid").scrollLeft(currentScroll);
+            // })
+        });
+       
+        
+
          xhrService.get("GetAllMaid",$scope.filterData)
         .then(function (data) {
             $scope.employeeList = [];
+            $scope.employeeList2 = [];
             $scope.employeeList.push({
                 Id: -1,
                 FirstName: 'Tất',
@@ -191,13 +208,15 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                     Id: item.Id,
                     FirstName: item.FirstName,
                     LastName: item.LastName,
-                    LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
-                    LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
+                    LowerFirstName: $scope.replaceString(item.FirstName)+ " " +  $scope.replaceString(item.LastName),
+                    LowerLastName: $scope.replaceString(item.FirstName.toLowerCase())+ " "+  $scope.replaceString(item.LastName.toLowerCase()),
                     Code: item.Code,
                     value: item.Id
-                };               
+                };     
+                $scope.employeeList2.push(emp);          
                 $scope.employeeList.push(emp);
             });
+            console.log($scope.employeeList);
         },
         function (error) {
             console.log(error.statusText);
@@ -217,12 +236,14 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
       
     }
+
+
     $scope.myConfig = {
           maxItems: 1,
           labelField: 'FirstName',
            score: function(search) {
             search = search.toLowerCase();
-            search = search.replace(/\ /g, "-");
+            search = search.replace(/\ /g, " ");
             search = search.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
             search = search.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
             search = search.replace(/ì|í|ị|ỉ|ĩ/g, "i");
@@ -233,6 +254,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             search = search.replace(/\”|\“|\"|\[|\]|\?/g, "");
             search = search.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
             search = search.replace(/\u02C6|\u0306|\u031B/g, ""); 
+            console.log(search);
             var score = this.getScoreFunction(search);  
             return function(item) {
                 return score(item);
