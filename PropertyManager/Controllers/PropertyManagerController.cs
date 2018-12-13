@@ -477,6 +477,52 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("CreateApartment")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerEmployee, (int) RoleAdmin.CustomerManager})]
+        public ApartmentModel CreateApartment(ApartmentModel model)
+        {
+            var userProfile = new user_profile()
+            {
+                user_profile_id = 0,
+                email = model.UserProfileOwner.Email,
+                full_name = model.UserProfileOwner.FullName,
+                phone = model.UserProfileOwner.Phone,
+                status = 1,
+                created_date = ConvertDatetime.GetCurrentUnixTimeStamp()
+            };
+            _service.SaveUserProfile(userProfile);
+
+            var userAccount = new user_account()
+            {
+                user_account_id = 0,
+                email = model.UserProfileOwner.Email,
+                password = model.UserProfileOwner.Password,
+                user_profile_id = userProfile.user_profile_id
+            };
+            _service.SaveUserAccount(userAccount);
+
+            var apartment = new apartment()
+            {
+                apartment_id = 0,
+                project_id = model.ProjectId,
+                address = model.Address,
+                latitude = model.Latitude,
+                longitude = model.Longitude,
+                building = model.Building,
+                no_apartment = model.NoApartment,
+                area = model.Area,
+                no_bedroom = model.NoBedRoom,
+                user_profile_owner_id = userProfile.user_profile_id
+            };
+            _service.SaveApartment(apartment);
+
+            model.Id = apartment.apartment_id;
+            model.UserProfileOwner.Id = userProfile.user_profile_id;
+            return model;
+        }
+
         [HttpGet]
         [Route("GetListAllTypeApartment/{search?}")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerEmployee, (int)RoleAdmin.CustomerManager })]
@@ -971,6 +1017,24 @@ namespace PropertyManager.Controllers
                 BankAccount = p.bank_account,
                 BankBranch = p.bank_branch
             }).ToList();
+        }
+
+        [HttpPost]
+        [Route("CreateCompany")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public CompanyModel CreateCompany(CompanyModel model)
+        {
+            var company = new company()
+            {
+                name = model.Name,
+                address = model.Address,
+                company_id = 0
+            };
+            _service.SaveCompany(company);
+
+            model.Id = company.company_id;
+            return model;
         }
 
         #endregion

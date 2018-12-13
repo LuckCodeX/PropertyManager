@@ -23,5 +23,10 @@ namespace PropertyManager.Services
         {
             return CompanyRepository.FindBy(p => Equals(search, null) || p.name.Contains(search)).ToList();
         }
+
+        public void SaveCompany(company company)
+        {
+            CompanyRepository.Save(company);
+        }
     }
 }
