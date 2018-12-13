@@ -8,6 +8,22 @@
 			    <form class="form-horizontal" name="myForm" ng-submit="submitContract()">
 			    	<div style="overflow: hidden;">
 			    		<div class="col-sm-3 title-form-group">
+			                Hợp đồng
+			            </div>
+			    	</div>
+			        <div class="form-group has-child">
+			            <label class="control-label col-sm-3" for="">Loại hợp đồng: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<select number-to-string class="form-ctrl" ng-model="currentType">
+					        	<option value="">Chọn loại hợp đồng</option>
+                            	<option ng-repeat= "type in contractType" value="{{type.value}}">{{type.name}}</option>
+                            	<!-- <option value="1">Times City</option>
+                            	<option value="2">Royal City</option> -->
+                            </select>
+			            </div>
+			        </div>
+			    	<div style="overflow: hidden;">
+			    		<div class="col-sm-3 title-form-group">
 			                Căn hộ
 			            </div>
 			    	</div>
@@ -124,15 +140,15 @@
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">Tòa nhà: <span style="color: red">*</span></label>
+			                        <label class="control-label col-sm-3" for="">Tòa nhà: </label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" ng-model="apt.apartment">
+			                            <input type="text" class="form-ctrl" ng-model="apt.apartment">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">Số căn hộ: <span style="color: red">*</span></label>
+			                        <label class="control-label col-sm-3" for="">Số căn hộ: </label>
 			                        <div class="col-sm-7">
-			                            <input type="number" class="form-ctrl" required="" ng-model="apt.countApartment">
+			                            <input type="number" class="form-ctrl" ng-model="apt.countApartment">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
