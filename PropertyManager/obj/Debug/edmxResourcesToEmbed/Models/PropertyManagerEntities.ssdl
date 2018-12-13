@@ -50,6 +50,7 @@
     <Property Name="no_apartment" Type="nvarchar" MaxLength="10" />
     <Property Name="building" Type="nvarchar" MaxLength="10" />
     <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="is_import" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="apartment_content">
     <Key>
@@ -304,6 +305,7 @@
     <Property Name="bank_number" Type="varchar" MaxLength="50" />
     <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
     <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="identification" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="user_social">
     <Key>

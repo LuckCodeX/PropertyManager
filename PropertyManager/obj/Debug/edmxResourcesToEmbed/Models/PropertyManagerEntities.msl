@@ -143,6 +143,7 @@
     <EntitySetMapping Name="user_profile">
       <EntityTypeMapping TypeName="PropertyManagerModel.user_profile">
         <MappingFragment StoreEntitySet="user_profile">
+          <ScalarProperty Name="identification" ColumnName="identification" />
           <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
           <ScalarProperty Name="bank_number" ColumnName="bank_number" />
@@ -180,6 +181,7 @@
     <EntitySetMapping Name="apartments">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
         <MappingFragment StoreEntitySet="apartment">
+          <ScalarProperty Name="is_import" ColumnName="is_import" />
           <ScalarProperty Name="phone" ColumnName="phone" />
           <ScalarProperty Name="building" ColumnName="building" />
           <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />

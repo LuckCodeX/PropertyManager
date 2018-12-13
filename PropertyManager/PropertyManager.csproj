@@ -305,6 +305,7 @@
     <Compile Include="Models\user_visit_item.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IssueService.cs" />

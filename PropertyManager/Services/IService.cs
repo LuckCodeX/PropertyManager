@@ -58,5 +58,10 @@ namespace PropertyManager.Services
         void SaveIssue(issue issue);
         contract GetContractById(int id);
         void SaveContract(contract contract);
+        List<apartment> SearchAllApartmentByCode(string search);
+        List<company> SearchAllCompany(string search);
+        user_profile GetUserProfileByEmail(string email);
+        void SaveUserAccount(user_account userAccount);
+        List<user_profile> GetListUserProfile(string search);
     }
 }

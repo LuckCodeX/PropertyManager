@@ -20,6 +20,17 @@ namespace PropertyManager.Services
             }
         }
 
+        private GenericRepository<user_account> _userAccountRepository;
+        public GenericRepository<user_account> UserAccountRepository
+        {
+            get
+            {
+                if (this._userAccountRepository == null)
+                    this._userAccountRepository = new GenericRepository<user_account>(_context);
+                return _userAccountRepository;
+            }
+        }
+
         public user_profile GetUserProfileByNameAndPhone(string name, string phone)
         {
             return UserProfileRepository.FindBy(p => p.full_name == name && p.phone == phone).FirstOrDefault();
@@ -33,6 +44,22 @@ namespace PropertyManager.Services
         public user_profile GetUserProfileById(int userProfileId)
         {
             return UserProfileRepository.FindBy(p => p.user_profile_id == userProfileId).FirstOrDefault();
+        }
+
+        public user_profile GetUserProfileByEmail(string email)
+        {
+            return UserProfileRepository.FindBy(p => p.email == email).FirstOrDefault();
+        }
+
+        public void SaveUserAccount(user_account userAccount)
+        {
+            UserAccountRepository.Save(userAccount);
+        }
+
+        public List<user_profile> GetListUserProfile(string search)
+        {
+            return UserProfileRepository.FindBy(p => p.status == 1 && (Equals(search, null) || p.email.Equals(search)))
+                .ToList();
         }
     }
 }

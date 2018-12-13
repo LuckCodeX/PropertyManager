@@ -58,12 +58,12 @@ namespace PropertyManager.Services
             return ApartmentRepository.FindBy(p =>
                     ((status == -1 && (p.status == 0 || p.status == 1)) || p.status == status) && (Equals(search, null) || p.city.Contains(search) ||
                                                              p.address.Contains(search) ||
-                                                             p.code.Contains(search)) || (p.user_profile.full_name).Contains(search) || p.user_profile.phone.Contains(search)).Include(p => p.apartment_content).Include(p => p.user_profile).Include(p => p.aparment_image).Include(p => p.apartment_facility).OrderByDescending(p => p.apartment_id).ToList();
+                                                             p.code.Contains(search) || (p.user_profile.full_name).Contains(search) || p.user_profile.phone.Contains(search)) && !p.is_import).Include(p => p.apartment_content).Include(p => p.user_profile).Include(p => p.aparment_image).Include(p => p.apartment_facility).OrderByDescending(p => p.apartment_id).ToList();
         }
 
         public apartment GetApartmentById(int id)
         {
-            return ApartmentRepository.FindBy(p => p.apartment_id == id && p.status != 2).Include(p => p.user_profile).Include(p => p.apartment_content)
+            return ApartmentRepository.FindBy(p => p.apartment_id == id && p.status != 2 && !p.is_import).Include(p => p.user_profile).Include(p => p.apartment_content)
                 .Include(p => p.aparment_image).Include(p => p.apartment_facility.Select(q => q.facility)).FirstOrDefault();
         }
 
@@ -140,6 +140,11 @@ namespace PropertyManager.Services
         public void SaveListApartment(List<apartment> lst)
         {
             ApartmentRepository.SaveList(lst);
+        }
+
+        public List<apartment> SearchAllApartmentByCode(string search)
+        {
+            return ApartmentRepository.FindBy(p => (Equals(search, null) || p.code.Contains(search))).Include(p => p.user_profile).ToList();
         }
     }
 }

@@ -55,6 +55,7 @@
           <Property Name="no_apartment" Type="nvarchar" MaxLength="10" />
           <Property Name="building" Type="nvarchar" MaxLength="10" />
           <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="is_import" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="apartment_content">
           <Key>
@@ -309,6 +310,7 @@
           <Property Name="bank_number" Type="varchar" MaxLength="50" />
           <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="identification" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="user_social">
           <Key>
@@ -1300,6 +1302,7 @@
           <NavigationProperty Name="user_visit" Relationship="PropertyManagerModel.FK__user_visi__user___3D2915A8" FromRole="user_profile" ToRole="user_visit" />
           <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__owner___2610A626" FromRole="user_profile" ToRole="contract" />
           <NavigationProperty Name="contracts1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="user_profile" ToRole="contract" />
+          <Property Name="identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="user_social">
           <Key>
@@ -1369,6 +1372,7 @@
           <NavigationProperty Name="user_visit_item" Relationship="PropertyManagerModel.FK__user_visi__apart__44FF419A" FromRole="apartment" ToRole="user_visit_item" />
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__apartm__2704CA5F" FromRole="apartment" ToRole="contract" />
+          <Property Name="is_import" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK__aparment___apart__1ED998B2">
           <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
@@ -2011,6 +2015,7 @@
           <EntitySetMapping Name="user_profile">
             <EntityTypeMapping TypeName="PropertyManagerModel.user_profile">
               <MappingFragment StoreEntitySet="user_profile">
+                <ScalarProperty Name="identification" ColumnName="identification" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="bank_branch" ColumnName="bank_branch" />
                 <ScalarProperty Name="bank_number" ColumnName="bank_number" />
@@ -2048,6 +2053,7 @@
           <EntitySetMapping Name="apartments">
             <EntityTypeMapping TypeName="PropertyManagerModel.apartment">
               <MappingFragment StoreEntitySet="apartment">
+                <ScalarProperty Name="is_import" ColumnName="is_import" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="building" ColumnName="building" />
                 <ScalarProperty Name="no_apartment" ColumnName="no_apartment" />

@@ -177,6 +177,60 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("CreateUserProfile")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public UserProfileModel CreateUserProfile(UserProfileModel model)
+        {
+            var userProfile = _service.GetUserProfileByEmail(model.Email);
+            if (!Equals(userProfile, null))
+            {
+                ExceptionContent(HttpStatusCode.Unauthorized, "Email đã tồn tại");
+            }
+            userProfile = new user_profile()
+            {
+                user_profile_id = 0,
+                status = 1,
+                full_name = model.FullName,
+                email = model.Email,
+                created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+            };
+            _service.SaveUserProfile(userProfile);
+
+            var userAccount = new user_account()
+            {
+                user_profile_id = userProfile.user_profile_id,
+                email = model.Email,
+                password = Encrypt.EncodePassword(model.Password),
+                user_account_id = 0
+            };
+            _service.SaveUserAccount(userAccount);
+
+            return new UserProfileModel()
+            {
+                Id = userProfile.user_profile_id,
+                Email = userProfile.email,
+                FullName = userProfile.full_name
+            };
+        }
+
+        [HttpGet]
+        [Route("GetListUserProfile/{search?}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public List<UserProfileModel> GetListUserProfile(string search = null)
+        {
+            var userProfiles = _service.GetListUserProfile(search);
+            return userProfiles.Take(10).Select(p => new UserProfileModel()
+            {
+                Id = p.user_profile_id,
+                Email = p.email,
+                FullName = p.full_name,
+                Identification = p.identification
+            }).ToList();
+        }
+
         #endregion
 
         #region Apartment
@@ -187,7 +241,7 @@ namespace PropertyManager.Controllers
         public PagingResult<ApartmentModel> GetListApartment(int page, int status, string search = null)
         {
             var apartments = _service.GetListApartment(status, search);
-            var apartmentList = apartments.Select(p => new ApartmentModel()
+            var apartmentList = apartments.Skip((page - 1) * 10).Take(10).Select(p => new ApartmentModel()
             {
                 Id = p.apartment_id,
                 Address = p.address,
@@ -215,7 +269,7 @@ namespace PropertyManager.Controllers
                     Type = q.type,
                     Img = q.img
                 }).ToList()
-            }).Skip((page - 1) * 10).Take(10).ToList();
+            }).ToList();
             return new PagingResult<ApartmentModel>()
             {
                 total = apartments.Count,
@@ -421,6 +475,32 @@ namespace PropertyManager.Controllers
             {
                 ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("GetListAllTypeApartment/{search?}")]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.CustomerEmployee, (int)RoleAdmin.CustomerManager })]
+        public List<ApartmentModel> GetListAllTypeApartment(string search = null)
+        {
+            var apartments = _service.SearchAllApartmentByCode(search);
+            return apartments.Take(10).Select(p => new ApartmentModel()
+            {
+                Id = p.apartment_id,
+                Code = p.code,
+                Address = p.address,
+                Area = p.area,
+                NoBedRoom = p.no_bedroom,
+                ProjectId = p.project_id,
+                Building = p.building,
+                NoApartment = p.no_apartment,
+                UserProfileOwner = new UserProfileModel()
+                {
+                    Id = p.user_profile.user_profile_id,
+                    FullName = p.user_profile.full_name,
+                    Phone = p.user_profile.phone,
+                    Identification = p.user_profile.identification
+                }
+            }).ToList();
         }
 
         #endregion
@@ -774,7 +854,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("GetIssueDetail/{id}")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public IssueModel GetIssueDetail(int id)
         {
             var issue = _service.GetIssueById(id);
@@ -794,11 +874,11 @@ namespace PropertyManager.Controllers
         public void SaveIssue(IssueModel model)
         {
             var issue = _service.GetIssueById(model.Id);
-            if(Equals(issue, null))
+            if (Equals(issue, null))
                 issue = new issue()
                 {
                     issue_id = 0,
-                    status =  1
+                    status = 1
                 };
             issue.name = model.Name;
             issue.description = model.Description;
@@ -807,7 +887,7 @@ namespace PropertyManager.Controllers
 
         [HttpDelete]
         [Route("DeleteIssue/{id}")]
-        [ACLFilter(AccessRoles = new int[] {(int) RoleAdmin.SuperAdmin})]
+        [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public void DeleteIssue(int id)
         {
             var issue = _service.GetIssueById(id);
@@ -829,7 +909,7 @@ namespace PropertyManager.Controllers
         public void CreateContract(ContractModel model)
         {
             var contract = _service.GetContractById(model.Id);
-            if(Equals(contract, null))
+            if (Equals(contract, null))
                 contract = new contract()
                 {
                     contract_id = 0,
@@ -865,6 +945,32 @@ namespace PropertyManager.Controllers
             contract.tenant_bank_branch = model.TenantBankBranch;
             contract.admin_id = model.AdminId;
             _service.SaveContract(contract);
+        }
+
+        #endregion
+
+
+        #region Company
+
+        [HttpGet]
+        [Route("SearchAllCompany/{search?}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerEmployee, (int) RoleAdmin.CustomerManager})]
+        public List<CompanyModel> SearchAllCompany(string search = null)
+        {
+            var companies = _service.SearchAllCompany(search);
+            return companies.Take(10).Select(p => new CompanyModel()
+            {
+                Id = p.company_id,
+                Name = p.name,
+                Phone = p.phone,
+                Address = p.address,
+                TaxCode = p.tax_code,
+                BankName = p.bank_name,
+                BankNumber = p.bank_number,
+                BankAccount = p.bank_account,
+                BankBranch = p.bank_branch
+            }).ToList();
         }
 
         #endregion

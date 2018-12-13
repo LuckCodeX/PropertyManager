@@ -22,6 +22,8 @@ namespace PropertyManager.Models
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public int? ProjectId { get; set; }
+        public string NoApartment { get; set; }
+        public string Building { get; set; }
         public ProjectModel Project { get; set; }
         public int Type { get; set; }
         public ApartmentContentModel Content { get; set; }
