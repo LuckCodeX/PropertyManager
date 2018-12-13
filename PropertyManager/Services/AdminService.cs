@@ -80,5 +80,12 @@ namespace PropertyManager.Services
         {
             AdminRepository.Save(acc);
         }
+
+        public List<admin> GetAllSaleAccount()
+        {
+            return AdminRepository.FindBy(p =>
+                p.status == 1 && (p.role == (int) RoleAdmin.CustomerEmployee ||
+                                  p.role == (int) RoleAdmin.CustomerManager)).ToList();
+        }
     }
 }

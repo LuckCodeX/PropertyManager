@@ -86,6 +86,26 @@ namespace PropertyManager.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllSaleAccount")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public List<AdminModel> GetAllSaleAccount()
+        {
+            var admins = _service.GetAllSaleAccount();
+            return admins.Select(p => new AdminModel()
+            {
+                Id = p.admin_id,
+                FullName = p.full_name,
+                Phone = p.phone,
+                Email = p.email,
+                BankAccount = p.bank_account,
+                BankName = p.bank_name,
+                BankNumber = p.bank_number,
+                BankBranch = p.bank_branch
+            }).ToList();
+        }
+
+        [HttpGet]
         [Route("GetAccountDetail/{id}")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin })]
         public AdminModel GetAccountDetail(int id)

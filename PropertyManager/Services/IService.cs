@@ -64,5 +64,6 @@ namespace PropertyManager.Services
         void SaveUserAccount(user_account userAccount);
         List<user_profile> GetListUserProfile(string search);
         void SaveCompany(company company);
+        List<admin> GetAllSaleAccount();
     }
 }
