@@ -65,5 +65,7 @@ namespace PropertyManager.Services
         List<user_profile> GetListUserProfile(string search);
         void SaveCompany(company company);
         List<admin> GetAllSaleAccount();
+        List<project> GetAllProject();
+        ProjectContentModel ConvertProjectContentToModel(project_content firstOrDefault);
     }
 }

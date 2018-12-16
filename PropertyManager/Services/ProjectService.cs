@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using PropertyManager.Models;
@@ -45,6 +46,22 @@ namespace PropertyManager.Services
         public void SaveProjectContent(project_content content)
         {
             ProjectContentRepository.Save(content);
+        }
+
+        public List<project> GetAllProject()
+        {
+            return ProjectRepository.FindBy(p => p.status == 1 && p.type != 2).Include(p => p.project_content).ToList();
+        }
+
+        public ProjectContentModel ConvertProjectContentToModel(project_content model)
+        {
+            return new ProjectContentModel()
+            {
+                Id = model.project_content_id,
+                Name = model.name,
+                Language = model.language,
+                Description = model.description
+            };
         }
     }
 }

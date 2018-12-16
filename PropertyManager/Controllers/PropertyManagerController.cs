@@ -95,6 +95,7 @@ namespace PropertyManager.Controllers
             return admins.Select(p => new AdminModel()
             {
                 Id = p.admin_id,
+                Username = p.username,
                 FullName = p.full_name,
                 Phone = p.phone,
                 Email = p.email,
@@ -566,6 +567,20 @@ namespace PropertyManager.Controllers
                     Phone = p.user_profile.phone,
                     Identification = p.user_profile.identification
                 }
+            }).ToList();
+        }
+
+        [HttpGet]
+        [Route("GetAllProject")]
+        public List<ProjectModel> GetAllProject()
+        {
+            return _service.GetAllProject().Select(p => new ProjectModel()
+            {
+                Id = p.project_id,
+                Name = _service.ConvertProjectContentToModel(p.project_content.FirstOrDefault(q => q.language == 0)).Name,
+                Type = p.type,
+                Img = p.img,
+                Logo = p.logo
             }).ToList();
         }
 

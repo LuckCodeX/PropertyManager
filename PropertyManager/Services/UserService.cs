@@ -58,7 +58,7 @@ namespace PropertyManager.Services
 
         public List<user_profile> GetListUserProfile(string search)
         {
-            return UserProfileRepository.FindBy(p => p.status == 1 && (Equals(search, null) || p.email.Equals(search)))
+            return UserProfileRepository.FindBy(p => p.status == 1 && (Equals(search, null) || p.email.Equals(search) || p.full_name.Equals(search)))
                 .ToList();
         }
     }
