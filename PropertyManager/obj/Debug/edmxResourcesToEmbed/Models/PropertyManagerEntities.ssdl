@@ -152,6 +152,8 @@
     <Property Name="admin_id" Type="int" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="parent_id" Type="int" />
+    <Property Name="start_date" Type="int" />
+    <Property Name="end_date" Type="int" />
   </EntityType>
   <EntityType Name="contract_employee">
     <Key>

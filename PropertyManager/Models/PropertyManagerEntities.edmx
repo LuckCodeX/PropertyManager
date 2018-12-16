@@ -157,6 +157,8 @@
           <Property Name="admin_id" Type="int" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="parent_id" Type="int" />
+          <Property Name="start_date" Type="int" />
+          <Property Name="end_date" Type="int" />
         </EntityType>
         <EntityType Name="contract_employee">
           <Key>
@@ -1694,6 +1696,8 @@
           <NavigationProperty Name="contract1" Relationship="PropertyManagerModel.FK__contract__parent__3FD07829" FromRole="contract" ToRole="contract1" />
           <NavigationProperty Name="contract2" Relationship="PropertyManagerModel.FK__contract__parent__3FD07829" FromRole="contract1" ToRole="contract" />
           <NavigationProperty Name="user_profile1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="contract" ToRole="user_profile" />
+          <Property Name="start_date" Type="Int32" />
+          <Property Name="end_date" Type="Int32" />
         </EntityType>
         <EntityType Name="contract_employee">
           <Key>
@@ -2180,6 +2184,8 @@
           <EntitySetMapping Name="contracts">
             <EntityTypeMapping TypeName="PropertyManagerModel.contract">
               <MappingFragment StoreEntitySet="contract">
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="parent_id" ColumnName="parent_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />

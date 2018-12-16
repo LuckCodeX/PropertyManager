@@ -42,6 +42,8 @@ namespace PropertyManager.Models
         public string TenantBankName { get; set; }
         public string TenantBankNumber { get; set; }
         public string TenantBankBranch { get; set; }
+        public int StartDate { get; set; }
+        public int EndDate { get; set; }
         public int? AdminId { get; set; }
         public AdminModel Admin { get; set; }
         public int? ParentId { get; set; }

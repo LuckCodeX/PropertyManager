@@ -1025,6 +1025,8 @@ namespace PropertyManager.Controllers
             contract.tenant_bank_account = model.TenantBankAccount;
             contract.tenant_bank_branch = model.TenantBankBranch;
             contract.admin_id = model.AdminId;
+            contract.start_date = model.StartDate;
+            contract.end_date = model.EndDate;
             _service.SaveContract(contract);
         }
 

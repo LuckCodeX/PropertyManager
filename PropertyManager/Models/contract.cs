@@ -56,6 +56,8 @@ namespace PropertyManager.Models
         public Nullable<int> admin_id { get; set; }
         public int status { get; set; }
         public Nullable<int> parent_id { get; set; }
+        public Nullable<int> start_date { get; set; }
+        public Nullable<int> end_date { get; set; }
     
         public virtual admin admin { get; set; }
         public virtual apartment apartment { get; set; }
