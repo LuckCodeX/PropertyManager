@@ -254,7 +254,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             search = search.replace(/\”|\“|\"|\[|\]|\?/g, "");
             search = search.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
             search = search.replace(/\u02C6|\u0306|\u031B/g, ""); 
-            console.log(search);
             var score = this.getScoreFunction(search);  
             return function(item) {
                 return score(item);
