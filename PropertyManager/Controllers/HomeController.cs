@@ -110,5 +110,10 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult MaidProblem()
+        {
+            return View();
+        }
     }
 }

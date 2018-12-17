@@ -78,17 +78,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/account-detail/:id",
                 templateUrl: "html/accountdetail.html"
-        })
-            .state('system.issue',
-                {
-                    url: "/issue?page&search",
-                    templateUrl: "html/issue.html"
-                })
-            .state('system.issuedetail',
-                {
-                    url: "/issue-detail/:id",
-                    templateUrl: "html/issuedetail.html"
-                })
+            })
+        .state('system.issue',
+            {
+                url: "/issue?page&search",
+                templateUrl: "html/issue.html"
+            })
+        .state('system.issuedetail',
+            {
+                url: "/issue-detail/:id",
+                templateUrl: "html/issuedetail.html"
+            })
         .state('system.importcustomer',
             {
                 url: "/import-customer",
@@ -109,17 +109,22 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/list?page&empID&fromDate&toDate",
                 templateUrl: "html/maidlist.html"
-        })
-            .state('maid.apartment',
-                {
-                    url: "/apartment?page&search",
-                    templateUrl: "html/maidapartment.html"
-        })
-            .state('maid.business',
-                {
-                    url: "/business?page&search",
-                    templateUrl: "html/maidbusiness.html"
-                })
+            })
+        .state('maid.apartment',
+            {
+                url: "/apartment?page&search",
+                templateUrl: "html/maidapartment.html"
+            })
+        .state('maid.business',
+            {
+                url: "/business?page&search",
+                templateUrl: "html/maidbusiness.html"
+            })
+        .state('maid.problem',
+            {
+                url: "/problem?page&search",
+                templateUrl: "html/maidproblem.html"
+            })
         ;
 }
 
