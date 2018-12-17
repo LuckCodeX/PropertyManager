@@ -15,7 +15,7 @@
                             <label class="control-label col-sm-5" for="">Thời gian từ:</label>
                             <div class="col-sm-7">
                                 <p class="input-group" ng-init="apt.opened = false">
-                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" readonly="" name="firstDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                                   </span>
@@ -26,7 +26,7 @@
                             <label class="control-label col-sm-5" for="">Đến:</label>
                             <div class="col-sm-7">
                                 <p class="input-group" ng-init="apt.opened = false">
-                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                                   </span>
@@ -153,9 +153,9 @@
 	            <label class="control-label col-sm-3 text-left" for="">Ngày sinh</label>
 	            <div class="col-sm-8 input-datetime">
 	                <p class="input-group" ng-init="apt.opened = false">
-                      <input required="" type="text" class="form-ctrl"uib-datepicker-popup="{{format}}" ng-model="currentMaid.Birthday" is-open="history.picker3" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="history.picker3 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                      <input required="" type="text" class="form-ctrl"uib-datepicker-popup="{{format}}" ng-model="currentMaid.Birthday" is-open="history.picker3" datepicker-options="dateOptions" readonly="" name="birthDay" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                      <span style="left: 1px; top: -4px;" class="input-group-btn">
+                        <button style="height: 41px;" type="button" class="btn btn-default" ng-click="history.picker3 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
                     </p>
 	            </div>

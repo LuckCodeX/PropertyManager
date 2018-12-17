@@ -1,6 +1,48 @@
 function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
 	$scope.contractList = [];
-	
+	// const firstDay = (new Date()).getTime()/1000;
+ //    const today = getEndDay(new Date());
+	 $scope.dateOptions = {
+        formatYear: 'yy',
+        maxDate: new Date(2050, 5, 22),
+        minDate: new Date(1900,00,01),
+        startingDay: 1
+    };
+
+    function convertDateToUnixTimeStamp(datestring){
+        if (datestring) {
+            console.log(datestring);
+            return datestring.getTime()/1000;
+        }else{
+            return '';
+        }
+    }
+
+    function getFirstDay(datestring){
+    	if (datestring) {
+            var date = new Date(datestring);
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return parseInt(date.getTime()/1000);
+        }else{
+            return '';
+        }
+    }
+
+    function getEndDay(datestring){
+        if (datestring) {
+            var date = new Date(datestring);
+            date.setHours(23);
+            date.setMinutes(59);
+            date.setSeconds(59);
+            return parseInt(date.getTime()/1000);
+        }else{
+            return '';
+        }
+    }
+
+    $scope.format = 'dd/MM/yyyy';
 	$scope.loadContract = function(){
 		for (var i = 0; i < 20; i++) {
 			$scope.contractList.push({
@@ -80,6 +122,16 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         });
 	}
 
+	$scope.getAllProject = function(){
+		xhrService.get("GetAllProject")
+        .then(function (data) {
+            $scope.projectList = data.data;
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+	}
+
 	$scope.getDetailApartment = function(){
         $scope.apartmentList.forEach(function(item, index){
         	if (item.Id == $scope.currentApartment) {
@@ -100,6 +152,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         		$scope.contract.NoBedroom = item.NoBedroom;
         		$scope.contract.Address = item.Address;
         		$scope.contract.OwnerUserProfileId = item.UserProfileOwner.Id;
+        		$scope.apartment.ProjectId = item.ProjectId;
         	}
         });
 	}
@@ -139,6 +192,8 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.accountList.forEach(function(item, index){
         	if (item.Id == $scope.currentAccount) {
         		$scope.account.Email = item.Email;
+        		$scope.account.FullName = item.FullName;
+        		$scope.account.Phone = item.Phone;
         		$scope.contract.UserProfileId = item.Id;
         	}
         });
@@ -146,6 +201,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 
 	$scope.loadContractDetail = function(){
 		$scope.data = {};
+		$scope.getAllProject();
 		$scope.contractType = [{value:0,name:"Hợp đồng giữa công ty và chủ nhà"}];
 		$scope.contract = {};
 		$scope.employee = {};
@@ -158,6 +214,8 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.company = {};
 		$scope.companyModel = {};
 		$scope.passportList = [{ownerName:"",passport:""}];
+		$scope.contract.StartDate = new Date();
+		$scope.contract.EndDate  = new Date();
 		$(document).ready(function () {
             $('ul.tabs li').click(function () {
                 var tab_id = $(this).attr('data-tab');
@@ -262,10 +320,11 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	}
 
 	$scope.submitContract = function(){
-		console.log($scope.contract);
+		$scope.contract.StartDate = getFirstDay($scope.contract.StartDate);
+		$scope.contract.EndDate = getEndDay($scope.contract.EndDate);
 		xhrService.post("CreateContract/",$scope.contract)
         .then(function (data) {
-        	console.log(data);
+        	window.location.href = "/contract";
         },
         function (error) {
             console.log(error.statusText);
@@ -331,7 +390,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
                 // '</div>';
                 // }
                 return '<div>' +
-                    '<span class="">['+escape(fullName)+'] - [' + escape(email) + ']</span>' +
+                    '<span class="">'+escape(fullName)+' - ' + escape(email) + '</span>' +
                 '</div>';
             
             },
@@ -344,7 +403,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
                 // '</div>';
                 // }
                 return '<div>' +
-                    '<span class="">['+escape(fullName)+'] - [' + escape(email) + ']</span>' +
+                    '<span class="">'+escape(fullName)+' - ' + escape(email) + '</span>' +
                 '</div>';
               },
                 
@@ -386,7 +445,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
                 // '</div>';
                 // }
                 return '<div>' +
-                    '<span class="">['+escape(fullName)+'] - [' + escape(email) + ']</span>' +
+                    '<span class="">'+escape(fullName)+' - ' + escape(email) + '</span>' +
                 '</div>';
             
             },
@@ -399,7 +458,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
                 // '</div>';
                 // }
                 return '<div>' +
-                    '<span class="">['+escape(fullName)+'] - [' + escape(email) + ']</span>' +
+                    '<span class="">'+escape(fullName)+' - ' + escape(email) + '</span>' +
                 '</div>';
               },
                 
