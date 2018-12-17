@@ -1,5 +1,5 @@
 function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
-	 const firstDay = (new Date(2010,00,01)).getTime()/1000;
+	 const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
     var currentScroll = 0;
 
@@ -100,6 +100,18 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         return timeConvert;
     }
 
+    function getFirstDay(datestring){
+        if (datestring) {
+            var date = new Date(datestring);
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return parseInt(date.getTime()/1000);
+        }else{
+            return '';
+        }
+    }
+
     function getEndDay(datestring){
         if (datestring) {
             var date = new Date(datestring);
@@ -151,7 +163,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
 
     $scope.loadMaidApartment = function(){
         
-    	
+    	initDropdown();
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);

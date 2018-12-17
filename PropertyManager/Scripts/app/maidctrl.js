@@ -1,5 +1,5 @@
 function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
-    const firstDay = (new Date(2010,00,01)).getTime()/1000;
+    const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
 
     $scope.replaceString = function (str) {
@@ -48,6 +48,18 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         var date = new Date(timeString*1000);
         var timeConvert = date.getDate() + "/" + Math.ceil(date.getMonth()+1) + "/" +date.getFullYear();
         return timeConvert;
+    }
+
+    function getFirstDay(datestring){
+        if (datestring) {
+            var date = new Date(datestring);
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return parseInt(date.getTime()/1000);
+        }else{
+            return '';
+        }
     }
 
     function getEndDay(datestring){
@@ -227,7 +239,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     $scope.pageChanged = function () {
         $location.path("/maid/list")
         .search({ page: $scope.bigCurrentPage, 
-                fromDate: $scope.fromDatePicker.getTime()/1000,
+                fromDate: getFirstDay($scope.fromDatePicker),
                 toDate: getEndDay($scope.toDatePicker),
                 empID: $scope.currentEmployee });
     };

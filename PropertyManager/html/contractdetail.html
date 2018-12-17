@@ -22,6 +22,28 @@
                             </select>
 			            </div>
 			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Ngày bắt đầu: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			                <p class="input-group" ng-init="apt.opened = false">
+                              <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="contract.StartDate" is-open="history.picker1" readonly="" name="firstDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Ngày kết thúc: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			                <p class="input-group" ng-init="apt.opened = false">
+                              <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="contract.EndDate" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
+			            </div>
+			        </div>
 			    	<div style="overflow: hidden;">
 			    		<div class="col-sm-3 title-form-group">
 			                Căn hộ
@@ -33,7 +55,7 @@
 			            	<selectize placeholder='Chọn căn hộ...' options='apartmentList' ng-change="getDetailApartment()" config="apartmentConfig" ng-model="currentApartment" ng-disabled='disable' required='true'></selectize>
 			              <!--   <input id="autocomplete" ng-model="apartment" class="form-ctrl" title="type &quot;a&quot;"> -->
 			            </div>
-			            <button type="button" class="btn btn-save" data-toggle="modal" data-target="#apartmentModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
+			            <!-- <button type="button" class="btn btn-save" data-toggle="modal" data-target="#apartmentModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button> -->
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Địa chỉ: <span style="color: red">*</span></label>
@@ -98,7 +120,7 @@
 			        </div>
 			        <div style="overflow: hidden;">
 			    		<div class="col-sm-3 title-form-group">
-			                Tài khoản
+			                Thông tin người ở
 			            </div>
 			    	</div>
 			    	<div class="form-group has-child">
@@ -109,6 +131,20 @@
 			               
 			            </div>
 			            <button type="button" class="btn btn-save" data-toggle="modal" data-target="#accountModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
+			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Tên người ở: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<input type="text" class="form-ctrl" readonly="" name="accountFullName" ng-model="account.FullName" >
+			            </div>
+			            
+			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Số điện thoại: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<input type="text" class="form-ctrl" readonly="" name="accountPhone" ng-model="account.Phone" >
+			            </div>
+			            
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Email: <span style="color: red">*</span></label>
@@ -129,15 +165,11 @@
 			                <div id="tab-1" class="tab-content current emp-tab ckedit-tab">
 						    	<div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Dự án: <span style="color: red">*</span></label>
-			                        <!-- <div class="col-sm-7">
-			                            <select number-to-string class="form-ctrl" ng-model="apt.project">
+			                        <div class="col-sm-7">
+			                            <select number-to-string disabled="" class="form-ctrl" name="apartmentProjectName" ng-model="apartment.ProjectId">
 			                            	<option value="">Không</option>
-			                            	<option value="1">Times City</option>
-			                            	<option value="2">Royal City</option>
+			                            	<option ng-repeat="pj in projectList" value="{{pj.Id}}">{{pj.Name}}</option>
 			                            </select>
-			                        </div> -->
-			                         <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" ng-model="apartment.ProjectName" name="apartmentProjectName" readonly="">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
@@ -147,7 +179,7 @@
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">Số căn hộ: </label>
+			                        <label class="control-label col-sm-3" for="">Số căn: </label>
 			                        <div class="col-sm-7">
 			                            <input type="number" class="form-ctrl" ng-model="contract.NoApartment" name="contractNoApartment">
 			                        </div>
@@ -165,18 +197,6 @@
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">Tên chủ hộ: <span style="color: red">*</span></label>
-			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractOwnerName" ng-model="contract.OwnerName">
-			                        </div>
-			                    </div>
-			                    <div class="form-group">
-			                        <label class="control-label col-sm-3" for="">SĐT chủ hộ: <span style="color: red">*</span></label>
-			                        <div class="col-sm-7">
-			                            <input type="text" minlength="8" class="form-ctrl" required="" name="contractOwnerPhone" ng-model="contract.OwnerPhone">
-			                        </div>
-			                    </div>
-			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Mật khẩu wifi: </label>
 			                        <div class="col-sm-7">
 			                            <input type="text" class="form-ctrl" required="" name="contractPassWifi" ng-model="contract.PassWifi">
@@ -188,6 +208,19 @@
 			                            <input type="text" class="form-ctrl" ng-model="contract.PassDoor" name="contractPassDoor">
 			                        </div>
 			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3" for="">Tên chủ hộ: <span style="color: red">*</span></label>
+			                        <div class="col-sm-7">
+			                            <input type="text" class="form-ctrl" required="" name="contractOwnerName" ng-model="contract.OwnerName">
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3" for="">SĐT chủ hộ: <span style="color: red">*</span></label>
+			                        <div class="col-sm-7">
+			                            <input type="text" minlength="8" class="form-ctrl" required="" name="contractOwnerPhone" ng-model="contract.OwnerPhone">
+			                        </div>
+			                    </div>
+			                    
 						    	<div class="form-group ">
 			                        <label class="control-label col-sm-3" for="">Mã số thuế hộ KD cá thể:</label>
 			                        <div class="col-sm-7">
