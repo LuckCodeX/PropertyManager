@@ -144,7 +144,7 @@ namespace PropertyManager.Services
 
         public List<apartment> SearchAllApartmentByCode(string search)
         {
-            return ApartmentRepository.FindBy(p => (Equals(search, null) || p.code.Contains(search))).Include(p => p.user_profile).ToList();
+            return ApartmentRepository.FindBy(p =>p.status == 1 && (Equals(search, null) || p.code.Contains(search))).Include(p => p.user_profile).ToList();
         }
     }
 }

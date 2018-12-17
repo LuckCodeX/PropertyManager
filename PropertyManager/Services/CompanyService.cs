@@ -28,5 +28,10 @@ namespace PropertyManager.Services
         {
             CompanyRepository.Save(company);
         }
+
+        public company GetCompanyById(int id)
+        {
+            return CompanyRepository.FindBy(p => p.company_id == id).FirstOrDefault();
+        }
     }
 }

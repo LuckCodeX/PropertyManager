@@ -24,6 +24,8 @@ namespace PropertyManager.Models
         public int? ProjectId { get; set; }
         public string NoApartment { get; set; }
         public string Building { get; set; }
+        public string PassWifi { get; set; }
+        public string PassDoor { get; set; }
         public ProjectModel Project { get; set; }
         public int Type { get; set; }
         public ApartmentContentModel Content { get; set; }

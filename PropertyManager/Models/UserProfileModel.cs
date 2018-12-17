@@ -14,6 +14,12 @@ namespace PropertyManager.Models
         public string Avatar_Base64 { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string Address { get; set; }
         public string Identification { get; set; }
+        public string TaxCode { get; set; }
+        public string BankAccount { get; set; }
+        public string BankName { get; set; }
+        public string BankNumber { get; set; }
+        public string BankBranch { get; set; }
     }
 }

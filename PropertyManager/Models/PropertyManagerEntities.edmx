@@ -159,6 +159,10 @@
           <Property Name="parent_id" Type="int" />
           <Property Name="start_date" Type="int" />
           <Property Name="end_date" Type="int" />
+          <Property Name="resident_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="resident_phone" Type="varchar" MaxLength="20" />
+          <Property Name="resident_identification" Type="varchar" MaxLength="50" />
+          <Property Name="owner_identification" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="contract_employee">
           <Key>
@@ -1698,6 +1702,10 @@
           <NavigationProperty Name="user_profile1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="contract" ToRole="user_profile" />
           <Property Name="start_date" Type="Int32" />
           <Property Name="end_date" Type="Int32" />
+          <Property Name="resident_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="resident_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="resident_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="owner_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="contract_employee">
           <Key>
@@ -2184,6 +2192,10 @@
           <EntitySetMapping Name="contracts">
             <EntityTypeMapping TypeName="PropertyManagerModel.contract">
               <MappingFragment StoreEntitySet="contract">
+                <ScalarProperty Name="owner_identification" ColumnName="owner_identification" />
+                <ScalarProperty Name="resident_identification" ColumnName="resident_identification" />
+                <ScalarProperty Name="resident_phone" ColumnName="resident_phone" />
+                <ScalarProperty Name="resident_name" ColumnName="resident_name" />
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="parent_id" ColumnName="parent_id" />

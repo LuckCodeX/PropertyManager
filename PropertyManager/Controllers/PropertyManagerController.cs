@@ -248,6 +248,7 @@ namespace PropertyManager.Controllers
                 Id = p.user_profile_id,
                 Email = p.email,
                 FullName = p.full_name,
+                Phone = p.phone,
                 Identification = p.identification
             }).ToList();
         }
@@ -565,7 +566,12 @@ namespace PropertyManager.Controllers
                     Id = p.user_profile.user_profile_id,
                     FullName = p.user_profile.full_name,
                     Phone = p.user_profile.phone,
-                    Identification = p.user_profile.identification
+                    Identification = p.user_profile.identification,
+                    TaxCode = p.user_profile.tax_code,
+                    BankAccount = p.user_profile.bank_account,
+                    BankBranch = p.user_profile.bank_branch,
+                    BankName = p.user_profile.bank_name,
+                    BankNumber = p.user_profile.bank_number
                 }
             }).ToList();
         }
@@ -989,46 +995,131 @@ namespace PropertyManager.Controllers
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
         public void CreateContract(ContractModel model)
         {
-            var contract = _service.GetContractById(model.Id);
-            if (Equals(contract, null))
-                contract = new contract()
+            try
+            {
+                using (var scope = new TransactionScope())
                 {
-                    contract_id = 0,
-                    created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
-                    code = ConvertDatetime.ConvertUnixTimeStampToDateTime(ConvertDatetime.GetCurrentUnixTimeStamp())
-                };
-            contract.type = model.Type;
-            contract.company_id = model.CompanyId;
-            contract.user_profile_id = model.UserProfileId;
-            contract.owner_user_profile_id = model.OwnerUserProfileId;
-            contract.apartment_id = model.ApartmentId;
-            contract.building = model.Building;
-            contract.no_apartment = model.NoApartment;
-            contract.address = model.Address;
-            contract.area = model.Area;
-            contract.no_bedroom = model.NoBedroom;
-            contract.pass_wifi = model.PassWifi;
-            contract.pass_door = model.PassDoor;
-            contract.owner_name = model.OwnerName;
-            contract.owner_phone = model.OwnerPhone;
-            contract.owner_tax_code = model.OwnerTaxCode;
-            contract.owner_address = model.OwnerAddress;
-            contract.owner_bank_account = model.OwnerBankAccount;
-            contract.owner_bank_name = model.OwnerBankName;
-            contract.owner_bank_number = model.OwnerBankNumber;
-            contract.owner_bank_branch = model.OwnerBankBranch;
-            contract.tenant_name = model.TenantName;
-            contract.tenant_address = model.TenantAddress;
-            contract.tenant_tax_code = model.TenantTaxCode;
-            contract.tenant_bank_name = model.TenantBankName;
-            contract.tenant_bank_number = model.TenantBankNumber;
-            contract.tenant_bank_account = model.TenantBankAccount;
-            contract.tenant_bank_branch = model.TenantBankBranch;
-            contract.admin_id = model.AdminId;
-            contract.start_date = model.StartDate;
-            contract.end_date = model.EndDate;
-            _service.SaveContract(contract);
+                    //if (!Equals(model.UserProfile.Id, null))
+                    //{
+                    var userProfile = _service.GetUserProfileById(model.UserProfile.Id);
+                    userProfile.full_name = model.UserProfile.FullName;
+                    userProfile.phone = model.UserProfile.Phone;
+                    userProfile.identification = model.UserProfile.Identification;
+                    _service.SaveUserProfile(userProfile);
+                    //}
+
+                    //if (!Equals(model.OwnerUserProfileId, null))
+                    //{
+                    var ownerUserProfile = _service.GetUserProfileById(model.OwnerUserProfile.Id);
+                    ownerUserProfile.full_name = model.OwnerUserProfile.FullName;
+                    ownerUserProfile.identification = model.OwnerUserProfile.Identification;
+                    ownerUserProfile.tax_code = model.OwnerUserProfile.TaxCode;
+                    ownerUserProfile.bank_name = model.OwnerUserProfile.BankName;
+                    ownerUserProfile.bank_account = model.OwnerUserProfile.BankAccount;
+                    ownerUserProfile.bank_branch = model.OwnerUserProfile.BankBranch;
+                    ownerUserProfile.bank_number = model.OwnerUserProfile.BankNumber;
+                    ownerUserProfile.phone = model.OwnerUserProfile.Phone;
+                    _service.SaveUserProfile(ownerUserProfile);
+                    //}
+
+                    //if (!Equals(model.AdminId, null))
+                    //{
+                    var admin = _service.GetAdminById(model.Admin.Id);
+                    admin.full_name = model.Admin.FullName;
+                    admin.phone = model.Admin.Phone;
+                    admin.bank_name = model.Admin.BankName;
+                    admin.bank_account = model.Admin.BankAccount;
+                    admin.bank_number = model.Admin.BankNumber;
+                    admin.bank_branch = model.Admin.BankBranch;
+                    _service.SaveAdmin(admin);
+                    //}
+
+                    //if (!Equals(model.CompanyId, null))
+                    //{
+                    var company = _service.GetCompanyById(model.Company.Id);
+                    company.name = model.Company.Name;
+                    company.address = model.Company.Address;
+                    company.tax_code = model.Company.TaxCode;
+                    company.bank_name = model.Company.BankName;
+                    company.bank_account = model.Company.BankAccount;
+                    company.bank_branch = model.Company.BankBranch;
+                    company.bank_number = model.Company.BankNumber;
+                    _service.SaveCompany(company);
+                    //}
+
+                    //if (!Equals(model.ApartmentId, null))
+                    //{
+                    var apartment = _service.GetApartmentById(model.Apartment.Id);
+                    apartment.address = model.Apartment.Address;
+                    apartment.latitude = model.Apartment.Latitude;
+                    apartment.longitude = model.Apartment.Longitude;
+                    apartment.no_apartment = model.Apartment.NoApartment;
+                    apartment.building = model.Apartment.Building;
+                    apartment.area = model.Apartment.Area;
+                    apartment.no_bedroom = model.Apartment.NoBedRoom;
+                    //}
+
+                    var contract = _service.GetContractById(model.Id);
+                    if (Equals(contract, null))
+                        contract = new contract()
+                        {
+                            contract_id = 0,
+                            created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                            code = DateTime.Now.Year + "_" + _service.GetCountContractThisYear().Count.ToString().PadLeft(5, '0')
+                        };
+                    contract.type = model.Type;
+                    contract.company_id = model.Company.Id;
+                    contract.user_profile_id = model.UserProfile.Id;
+                    contract.owner_user_profile_id = model.OwnerUserProfile.Id;
+                    contract.apartment_id = model.Apartment.Id;
+                    contract.building = model.Apartment.Building;
+                    contract.no_apartment = model.Apartment.NoApartment;
+                    contract.address = model.Apartment.Address;
+                    contract.area = model.Apartment.Area;
+                    contract.no_bedroom = model.Apartment.NoBedRoom;
+                    contract.pass_wifi = model.Apartment.PassWifi;
+                    contract.pass_door = model.Apartment.PassDoor;
+                    contract.owner_name = model.OwnerUserProfile.FullName;
+                    contract.owner_identification = model.OwnerUserProfile.Identification;
+                    contract.owner_phone = model.OwnerUserProfile.Phone;
+                    contract.owner_tax_code = model.OwnerUserProfile.TaxCode;
+                    contract.owner_address = model.OwnerUserProfile.Address;
+                    contract.owner_bank_account = model.OwnerUserProfile.BankAccount;
+                    contract.owner_bank_name = model.OwnerUserProfile.BankName;
+                    contract.owner_bank_number = model.OwnerUserProfile.BankNumber;
+                    contract.owner_bank_branch = model.OwnerUserProfile.BankBranch;
+                    contract.tenant_name = model.Company.Name;
+                    contract.tenant_address = model.Company.Address;
+                    contract.tenant_tax_code = model.Company.TaxCode;
+                    contract.tenant_bank_name = model.Company.BankName;
+                    contract.tenant_bank_number = model.Company.BankNumber;
+                    contract.tenant_bank_account = model.Company.BankAccount;
+                    contract.tenant_bank_branch = model.Company.BankBranch;
+                    contract.resident_name = model.UserProfile.FullName;
+                    contract.resident_phone = model.UserProfile.Phone;
+                    contract.resident_identification = model.UserProfile.Identification;
+                    contract.admin_id = model.AdminId;
+                    contract.start_date = model.StartDate;
+                    contract.end_date = model.EndDate;
+                    _service.SaveContract(contract);
+
+                    scope.Complete();
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
+            }
         }
+
+        //[HttpPost]
+        //[Route("GetListContract")]
+        //[ACLFilter(AccessRoles = new int[]
+        //    {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        //public PagingResult<ContractModel> GetListContract(FilterModel filter)
+        //{
+        //    var contracts = _service.SearchListContract(filter);
+        //}
 
         #endregion
 

@@ -23,7 +23,7 @@ namespace PropertyManager.Models
         public string NoApartment { get; set; }
         public string Address { get; set; }
         public decimal? Area { get; set; }
-        public int? NoBedroom { get; set; }
+        public int? NoBedRoom { get; set; }
         public string PassWifi { get; set; }
         public string PassDoor { get; set; }
         public string OwnerName { get; set; }

@@ -788,6 +788,10 @@
     <NavigationProperty Name="user_profile1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="contract" ToRole="user_profile" />
     <Property Name="start_date" Type="Int32" />
     <Property Name="end_date" Type="Int32" />
+    <Property Name="resident_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="resident_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="resident_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="owner_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="contract_employee">
     <Key>

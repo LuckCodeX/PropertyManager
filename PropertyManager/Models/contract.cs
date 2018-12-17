@@ -58,6 +58,10 @@ namespace PropertyManager.Models
         public Nullable<int> parent_id { get; set; }
         public Nullable<int> start_date { get; set; }
         public Nullable<int> end_date { get; set; }
+        public string resident_name { get; set; }
+        public string resident_phone { get; set; }
+        public string resident_identification { get; set; }
+        public string owner_identification { get; set; }
     
         public virtual admin admin { get; set; }
         public virtual apartment apartment { get; set; }

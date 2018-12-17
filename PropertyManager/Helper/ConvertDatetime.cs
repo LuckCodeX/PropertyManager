@@ -74,5 +74,17 @@ namespace PropertyManager.Helper
                 ? ConvertUnixTimeStampToDateTime(time)
                 : (Math.Floor((double)(currentTime - time) / 3600) == 0 ? (Math.Ceiling((double)(currentTime - time) / 60) == 0 ? "vài giây trước" : Math.Ceiling((double)(currentTime - time) / 60) + " phút trước") : (Math.Floor((double)(currentTime - time) / 3600) + " giờ trước"));
         }
+
+        public static int GetBeginYearUnixTimeStamp()
+        {
+            var now = DateTime.Now;
+            return (int)(new DateTime(now.Year, 1, 1, 0, 0, 0).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+        }
+
+        public static int GetEndYearUnixTimeStamp()
+        {
+            var now = DateTime.Now;
+            return (int)(new DateTime(now.Year, 12, 31, 0, 0, 0).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+        }
     }
 }

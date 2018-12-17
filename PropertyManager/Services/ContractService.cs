@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using PropertyManager.Helper;
 using PropertyManager.Models;
 
 namespace PropertyManager.Services
@@ -27,6 +29,23 @@ namespace PropertyManager.Services
         public void SaveContract(contract contract)
         {
             ContractRepository.Save(contract);
+        }
+
+        public List<contract> SearchListContract(FilterModel filter)
+        {
+            return ContractRepository
+                .FindBy(p => (Equals(filter.FromDate, null) || filter.FromDate.Value <= p.created_date) 
+                             && (Equals(filter.ToDate, null) || p.created_date <= filter.ToDate) 
+                             && Equals(p.parent_id, null)
+                             && (filter.Id == -1 || p.contract_employee.Any(q => q.employee_id == filter.Id))
+                             ).Include(p => p.contract_employee).ToList();
+        }
+
+        public List<contract> GetCountContractThisYear()
+        {
+            var startYear = ConvertDatetime.GetBeginYearUnixTimeStamp();
+            var endYear = ConvertDatetime.GetEndYearUnixTimeStamp();
+            return ContractRepository.FindBy(p => startYear <= p.created_date && p.created_date <= endYear).ToList();
         }
     }
 }

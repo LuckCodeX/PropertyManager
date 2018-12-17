@@ -67,5 +67,8 @@ namespace PropertyManager.Services
         List<admin> GetAllSaleAccount();
         List<project> GetAllProject();
         ProjectContentModel ConvertProjectContentToModel(project_content firstOrDefault);
+        List<contract> SearchListContract(FilterModel filter);
+        List<contract> GetCountContractThisYear();
+        company GetCompanyById(int id);
     }
 }

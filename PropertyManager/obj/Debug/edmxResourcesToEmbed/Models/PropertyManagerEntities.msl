@@ -308,6 +308,10 @@
     <EntitySetMapping Name="contracts">
       <EntityTypeMapping TypeName="PropertyManagerModel.contract">
         <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="owner_identification" ColumnName="owner_identification" />
+          <ScalarProperty Name="resident_identification" ColumnName="resident_identification" />
+          <ScalarProperty Name="resident_phone" ColumnName="resident_phone" />
+          <ScalarProperty Name="resident_name" ColumnName="resident_name" />
           <ScalarProperty Name="end_date" ColumnName="end_date" />
           <ScalarProperty Name="start_date" ColumnName="start_date" />
           <ScalarProperty Name="parent_id" ColumnName="parent_id" />
