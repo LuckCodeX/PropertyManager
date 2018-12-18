@@ -772,6 +772,7 @@
     <Content Include="html\maidbusiness.html" />
     <Content Include="html\maidlist.html" />
     <Content Include="html\maidproblem.html" />
+    <Content Include="html\maidwater.html" />
     <Content Include="html\system.html" />
     <Content Include="html\visit.html" />
     <Content Include="html\visitdetail.html" />
@@ -901,6 +902,7 @@
     <Content Include="Views\Home\Issue.cshtml" />
     <Content Include="Views\Home\IssueDetail.cshtml" />
     <Content Include="Views\Home\MaidProblem.cshtml" />
+    <Content Include="Views\Home\MaidWater.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

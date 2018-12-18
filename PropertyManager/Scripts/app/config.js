@@ -124,7 +124,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             {
                 url: "/problem?page&search",
                 templateUrl: "html/maidproblem.html"
-            })
+        })
+            .state('maid.water',
+                {
+                    url: "/water?page&search",
+                    templateUrl: "html/maidwater.html"
+                })
         ;
 }
 

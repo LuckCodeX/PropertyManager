@@ -47,5 +47,11 @@ namespace PropertyManager.Services
             var endYear = ConvertDatetime.GetEndYearUnixTimeStamp();
             return ContractRepository.FindBy(p => startYear <= p.created_date && p.created_date <= endYear).ToList();
         }
+
+        public List<contract> SearchAllParentContract(string search)
+        {
+            return ContractRepository
+                .FindBy(p => Equals(p.parent_id, null) && (Equals(search, null) || p.code.Contains(search))).ToList();
+        }
     }
 }

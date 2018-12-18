@@ -70,5 +70,6 @@ namespace PropertyManager.Services
         List<contract> SearchListContract(FilterModel filter);
         List<contract> GetCountContractThisYear();
         company GetCompanyById(int id);
+        List<contract> SearchAllParentContract(string search);
     }
 }

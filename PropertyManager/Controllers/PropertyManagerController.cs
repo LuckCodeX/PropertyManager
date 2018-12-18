@@ -1101,6 +1101,7 @@ namespace PropertyManager.Controllers
                     contract.admin_id = model.AdminId;
                     contract.start_date = model.StartDate;
                     contract.end_date = model.EndDate;
+                    contract.parent_id = model.ParentId;
                     _service.SaveContract(contract);
 
                     scope.Complete();
@@ -1110,6 +1111,21 @@ namespace PropertyManager.Controllers
             {
                 ExceptionContent(HttpStatusCode.InternalServerError, e.Message);
             }
+        }
+
+        [HttpPost]
+        [Route("SearchAllParentContract/{search?}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public List<ContractModel> SearchAllParentContract(string search = null)
+        {
+            var contracts = _service.SearchAllParentContract(search);
+            return contracts.Take(10).Select(p => new ContractModel()
+            {
+                Id = p.contract_id,
+                Code = p.code,
+                Type = p.type
+            }).ToList();
         }
 
         //[HttpPost]

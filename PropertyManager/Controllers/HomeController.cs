@@ -115,5 +115,10 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult MaidWater()
+        {
+            return View();
+        }
     }
 }
