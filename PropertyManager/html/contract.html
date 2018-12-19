@@ -1,53 +1,74 @@
 ﻿<div class="account-view" ng-init="loadContract()" ng-controller="ContractCtrl">
-	<div class="warp container full-height">
-		<div class="header-warp">
+	<div class="warp full-height">
+		<div class="header-warp" style="padding-right: 30px;padding-left: 30px; ">
 			<div class="title-warp">QUẢN LÝ HỢP ĐỒNG</div>
 		</div>
-		<div class="body-warp">
+		<div class="body-warp" style="overflow: hidden;">
 			<div class="row">
 				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
-				 	<div class="col-sm-12" >
-					    <div style="display: inline-block" class="form-group">
-					        <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp đông" style="margin-left: 15px;width: 300px" name="seachContract" ng-model="searchContract">
-					        <select style="margin: 0 15px;width: 300px" number-to-string class="form-ctrl" ng-model="currentType">
+				 	<div class="col-sm-9" >
+					    <div class="row" style="display: inline-block" class="form-group">
+					        <input type="text" class="form-ctrl col-sm-6" placeholder="Tìm kiếm mã hợp đông" style="margin-left: 15px;width: 46%;height: 50px" name="seachContract" ng-model="searchContract">
+					        <select style="margin: 0 15px;width: 46%;height: 50px" number-to-string class="form-ctrl" ng-model="currentType">
 					        	<option value="">Loại hợp đồng</option>
                             	<option ng-repeat= "type in contractType" value="{{type.value}}">{{type.name}}</option>
                             	<!-- <option value="1">Times City</option>
                             	<option value="2">Royal City</option> -->
                             </select>
-					      	<button type="submit" class="btn btn-save">Tìm kiếm</button>
+                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo mã căn hộ" style="margin-left: 15px;height: 50px;width: 46%" name="seachCode">
+                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo tòa" style="margin-left: 15px;height: 50px;width: 46%" name="seachBuilding">
+                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo khu" style="margin-left: 15px;height: 50px;width: 46%" name="seachToa" >
+                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp địa chỉ" style="margin-left: 15px;height: 50px;width: 46%" name="seachAddress" >
+					      	
 					    </div>
-					    <a style="margin-right: 0" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>
+					    <button type="submit" class="btn btn-save float-right">Tìm kiếm</button>
 					</div>
+					
+					<a style="margin-right: 10px" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>
 				 </form>
 			</div>
-			<table class="table table-hover table-list table-contract">
-				<tr>
-					<th>Mã nhà</th>
-					<th>Tên chủ nhà</th>
-					<th>SĐT chủ nhà</th>
-					<th>Tên khách hàng</th>
-					<th>SĐT khách hàng</th>
-					<th>&nbsp;</th>
+			<table class="table table-hover table-list table-contract table-maid">
+				<tr class="first-row">
+					<th class="text-center" colspan="10">Thông tin căn hộ</th>
+					<th class="text-center" colspan="2">Thông tin liên lạc chủ hộ</th>
+					<th class="text-center" colspan="2">Thông tin khách ở</th>
+					<th class="text-center" colspan="2">Thời hạn hợp đồng</th>
+				</tr>
+				<tr class="second-row">
+					<th class="text-center">Mã căn hộ</th>
+					<th class="text-center">Tòa</th>
+					<th class="text-center">Căn hộ</th>
+					<th class="text-center">Khu</th>
+					<th class="text-center">Địa chỉ</th>
+					<th class="text-center">Họ và tên chủ hộ</th>
+					<th class="text-center">Số phòng ngủ</th>
+					<th class="text-center">Diện tích</th>
+					<th class="text-center">Pass Cửa</th>
+					<th class="text-center">Pass Wifi</th>
+					<th class="text-center">Tên</th>
+					<th class="text-center">SĐT</th>
+					<th class="text-center">Tên khách ở</th>
+					<th class="text-center">SĐT</th>
+					<th class="text-center">Check in</th>
+					<th class="text-center">Check out</th>
 				</tr>
 				<tr ng-repeat="item in contractList">
-					<td><a ui-sref="contractdetail({id:item.Id})">{{item.Apartment.Code}}</a></td>
-					<td>{{item.UserProfileOwner.FullName}}</td>
-					<td>{{item.UserProfileOwner.Phone}}</td>
-                    <td>{{item.Customer.FullName}}</td>
-                    <td>{{item.Customer.Phone}}</td>
-					<td>
-						<div class="dropdown action-dropdown-table">
-	                        <button class="btn action-btn dropdown-toggle" type="button" data-toggle="dropdown">
-	                            <i class="fas fa-ellipsis-v"></i>
-	                        </button>
-	                        <ul class="dropdown-menu">
-	                          <li><a ui-sref="contractdetail({id:item.Id})">Chỉnh sửa</a></li>
-								<li><a href="" ng-click="deleteContract(item)"> Xóa
-								</a></li>
-	                        </ul>
-	                      </div>
-					</td>
+					<td class="text-center"><a ui-sref="contractdetail({id:item.Id})">{{item.Apartment.Code}}</a></td>
+					<td class="text-center">Park 3</td>
+					<td class="text-center">0402</td>
+					<td class="text-center">Royal City</td>
+					<td class="text-center">50 minh khai</td>
+					<td class="text-center">Nguyễn Thu Thủy</td>
+					<td class="text-center">4</td>
+					<td class="text-center">120</td>
+					<td class="text-center">12313213215</td>
+					<td class="text-center">1515198188</td>
+					<td class="text-center">Hoàng Linh Chi</td>
+					<td class="text-center">091351381818</td>
+					<td class="text-center">Mr. Takeshi Nakamura</td>
+					<td class="text-center">081381818168</td>
+					<td class="text-center">20/12/2018</td>
+					<td class="text-center">20/12/2019</td>
 				</tr>
 				
 			</table>

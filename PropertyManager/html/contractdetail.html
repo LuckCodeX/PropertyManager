@@ -39,7 +39,7 @@
 			                <p class="input-group" ng-init="apt.opened = false">
                               <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="contract.EndDate" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                               <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                               </span>
                             </p>
 			            </div>
@@ -60,25 +60,31 @@
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Địa chỉ: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			                <input type="text" ng-readonly="!currentApartment" name="contractAddress" ng-model="contract.Address" class="form-ctrl" >
+			                <input type="text" ng-readonly="!currentApartment" name="contractAddress" ng-model="contract.Apartment.Address" class="form-ctrl" >
 			            </div>
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Tên chủ hộ: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerName" ng-model="contract.OwnerName" class="form-ctrl" >
+			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerName" ng-model="contract.OwnerUserProfile.FullName" class="form-ctrl" >
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Số CMT/Hộ chiếu: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			                <input type="text" ng-readonly="!currentApartment" name="contractIdentification" ng-model="contract.OwnerUserProfile.Identification" class="form-ctrl" >
 			            </div>
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Số điện thoại: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerPhone" ng-model="contract.OwnerPhone" class="form-ctrl" >
+			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerPhone" ng-model="contract.OwnerUserProfile.Phone" class="form-ctrl" >
 			            </div>
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Địa chỉ chủ hộ: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerAddress" ng-model="contract.OwnerAddress" class="form-ctrl" >
+			                <input type="text" ng-readonly="!currentApartment" name="contractOwnerAddress" ng-model="contract.OwnerUserProfile.Address" class="form-ctrl" >
 			            </div>
 			        </div>
 			        <div style="overflow: hidden;">
@@ -124,7 +130,7 @@
 			            </div>
 			    	</div>
 			    	<div class="form-group has-child">
-			            <label class="control-label col-sm-3" for="">Tên tài khoản: <span style="color: red">*</span></label>
+			            <label class="control-label col-sm-3" for="">Tài khoản: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
 			            	<selectize placeholder='Chọn tài khoản...' ng-change="getDetailAccount()" options='accountList' config="accountConfig" ng-model="currentAccount" ng-disabled='disable' required='true'></selectize>
 			               <!-- <input id="acEmployee" ng-model="employee" class="form-ctrl" title="type &quot;a&quot;"> -->
@@ -133,18 +139,22 @@
 			            <button type="button" class="btn btn-save" data-toggle="modal" data-target="#accountModal"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
 			        </div>
 			        <div class="form-group">
-			            <label class="control-label col-sm-3" for="">Tên người ở: <span style="color: red">*</span></label>
+			            <label class="control-label col-sm-3" for="">Họ và tên: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			            	<input type="text" class="form-ctrl" readonly="" name="accountFullName" ng-model="account.FullName" >
+			            	<input type="text" class="form-ctrl" name="accountFullName" ng-model="contract.UserProfile.FullName" >
 			            </div>
-			            
+			        </div>
+			        <div class="form-group">
+			            <label class="control-label col-sm-3" for="">Số CMT/Hộ chiếu: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<input type="text" class="form-ctrl" name="accountIdentification" ng-model="contract.UserProfile.Identification" >
+			            </div>
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Số điện thoại: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">
-			            	<input type="text" class="form-ctrl" readonly="" name="accountPhone" ng-model="account.Phone" >
+			            	<input type="text" class="form-ctrl" name="accountPhone" ng-model="contract.UserProfile.Phone" >
 			            </div>
-			            
 			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Email: <span style="color: red">*</span></label>
@@ -175,56 +185,62 @@
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tòa nhà: </label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" ng-model="contract.Building" name="contractBuilding">
+			                            <input type="text" class="form-ctrl" ng-model="contract.Apartment.Building" name="contractBuilding">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Số căn: </label>
 			                        <div class="col-sm-7">
-			                            <input type="number" class="form-ctrl" ng-model="contract.NoApartment" name="contractNoApartment">
+			                            <input type="number" class="form-ctrl" ng-model="contract.Apartment.NoApartment" name="contractNoApartment">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Diện tích căn hộ: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="number" min="0" class="form-ctrl" required="" name="contractArea" ng-model="contract.Area">
+			                            <input type="number" min="0" class="form-ctrl" required="" name="contractArea" ng-model="contract.Apartment.Area">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Số phòng ngủ: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="number" min="0" class="form-ctrl" required="" name="contractNoBedroom" ng-model="contract.NoBedroom">
+			                            <input type="number" min="0" class="form-ctrl" required="" name="contractNoBedroom" ng-model="contract.Apartment.NoBedroom">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Mật khẩu wifi: </label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractPassWifi" ng-model="contract.PassWifi">
+			                            <input type="text" class="form-ctrl" required="" name="contractPassWifi" ng-model="contract.Apartment.PassWifi">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Mật khẩu cửa:</label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" ng-model="contract.PassDoor" name="contractPassDoor">
+			                            <input type="text" class="form-ctrl" ng-model="contract.Apartment.PassDoor" name="contractPassDoor">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên chủ hộ: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractOwnerName" ng-model="contract.OwnerName">
+			                            <input type="text" class="form-ctrl" required="" name="contractOwnerName" ng-model="contract.OwnerUserProfile.FullName">
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3" for="">Số CMT/Hộ chiếu:</label>
+			                        <div class="col-sm-7">
+			                            <input type="text" class="form-ctrl" required="" name="contractaIdentification" ng-model="contract.OwnerUserProfile.Identification">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">SĐT chủ hộ: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" minlength="8" class="form-ctrl" required="" name="contractOwnerPhone" ng-model="contract.OwnerPhone">
+			                            <input type="text" minlength="8" class="form-ctrl" required="" name="contractOwnerPhone" ng-model="contract.OwnerUserProfile.Phone">
 			                        </div>
 			                    </div>
 			                    
 						    	<div class="form-group ">
 			                        <label class="control-label col-sm-3" for="">Mã số thuế hộ KD cá thể:</label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" name="contractOwnerTaxCode" ng-model="contract.OwnerTaxCode">
+			                            <input type="text" class="form-ctrl" name="contractOwnerTaxCode" ng-model="contract.OwnerUserProfile.TaxCode">
 			                        </div>
 			                    </div>
 			                    
@@ -237,25 +253,25 @@
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankAccount" ng-model="contract.OwnerBankAccount">
+			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankAccount" ng-model="contract.OwnerUserProfile.BankAccount">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Số TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankNumber" ng-model="contract.OwnerBankNumber">
+			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankNumber" ng-model="contract.OwnerUserProfile.BankNumber">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractwnerBankName" ng-model="contract.OwnerBankName">
+			                            <input type="text" class="form-ctrl" required="" name="contractwnerBankName" ng-model="contract.OwnerUserProfile.BankName">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Chi nhánh: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankBranch" ng-model="contract.OwnerBankBranch">
+			                            <input type="text" class="form-ctrl" required="" name="contractOwnerBankBranch" ng-model="contract.OwnerUserProfile.BankBranch">
 			                        </div>
 			                    </div>
 			                    <!-- <div class="form-group border-bottom">
@@ -284,43 +300,43 @@
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên công ty: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" name="contractTenantName" ng-model="contract.TenantName" required="">
+			                            <input type="text" class="form-ctrl" name="contractTenantName" ng-model="contract.Company.Name" required="">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Địa chỉ công ty: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                        	<input type="text" class="form-ctrl" googleplace ng-model-options="{ debounce: 500 }" details="contract" name="contractTenantAddress" ng-model="contract.TenantAddress" required="" />
+			                        	<input type="text" class="form-ctrl" googleplace ng-model-options="{ debounce: 500 }" details="contract" name="contractTenantAddress" ng-model="contract.Company.Address" required="" />
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Mã số thuế: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractTenantTaxCode" ng-model="contract.TenantTaxCode">
+			                            <input type="text" class="form-ctrl" required="" name="contractTenantTaxCode" ng-model="contract.Company.TaxCode">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankAccount" ng-model="contract.TenantBankAccount">
+			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankAccount" ng-model="contract.Company.BankAccount">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Số TK ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankNumber" ng-model="contract.TenantBankNumber">
+			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankNumber" ng-model="contract.Company.BankNumber">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Tên ngân hàng: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankName" ng-model="contract.TenantBankName">
+			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankName" ng-model="contract.Company.BankName">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-3" for="">Ngân hàng - chi nhánh: <span style="color: red">*</span></label>
 			                        <div class="col-sm-7">
-			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankBranch" ng-model="contract.TenantBankBranch">
+			                            <input type="text" class="form-ctrl" required="" name="contractTenantBankBranch" ng-model="contract.Company.BankBranch">
 			                        </div>
 			                    </div>
 			                    

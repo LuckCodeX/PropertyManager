@@ -1,1 +1,121 @@
-﻿<h1>Problem</h1>
+﻿<div ng-controller="MaidProblemCtrl" ng-init="loadMaidProblem()" class="view-maid-list">
+   <div class="container-fluid content-maid-list">
+       <div class="row">
+           <form class="form-horizontal" name="myForm">
+                <div class="col-sm-12" >
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Khu:</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="searchKhu" class="form-ctrl">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Tòa:</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="searchToa" class="form-ctrl">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Căn hộ:</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="searchCanHo" class="form-ctrl">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Địa chỉ:</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="searchDiaChi" class="form-ctrl">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Loại sự việc:</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="searchSuViec" class="form-ctrl">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Thời gian từ:</label>
+                            <div class="col-sm-7">
+                                <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
+                                  <input  type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" readonly="" name="firstDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label col-sm-5" for="">Đến:</label>
+                            <div class="col-sm-7">
+                                <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
+                                  <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                       <div class="col-sm-3">
+                       		<label class="control-label col-sm-5" for=""></label>
+                            <button ng-click="changFilter()" type="button" style="margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
+                        </div>
+                    </div>
+                     
+                    
+                </div>
+             </form>
+			</div>
+			<div id="tableMaid" style="overflow:auto; height: 600px">
+				<table class="table table-hover table-list table-contract table-maid ">
+					
+						<tr class="first-row">
+		                    <th rowspan="2" class="col2rows">Ngày tháng</th>
+		                    <th colspan="5">Thông tin căn hộ</th>
+		                    <th rowspan="2" class="col2rows">Đặc tính khách hàng</th>
+		                    <th rowspan="2" class="col2rows">Nguồn sự cố</th>
+		                    <th colspan="7">Thông tin sự cố</th>
+		                </tr>
+		                <tr class="second-row">
+		                    <th>Mã căn hộ</th>
+		                    <th>Tòa</th>  
+		                    <th>Căn hộ</th>
+		                    <th>Khu</th>  
+		                    <th>Địa chỉ</th>  
+		                    <th>Loại sự việc</th>
+		                    <th>Tóm tắt sự việc</th>
+		                    <th>Mô tả sự việc</th>
+		                    <th>Trích sang lịch</th>
+		                    <th>Mức độ ưu tiên</th>
+		                    <th>Quá trình</th>
+		                    <th>Tình trạng</th>
+		                </tr>
+					
+	                	<tr ng-repeat="item in problemList">
+		                	<td>12/12/2018</td>
+		                	<td>AID_20123</td>
+		                    <td>R1</td>  
+		                    <td>1611</td>
+		                    <td>Royal City</td>  
+		                    <td>50 Nguyễn Trãi</td>  
+		                    <td>Quản lý</td>
+		                    <td>Tự mở cửa</td>
+		                    <td>Khu vực phòng tắm</td>
+		                    <td>Ngấm tường</td>
+		                    <td>Tường ngấm mốc</td>
+		                    <td>21/12/2018</td>
+		                    <td>Cao</td>
+		                    <td>Chưa sửa</td>
+		                    <td>Nặng</td>
+		                </tr>
+	               
+	                
+	            </table>
+			</div>
+           
+		<!-- <div class="pagination-employee">
+			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+		</div> -->
+    </div>
+    
+</div> 

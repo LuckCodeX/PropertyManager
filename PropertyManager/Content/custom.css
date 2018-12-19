@@ -590,12 +590,12 @@ button.has-badge {
     min-height: calc(80vh - 250px );
 }
 
-.form-ctrl {
+/*.form-ctrl {
     padding: 6px 12px;
     width: 100%;
     border: solid 1px #d5d6d9;
     border-radius: 1px;
-}
+}*/
 
 .account-detail-view {
     padding: 30px;
@@ -1355,19 +1355,40 @@ hr.dashed {
     padding-top: 15px;
     padding-left: 10px;
 }
-.maid-employee-modal .form-group input,.maid-employee-modal .form-group select{
+.form-ctrl{
+    width: 100%;
     border: none;
     border-bottom: 1px solid #93939469;
     padding: 10px;
 
 }
-.input-datetime .input-group-btn{
-    padding: 0;
-}
-.input-datetime .input-group-btn button{
+.input-group .input-group-btn button{
     border:none;
     bottom: -4px;
     border-bottom: 1px solid #93939469;
+    margin-top: -8px;
+}
+.input-group .input-group-btn button i{
+    height: 28px;
+    top: 6px;
+}
+
+.input-group>div>ul.uib-datepicker-popup{
+    top: auto !important;
+}
+
+.account-detail-view .uib-datepicker-popup{
+    z-index: 1009;
+}
+
+.input-group .input-group-btn{
+    padding: 0;
+}
+.input-datetime .input-group .input-group-btn button{
+    border:none;
+    bottom: -4px;
+    border-bottom: 1px solid #93939469;
+    margin-top: 0;
 }
 .input-datetime .input-group>div{
     position: relative;
