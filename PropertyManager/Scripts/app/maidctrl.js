@@ -277,7 +277,16 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
             }
         });
     };
-	
+
+
+var todayDate = new Date().getMonth();
+	$scope.dateOptions1 = {
+            formatYear: 'yy',
+            maxDate: new Date(),
+            minDate: new Date(new Date().setMonth(todayDate - 2)),
+            startingDay: 1,
+             minMode:"month",
+        };
     
 }
 app.controller('MaidCtrl', MaidCtrl);

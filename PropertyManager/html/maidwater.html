@@ -1,1 +1,152 @@
-﻿
+﻿<div ng-controller="MaidCtrl">
+<div class="container-fluid content-maid-list" style="padding-top: 35px;">
+	<div class="row">
+	<form class="form-horizontal" name="myForm">
+		<div class="col-sm-12" >
+                    <div class="row">
+                    	<div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Khu:</label>
+                            <div class="col-sm-7" style="color: black">
+                            	<selectize ng-change="changFilter()" placeholder='Chọn khu...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Tòa:</label>
+                            <div class="col-sm-7" style="color: black">
+                            	<selectize ng-change="changFilter()" placeholder='Chọn tòa...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label col-sm-5" for="">Căn hộ:</label>
+                            <div class="col-sm-7" style="color: black">
+                            	<selectize ng-change="changFilter()" placeholder='Chọn căn hộ...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            </div>
+                        </div>
+	<div class="form-group col-sm-3" style="margin-top: 20px;margin-left: 37px;">
+                            <label class="control-label col-sm-5" for="">Thời gian từ:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="MM/yyyy" ng-model="fromDatePicker" is-open="history.picker1" readonly="" name="firstDay" datepicker-options="dateOptions1" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+    <div class="form-group col-sm-3"style="margin-top: 20px;    margin-left: 115px;">
+                            <label class="control-label col-sm-5" for="">Đến:</label>
+                            <div class="col-sm-7">
+                                <p class="input-group" ng-init="apt.opened = false">
+                                  <input ng-change="changFilter()" type="text" class="form-ctrl" uib-datepicker-popup="MM/yyyy" ng-model="toDatePicker" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions1" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                         </div>
+                          </div>
+
+</form>
+</div>
+
+
+
+	<table class="table table-hover table-list table-contract table-maid">
+                    <tr>
+                        <th rowspan="2"class="col2rows">Mã HĐ</th>
+                        <th rowspan="2"class="col2rows">Tòa</th>
+                        <th rowspan="2"class="col2rows">Số căn</th>
+                        <th rowspan="2"class="col2rows">Khu</th>
+                        <th rowspan="2" class="col2rows">Pass cửa</th>	
+                        <th rowspan="2"class="col2rows">Lavie free/ tháng</th>
+                        <th colspan="4">Tháng 10</th>
+                        <th colspan="4">Tháng 11</th>
+                        <th colspan="4">Tháng 12</th>
+                    </tr>
+                    <tr>
+                        <th>Ngày cấp</th>
+                        <th>Số nước mình cấp</th>  
+                        <th>Số vỏ thu về</th>
+                        <th>Note</th>  
+                        <th>Ngày cấp</th>
+                        <th>Số nước mình cấp</th>  
+                        <th>Số vỏ thu về</th>
+                        <th>Note</th> 
+                        <th>Ngày cấp</th>
+                        <th>Số nước mình cấp</th>  
+                        <th>Số vỏ thu về</th>
+                        <th>Note</th> 
+                        
+                    </tr>
+                    <tr>
+                    <!-- <tr ng-repeat="item in maidList"> -->
+                        <!-- <td>{{item.Type}}</td>
+                        <td><a href="#" ng-click="openPopup(item)" data-toggle="modal" data-target="#employeeModal">{{item.FirstName + ' ' + item.LastName}}</a></td>
+                        <td>{{item.Code}}</td>
+                        <td>{{convertDate(item.Birthday)}}</td>
+                        <td>{{item.RoleName}}</td>
+                        <td>{{item.Phone}}</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>Không có</td> -->
+                        
+                    </tr>
+                </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
