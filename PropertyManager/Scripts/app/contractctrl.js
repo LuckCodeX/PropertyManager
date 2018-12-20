@@ -44,7 +44,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 
     $scope.format = 'dd/MM/yyyy';
 	$scope.loadContract = function(){
-		for (var i = 0; i < 20; i++) {
+		for (var i = 0; i < 10; i++) {
 			$scope.contractList.push({
 				"Apartment":{
 					Code:"AID_00024_021"
@@ -61,6 +61,11 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		}
 		
 	}
+
+    $scope.pageChanged = function(){
+        $scope.loadContract();
+    }
+
 	$scope.addPassport = function(){
 		$scope.passportList.push({ownerName:"",passport:""});
 	}
@@ -135,23 +140,25 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	$scope.getDetailApartment = function(){
         $scope.apartmentList.forEach(function(item, index){
         	if (item.Id == $scope.currentApartment) {
-        		$scope.contract.Area = item.Area;
-        		$scope.contract.OwnerName = item.UserProfileOwner.FullName;
-        		$scope.contract.OwnerPhone = item.UserProfileOwner.Phone;
-        		$scope.contract.OwnerTaxCode = item.UserProfileOwner.TaxCode;
-        		$scope.contract.OwnerAddress = item.UserProfileOwner.OwnerAddress;
-        		$scope.contract.OwnerBankAccount = item.UserProfileOwner.OwnerBankAccount;
-        		$scope.contract.OwnerBankName = item.UserProfileOwner.OwnerBankName;
-        		$scope.contract.OwnerBankNumber = item.UserProfileOwner.OwnerBankNumber;
-        		$scope.contract.OwnerBankBranch = item.UserProfileOwner.OwnerBankBranch;
-        		$scope.contract.Building = item.Building;
-        		$scope.contract.NoApartment = item.NoApartment;
-        		$scope.contract.ApartmentId = item.Id;
-        		$scope.contract.PassWifi = item.PassWifi;
-        		$scope.contract.PassDoor = item.PassDoor;
-        		$scope.contract.NoBedroom = item.NoBedroom;
-        		$scope.contract.Address = item.Address;
-        		$scope.contract.OwnerUserProfileId = item.UserProfileOwner.Id;
+        		$scope.contract.Apartment.Area = item.Area;
+        		$scope.contract.OwnerUserProfile.FullName = item.UserProfileOwner.FullName;
+        		$scope.contract.OwnerUserProfile.Phone = item.UserProfileOwner.Phone;
+        		$scope.contract.OwnerUserProfile.TaxCode = item.UserProfileOwner.TaxCode;
+        		$scope.contract.OwnerUserProfile.Address = item.UserProfileOwner.OwnerAddress;
+        		$scope.contract.OwnerUserProfile.BankAccount = item.UserProfileOwner.OwnerBankAccount;
+        		$scope.contract.OwnerUserProfile.BankName = item.UserProfileOwner.OwnerBankName;
+        		$scope.contract.OwnerUserProfile.BankNumber = item.UserProfileOwner.OwnerBankNumber;
+        		$scope.contract.OwnerUserProfile.BankBranch = item.UserProfileOwner.OwnerBankBranch;
+                $scope.contract.OwnerUserProfile.Identification = item.UserProfileOwner.Identification;
+        		$scope.contract.Apartment.Building = item.Building;
+                $scope.contract.Apartment.Id = item.Id;
+        		$scope.contract.Apartment.NoApartment = item.NoApartment;
+        		$scope.contract.Apartment.ApartmentId = item.Id;
+        		$scope.contract.Apartment.PassWifi = item.PassWifi;
+        		$scope.contract.Apartment.PassDoor = item.PassDoor;
+        		$scope.contract.Apartment.NoBedroom = item.NoBedroom;
+        		$scope.contract.Apartment.Address = item.Address;
+        		$scope.contract.OwnerUserProfile.Id = item.UserProfileOwner.Id;
         		$scope.apartment.ProjectId = item.ProjectId;
         	}
         });
@@ -167,7 +174,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         		$scope.employee.BankNumber = item.BankNumber;
         		$scope.employee.BankName = item.BankName;
         		$scope.employee.BankBranch = item.BankBranch;
-        		$scope.contract.AdminId = item.Id
+        		$scope.contract.AdminId = item.Id;
         	}
         });
 	}
@@ -176,14 +183,14 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.companyList.forEach(function(item, index){
         	if (item.Id == $scope.currentCompany) {
         		console.log(item);
-        		$scope.contract.TenantName = item.Name;
-        		$scope.contract.TenantAddress = item.Address;
-        		$scope.contract.TenantTaxCode = item.TaxCode;
-        		$scope.contract.TenantBankName = item.BankName;
-        		$scope.contract.TenantBankNumber = item.BankNumber;
-        		$scope.contract.TenantBankAccount = item.BankAccount;
-        		$scope.contract.TenantBankBranch = item.BankBranch;
-        		$scope.contract.CompanyId = item.Id;
+        		$scope.contract.Company.Name = item.Name;
+        		$scope.contract.Company.Address = item.Address;
+        		$scope.contract.Company.TaxCode = item.TaxCode;
+        		$scope.contract.Company.BankName = item.BankName;
+        		$scope.contract.Company.BankNumber = item.BankNumber;
+        		$scope.contract.Company.BankAccount = item.BankAccount;
+        		$scope.contract.Company.BankBranch = item.BankBranch;
+        		$scope.contract.Company.Id = item.Id;
         	}
         });
 	}
@@ -192,9 +199,10 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.accountList.forEach(function(item, index){
         	if (item.Id == $scope.currentAccount) {
         		$scope.account.Email = item.Email;
-        		$scope.account.FullName = item.FullName;
-        		$scope.account.Phone = item.Phone;
-        		$scope.contract.UserProfileId = item.Id;
+        		$scope.contract.UserProfile.FullName = item.FullName;
+        		$scope.contract.UserProfile.Phone = item.Phone;
+                $scope.contract.UserProfile.Identification = item.Identification;
+        		$scope.contract.UserProfile.Id = item.Id;
         	}
         });
 	}
@@ -203,7 +211,12 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.data = {};
 		$scope.getAllProject();
 		$scope.contractType = [{value:0,name:"Hợp đồng giữa công ty và chủ nhà"}];
-		$scope.contract = {};
+		$scope.contract = {
+            Apartment:{},
+            UserProfile:{},
+            OwnerUserProfile:{},
+            Company:{},
+        };
 		$scope.employee = {};
 		$scope.apartment = {};
 		$scope.account = {};
@@ -271,9 +284,13 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	$scope.saveModalAccount = function(){
 		xhrService.post("CreateUserProfile/",$scope.accountModel)
         .then(function (data) {
-        	$scope.contract.UserProfileId = data.data.Id;
+        	// $scope.contract.UserProfile.Id = data.data.Id;
+         //    $scope.contract.UserProfile.FullName = data.data.FullName;
+         //    $scope.contract.UserProfile.Phone = data.data.Phone;
+         //    $scope.contract.UserProfile.Identification = data.data.Identification;
         	$scope.searchAccount("");
         	$scope.currentAccount =  data.data.Id;
+            $scope.getDetailAccount();
             $('#accountModal').modal('hide');
         },
         function (error) {
@@ -302,15 +319,16 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 
 		xhrService.post("CreateCompany/",$scope.companyModel)
         .then(function (data) {
-        	$scope.company.BankName = $scope.companyModel.TenantBankName;
-			$scope.company.TaxCode = $scope.companyModel.TenantTaxCode;
-			$scope.company.TenantBankAccount = $scope.companyModel.BankAccount;
-			$scope.company.TenantBankBranch = $scope.companyModel.BankBranch;
-			$scope.company.TenantBankNumber = $scope.companyModel.BankNumber;
-			$scope.company.TenantName = $scope.companyModel.Name;
-			$scope.company.TenantAddress = $scope.companyModel.Address;
-			$scope.searchCompany(data.data.Name);
+        	$scope.contract.Company.BankName = $scope.companyModel.TenantBankName;
+			$scope.contract.Company.TaxCode = $scope.companyModel.TenantTaxCode;
+			$scope.contract.Company.BankAccount = $scope.companyModel.BankAccount;
+			$scope.contract.CompanyBankBranch = $scope.companyModel.BankBranch;
+			$scope.contract.CompanyBankNumber = $scope.companyModel.BankNumber;
+			$scope.contract.CompanyName = $scope.companyModel.Name;
+			$scope.contract.CompanyAddress = $scope.companyModel.Address;
+			$scope.searchCompany("");
 			$scope.currentCompany = data.data.Id;
+            $scope.getDetailCompany();
             $('#accountModal').modal('hide');
         },
         function (error) {
@@ -322,6 +340,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	$scope.submitContract = function(){
 		$scope.contract.StartDate = getFirstDay($scope.contract.StartDate);
 		$scope.contract.EndDate = getEndDay($scope.contract.EndDate);
+        console.log($scope.contract);
 		xhrService.post("CreateContract/",$scope.contract)
         .then(function (data) {
         	window.location.href = "/contract";

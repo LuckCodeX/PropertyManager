@@ -147,7 +147,10 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.addNote = function(){
-        $scope.currentApartment.notes.push({date:null,note:''});
+        let datestring = "";
+        let date = new Date();
+        datestring = date.getDate()+"/"+Math.ceil(date.getMonth()+1)+"/"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes();
+        $scope.currentApartment.notes.push({date:datestring,note:''});
     }
 
     $scope.saveNote = function(){
