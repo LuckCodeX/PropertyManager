@@ -32,6 +32,9 @@ namespace PropertyManager.Models
         public List<ApartmentContentModel> ContentList { get; set; }
         public List<ApartmentImageModel> ImgList { get; set; }
         public List<FacilityModel> FacilityList { get; set; }
+        public UserProfileModel Resident { get; set; }
+        public EmployeeModel Maid { get; set; }
+        public List<ProblemModel> ProblemList { get; set; }
     }
 
     public class ApartmentContentModel

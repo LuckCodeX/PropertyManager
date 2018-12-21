@@ -21,4 +21,9 @@ namespace PropertyManager.Helper
         MaidManager,
         Maid
     }
+
+    public enum ProblemType
+    {
+        Maid
+    }
 }

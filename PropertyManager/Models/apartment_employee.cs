@@ -12,23 +12,25 @@ namespace PropertyManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class issue
+    public partial class apartment_employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public issue()
+        public apartment_employee()
         {
             this.apartment_employee_issue = new HashSet<apartment_employee_issue>();
-            this.problems = new HashSet<problem>();
         }
     
-        public int issue_id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int status { get; set; }
+        public int apartment_employee_id { get; set; }
+        public int apartment_id { get; set; }
+        public int employee_id { get; set; }
+        public Nullable<int> check_in_time { get; set; }
+        public Nullable<int> check_out_time { get; set; }
+        public string check_in_geo { get; set; }
+        public string check_out_geo { get; set; }
     
+        public virtual apartment apartment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment_employee_issue> apartment_employee_issue { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<problem> problems { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

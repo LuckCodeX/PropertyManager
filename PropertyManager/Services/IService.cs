@@ -71,5 +71,18 @@ namespace PropertyManager.Services
         List<contract> GetCountContractThisYear();
         company GetCompanyById(int id);
         List<contract> SearchAllParentContract(string search);
+        EmployeeModel GetMaidModelByContractId(int contractId);
+        contract_employee GetContractEmployeeByContractIdAndEmployeeId(int contractId, int maidId);
+        contract_employee GetLastContractEmployeeByContractId(int contractId);
+        void SaveContractEmployee(contract_employee model);
+        apartment GetApartmentByCode(string code);
+        contract GetCurrentParentContractByApartmentId(int apartmentId);
+        void SaveApartmentEmployee(apartment_employee model);
+        apartment_employee GetLastApartmentEmployeeByApartmentIdAndEmployeeId(int apartmentId, int employeeId);
+        apartment_employee GetLastApartmentEmployeeNotCheckOutByEmployeeId(int employeeId);
+        void SaveListApartmentEmployeeIssue(List<apartment_employee_issue> listIssue);
+        void SaveProblem(problem problem);
+        void SaveListProblemImage(List<problem_image> listImage);
+        List<contract> SearchListCurrentContractByEmployeeId(string search, int employeeId);
     }
 }

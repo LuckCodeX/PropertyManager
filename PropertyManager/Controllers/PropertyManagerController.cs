@@ -921,6 +921,79 @@ namespace PropertyManager.Controllers
             }).ToList();
         }
 
+        [HttpPost]
+        [Route("GetListMaidApartment")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public PagingResult<ContractModel> GetListMaidApartment(FilterModel filter)
+        {
+            var contracts = _service.SearchListContract(filter);
+            var contractList = contracts.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit).Select(p => new ContractModel()
+            {
+                Id = p.contract_id,
+                Code = p.code,
+                Apartment = new ApartmentModel()
+                {
+                    Code = p.apartment.code,
+                    Project = p.apartment.project_id != null ? new ProjectModel()
+                    {
+                        Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                    } : new ProjectModel()
+                },
+                Building = p.building,
+                NoApartment = p.no_apartment,
+                Address = p.address,
+                OwnerName = p.owner_name,
+                OwnerPhone = p.owner_phone,
+                ResidentName = p.resident_name,
+                ResidentPhone = p.resident_phone,
+                NoBedRoom = p.no_bedroom,
+                StartDate = p.start_date,
+                EndDate = p.end_date,
+                Area = p.area,
+                PassWifi = p.pass_wifi,
+                PassDoor = p.pass_door,
+                Maid = _service.GetMaidModelByContractId(p.contract_id)
+            })
+                .ToList();
+            return new PagingResult<ContractModel>()
+            {
+                data = contractList,
+                total = contracts.Count
+            };
+        }
+
+        [HttpPost]
+        [Route("SaveMaidApartment")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void SaveMaidApartment(ContractModel model)
+        {
+            var contractEmployee = _service.GetContractEmployeeByContractIdAndEmployeeId(model.Id, model.Maid.Id);
+            if (Equals(contractEmployee, null))
+            {
+                var lastContract = _service.GetLastContractEmployeeByContractId(model.Id);
+                if (!Equals(lastContract, null))
+                {
+                    lastContract.to_date = ConvertDatetime.GetCurrentUnixTimeStamp();
+                    lastContract.status = 0;
+                    _service.SaveContractEmployee(lastContract);
+                }
+
+                contractEmployee = new contract_employee()
+                {
+                    contract_employee_id = 0,
+                    status = 1,
+                    from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                    employee_id = model.Maid.Id
+                };
+            }
+
+            contractEmployee.work_date = string.Join(",", model.Maid.WorkDate);
+            contractEmployee.work_hour = model.Maid.WorkHour;
+            _service.SaveContractEmployee(contractEmployee);
+        }
+
         #endregion
 
         #region Issue
@@ -1113,7 +1186,7 @@ namespace PropertyManager.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("SearchAllParentContract/{search?}")]
         [ACLFilter(AccessRoles = new int[]
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
@@ -1128,14 +1201,46 @@ namespace PropertyManager.Controllers
             }).ToList();
         }
 
-        //[HttpPost]
-        //[Route("GetListContract")]
-        //[ACLFilter(AccessRoles = new int[]
-        //    {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
-        //public PagingResult<ContractModel> GetListContract(FilterModel filter)
-        //{
-        //    var contracts = _service.SearchListContract(filter);
-        //}
+        [HttpPost]
+        [Route("GetListContract")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.CustomerManager, (int) RoleAdmin.CustomerEmployee})]
+        public PagingResult<ContractModel> GetListContract(FilterModel filter)
+        {
+            var contracts = _service.SearchListContract(filter);
+            var contractList = contracts.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit).Select(p => new ContractModel()
+            {
+                Id = p.contract_id,
+                Code = p.code,
+                Apartment = new ApartmentModel()
+                {
+                    Code = p.apartment.code,
+                    Project = new ProjectModel()
+                    {
+                        Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                    }
+                },
+                Building = p.building,
+                NoApartment = p.no_apartment,
+                Address = p.address,
+                OwnerName = p.owner_name,
+                OwnerPhone = p.owner_phone,
+                ResidentName = p.resident_name,
+                ResidentPhone = p.resident_phone,
+                NoBedRoom = p.no_bedroom,
+                StartDate = p.start_date,
+                EndDate = p.end_date,
+                Area = p.area,
+                PassWifi = p.pass_wifi,
+                PassDoor = p.pass_door
+            })
+                .ToList();
+            return new PagingResult<ContractModel>()
+            {
+                data = contractList,
+                total = contracts.Count
+            };
+        }
 
         #endregion
 
