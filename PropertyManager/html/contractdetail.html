@@ -22,6 +22,12 @@
                             </select>
 			            </div>
 			        </div>
+			        <div class="form-group ">
+			            <label class="control-label col-sm-3" for="">Hợp đồng gốc: <span style="color: red">*</span></label>
+			            <div class="col-sm-7">
+			            	<selectize placeholder='Chọn hợp đồng gốc...'  options='parentContractList' config="parentContractConfig" ng-model="contract.ParentId" ng-disabled='disable' required='true'></selectize>
+			            </div>
+			        </div>
 			        <div class="form-group">
 			            <label class="control-label col-sm-3" for="">Ngày bắt đầu: <span style="color: red">*</span></label>
 			            <div class="col-sm-7">

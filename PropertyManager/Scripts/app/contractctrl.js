@@ -70,6 +70,22 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		$scope.passportList.push({ownerName:"",passport:""});
 	}
 
+    $scope.searchParentContract = function(textSearch){
+        $scope.parentContractList = [];
+            $scope.parentContractList.push({
+                Code:"Đây là hợp đồng gốc",
+                value:-1
+            });
+        xhrService.get("SearchAllParentContract/"+textSearch)
+        .then(function (data) {
+            let parentContractList = data.data;
+            parentContractList.forEach(function(item, index){
+                item.value = item.Id;
+                $scope.parentContractList.push(item);
+            });
+        });
+    }
+
 	$scope.searchCompany = function(textSearch){
 		// $scope.currentCompany = $scope.currentCompany === undefined ? "" : $scope.currentCompany;
 		xhrService.get("SearchAllCompany/"+ textSearch)
@@ -243,6 +259,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
             // 	$scope.searchCompany($("#companyInput .selectize-input input").val());
             // })
         });
+        $scope.searchParentContract("");
 		$scope.searchCompany("");
 		$scope.searchApartment("");
 		$scope.searchAccount("");
@@ -338,6 +355,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	}
 
 	$scope.submitContract = function(){
+        if ($scope.contract.ParentId == -1) {$scope.contract.ParentId == null};
 		$scope.contract.StartDate = getFirstDay($scope.contract.StartDate);
 		$scope.contract.EndDate = getEndDay($scope.contract.EndDate);
         console.log($scope.contract);
@@ -482,6 +500,15 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
               },
                 
         }
+    };
+
+    $scope.parentContractConfig = {
+          maxItems: 1,
+          labelField: 'Code',
+        onType: function(value) {
+            setTimeout(function(){$scope.searchParentContract(value); }, 300);
+        },
+        searchField: ['Code']
     };
 
     $scope.apartmentConfig = {
