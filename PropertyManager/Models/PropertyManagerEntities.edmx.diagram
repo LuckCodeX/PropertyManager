@@ -61,6 +61,20 @@
         <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__29E1370A" />
         <AssociationConnector Association="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" />
         <EntityTypeShape EntityType="PropertyManagerModel.issue" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment_employee" Width="1.5" PointX="13.375" PointY="20.5" />
+        <EntityTypeShape EntityType="PropertyManagerModel.apartment_employee_issue" Width="1.5" PointX="15.625" PointY="11.75" />
+        <EntityTypeShape EntityType="PropertyManagerModel.problem" Width="1.5" PointX="9.625" PointY="22.125" />
+        <EntityTypeShape EntityType="PropertyManagerModel.problem_image" Width="1.5" PointX="11.875" PointY="26.125" />
+        <EntityTypeShape EntityType="PropertyManagerModel.problem_tracking" Width="1.5" PointX="13.625" PointY="16.75" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__6CA31EA0" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__apart__6ABAD62E" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__emplo__6D9742D9" />
+        <AssociationConnector Association="PropertyManagerModel.FK__apartment__issue__6BAEFA67" />
+        <AssociationConnector Association="PropertyManagerModel.FK__problem_t__emplo__7908F585" />
+        <AssociationConnector Association="PropertyManagerModel.FK__problem__issue_i__725BF7F6" />
+        <AssociationConnector Association="PropertyManagerModel.FK__problem_i__probl__753864A1" />
+        <AssociationConnector Association="PropertyManagerModel.FK__problem_t__probl__7814D14C" />
+        <AssociationConnector Association="PropertyManagerModel.FK__problem__apartme__79FD19BE" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

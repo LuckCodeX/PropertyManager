@@ -42,10 +42,13 @@ namespace PropertyManager.Models
         public string TenantBankName { get; set; }
         public string TenantBankNumber { get; set; }
         public string TenantBankBranch { get; set; }
-        public int StartDate { get; set; }
-        public int EndDate { get; set; }
+        public string ResidentName { get; set; }
+        public string ResidentPhone { get; set; }
+        public int? StartDate { get; set; }
+        public int? EndDate { get; set; }
         public int? AdminId { get; set; }
         public AdminModel Admin { get; set; }
         public int? ParentId { get; set; }
+        public EmployeeModel Maid { get; set; }
     }
 }

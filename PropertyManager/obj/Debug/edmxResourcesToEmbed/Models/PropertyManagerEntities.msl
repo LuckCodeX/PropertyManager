@@ -386,5 +386,66 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="apartment_employee">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
+        <MappingFragment StoreEntitySet="apartment_employee">
+          <ScalarProperty Name="check_out_geo" ColumnName="check_out_geo" />
+          <ScalarProperty Name="check_in_geo" ColumnName="check_in_geo" />
+          <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
+          <ScalarProperty Name="check_in_time" ColumnName="check_in_time" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="apartment_employee_id" ColumnName="apartment_employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartment_employee_issue">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee_issue">
+        <MappingFragment StoreEntitySet="apartment_employee_issue">
+          <ScalarProperty Name="is_complete" ColumnName="is_complete" />
+          <ScalarProperty Name="issue_id" ColumnName="issue_id" />
+          <ScalarProperty Name="apartment_employee_id" ColumnName="apartment_employee_id" />
+          <ScalarProperty Name="apartment_employee_issue_id" ColumnName="apartment_employee_issue_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="problems">
+      <EntityTypeMapping TypeName="PropertyManagerModel.problem">
+        <MappingFragment StoreEntitySet="problem">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="is_calendar" ColumnName="is_calendar" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="summary" ColumnName="summary" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="issue_id" ColumnName="issue_id" />
+          <ScalarProperty Name="problem_id" ColumnName="problem_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="problem_image">
+      <EntityTypeMapping TypeName="PropertyManagerModel.problem_image">
+        <MappingFragment StoreEntitySet="problem_image">
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="problem_id" ColumnName="problem_id" />
+          <ScalarProperty Name="problem_image_id" ColumnName="problem_image_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="problem_tracking">
+      <EntityTypeMapping TypeName="PropertyManagerModel.problem_tracking">
+        <MappingFragment StoreEntitySet="problem_tracking">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="problem_id" ColumnName="problem_id" />
+          <ScalarProperty Name="problem_tracking_id" ColumnName="problem_tracking_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

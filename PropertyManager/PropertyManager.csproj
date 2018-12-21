@@ -209,6 +209,7 @@
     <Compile Include="Helper\ConvertDatetime.cs" />
     <Compile Include="Helper\Encrypt.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\Images.cs" />
     <Compile Include="Helper\LoginActionFilter.cs" />
     <Compile Include="Models\admin.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
@@ -220,8 +221,15 @@
     <Compile Include="Models\apartment.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApartmentEmployeeModel.cs" />
     <Compile Include="Models\ApartmentModel.cs" />
     <Compile Include="Models\apartment_content.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\apartment_employee.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\apartment_employee_issue.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\apartment_facility.cs">
@@ -264,6 +272,16 @@
     </Compile>
     <Compile Include="Models\IssueModel.cs" />
     <Compile Include="Models\PagingResult.cs" />
+    <Compile Include="Models\problem.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProblemModel.cs" />
+    <Compile Include="Models\problem_image.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\problem_tracking.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\project.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
@@ -309,6 +327,7 @@
     <Compile Include="Services\ContractService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IssueService.cs" />
+    <Compile Include="Services\ProblemService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\user_account.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
@@ -744,6 +763,7 @@
     <Content Include="ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="Content\angular-datapicker.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -790,6 +810,7 @@
     </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
+    <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-idle.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-table-resize.js" />
@@ -862,6 +883,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ng-ckeditor.js" />
     <Content Include="Scripts\ocLazyLoad.min.js" />
     <Content Include="Scripts\sweetalert.min.js" />
@@ -908,6 +930,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Upload\apartment\" />
     <Folder Include="Upload\file\" />
+    <Folder Include="Upload\problem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

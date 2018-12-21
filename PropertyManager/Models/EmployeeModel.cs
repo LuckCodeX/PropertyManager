@@ -20,5 +20,7 @@ namespace PropertyManager.Models
         public string Type { get; set; }
         public string Code { get; set; }
         public StatisticModel Statistic { get; set; }
+        public List<string> WorkDate { get; set; }
+        public int? WorkHour { get; set; }
     }
 }

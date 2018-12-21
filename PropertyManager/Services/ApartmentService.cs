@@ -146,5 +146,10 @@ namespace PropertyManager.Services
         {
             return ApartmentRepository.FindBy(p =>p.status == 1 && (Equals(search, null) || p.code.Contains(search))).Include(p => p.user_profile).ToList();
         }
+
+        public apartment GetApartmentByCode(string code)
+        {
+            return ApartmentRepository.FindBy(p => p.code == code && (p.status == 1 || p.status == 3)).Include(p => p.project.project_content).Include(p => p.problems).FirstOrDefault();
+        }
     }
 }

@@ -9,6 +9,28 @@ namespace PropertyManager.Services
 {
     public partial class Service
     {
+        private GenericRepository<apartment_employee_issue> _apartmentEmployeeIssueRepository;
+        public GenericRepository<apartment_employee_issue> ApartmentEmployeeIssueRepository
+        {
+            get
+            {
+                if (this._apartmentEmployeeIssueRepository == null)
+                    this._apartmentEmployeeIssueRepository = new GenericRepository<apartment_employee_issue>(_context);
+                return _apartmentEmployeeIssueRepository;
+            }
+        }
+
+        private GenericRepository<apartment_employee> _apartmentEmployeeRepository;
+        public GenericRepository<apartment_employee> ApartmentEmployeeRepository
+        {
+            get
+            {
+                if (this._apartmentEmployeeRepository == null)
+                    this._apartmentEmployeeRepository = new GenericRepository<apartment_employee>(_context);
+                return _apartmentEmployeeRepository;
+            }
+        }
+
         private GenericRepository<employee> _employeeRepository;
         public GenericRepository<employee> EmployeeRepository
         {
@@ -17,6 +39,17 @@ namespace PropertyManager.Services
                 if (this._employeeRepository == null)
                     this._employeeRepository = new GenericRepository<employee>(_context);
                 return _employeeRepository;
+            }
+        }
+
+        private GenericRepository<contract_employee> _contractEmployeeRepository;
+        public GenericRepository<contract_employee> ContractEmployeeRepository
+        {
+            get
+            {
+                if (this._contractEmployeeRepository == null)
+                    this._contractEmployeeRepository = new GenericRepository<contract_employee>(_context);
+                return _contractEmployeeRepository;
             }
         }
 
@@ -62,6 +95,68 @@ namespace PropertyManager.Services
         {
             var pass = Encrypt.EncodePassword(model.Password);
             return EmployeeRepository.FindBy(p => p.username == model.Username && p.password == pass && p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
+        }
+
+        public EmployeeModel GetMaidModelByContractId(int contractId)
+        {
+            var contractEmployee =
+                ContractEmployeeRepository.FindBy(p => p.contract_id == contractId && Equals(p.to_date, null)).FirstOrDefault();
+            if (Equals(contractEmployee, null))
+                return new EmployeeModel();
+            var employee =
+                EmployeeRepository.FindBy(p => p.employee_id == contractEmployee.employee_id && p.status == 1 && (p.role == (int)RoleEmployee.Maid || p.role == (int)RoleEmployee.MaidManager)).FirstOrDefault();
+            if (Equals(employee, null))
+                return new EmployeeModel();
+            return new EmployeeModel()
+            {
+                Id = employee.employee_id,
+                FirstName = employee.first_name,
+                LastName = employee.last_name,
+                Phone = employee.phone,
+                WorkDate = contractEmployee.work_date.Split(',').ToList(),
+                WorkHour = contractEmployee.work_hour
+            };
+        }
+
+        public contract_employee GetContractEmployeeByContractIdAndEmployeeId(int contractId, int maidId)
+        {
+            return ContractEmployeeRepository.FindBy(p => p.contract_id == contractId && p.employee_id == maidId && p.status == 1)
+                .FirstOrDefault();
+        }
+
+        public contract_employee GetLastContractEmployeeByContractId(int contractId)
+        {
+            return ContractEmployeeRepository.FindBy(p => p.contract_id == contractId && p.status == 0 && Equals(p.to_date, null))
+                .FirstOrDefault();
+        }
+
+        public void SaveContractEmployee(contract_employee model)
+        {
+            ContractEmployeeRepository.Save(model);
+        }
+
+        public void SaveApartmentEmployee(apartment_employee model)
+        {
+            ApartmentEmployeeRepository.Save(model);
+        }
+
+        public apartment_employee GetLastApartmentEmployeeByApartmentIdAndEmployeeId(int apartmentId, int employeeId)
+        {
+            return ApartmentEmployeeRepository.FindBy(p =>
+                    p.apartment_id == apartmentId && p.employee_id == employeeId && Equals(p.check_out_time, null))
+                .LastOrDefault();
+        }
+
+        public apartment_employee GetLastApartmentEmployeeNotCheckOutByEmployeeId(int employeeId)
+        {
+            return ApartmentEmployeeRepository.FindBy(p =>
+                    p.employee_id == employeeId && Equals(p.check_out_time, null))
+                .LastOrDefault();
+        }
+
+        public void SaveListApartmentEmployeeIssue(List<apartment_employee_issue> listIssue)
+        {
+            ApartmentEmployeeIssueRepository.SaveList(listIssue);
         }
     }
 }
