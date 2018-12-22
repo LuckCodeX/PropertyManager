@@ -17,23 +17,35 @@
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Thời gian từ:</label>
                             <div class="col-sm-7">
-                                <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
+                                <!-- <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
                                   <input  type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="fromDatePicker" is-open="history.picker1" readonly="" name="firstDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                                   </span>
-                                </p>
+                                </p> -->
+                                <p style="z-index: 1007;" class="input-group" ng-init="item1={}">
+				                    <input type="text" class="form-ctrl" datetime-picker="dd/MM/yyyy" readonly="" enable-time="false"  timepicker-options="datePickerOptions" ng-model="fromDatePicker" is-open="item1.open" button-bar="buttonBar"  />
+					                <span class="input-group-btn">
+					                  <button type="button" class="btn btn-default" ng-click="openCalendar($event, item1)"><i class="glyphicon glyphicon-calendar"></i></button>
+					                </span>
+				                </p>
                             </div>
                         </div>
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Đến:</label>
                             <div class="col-sm-7">
-                                <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
+                                <!-- <p style="z-index: 1007;" class="input-group" ng-init="apt.opened = false">
                                   <input type="text" class="form-ctrl" uib-datepicker-popup="{{format}}" ng-model="toDatePicker" is-open="history.picker2" readonly="" name="endDay" datepicker-options="dateOptions" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay"/>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="history.picker2 = true"><i class="glyphicon glyphicon-calendar"></i></button>
                                   </span>
-                                </p>
+                                </p> -->
+                                <p style="z-index: 1007;" class="input-group" ng-init="item2={}">
+				                    <input type="text" class="form-ctrl" datetime-picker="dd/MM/yyyy" readonly="" enable-time="false"  timepicker-options="datePickerOptions" ng-model="toDatePicker" is-open="item2.open" button-bar="buttonBar"  />
+					                <span class="input-group-btn">
+					                  <button type="button" class="btn btn-default" ng-click="openCalendar($event, item2)"><i class="glyphicon glyphicon-calendar"></i></button>
+					                </span>
+				                </p>
                             </div>
                         </div>
                         <div style="display: inline-block;float: left">
