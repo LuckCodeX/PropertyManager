@@ -66,9 +66,8 @@
                 </div>
              </form>
 			</div>
-			<div id="tableMaid" style="overflow:auto; height: 600px">
+			<div>
 				<table class="table table-hover table-list table-contract table-maid ">
-					
 						<tr class="first-row">
 		                    <th rowspan="2" class="col2rows">Ngày tháng</th>
 		                    <th colspan="5">Thông tin căn hộ</th>
@@ -91,22 +90,50 @@
 		                    <th>Tình trạng</th>
 		                </tr>
 					
-	                	<tr ng-repeat="item in problemList">
+	                	<tr ng-repeat="item in problemList track by $index">
 		                	<td>12/12/2018</td>
 		                	<td>AID_20123</td>
 		                    <td>R1</td>  
 		                    <td>1611</td>
 		                    <td>Royal City</td>  
 		                    <td>50 Nguyễn Trãi</td>  
+		                    <td ng-click="openNote(item,$index)" data-toggle="modal" data-target="#employeeModal" >{{item.textNote}}</td>
 		                    <td>Quản lý</td>
-		                    <td>Tự mở cửa</td>
-		                    <td>Khu vực phòng tắm</td>
+		                    <td>
+		                    	<select class="form-ctrl" ng-model="currentIssue">
+						        	<option value="">Chọn loại sự việc</option>
+	                            	<option value="1">Nội bộ phòng maid</option>
+	                            	<option value="2">Đồ nội thất</option>
+	                            	<option value="3">Thiết bị thu phát</option>
+	                            	<option value="4">Đồ điện tử</option>
+	                            	<option value="5">Ánh sáng</option>
+	                            	<option value="6">Điều hòa nhiệt độ</option>
+	                            	<option value="7">Khu vực bếp</option>
+	                            	<option value="8">Khu vực phòng tắm</option>
+	                            </select>
+                        	</td>
 		                    <td>Ngấm tường</td>
 		                    <td>Tường ngấm mốc</td>
 		                    <td>21/12/2018</td>
-		                    <td>Cao</td>
-		                    <td>Chưa sửa</td>
-		                    <td>Nặng</td>
+		                    <td>
+		                    	<select class="form-ctrl" ng-model="currentPrioritize">
+						        	<option value="">Chọn mức độ</option>
+	                            	<option value="1">Phải làm ngay trong ngày</option>
+	                            	<option value="2">Làm trong 3 ngày</option>
+	                            	<option value="3">Làm trong 1 tuần</option>
+	                            </select>
+	                        </td>
+		                    <td ng-click="openNoteFix(item,$index)" data-toggle="modal" data-target="#fixModal" >{{item.textFix}}</td>
+		                    <td>
+		                    	<select ng-class="currentStatus == 1 ? 'text-warning' : 
+						                    	(currentStatus == 2 ? 'text-notify' :
+						                    	(currentStatus==3 ? 'text-success':''))" class="form-ctrl" ng-model="currentStatus">
+						        	<option value="">Chọn tình trạng</option>
+	                            	<option value="1">Chưa xử lý</option>
+	                            	<option value="2">Đang xử lý</option>
+	                            	<option value="3">Hoàn thành</option>
+	                            </select>
+		                    </td>
 		                </tr>
 	               
 	                
@@ -117,5 +144,107 @@
 			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
 		</div> -->
     </div>
-    
+    <div id="employeeModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveNote()">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times"></i></button>
+	        <h4 class="modal-title" style="color: #DFF5F3">Đặc tính khách hàng</h4>
+	      </div>
+	      <div class="modal-body maid-employee-modal">
+            
+      		<div class="form-group">
+	            <label class="control-label col-sm-6 text-left" for="">Ngày</label>
+	            <label class="control-label col-sm-6 text-left" for="">Nội dung</label>
+	        </div>
+	       
+	        <div class="form-group" ng-repeat="item in currentProblem.notes">
+	            <div class="col-sm-5 input-datetime">
+	                <input type="text" ng-model="item.date" readonly="" class="form-ctrl">
+	            </div>
+	            <div class="col-sm-5 col-sm-offset-1 input-datetime">
+	                <textarea style="resize: none;" class="form-ctrl" ng-model="item.note" />
+	            </div>
+	        </div>
+	       <div class="form-group">
+	       	<div  class="col-sm-offset-5">
+	       		<button type="button" class="btn btn-save" ng-click="addNote()"><i style="color: white;" class="fas fa-plus"/> Thêm mới</button>
+	       	</div>
+	       </div>
+	    </div>
+	    <div class="modal-footer">
+	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentProblem = null" data-dismiss="modal">Đóng</button>
+	    </div>
+	    </form>
+
+	  </div>
+	</div>
+    <div id="fixModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <form class="form-horizontal modal-content" name="myyForm" ng-submit="saveNoteFix()">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times"></i></button>
+	        <h4 class="modal-title" style="color: #DFF5F3">Quá trình:</h4>
+	      </div>
+	      <div class="modal-body maid-employee-modal">
+            
+      		<div class="form-group">
+	            <label class="control-label col-sm-3 text-left" for="">Ngày giờ làm</label>
+	            <label class="control-label col-sm-2 text-left" for="">Nội dung</label>
+	            <label class="control-label col-sm-2 text-left" for="">Giá thành</label>
+	            <label class="control-label col-sm-2 text-left" for="">Nhân viên làm </label>
+	            <label class="control-label col-sm-3 text-left" for="">Ảnh sự cố</label>
+	        </div>
+	       
+	        <div class="form-group" style="clear: both" ng-repeat="item in currentProblem.fix">
+	            <div class="col-sm-3 input-datetime input-time">
+	                <p class="input-group">
+	                    <input type="text" class="form-ctrl" datetime-picker="MM/dd/yyyy HH:mm" ng-model="item.date" is-open="item.open" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay" button-bar="buttonBar"  />
+		                <span class="input-group-btn">
+		                  <button type="button" class="btn btn-default" ng-click="openCalendar($event, item)"><i class="fa fa-calendar"></i></button>
+		                </span>
+	                </p>
+	            </div>
+	            <div class="col-sm-2 input-datetime">
+	                <textarea style="resize: none;" class="form-ctrl" ng-model="item.note" />
+	            </div>
+	            <div class="col-sm-2">
+	                <input type="text" class="form-ctrl" ng-model="item.price">
+	            </div>
+	            <div class="col-sm-2">
+	            	<selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="item.employee" ng-disabled='disable' required='true'></selectize>
+	            </div>
+	            <div class="col-sm-3">
+	            	<div ng-repeat="image in item.images track by $index" class="col-md-4 another-img-upload img-upload-current">
+	                    <i ng-click="item.images.splice($index, 1)" ng-if="item.images[$index].Img_Base64" class="remove-img-btn fas fa-times"></i>
+	                    <img ng-show="item.images[$index].Img_Base64" class="img" style="height: 60px" ng-src="{{item.images[$index].Img_Base64}}" />
+	                </div>
+	                <div ng-show="item.images.length < 3" class="col-md-4 another-img-upload img-upload-current">
+	                    <div style="height: 60px"  class="btn-upload">
+	                        <span class="btn-file">
+	                            <p style="top: 20px;position: absolute;"> <i class="fas fa-plus"></i></p>
+	                            <input type="file" accept="image/*" multiple image="item.images" length-file="3" upload-img="uploadImg"
+	                                   resize-max-height="300"
+	                                   resize-max-width="250"
+	                                   resize-quality="0.7" />
+	                        </span>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	       <div class="form-group">
+	       	<div  class="col-sm-offset-5">
+	       		<button type="button" class="btn btn-save" ng-click="addNoteFix()"><i style="color: white;" class="fas fa-plus"/> Thêm mới</button>
+	       	</div>
+	       </div>
+	    </div>
+	    <div class="modal-footer">
+	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentFix = null" data-dismiss="modal">Đóng</button>
+	    </div>
+	    </form>
+
+	  </div>
+	</div>
 </div> 

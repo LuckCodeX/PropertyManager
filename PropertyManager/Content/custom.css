@@ -556,7 +556,10 @@ button.has-badge {
 .text-notify {
     padding: 3px;
     border-radius: 3px;
-    background: #388E8E;
+    background: #FFCA28;
+    color: white;
+}
+.text-success option,.text-notify option,.text-warning option{
     color: white;
 }
 .pagination-employee {
@@ -1452,4 +1455,23 @@ hr.dashed {
 }
 .selectize-on-all .selectize-dropdown{
     z-index: 1006 !important;
+}
+.view-maid-list #fixModal .modal-dialog{
+    width: 1100px !important;
+} 
+.input-datetime.input-time .input-group .input-group-btn button{
+    bottom: 0px;
+}
+.input-datetime.input-time .input-group .input-group-btn button i{
+    padding-top: 5px;
+    height: 28px;
+}
+/*.uib-time.am-pm{
+    padding-top: 16px;
+}*/
+.uib-separator{
+    padding-left: 12px;
+}
+.uib-time.hours input,.uib-time.minutes input{
+    margin-bottom: 15px;
 }

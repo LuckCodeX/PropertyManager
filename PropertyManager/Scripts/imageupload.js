@@ -61,8 +61,7 @@ angular.module('imageupload', [])
                 };
                 scope.$apply(function () {
 
-                    if (attrs.multiple) return scope.image.push(imageResult);
-
+                     if (attrs.multiple) return scope.image.push(imageResult);
                     scope.image = imageResult;
 
                 });
@@ -80,6 +79,7 @@ angular.module('imageupload', [])
         scope: {
             image: '=',
             typeImg:'=',
+            lengthFile:'=',
             resizeMaxHeight: '@?',
             resizeMaxWidth: '@?',
             resizeQuality: '@?',
@@ -96,15 +96,26 @@ angular.module('imageupload', [])
             element.bind('change', function (evt) {
 
                 var files = evt.target.files;
-
+                var countFile = files.length;
+                if (scope.lengthFile) {
+                    countFile = Number(scope.lengthFile) - scope.image.length;
+                };
                 for(var i = 0, file; file = files[i]; i++) {
+                    if (attrs.multiple) {
+                        if (i < countFile) {
+                            if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
 
-                    if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-
-                        resizeImageFile(file, file.name, scope, applyScope);
-
-                    } else { //no resizing
-                        applyScope(file);
+                                resizeImageFile(file, file.name, scope, applyScope);
+                            } else { //no resizing
+                                applyScope(file);
+                            }
+                        }
+                    }else{
+                        if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
+                            resizeImageFile(file, file.name, scope, applyScope);
+                        } else { //no resizing
+                            applyScope(file);
+                        }
                     }
                     
                 }

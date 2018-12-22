@@ -3,6 +3,7 @@
     'ui.router',                    // Routing
     'oc.lazyLoad',                  // ocLazyLoad
     'ui.bootstrap',                 // Ui Bootstrap
+    'ui.bootstrap.datetimepicker',
     'ngIdle',  						 // Idle timer
     'imageupload',                    
     //'ui.select',
