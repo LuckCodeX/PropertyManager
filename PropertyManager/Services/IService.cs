@@ -83,6 +83,7 @@ namespace PropertyManager.Services
         void SaveListApartmentEmployeeIssue(List<apartment_employee_issue> listIssue);
         void SaveProblem(problem problem);
         void SaveListProblemImage(List<problem_image> listImage);
-        List<contract> SearchListCurrentContractByEmployeeId(string search, int employeeId);
+        List<contract> GetAllCurrentContractByEmployeeId(int employeeId);
+        contract GetCurrentContractByApartmentAndEmployeeId(int apartmentId, int employeeId);
     }
 }

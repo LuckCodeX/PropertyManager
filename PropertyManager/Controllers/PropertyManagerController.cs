@@ -844,7 +844,8 @@ namespace PropertyManager.Controllers
                 {
                     employee_id = 0,
                     status = 1,
-                    username = model.Username
+                    username = model.Username,
+                    created_date = ConvertDatetime.GetCurrentUnixTimeStamp()
                 };
             }
 
@@ -1233,8 +1234,7 @@ namespace PropertyManager.Controllers
                 Area = p.area,
                 PassWifi = p.pass_wifi,
                 PassDoor = p.pass_door
-            })
-                .ToList();
+            }).ToList();
             return new PagingResult<ContractModel>()
             {
                 data = contractList,

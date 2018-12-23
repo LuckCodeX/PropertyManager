@@ -75,6 +75,8 @@
         <AssociationConnector Association="PropertyManagerModel.FK__problem_i__probl__753864A1" />
         <AssociationConnector Association="PropertyManagerModel.FK__problem_t__probl__7814D14C" />
         <AssociationConnector Association="PropertyManagerModel.FK__problem__apartme__79FD19BE" />
+        <EntityTypeShape EntityType="PropertyManagerModel.user_profile_note" Width="1.5" PointX="2.875" PointY="26.875" />
+        <AssociationConnector Association="PropertyManagerModel.FK__user_prof__user___0E04126B" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

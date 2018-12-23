@@ -56,5 +56,6 @@ namespace PropertyManager.Models
         public virtual DbSet<problem> problems { get; set; }
         public virtual DbSet<problem_image> problem_image { get; set; }
         public virtual DbSet<problem_tracking> problem_tracking { get; set; }
+        public virtual DbSet<user_profile_note> user_profile_note { get; set; }
     }
 }

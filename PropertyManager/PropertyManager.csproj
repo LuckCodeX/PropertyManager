@@ -317,6 +317,9 @@
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\UserVisitModel.cs" />
+    <Compile Include="Models\user_profile_note.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user_visit_history.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>

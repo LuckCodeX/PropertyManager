@@ -115,7 +115,14 @@ namespace PropertyManager.Controllers
                     Resident = new UserProfileModel()
                     {
                         FullName = contract.resident_name,
-                        Phone = contract.resident_phone
+                        Phone = contract.resident_phone,
+                        Id = contract.user_profile.user_profile_id,
+                        NoteList = contract.user_profile.user_profile_note.Select(p => new UserProfileNoteModel()
+                        {
+                            Id = p.user_profile_note_id,
+                            CreatedDate = p.created_date,
+                            Note = p.note
+                        }).ToList(),
                     },
                     PassWifi = contract.pass_wifi,
                     PassDoor = contract.pass_door,
@@ -125,7 +132,8 @@ namespace PropertyManager.Controllers
                         WorkDate = contractEmployee.work_date.Split(',').ToList(),
                         FirstName = maid.first_name,
                         LastName = maid.last_name
-                    }
+                    },
+                    
                 };
             }
             return new ApartmentModel();
@@ -216,7 +224,7 @@ namespace PropertyManager.Controllers
 
         [HttpGet]
         [Route("MaidGetListApartment")]
-        public PagingResult<ApartmentModel> MaidGetListApartment(FilterModel filter)
+        public List<ApartmentModel> MaidGetListApartment()
         {
             IEnumerable<string> values;
             if (this.Request.Headers.TryGetValues("Token", out values))
@@ -227,23 +235,128 @@ namespace PropertyManager.Controllers
                 if (Equals(maid, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
-                var contracts = _service.SearchListCurrentContractByEmployeeId(filter.Search, maid.employee_id);
-                var apartmentList = contracts.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit)
-                    .Select(p => new ApartmentModel()
+                var contracts = _service.GetAllCurrentContractByEmployeeId(maid.employee_id);
+                var apartmentList = contracts.Select(p => new ApartmentModel()
                     {
                         Id = p.apartment.apartment_id,
                         Code = p.apartment.code,
                         Building = p.building,
                         NoApartment = p.no_apartment,
+                        Project = Equals(p.apartment.project_id, null) ? new ProjectModel() : new ProjectModel()
+                        {
+                            Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                        },
                         Address = p.address
                     }).ToList();
-                return new PagingResult<ApartmentModel>()
+                return apartmentList;
+            }
+            return new List<ApartmentModel>();
+        }
+
+        [HttpGet]
+        [Route("MaidGetApartmentDetail/{apartmentId}")]
+        public ApartmentModel MaidGetApartmentDetail(int apartmentId)
+        {
+            IEnumerable<string> values;
+            if (this.Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var maid = _service.GetActiveMaidById(tokenModel.Id);
+                if (Equals(maid, null))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+
+                var contract = _service.GetCurrentContractByApartmentAndEmployeeId(apartmentId, maid.employee_id);
+                var contractEmployee =
+                    _service.GetContractEmployeeByContractIdAndEmployeeId(contract.contract_id, maid.employee_id);
+                return new ApartmentModel()
                 {
-                    data = apartmentList,
-                    total = contracts.Count
+                    Id = contract.apartment.apartment_id,
+                    Code = contract.apartment.code,
+                    Address = contract.address,
+                    Building = contract.building,
+                    NoApartment = contract.no_apartment,
+                    Project = !Equals(contract.apartment.apartment_id, null) ? new ProjectModel()
+                    {
+                        Name = contract.apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
+                    } : new ProjectModel(),
+                    PassDoor = contract.pass_door,
+                    PassWifi = contract.pass_wifi,
+                    Resident = new UserProfileModel()
+                    {
+                        FullName = contract.resident_name,
+                        Phone = contract.resident_phone,
+                        Id = contract.user_profile.user_profile_id,
+                        NoteList = contract.user_profile.user_profile_note.Select(p => new UserProfileNoteModel()
+                        {
+                            Id = p.user_profile_note_id,
+                            CreatedDate = p.created_date,
+                            Note = p.note
+                        }).ToList(),
+                    },
+                    Maid = new EmployeeModel()
+                    {
+                        WorkHour = contractEmployee.work_hour,
+                        WorkDate = contractEmployee.work_date.Split(',').ToList(),
+                        FirstName = maid.first_name,
+                        LastName = maid.last_name
+                    },
+                    ProblemList = contract.apartment.problems.Where(p => p.type == (int)ProblemType.Maid).Select(p => new ProblemModel()
+                    {
+                        Id = p.problem_id,
+                        CreatedDate = p.created_date,
+                        Summary = p.summary,
+                        Description = p.summary,
+                        Status = p.status,
+                        ListImage = p.problem_image.Select(q => new ProblemImageModel()
+                        {
+                            Id = q.problem_image_id,
+                            Img = q.img
+                        }).ToList()
+                    }).ToList()
                 };
             }
-            return new PagingResult<ApartmentModel>();
+            return new ApartmentModel();
+        }
+
+        [HttpGet]
+        [Route("MaidGetListTimeSheet")]
+        public List<TimeSheetModel> MaidGetListTimeSheet()
+        {
+            IEnumerable<string> values;
+            if (this.Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var maid = _service.GetActiveMaidById(tokenModel.Id);
+                if (Equals(maid, null))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+
+
+            }
+            return new List<TimeSheetModel>();
+        }
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        public void ChangePassword(EmployeeModel model)
+        {
+            IEnumerable<string> values;
+            if (this.Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var maid = _service.GetActiveMaidById(tokenModel.Id);
+                if (Equals(maid, null))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+
+                var newPass = Encrypt.EncodePassword(model.Password);
+                if(!Equals(newPass, maid.password))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Mật khẩu cũ không đúng");
+
+                maid.password = newPass;
+                _service.SaveEmployee(maid);
+            }
         }
     }
 }

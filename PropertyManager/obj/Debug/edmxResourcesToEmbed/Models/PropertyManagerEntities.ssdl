@@ -218,6 +218,7 @@
     <Property Name="type" Type="nvarchar" MaxLength="255" />
     <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="facility">
     <Key>
@@ -368,6 +369,16 @@
     <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
     <Property Name="address" Type="nvarchar" MaxLength="255" />
     <Property Name="identification" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user_profile_note">
+    <Key>
+      <PropertyRef Name="user_profile_note_id" />
+    </Key>
+    <Property Name="user_profile_note_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_profile_id" Type="int" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+    <Property Name="note" Type="ntext" Nullable="false" />
+    <Property Name="employee_id" Type="int" />
   </EntityType>
   <EntityType Name="user_social">
     <Key>
@@ -869,6 +880,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__user_prof__user___0E04126B">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+    <End Role="user_profile_note" Type="Self.user_profile_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="user_profile_id" />
+      </Principal>
+      <Dependent Role="user_profile_note">
+        <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__user_visi__apart__44FF419A">
     <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
     <End Role="user_visit_item" Type="Self.user_visit_item" Multiplicity="*" />
@@ -951,6 +974,7 @@
     <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_profile_note" EntityType="Self.user_profile_note" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_visit_history" EntityType="Self.user_visit_history" Schema="dbo" store:Type="Tables" />
@@ -1094,6 +1118,10 @@
     <AssociationSet Name="FK__user_goog__user___29221CFB" Association="Self.FK__user_goog__user___29221CFB">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_social" EntitySet="user_social" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_prof__user___0E04126B" Association="Self.FK__user_prof__user___0E04126B">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="user_profile_note" EntitySet="user_profile_note" />
     </AssociationSet>
     <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
       <End Role="apartment" EntitySet="apartment" />

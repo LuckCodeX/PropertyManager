@@ -23,6 +23,7 @@ namespace PropertyManager.Models
             this.user_visit = new HashSet<user_visit>();
             this.contracts = new HashSet<contract>();
             this.contracts1 = new HashSet<contract>();
+            this.user_profile_note = new HashSet<user_profile_note>();
         }
     
         public int user_profile_id { get; set; }
@@ -60,5 +61,7 @@ namespace PropertyManager.Models
         public virtual ICollection<contract> contracts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contract> contracts1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_profile_note> user_profile_note { get; set; }
     }
 }

@@ -21,5 +21,13 @@ namespace PropertyManager.Models
         public string BankName { get; set; }
         public string BankNumber { get; set; }
         public string BankBranch { get; set; }
+        public List<UserProfileNoteModel> NoteList { get; set; }
+    }
+
+    public class UserProfileNoteModel
+    {
+        public int Id { get; set; }
+        public int CreatedDate { get; set; }
+        public string Note { get; set; }
     }
 }

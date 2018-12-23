@@ -22,5 +22,20 @@ namespace PropertyManager.Models
         public StatisticModel Statistic { get; set; }
         public List<string> WorkDate { get; set; }
         public int? WorkHour { get; set; }
+        public List<EmployeeNoteModel> NoteList { get; set; }
+    }
+
+    public class EmployeeNoteModel
+    {
+        public int Id { get; set; }
+        public int CreatedDate { get; set; }
+        public string Note { get; set; }
+    }
+
+    public class TimeSheetModel
+    {
+        public int Id { get; set; }
+        public int Total { get; set; }
+        public int StartDate { get; set; }
     }
 }

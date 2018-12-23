@@ -266,6 +266,7 @@
     <EntitySetMapping Name="employees">
       <EntityTypeMapping TypeName="PropertyManagerModel.employee">
         <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="last_name" ColumnName="last_name" />
           <ScalarProperty Name="code" ColumnName="code" />
           <ScalarProperty Name="type" ColumnName="type" />
@@ -444,6 +445,17 @@
           <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="problem_id" ColumnName="problem_id" />
           <ScalarProperty Name="problem_tracking_id" ColumnName="problem_tracking_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_profile_note">
+      <EntityTypeMapping TypeName="PropertyManagerModel.user_profile_note">
+        <MappingFragment StoreEntitySet="user_profile_note">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+          <ScalarProperty Name="user_profile_note_id" ColumnName="user_profile_note_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -223,6 +223,7 @@
           <Property Name="type" Type="nvarchar" MaxLength="255" />
           <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="facility">
           <Key>
@@ -373,6 +374,16 @@
           <Property Name="bank_branch" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="255" />
           <Property Name="identification" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user_profile_note">
+          <Key>
+            <PropertyRef Name="user_profile_note_id" />
+          </Key>
+          <Property Name="user_profile_note_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_profile_id" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="int" Nullable="false" />
+          <Property Name="note" Type="ntext" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
         </EntityType>
         <EntityType Name="user_social">
           <Key>
@@ -874,6 +885,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__user_prof__user___0E04126B">
+          <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+          <End Role="user_profile_note" Type="Self.user_profile_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_profile_note">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__user_visi__apart__44FF419A">
           <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
           <End Role="user_visit_item" Type="Self.user_visit_item" Multiplicity="*" />
@@ -956,6 +979,7 @@
           <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_profile_note" EntityType="Self.user_profile_note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_social" EntityType="Self.user_social" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_visit" EntityType="Self.user_visit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_visit_history" EntityType="Self.user_visit_history" Schema="dbo" store:Type="Tables" />
@@ -1099,6 +1123,10 @@
           <AssociationSet Name="FK__user_goog__user___29221CFB" Association="Self.FK__user_goog__user___29221CFB">
             <End Role="user_profile" EntitySet="user_profile" />
             <End Role="user_social" EntitySet="user_social" />
+          </AssociationSet>
+          <AssociationSet Name="FK__user_prof__user___0E04126B" Association="Self.FK__user_prof__user___0E04126B">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_profile_note" EntitySet="user_profile_note" />
           </AssociationSet>
           <AssociationSet Name="FK__user_visi__apart__44FF419A" Association="Self.FK__user_visi__apart__44FF419A">
             <End Role="apartment" EntitySet="apartment" />
@@ -1512,6 +1540,11 @@
             <End Role="apartment" EntitySet="apartments" />
             <End Role="problem" EntitySet="problems" />
           </AssociationSet>
+          <EntitySet Name="user_profile_note" EntityType="PropertyManagerModel.user_profile_note" />
+          <AssociationSet Name="FK__user_prof__user___0E04126B" Association="PropertyManagerModel.FK__user_prof__user___0E04126B">
+            <End Role="user_profile" EntitySet="user_profile" />
+            <End Role="user_profile_note" EntitySet="user_profile_note" />
+          </AssociationSet>
           </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -1557,7 +1590,8 @@
           <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__owner___2610A626" FromRole="user_profile" ToRole="contract" />
           <NavigationProperty Name="contracts1" Relationship="PropertyManagerModel.FK__contract__user_p__251C81ED" FromRole="user_profile" ToRole="contract" />
           <Property Name="identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
+          <NavigationProperty Name="user_profile_note" Relationship="PropertyManagerModel.FK__user_prof__user___0E04126B" FromRole="user_profile" ToRole="user_profile_note" />
+          </EntityType>
         <EntityType Name="user_social">
           <Key>
             <PropertyRef Name="user_social_id" />
@@ -1878,6 +1912,7 @@
           <NavigationProperty Name="contract_note" Relationship="PropertyManagerModel.FK__contract___emplo__2DB1C7EE" FromRole="employee" ToRole="contract_note" />
           <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__emplo__6D9742D9" FromRole="employee" ToRole="apartment_employee" />
           <NavigationProperty Name="problem_tracking" Relationship="PropertyManagerModel.FK__problem_t__emplo__7908F585" FromRole="employee" ToRole="problem_tracking" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="company">
           <Key>
@@ -2311,6 +2346,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="user_profile_note">
+          <Key>
+            <PropertyRef Name="user_profile_note_id" />
+          </Key>
+          <Property Name="user_profile_note_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_profile_id" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employee_id" Type="Int32" />
+          <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__user_prof__user___0E04126B" FromRole="user_profile_note" ToRole="user_profile" />
+        </EntityType>
+        <Association Name="FK__user_prof__user___0E04126B">
+          <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1" />
+          <End Type="PropertyManagerModel.user_profile_note" Role="user_profile_note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_profile">
+              <PropertyRef Name="user_profile_id" />
+            </Principal>
+            <Dependent Role="user_profile_note">
+              <PropertyRef Name="user_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2582,6 +2640,7 @@
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="PropertyManagerModel.employee">
               <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="type" ColumnName="type" />
@@ -2760,6 +2819,17 @@
                 <ScalarProperty Name="created_date" ColumnName="created_date" />
                 <ScalarProperty Name="problem_id" ColumnName="problem_id" />
                 <ScalarProperty Name="problem_tracking_id" ColumnName="problem_tracking_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_profile_note">
+            <EntityTypeMapping TypeName="PropertyManagerModel.user_profile_note">
+              <MappingFragment StoreEntitySet="user_profile_note">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
+                <ScalarProperty Name="user_profile_note_id" ColumnName="user_profile_note_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
