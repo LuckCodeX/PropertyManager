@@ -6,25 +6,42 @@
 		<div class="body-warp" style="overflow: hidden;">
 			<div class="row">
 				 <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
-				 	<div class="col-sm-9" >
-					    <div class="row" style="display: inline-block" class="form-group">
-					        <input type="text" class="form-ctrl col-sm-6" placeholder="Tìm kiếm mã hợp đông" style="margin-left: 15px;width: 46%;height: 50px" name="seachContract" ng-model="searchContract">
-					        <select style="margin: 0 15px;width: 46%;height: 50px" number-to-string class="form-ctrl" ng-model="currentType">
-					        	<option value="">Loại hợp đồng</option>
-                            	<option ng-repeat= "type in contractType" value="{{type.value}}">{{type.name}}</option>
-                            	<!-- <option value="1">Times City</option>
-                            	<option value="2">Royal City</option> -->
-                            </select>
-                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo mã căn hộ" style="margin-left: 15px;height: 50px;width: 46%" name="seachCode">
-                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo tòa" style="margin-left: 15px;height: 50px;width: 46%" name="seachBuilding">
-                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo khu" style="margin-left: 15px;height: 50px;width: 46%" name="seachToa" >
-                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp địa chỉ" style="margin-left: 15px;height: 50px;width: 46%" name="seachAddress" >
-					      	
-					    </div>
-					    <button type="submit" class="btn btn-save float-right">Tìm kiếm</button>
+				 	<div class="col-sm-12" >
+					    <div class="row" >
+					    	<div class="col-sm-3">
+					    		 <input type="text" class="form-ctrl" placeholder="Tìm kiếm mã hợp đông" style="" name="seachContract" ng-model="searchContract">
+					    	</div>
+					        <div class="col-sm-3">
+						        <select style="" number-to-string class="form-ctrl" ng-model="currentType">
+						        	<option value="">Loại hợp đồng</option>
+	                            	<option ng-repeat= "type in contractType" value="{{type.value}}">{{type.name}}</option>
+	                            	<!-- <option value="1">Times City</option>
+	                            	<option value="2">Royal City</option> -->
+	                            </select>
+	                        </div>
+	                        <div class=" col-sm-3">
+	                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo mã căn hộ" style="" name="seachCode">
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo tòa" style="" name="seachBuilding">
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm theo khu" style="" name="seachToa" >
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <input type="text" class="form-ctrl" placeholder="Tìm kiếm hợp địa chỉ" style="" name="seachAddress" >
+	                        </div>
+	                        <div class="col-sm-3 margin-top-15">
+	                            <button type="submit" class="btn btn-save float-left">Tìm kiếm</button>
+	                        </div>
+	                        <div class="col-sm-3  margin-top-15">
+	                        	
+								<a style="margin-right: 0px" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>
+	                        </div>
+						</div>
 					</div>
-					
-					<a style="margin-right: 10px" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a>
+					<!-- <button type="submit" class="btn btn-save float-right">Tìm kiếm</button>
+					<a style="margin-right: 10px" ui-sref="contractdetail" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</a> -->
 				 </form>
 			</div>
 			<table class="table table-hover table-list table-contract table-maid">

@@ -3,6 +3,46 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     const today = getEndDay(new Date());
     var currentScroll = 0;
 
+    $scope.datePickerOptions = {
+        showMeridian: false
+    };
+
+    $scope.openCalendar = function(e, picker) {
+        picker.open = true;
+    };
+
+    $scope.buttonBar = {
+        show: true,
+        now: {
+            show: true,
+            text: 'Bây giờ'
+        },
+        today: {
+            show: true,
+            text: 'Hôm nay'
+        },
+        clear: {
+            show: false,
+            text: 'Làm mới'
+        },
+        date: {
+            show: true,
+            text: 'Ngày'
+        },
+        time: {
+            show: true,
+            text: 'Giờ'
+        },
+        close: {
+            show: true,
+            text: 'Đóng'
+        },
+        cancel: {
+            show: false,
+            text: 'Quay lại'
+        }
+    }
+
     $scope.checkWorkday = function(days){
         for (var i = 0; i < days.length; i++) {
             if (days[i].status) {

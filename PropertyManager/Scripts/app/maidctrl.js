@@ -2,6 +2,46 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
 
+    $scope.datePickerOptions = {
+        showMeridian: false
+    };
+
+    $scope.openCalendar = function(e, picker) {
+        picker.open = true;
+    };
+
+    $scope.buttonBar = {
+        show: true,
+        now: {
+            show: true,
+            text: 'Bây giờ'
+        },
+        today: {
+            show: true,
+            text: 'Hôm nay'
+        },
+        clear: {
+            show: false,
+            text: 'Làm mới'
+        },
+        date: {
+            show: true,
+            text: 'Ngày'
+        },
+        time: {
+            show: true,
+            text: 'Giờ'
+        },
+        close: {
+            show: true,
+            text: 'Đóng'
+        },
+        cancel: {
+            show: false,
+            text: 'Quay lại'
+        }
+    }
+
     $scope.replaceString = function (str) {
         if (!str)
             return null;

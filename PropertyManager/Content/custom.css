@@ -792,6 +792,10 @@ input::-webkit-inner-spin-button {
     margin-bottom: 15px;
 }
 
+.margin-top-15 {
+    margin-top: 15px;
+}
+
 .opacityZero {
     opacity: 0;
 }
@@ -1363,6 +1367,7 @@ hr.dashed {
     border: none;
     border-bottom: 1px solid #93939469;
     padding: 10px;
+    box-shadow: none !important;
 
 }
 .input-group .input-group-btn button{
@@ -1474,4 +1479,11 @@ hr.dashed {
 }
 .uib-time.hours input,.uib-time.minutes input{
     margin-bottom: 15px;
+}
+select { outline:none; }
+.input-group input:read-only {
+    background-color: #f1f1f1;
+}
+#birthDayInputDate .input-group-btn button{
+    bottom: 0 !important;
 }
