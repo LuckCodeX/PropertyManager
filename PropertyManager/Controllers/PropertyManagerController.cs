@@ -970,16 +970,22 @@ namespace PropertyManager.Controllers
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void SaveMaidApartment(ContractModel model)
         {
-            var contractEmployee = _service.GetContractEmployeeByContractIdAndEmployeeId(model.Id, model.Maid.Id);
+            var contractEmployee = _service.GetLastContractEmployeeByContractId(model.Id);
             if (Equals(contractEmployee, null))
             {
-                var lastContract = _service.GetLastContractEmployeeByContractId(model.Id);
-                if (!Equals(lastContract, null))
+                contractEmployee = new contract_employee()
                 {
-                    lastContract.to_date = ConvertDatetime.GetCurrentUnixTimeStamp();
-                    lastContract.status = 0;
-                    _service.SaveContractEmployee(lastContract);
-                }
+                    contract_employee_id = 0,
+                    status = 1,
+                    from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                    employee_id = model.Maid.Id
+                };
+            }
+            else if (contractEmployee.employee_id != model.Maid.Id)
+            {
+                contractEmployee.to_date = ConvertDatetime.GetCurrentUnixTimeStamp();
+                contractEmployee.status = 0;
+                _service.SaveContractEmployee(contractEmployee);
 
                 contractEmployee = new contract_employee()
                 {
@@ -1285,6 +1291,20 @@ namespace PropertyManager.Controllers
             model.Id = company.company_id;
             return model;
         }
+
+        #endregion
+
+        #region Problem
+
+        [HttpPost]
+        [Route("SaveProblem")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void SaveProblem()
+        {
+
+        }
+
 
         #endregion
 
