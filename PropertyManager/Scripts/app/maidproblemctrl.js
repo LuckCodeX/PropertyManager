@@ -166,7 +166,7 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
         let datestring = "";
         let date = new Date();
         datestring = date.getDate()+"/"+Math.ceil(date.getMonth()+1)+"/"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes();
-        $scope.currentProblem.notes.push({date:datestring,note:'',images:[]});
+        $scope.currentProblem.notes.push({date:datestring,note:''});
     }
 
     $scope.saveNote = function(){
@@ -192,6 +192,17 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
         let date = new Date();
         datestring = date.getDate()+"/"+Math.ceil(date.getMonth()+1)+"/"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes();
         $scope.currentProblem.fix.push({date: new Date(),note:'',});
+    }
+
+    $scope.openImages = function(item,index){
+        console.log(item);
+        $scope.currentProblem = item;
+        $scope.currentProblem.index = index;
+    }
+
+    $scope.saveImages = function(){
+        $scope.problemList[$scope.currentProblem.index].images = $scope.currentProblem.images;
+        $('#imageModal').modal('hide');
     }
 
     $scope.openCalendar = function(e, picker) {
@@ -253,7 +264,8 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
         for (var i = 0; i < 10; i++) {
             $scope.problemList.push({
                 notes: [],
-                fix:[]        
+                fix:[],
+                images:[]        
             });
         };
         getListEmployee();

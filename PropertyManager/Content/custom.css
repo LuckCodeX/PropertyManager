@@ -1487,3 +1487,17 @@ select { outline:none; }
 #birthDayInputDate .input-group-btn button{
     bottom: 0 !important;
 }
+.selectize-dropdown{
+    border: none;
+}
+ .table-maid-apartment .uib-timepicker td{
+    min-width: auto !important;
+ } 
+ .uib-timepicker td{
+    border: none !important;
+ }
+ .dropdown-time-picker .uib-separator{
+    padding-left: 6px;
+    padding-bottom: 13px;
+    padding-right: 6px;
+ }

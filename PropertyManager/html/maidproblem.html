@@ -86,7 +86,7 @@
 		                    <th colspan="5">Thông tin căn hộ</th>
 		                    <th rowspan="2" class="col2rows">Đặc tính khách hàng</th>
 		                    <th rowspan="2" class="col2rows">Nguồn sự cố</th>
-		                    <th colspan="7">Thông tin sự cố</th>
+		                    <th colspan="8">Thông tin sự cố</th>
 		                </tr>
 		                <tr class="second-row">
 		                    <th>Mã căn hộ</th>
@@ -100,6 +100,7 @@
 		                    <th>Trích sang lịch</th>
 		                    <th>Mức độ ưu tiên</th>
 		                    <th>Quá trình</th>
+		                    <th>Ảnh sự cố</th>
 		                    <th>Tình trạng</th>
 		                </tr>
 					
@@ -136,7 +137,9 @@
 	                            	<option value="3">Làm trong 1 tuần</option>
 	                            </select>
 	                        </td>
-		                    <td ng-click="openNoteFix(item,$index)" data-toggle="modal" data-target="#fixModal" style="cursor: pointer;" ><span ng-if="item.textFix">{{item.textFix }}</span><span ng-if="!item.textFix"><i class="fas fa-plus"/></span></td>
+	                        
+		                    <td style="cursor: pointer;" ><span ng-if="item.textFix">{{item.textFix }}</span><span ng-if="!item.textFix"><i class="fas fa-plus"/></span></td>
+		                    <td> <button type="button" ng-click="openImages(item,$index)" data-toggle="modal" data-target="#imageModal" class="btn btn-default">Xem ảnh</button></td>
 		                    <td>
 		                    	<select ng-class="currentStatus == 1 ? 'text-warning' : 
 						                    	(currentStatus == 2 ? 'text-notify' :
@@ -246,40 +249,24 @@
 
 	<div id="imageModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
-	    <form class="form-horizontal modal-content" name="myyForm" ng-submit="saveNoteFix()">
+	    <form class="form-horizontal modal-content" name="myyForm" ng-submit="saveImages()">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times"></i></button>
 	        <h4 class="modal-title" style="color: #DFF5F3">Ảnh sự cố</h4>
 	      </div>
 	      <div class="modal-body maid-employee-modal">
-	        <div class="form-group" style="clear: both" ng-repeat="item in currentProblem.fix">
-	            <div class="col-sm-3 input-datetime input-time">
-	                <p class="input-group">
-	                    <input type="text" class="form-ctrl" datetime-picker="dd/MM/yyyy HH:mm" ng-model="item.date" is-open="item.open" close-text="Đóng"  clear-text="Làm mới" current-text="Hôm nay" button-bar="buttonBar"  />
-		                <span class="input-group-btn">
-		                  <button type="button" class="btn btn-default" ng-click="openCalendar($event, item)"><i class="fa fa-calendar"></i></button>
-		                </span>
-	                </p>
-	            </div>
-	            <div class="col-sm-2 input-datetime">
-	                <textarea style="resize: none;" class="form-ctrl" ng-model="item.note" />
-	            </div>
-	            <div class="col-sm-2">
-	                <input type="text" class="form-ctrl" ng-model="item.price">
-	            </div>
-	            <div class="col-sm-2">
-	            	<selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="item.employee" ng-disabled='disable' required='true'></selectize>
-	            </div>
-	            <div class="col-sm-3">
-	            	<div ng-repeat="image in item.images track by $index" class="col-md-4 another-img-upload img-upload-current">
-	                    <i ng-click="item.images.splice($index, 1)" ng-if="item.images[$index].Img_Base64" class="remove-img-btn fas fa-times"></i>
-	                    <img ng-show="item.images[$index].Img_Base64" class="img" style="height: 60px" ng-src="{{item.images[$index].Img_Base64}}" />
+	        <div class="form-group" style="clear: both">
+	            <div class="row">
+	            	<div ng-repeat="image in currentProblem.images track by $index" class="col-md-4 another-img-upload img-upload-current">
+	                    <i ng-click="currentProblem.images.splice($index, 1)" ng-if="currentProblem.images[$index].Img_Base64" class="remove-img-btn fas fa-times"></i>
+	                    <img ng-show="currentProblem.images[$index].Img_Base64" class="img" ng-src="{{currentProblem.images[$index].Img_Base64}}" />
 	                </div>
-	                <div ng-show="item.images.length < 3" class="col-md-4 another-img-upload img-upload-current">
-	                    <div style="height: 60px"  class="btn-upload">
+	                <div ng-show="currentProblem.images.length < 3" class="col-md-4 another-img-upload img-upload-current">
+	                    <div class="btn-upload">
 	                        <span class="btn-file">
-	                            <p style="top: 20px;position: absolute;"> <i class="fas fa-plus"></i></p>
-	                            <input type="file" accept="image/*" multiple image="item.images" length-file="3" upload-img="uploadImg"
+	                            <p> <i class="fas fa-plus"></i></p>
+	                            <p>Thêm ảnh</p>
+	                            <input type="file" accept="image/*" multiple image="currentProblem.images" length-file="3" upload-img="uploadImg"
 	                                   resize-max-height="300"
 	                                   resize-max-width="250"
 	                                   resize-quality="0.7" />
@@ -288,15 +275,10 @@
 	                </div>
 	            </div>
 	        </div>
-	       <div class="form-group">
-	       	<div  class="col-sm-offset-5">
-	       		<button type="button" class="btn btn-save" ng-click="addNoteFix()"><i style="color: white;" class="fas fa-plus"/> Thêm mới</button>
-	       	</div>
-	       </div>
 	    </div>
 	    <div class="modal-footer">
 	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
-	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentFix = null" data-dismiss="modal">Đóng</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentProblem = null" data-dismiss="modal">Đóng</button>
 	    </div>
 	    </form>
 

@@ -1,4 +1,4 @@
-﻿<div ng-controller="MaidApartmentCtrl" ng-init="loadMaidApartment()" class="view-maid-list">
+<div ng-controller="MaidApartmentCtrl" ng-init="loadMaidApartment()" class="view-maid-list">
    <div class="container-fluid content-maid-list">
        <div class="row">
            <form class="form-horizontal" name="myForm">
@@ -74,13 +74,13 @@
 		                    <th>Tòa</th>  
 		                    <th>Căn hộ</th>
 		                    <th>Khu</th>  
-		                    <th>Địa chỉ</th>  
-		                    <th>Họ và tên chủ hộ</th>
+		                    <th style="min-width: 200px">Địa chỉ</th>  
+		                    <th style="min-width: 200px">Họ và tên chủ hộ</th>
 		                    <th>Số phòng ngủ</th>
 		                    <th>Diện tích</th>
 		                    <th>Pass cửa</th>
 		                    <th>Pass wifi</th>
-		                    <th>Tên</th>
+		                    <th style="min-width: 200px">Tên</th>
 		                    <th>SĐT</th>
 		                    <th style="min-width: 160px">Tên khách ở</th>
 		                    <th>SĐT</th>
@@ -88,33 +88,33 @@
 		                    <th>Check out</th>
 		                    <th style="min-width: 250px">Tên nhân viên</th>
 		                    <th>Số điện thoại</th>
-		                    <th style="width:200px;">Số buổi/tuần</th>
-		                    <th>Giờ làm</th>
+		                    <th style="min-width:120px;">Số buổi/tuần</th>
+		                    <th style="min-width:120px;">Giờ làm</th>
 		                </tr>
 					</thead>
 	                <tbody>
-	                	<tr ng-repeat="apartment in dataTest">
+	                	<tr ng-repeat="apartment in apartmentList">
 		                	<td>12/12/2018</td>
-		                    <td>CH001</td>
-		                    <td>R1</td>  
-		                    <td>1611</td>
-		                    <td>Royal City</td>  
-		                    <td>50 Nguyễn Trãi</td>  
-		                    <td>Hoàng Thanh Tâm</td>
-		                    <td>3</td>
-		                    <td>152</td>
-		                    <td>1221111111</td>
-		                    <td>123456789</td>
-		                    <td>Đặng Thị Kim Oanh</td>
-		                    <td>09153515681</td>
-		                    <td style="width: 160px">Mr. Takeshi Nakamura</td>
-		                    <td>09215354188</td>
-		                    <td>20/05/2018</td>
-		                    <td>20/05/2019</td>
-		                    <td class="selectize-employee" style="width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-model="apartment.employee" ng-disabled='disable' required='true'></selectize></td>
-		                    <td><span ng-if="apartment.employee">09153515681</span></td>
-		                    <td id="test" style="width:126px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
-		                    	<div style="width:110px;" class="dropdown select-day-dropdown">
+		                    <td>{{apartment.Apartment.Code}}</td>
+		                    <td>{{apartment.Building}}</td>  
+		                    <td>{{apartment.NoApartment}}</td>
+		                    <td>{{apartment.Apartment.Project.Name}}</td>  
+		                    <td style="min-width: 200px">{{apartment.Address}}</td>  
+		                    <td style="min-width: 200px">{{apartment.OwnerName}}</td>
+		                    <td>{{apartment.NoBedRoom}}</td>
+		                    <td>{{apartment.Area}}</td>
+		                    <td>{{apartment.PassDoor}}</td>
+		                    <td>{{apartment.PassWifi}}</td>
+		                    <td style="min-width: 200px">{{apartment.OwnerName}}</td>
+		                    <td>{{apartment.OwnerPhone}}</td>
+		                    <td style="min-width: 160px">{{apartment.UserProfile.FullName}}</td>
+		                    <td>{{apartment.UserProfile.Phone}}</td>
+		                    <td>{{convertDate(apartment.StartDate)}}</td>
+		                    <td>{{convertDate(apartment.EndDate)}}</td>
+		                    <td class="selectize-employee" style="min-width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-change="changeMaidApartment(apartment)" ng-model="apartment.Maid.Id" ng-disabled='disable' required='true'></selectize></td>
+		                    <td><span ng-if="apartment.Maid.Id">{{apartment.Maid.Phone}}</span></td>
+		                    <td id="test" style="min-width:120px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
+		                    	<div style="width:103px;" class="dropdown select-day-dropdown">
 								    <button class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textDay}}
 								    <span class="caret"></span></button>
 								    <ul class=" dropdown-menu">
@@ -124,12 +124,25 @@
 						                    </label>
 						                </li>
 						                <li style="float:right;">
-						                	<button ng-click="apartment.textDay = getTextDay(apartment.workdays)" class="btn btn-primary btn-ok">Xong</button>
+						                	<button ng-click="submitWorkDay(apartment)" class="btn btn-primary btn-ok">Xong</button>
 						                </li>
 								    </ul>
 							  </div>
 							</td>
-		                    <td>12h30</td>
+		                    <td style="min-width:120px;"  ng-init="apartment.textTime = getTextTime(apartment.timeWork)">
+		                    	<div style="width:80px;" class="dropdown select-day-dropdown dropdown-time-picker">
+								    <button style="width: 100px;" class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textTime}}
+								    <span class="caret"></span></button>
+								    <ul class=" dropdown-menu">
+									    <li style="padding-left: 30px;">
+									    	<div uib-timepicker ng-model="apartment.timeWork" hour-step="1" minute-step="15" show-meridian="false"></div>
+						                </li>
+						                <li style="float:right;">
+						                	<button ng-click="submitWorkTime(apartment)" class="btn btn-primary btn-ok">Xong</button>
+						                </li>
+								    </ul>
+							  </div>
+				            </td>
 		                    <td ng-click="openNote(apartment,$index)" data-toggle="modal" data-target="#employeeModal" >{{apartment.textNote}}</td>
 		                </tr>
 	                </tbody>
@@ -137,9 +150,9 @@
 	            </table>
 			</div>
            
-		<!-- <div class="pagination-employee">
+		<div class="pagination-employee">
 			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
-		</div> -->
+		</div>
     </div>
     <div id="employeeModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">

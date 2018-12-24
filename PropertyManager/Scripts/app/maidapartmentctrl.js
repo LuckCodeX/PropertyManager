@@ -7,6 +7,22 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         showMeridian: false
     };
 
+    function convertMinuteToTime(minutes){
+        let hour = parseInt(minutes/60);
+        let minute = minutes - (hour*60);
+        let date = new Date();
+        date.setHours(hour);
+        date.setMinutes(minute);
+        return date;
+    }
+
+    function convertTimeToMinute(date){
+        let minutes = 0;
+        minutes += (date.getHours()*60);
+        minutes += date.getMinutes();
+        return minutes;
+    }
+
     $scope.openCalendar = function(e, picker) {
         picker.open = true;
     };
@@ -43,6 +59,44 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         }
     }
 
+    $scope.submitWorkDay = function(apartment){
+        apartment.textDay = $scope.getTextDay(apartment.workdays);
+        $scope.changeMaidApartment(apartment);
+    }
+
+    $scope.submitWorkTime = function(apartment){
+        apartment.textTime = $scope.getTextTime(apartment.timeWork);
+        $scope.changeMaidApartment(apartment);
+    }
+
+    $scope.changeMaidApartment = function(apartment){
+        let data = {
+            "Id":apartment.Id,
+            "Maid": {
+                "Id":"",
+                "WorkDate":[],
+                "WorkHour":""
+            }
+        };
+        if (apartment.timeWork != null) 
+            data.Maid.WorkHour = convertTimeToMinute(apartment.timeWork);
+        
+        data.Maid.Id = apartment.Maid.Id;
+
+        for (var i = 0; i < apartment.workdays.length; i++) {
+            if (apartment.workdays[i].status) {
+                data.Maid.WorkDate.push(apartment.workdays[i].number);
+            }
+        };
+        xhrService.post("SaveMaidApartment",data)
+        .then(function (data) {
+            console.log(data);
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+    }
+
     $scope.checkWorkday = function(days){
         for (var i = 0; i < days.length; i++) {
             if (days[i].status) {
@@ -62,6 +116,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                 if (days[i].status) {
                     content += days[i].shortValue;
                     content += ",";
+                    $scope.WorkDate.push(days[i].data);
                 }
             }
             if (content != "") {
@@ -69,6 +124,16 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             }
         }
         
+        return content;
+    }
+
+    $scope.getTextTime = function(times){
+        let content = "";
+        if(times == null){
+            content = "Chọn giờ"
+        }else{
+            content = times.getHours() + "h" + times.getMinutes()+"'";
+        }
         return content;
     }
 
@@ -129,7 +194,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     };
 
     $scope.convertString = function(str){
-        console.log($scope.replaceString('mèo'));
         
         return str;
     }
@@ -168,11 +232,19 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         if (datestring) {
             datestring = datestring.split("/").reverse().join("/");
             var date = new Date(datestring);
-            console.log(date);
             return date.getTime()/1000;
         }else{
             return '';
         }
+    }
+
+    function resetScrollLeft(){
+        $(document).ready(function(){
+            $('.selectize-input').on('mousedown',function(e){
+                currentScroll = $("#tableMaid").scrollLeft();
+                setTimeout(function(){ $("#tableMaid").scrollLeft(currentScroll); }, 100);
+            });
+        });
     }
 
     $scope.changFilter = function(){
@@ -181,7 +253,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.openNote = function(apartment,index){
-        // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
+        // $scope.apartmentList[$scope.currentApartment.index].textNote = "Không có";
         $scope.currentApartment = apartment;
         $scope.currentApartment.index = index;
     }
@@ -194,57 +266,46 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.saveNote = function(){
-        $scope.dataTest[$scope.currentApartment.index].notes = $scope.currentApartment.notes;
-        var length = $scope.dataTest[$scope.currentApartment.index].notes.length;
+        $scope.apartmentList[$scope.currentApartment.index].notes = $scope.currentApartment.notes;
+        var length = $scope.apartmentList[$scope.currentApartment.index].notes.length;
         if(length > 0){
             length -= 1;
-            $scope.dataTest[$scope.currentApartment.index].textNote = $scope.dataTest[$scope.currentApartment.index].notes[length].note;
+            $scope.apartmentList[$scope.currentApartment.index].textNote = $scope.apartmentList[$scope.currentApartment.index].notes[length].note;
         }
         
         $('#employeeModal').modal('hide');
     }
 
     $scope.loadMaidApartment = function(){
+        $scope.WorkDate = [];
         
-    	initDropdown();
+    	
+        $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
+        $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
-    	$scope.dataTest = [];
 
-    	for (var i = 0; i < 20; i++) {
-            let days = [
-                {value: "Thứ 2",shortValue:"2",status:false},
-                {value: "Thứ 3",shortValue:"3",status:false},
-                {value: "Thứ 4",shortValue:"4",status:false},
-                {value: "Thứ 5",shortValue:"5",status:false},
-                {value: "Thứ 6",shortValue:"6",status:false},
-                {value: "Thứ 7",shortValue:"7",status:false},
-                {value: "Chủ nhật",shortValue:"CN",status:false}
-            ];
-            let data = {
-                value: i,
-                // textDay:
-                workdays: days,
-                notes:[],
-                textNote : "Không có"
-            }
-    		$scope.dataTest.push(data);
-    	};
-
-        $(document).ready(function(){
-            $('.selectize-input').on('mousedown',function(e){
-                currentScroll = $("#tableMaid").scrollLeft();
-                setTimeout(function(){ $("#tableMaid").scrollLeft(currentScroll); }, 100);
-                
-            });
-            // $("#tableMaid").click(function(){
-            //     $("#tableMaid").scrollLeft(currentScroll);
-            // })
+        $scope.filterData = {
+            "Page":$scope.bigCurrentPage,
+            "Limit":20,
+            "Id":$scope.currentEmployee,
+            "FromDate":$scope.fromDate,
+            "ToDate":$scope.toDate
+        }
+         xhrService.post("GetListMaidApartment",$scope.filterData)
+        .then(function (data) {
+            $scope.apartmentList = data.data.data;
+            $scope.totalMaid = data.data.total;
+            addDayToApartmentList();
+            initDropdown();
+            resetScrollLeft();
+        },
+        function (error) {
+            console.log(error.statusText);
         });
-       
-        
+    	
 
          xhrService.get("GetAllMaid",$scope.filterData)
         .then(function (data) {
@@ -271,7 +332,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                 $scope.employeeList2.push(emp);          
                 $scope.employeeList.push(emp);
             });
-            console.log($scope.employeeList);
         },
         function (error) {
             console.log(error.statusText);
@@ -290,6 +350,48 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
       
+    }
+
+    function addDayToApartmentList(){
+        // for (var i = 0; i < 20; i++) {
+        //     let data = {
+        //         value: i,
+        //         // textDay:
+        //         workdays: days,
+        //         notes:[],
+        //         textNote : "Không có"
+        //     }
+        // };
+        $scope.apartmentList.forEach(function(item, index){
+            let days = [
+                {value: "Thứ 2",shortValue:"2",number:1,status:false},
+                {value: "Thứ 3",shortValue:"3",number:2,status:false},
+                {value: "Thứ 4",shortValue:"4",number:3,status:false},
+                {value: "Thứ 5",shortValue:"5",number:4,status:false},
+                {value: "Thứ 6",shortValue:"6",number:5,status:false},
+                {value: "Thứ 7",shortValue:"7",number:6,status:false},
+                {value: "Chủ nhật",shortValue:"CN",number:0,status:false}
+            ];
+            if (item.Maid.WorkDate != null) {
+                for (var i = 0; i < days.length; i++) {
+                    for (var j = 0; j < item.Maid.WorkDate.length; j++) {
+                        if (Number(item.Maid.WorkDate[j]) == days[i].number) {
+                            days[i].status = true
+                        }
+                    }
+                    
+                }
+            }
+            console.log(days);
+            item.value = index;
+            item.workdays = days;
+            item.notes = [];
+            if (item.Maid.WorkTime != null) {
+                item.timeWork = convertMinuteToTime(item.Maid.WorkTime);
+            }
+            
+            // textNote = "Không có";
+        });
     }
 
 
@@ -347,7 +449,13 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         }
     };
 
-    $scope.pageChanged = function(){};
+    $scope.pageChanged = function () {
+        $location.path("/maid/apartment")
+        .search({ page: $scope.bigCurrentPage, 
+                fromDate: getFirstDay($scope.fromDatePicker),
+                toDate: getEndDay($scope.toDatePicker),
+                empID: $scope.currentEmployee });
+    };
 
 	
 }
