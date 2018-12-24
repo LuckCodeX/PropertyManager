@@ -970,35 +970,49 @@ namespace PropertyManager.Controllers
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void SaveMaidApartment(ContractModel model)
         {
-            var contractEmployee = _service.GetLastContractEmployeeByContractId(model.Id);
-            if (Equals(contractEmployee, null))
+            using (var scope = new TransactionScope())
             {
-                contractEmployee = new contract_employee()
+                try
                 {
-                    contract_employee_id = 0,
-                    status = 1,
-                    from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
-                    employee_id = model.Maid.Id
-                };
-            }
-            else if (contractEmployee.employee_id != model.Maid.Id)
-            {
-                contractEmployee.to_date = ConvertDatetime.GetCurrentUnixTimeStamp();
-                contractEmployee.status = 0;
-                _service.SaveContractEmployee(contractEmployee);
+                    var contractEmployee = _service.GetLastContractEmployeeByContractId(model.Id);
+                    if (Equals(contractEmployee, null))
+                    {
+                        contractEmployee = new contract_employee()
+                        {
+                            contract_employee_id = 0,
+                            status = 1,
+                            from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                            employee_id = model.Maid.Id
+                        };
+                    }
+                    else if (contractEmployee.employee_id != model.Maid.Id)
+                    {
+                        contractEmployee.to_date = ConvertDatetime.GetCurrentUnixTimeStamp();
+                        contractEmployee.status = 0;
+                        _service.SaveContractEmployee(contractEmployee);
 
-                contractEmployee = new contract_employee()
+                        contractEmployee = new contract_employee()
+                        {
+                            contract_employee_id = 0,
+                            status = 1,
+                            from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                            employee_id = model.Maid.Id,
+                            contract_id = model.Id
+                        };
+                    }
+
+                    contractEmployee.work_date = string.Join(",", model.Maid.WorkDate);
+                    contractEmployee.work_hour = model.Maid.WorkHour;
+                    _service.SaveContractEmployee(contractEmployee);
+
+                    scope.Complete();
+                }
+                catch (Exception e)
                 {
-                    contract_employee_id = 0,
-                    status = 1,
-                    from_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
-                    employee_id = model.Maid.Id
-                };
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
-
-            contractEmployee.work_date = string.Join(",", model.Maid.WorkDate);
-            contractEmployee.work_hour = model.Maid.WorkHour;
-            _service.SaveContractEmployee(contractEmployee);
         }
 
         #endregion

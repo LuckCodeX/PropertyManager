@@ -126,7 +126,7 @@ namespace PropertyManager.Services
 
         public contract_employee GetLastContractEmployeeByContractId(int contractId)
         {
-            return ContractEmployeeRepository.FindBy(p => p.contract_id == contractId && p.status == 0 && Equals(p.to_date, null))
+            return ContractEmployeeRepository.FindBy(p => p.contract_id == contractId && p.status == 1 && Equals(p.to_date, null))
                 .FirstOrDefault();
         }
 
