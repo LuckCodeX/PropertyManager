@@ -882,9 +882,9 @@ namespace PropertyManager.Controllers
                     RoleName = _service.GetEmployeeRoleName(p.role),
                     Statistic = new StatisticModel()
                     {
-                        Room1 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 1),
-                        Room2 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 2),
-                        Room3 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom >= 3),
+                        Room1 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 1 && ((filter.FromDate <= q.from_date && q.from_date <= filter.ToDate) || q.from_date <= filter.FromDate)),
+                        Room2 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 2 && ((filter.FromDate <= q.from_date && q.from_date <= filter.ToDate) || q.from_date <= filter.FromDate)),
+                        Room3 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom >= 3 && ((filter.FromDate <= q.from_date && q.from_date <= filter.ToDate) || q.from_date <= filter.FromDate)),
                     }
                 }).ToList();
             return new PagingResult<EmployeeModel>()
