@@ -882,9 +882,9 @@ namespace PropertyManager.Controllers
                     RoleName = _service.GetEmployeeRoleName(p.role),
                     Statistic = new StatisticModel()
                     {
-                        Room1 = 0,
-                        Room2 = 0,
-                        Room3 = 0
+                        Room1 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 1),
+                        Room2 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 2),
+                        Room3 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom >= 3),
                     }
                 }).ToList();
             return new PagingResult<EmployeeModel>()
@@ -939,7 +939,19 @@ namespace PropertyManager.Controllers
                     Project = p.apartment.project_id != null ? new ProjectModel()
                     {
                         Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
-                    } : new ProjectModel()
+                    } : new ProjectModel(),
+                    Resident = new UserProfileModel()
+                    {
+                        FullName = p.resident_name,
+                        Phone = p.resident_phone,
+                        Id = p.user_profile1.user_profile_id,
+                        NoteList = p.user_profile1.user_profile_note.Select(q => new UserProfileNoteModel()
+                        {
+                            Id = q.user_profile_note_id,
+                            CreatedDate = q.created_date,
+                            Note = q.note
+                        }).ToList(),
+                    },
                 },
                 Building = p.building,
                 NoApartment = p.no_apartment,
@@ -1013,6 +1025,31 @@ namespace PropertyManager.Controllers
                     throw;
                 }
             }
+        }
+
+        [HttpPost]
+        [Route("CreateEmployeeNote")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void CreateEmployeeNote(EmployeeNoteModel model)
+        {
+            var note = new employee_note()
+            {
+                employee_note_id = 0,
+                created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                employee_id = model.EmployeeId,
+                note = model.Note
+            };
+            _service.SaveEmployeeNote(note);
+        }
+
+        [HttpDelete]
+        [Route("DeleteEmployeeNote/{id}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void DeleteEmployeeNote(int id)
+        {
+            _service.DeleteEmployeeNote(id);
         }
 
         #endregion
@@ -1314,10 +1351,104 @@ namespace PropertyManager.Controllers
         [Route("SaveProblem")]
         [ACLFilter(AccessRoles = new int[]
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
-        public void SaveProblem()
+        public void SaveProblem(ProblemModel model)
+        {
+            using (var scope = new TransactionScope())
+            {
+                try
+                {
+                    var problem = _service.GetProblemById(model.Id);
+                    if (Equals(problem, null))
+                        problem = new problem()
+                        {
+                            problem_id = 0,
+                            created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                            apartment_id = model.ApartmentId,
+                        };
+                    problem.description = model.Description;
+                    problem.issue_id = model.IssueId;
+                    problem.priority = model.Priority;
+                    problem.summary = model.Summary;
+                    problem.type = model.Type;
+                    problem.status = model.Status;
+                    _service.SaveProblem(problem);
+
+                    var imageList = _service.GetAllProblemImageByProblemId(problem.problem_id);
+                    var images = new List<problem_image>();
+                    int idx = 0;
+                    foreach (var item in model.ListImage)
+                    {
+                        if (item.Id == 0 && !Equals(item.Img_Base64, null))
+                        {
+                            var img = new problem_image()
+                            {
+                                problem_id = problem.problem_id,
+                                img = _service.SaveImage("~/Upload/problem/",
+                                    "problem_" + ConvertDatetime.GetCurrentUnixTimeStamp() + "_" + idx + ".png",
+                                    item.Img_Base64)
+                            };
+                            images.Add(img);
+                            idx++;
+                        }
+                    }
+                    _service.SaveListProblemImage(images);
+
+                    foreach (var item in imageList)
+                    {
+                        var flag = false;
+                        foreach (var img in model.ListImage)
+                        {
+                            if (item.problem_image_id == img.Id)
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (!flag)
+                            _service.DeleteProblemImage(item.problem_image_id);
+                    }
+
+                    scope.Complete();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateUserProfileNote")]
+        public void CreateUserProfileNote(UserProfileNoteModel model)
+        {
+            IEnumerable<string> values;
+            if (this.Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var admin = _service.GetAdminById(tokenModel.Id);
+                var note = new user_profile_note()
+                {
+                    user_profile_note_id = 0,
+                    user_profile_id = model.UserProfileId,
+                    created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                    note = model.Note,
+                    admin_id = admin.admin_id
+                };
+                _service.SaveUserProfileNote(note);
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateProblemTracking")]
+        public void CreateProblemTracking(ProblemTrackingModel model)
         {
 
         }
+
+
 
 
         #endregion

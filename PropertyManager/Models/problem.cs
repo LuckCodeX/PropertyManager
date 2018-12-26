@@ -31,7 +31,7 @@ namespace PropertyManager.Models
         public int status { get; set; }
         public int created_date { get; set; }
         public int apartment_id { get; set; }
-        public int employee_id { get; set; }
+        public Nullable<int> employee_id { get; set; }
     
         public virtual issue issue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

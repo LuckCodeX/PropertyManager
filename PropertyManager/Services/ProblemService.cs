@@ -39,5 +39,20 @@ namespace PropertyManager.Services
         {
             ProblemImageRepository.SaveList(listImage);
         }
+
+        public problem GetProblemById(int id)
+        {
+            return ProblemRepository.FindBy(p => p.problem_id == id).FirstOrDefault();
+        }
+
+        public List<problem_image> GetAllProblemImageByProblemId(int problemId)
+        {
+            return ProblemImageRepository.FindBy(p => p.problem_id == problemId).ToList();
+        }
+
+        public void DeleteProblemImage(int id)
+        {
+            ProblemImageRepository.Delete(id);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace PropertyManager.Models
             this.admin1 = new HashSet<admin>();
             this.companies = new HashSet<company>();
             this.contracts = new HashSet<contract>();
+            this.user_profile_note = new HashSet<user_profile_note>();
         }
     
         public int admin_id { get; set; }
@@ -43,5 +44,7 @@ namespace PropertyManager.Models
         public virtual ICollection<company> companies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contract> contracts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user_profile_note> user_profile_note { get; set; }
     }
 }

@@ -29,5 +29,6 @@ namespace PropertyManager.Models
         public int Id { get; set; }
         public int CreatedDate { get; set; }
         public string Note { get; set; }
+        public int UserProfileId { get; set; }
     }
 }

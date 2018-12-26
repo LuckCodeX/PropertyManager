@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using PropertyManager.Helper;
@@ -9,6 +10,17 @@ namespace PropertyManager.Services
 {
     public partial class Service
     {
+        private GenericRepository<employee_note> _employeeNoteIssueRepository;
+        public GenericRepository<employee_note> EmployeeNoteRepository
+        {
+            get
+            {
+                if (this._employeeNoteIssueRepository == null)
+                    this._employeeNoteIssueRepository = new GenericRepository<employee_note>(_context);
+                return _employeeNoteIssueRepository;
+            }
+        }
+
         private GenericRepository<apartment_employee_issue> _apartmentEmployeeIssueRepository;
         public GenericRepository<apartment_employee_issue> ApartmentEmployeeIssueRepository
         {
@@ -65,7 +77,7 @@ namespace PropertyManager.Services
 
         public List<employee> SearchListActiveMaid(FilterModel filter)
         {
-            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).ToList();
+            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).Include(p => p.contract_employee.Select(q => q.contract)).ToList();
         }
 
         public string GetEmployeeRoleName(int role)
@@ -110,6 +122,7 @@ namespace PropertyManager.Services
             return new EmployeeModel()
             {
                 Id = employee.employee_id,
+                Code = employee.code,
                 FirstName = employee.first_name,
                 LastName = employee.last_name,
                 Phone = employee.phone,
@@ -144,19 +157,29 @@ namespace PropertyManager.Services
         {
             return ApartmentEmployeeRepository.FindBy(p =>
                     p.apartment_id == apartmentId && p.employee_id == employeeId && Equals(p.check_out_time, null))
-                .LastOrDefault();
+                .FirstOrDefault();
         }
 
         public apartment_employee GetLastApartmentEmployeeNotCheckOutByEmployeeId(int employeeId)
         {
             return ApartmentEmployeeRepository.FindBy(p =>
                     p.employee_id == employeeId && Equals(p.check_out_time, null))
-                .LastOrDefault();
+                .FirstOrDefault();
         }
 
         public void SaveListApartmentEmployeeIssue(List<apartment_employee_issue> listIssue)
         {
             ApartmentEmployeeIssueRepository.SaveList(listIssue);
+        }
+
+        public void SaveEmployeeNote(employee_note note)
+        {
+            EmployeeNoteRepository.Save(note);
+        }
+
+        public void DeleteEmployeeNote(int id)
+        {
+            EmployeeNoteRepository.Delete(id);
         }
     }
 }

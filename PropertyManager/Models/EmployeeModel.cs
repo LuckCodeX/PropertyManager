@@ -28,6 +28,7 @@ namespace PropertyManager.Models
     public class EmployeeNoteModel
     {
         public int Id { get; set; }
+        public int EmployeeId { get; set; }
         public int CreatedDate { get; set; }
         public string Note { get; set; }
     }

@@ -116,8 +116,8 @@ namespace PropertyManager.Controllers
                     {
                         FullName = contract.resident_name,
                         Phone = contract.resident_phone,
-                        Id = contract.user_profile.user_profile_id,
-                        NoteList = contract.user_profile.user_profile_note.Select(p => new UserProfileNoteModel()
+                        Id = contract.user_profile1.user_profile_id,
+                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel()
                         {
                             Id = p.user_profile_note_id,
                             CreatedDate = p.created_date,
@@ -133,7 +133,8 @@ namespace PropertyManager.Controllers
                         FirstName = maid.first_name,
                         LastName = maid.last_name
                     },
-                    
+                    Area = contract.area,
+                    NoBedRoom = contract.no_bedroom
                 };
             }
             return new ApartmentModel();

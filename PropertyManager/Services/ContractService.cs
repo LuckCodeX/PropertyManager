@@ -38,7 +38,7 @@ namespace PropertyManager.Services
                              && (filter.ToDate == null || p.created_date <= filter.ToDate) 
                              && Equals(p.parent_id, null)
                              && (filter.Id == -1 || p.contract_employee.Any(q => q.employee_id == filter.Id))
-                             ).Include(p => p.apartment.project.project_content).Include(p => p.contract_employee).ToList();
+                             ).Include(p => p.apartment.project.project_content).Include(p => p.contract_employee).Include(p => p.user_profile1.user_profile_note).ToList();
         }
 
         public List<contract> GetCountContractThisYear()
@@ -58,7 +58,7 @@ namespace PropertyManager.Services
         {
             var currentTime = ConvertDatetime.GetCurrentUnixTimeStamp();
             return ContractRepository
-                .FindBy(p => p.status == 1 && p.start_date.Value <= currentTime && currentTime <= p.end_date.Value && Equals(p.parent_id, null))
+                .FindBy(p => p.apartment_id == apartmentId && p.status == 1 && p.start_date.Value <= currentTime && currentTime <= p.end_date.Value && Equals(p.parent_id, null))
                 .Include(p => p.user_profile.user_profile_note)
                 .Include(p => p.apartment.problems)
                 .FirstOrDefault();

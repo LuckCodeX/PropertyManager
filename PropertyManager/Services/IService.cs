@@ -85,5 +85,12 @@ namespace PropertyManager.Services
         void SaveListProblemImage(List<problem_image> listImage);
         List<contract> GetAllCurrentContractByEmployeeId(int employeeId);
         contract GetCurrentContractByApartmentAndEmployeeId(int apartmentId, int employeeId);
+        void SaveUserProfileNote(user_profile_note note);
+        List<user_profile_note> GetAllUserProfileNoteByUserProfileId(int userProfileId);
+        problem GetProblemById(int id);
+        List<problem_image> GetAllProblemImageByProblemId(int problemId);
+        void DeleteProblemImage(int id);
+        void SaveEmployeeNote(employee_note note);
+        void DeleteEmployeeNote(int id);
     }
 }

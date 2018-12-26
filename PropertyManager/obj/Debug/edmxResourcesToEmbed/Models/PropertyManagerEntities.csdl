@@ -21,6 +21,7 @@
     <Property Name="bank_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="bank_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="bank_branch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="user_profile_note" Relationship="PropertyManagerModel.FK__user_prof__admin__3335971A" FromRole="admin" ToRole="user_profile_note" />
   </EntityType>
   <EntityType Name="aparment_image">
     <Key>
@@ -391,10 +392,31 @@
       <End Role="apartment" EntitySet="apartments" />
       <End Role="problem" EntitySet="problems" />
     </AssociationSet>
+    <EntitySet Name="careers" EntityType="PropertyManagerModel.career" />
+    <EntitySet Name="career_content" EntityType="PropertyManagerModel.career_content" />
+    <EntitySet Name="services" EntityType="PropertyManagerModel.service" />
+    <EntitySet Name="service_detail" EntityType="PropertyManagerModel.service_detail" />
+    <AssociationSet Name="FK__career_co__caree__25DB9BFC" Association="PropertyManagerModel.FK__career_co__caree__25DB9BFC">
+      <End Role="career" EntitySet="careers" />
+      <End Role="career_content" EntitySet="career_content" />
+    </AssociationSet>
+    <AssociationSet Name="FK__service_d__servi__2D7CBDC4" Association="PropertyManagerModel.FK__service_d__servi__2D7CBDC4">
+      <End Role="service" EntitySet="services" />
+      <End Role="service_detail" EntitySet="service_detail" />
+    </AssociationSet>
     <EntitySet Name="user_profile_note" EntityType="PropertyManagerModel.user_profile_note" />
+    <AssociationSet Name="FK__user_prof__admin__3335971A" Association="PropertyManagerModel.FK__user_prof__admin__3335971A">
+      <End Role="admin" EntitySet="admins" />
+      <End Role="user_profile_note" EntitySet="user_profile_note" />
+    </AssociationSet>
     <AssociationSet Name="FK__user_prof__user___0E04126B" Association="PropertyManagerModel.FK__user_prof__user___0E04126B">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_profile_note" EntitySet="user_profile_note" />
+    </AssociationSet>
+    <EntitySet Name="employee_note" EntityType="PropertyManagerModel.employee_note" />
+    <AssociationSet Name="FK__employee___emplo__473C8FC7" Association="PropertyManagerModel.FK__employee___emplo__473C8FC7">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="employee_note" EntitySet="employee_note" />
     </AssociationSet>
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
@@ -764,6 +786,7 @@
     <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__emplo__6D9742D9" FromRole="employee" ToRole="apartment_employee" />
     <NavigationProperty Name="problem_tracking" Relationship="PropertyManagerModel.FK__problem_t__emplo__7908F585" FromRole="employee" ToRole="problem_tracking" />
     <Property Name="created_date" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="employee_note" Relationship="PropertyManagerModel.FK__employee___emplo__473C8FC7" FromRole="employee" ToRole="employee_note" />
   </EntityType>
   <EntityType Name="company">
     <Key>
@@ -1063,7 +1086,7 @@
     <NavigationProperty Name="problem_tracking" Relationship="PropertyManagerModel.FK__problem_t__probl__7814D14C" FromRole="problem" ToRole="problem_tracking" />
     <Property Name="apartment_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__problem__apartme__79FD19BE" FromRole="problem" ToRole="apartment" />
-    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="employee_id" Type="Int32" />
   </EntityType>
   <EntityType Name="problem_image">
     <Key>
@@ -1197,6 +1220,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="career">
+    <Key>
+      <PropertyRef Name="career_id" />
+    </Key>
+    <Property Name="career_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created_date" Type="Int32" Nullable="false" />
+    <Property Name="category_id" Type="Int32" Nullable="false" />
+    <Property Name="city" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="Int32" Nullable="false" />
+    <Property Name="salary_min" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="experied_date" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="location" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="career_content" Relationship="PropertyManagerModel.FK__career_co__caree__25DB9BFC" FromRole="career" ToRole="career_content" />
+  </EntityType>
+  <EntityType Name="career_content">
+    <Key>
+      <PropertyRef Name="career_content_id" />
+    </Key>
+    <Property Name="career_content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="career_id" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="language" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="career" Relationship="PropertyManagerModel.FK__career_co__caree__25DB9BFC" FromRole="career_content" ToRole="career" />
+  </EntityType>
+  <EntityType Name="service">
+    <Key>
+      <PropertyRef Name="service_id" />
+    </Key>
+    <Property Name="service_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="is_system" Type="Boolean" Nullable="false" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="service_detail" Relationship="PropertyManagerModel.FK__service_d__servi__2D7CBDC4" FromRole="service" ToRole="service_detail" />
+  </EntityType>
+  <EntityType Name="service_detail">
+    <Key>
+      <PropertyRef Name="service_detail_id" />
+    </Key>
+    <Property Name="service_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="service_id" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="service" Relationship="PropertyManagerModel.FK__service_d__servi__2D7CBDC4" FromRole="service_detail" ToRole="service" />
+  </EntityType>
+  <Association Name="FK__career_co__caree__25DB9BFC">
+    <End Type="PropertyManagerModel.career" Role="career" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PropertyManagerModel.career_content" Role="career_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="career">
+        <PropertyRef Name="career_id" />
+      </Principal>
+      <Dependent Role="career_content">
+        <PropertyRef Name="career_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__service_d__servi__2D7CBDC4">
+    <End Type="PropertyManagerModel.service" Role="service" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PropertyManagerModel.service_detail" Role="service_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service">
+        <PropertyRef Name="service_id" />
+      </Principal>
+      <Dependent Role="service_detail">
+        <PropertyRef Name="service_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="user_profile_note">
     <Key>
       <PropertyRef Name="user_profile_note_id" />
@@ -1205,9 +1300,22 @@
     <Property Name="user_profile_id" Type="Int32" Nullable="false" />
     <Property Name="created_date" Type="Int32" Nullable="false" />
     <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="employee_id" Type="Int32" />
+    <Property Name="admin_id" Type="Int32" />
+    <NavigationProperty Name="admin" Relationship="PropertyManagerModel.FK__user_prof__admin__3335971A" FromRole="user_profile_note" ToRole="admin" />
     <NavigationProperty Name="user_profile" Relationship="PropertyManagerModel.FK__user_prof__user___0E04126B" FromRole="user_profile_note" ToRole="user_profile" />
   </EntityType>
+  <Association Name="FK__user_prof__admin__3335971A">
+    <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
+    <End Type="PropertyManagerModel.user_profile_note" Role="user_profile_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="admin_id" />
+      </Principal>
+      <Dependent Role="user_profile_note">
+        <PropertyRef Name="admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__user_prof__user___0E04126B">
     <End Type="PropertyManagerModel.user_profile" Role="user_profile" Multiplicity="1" />
     <End Type="PropertyManagerModel.user_profile_note" Role="user_profile_note" Multiplicity="*" />
@@ -1217,6 +1325,30 @@
       </Principal>
       <Dependent Role="user_profile_note">
         <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="employee_note">
+    <Key>
+      <PropertyRef Name="employee_note_id" />
+    </Key>
+    <Property Name="employee_note_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="created_date" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__employee___emplo__473C8FC7" FromRole="employee_note" ToRole="employee" />
+  </EntityType>
+  <Association Name="FK__employee___emplo__473C8FC7">
+    <End Type="PropertyManagerModel.employee" Role="employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PropertyManagerModel.employee_note" Role="employee_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="employee_note">
+        <PropertyRef Name="employee_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

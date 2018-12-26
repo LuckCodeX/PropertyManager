@@ -111,6 +111,29 @@
     <Property Name="description" Type="ntext" Nullable="false" />
     <Property Name="language" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="career">
+    <Key>
+      <PropertyRef Name="career_id" />
+    </Key>
+    <Property Name="career_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+    <Property Name="category_id" Type="int" Nullable="false" />
+    <Property Name="city" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
+    <Property Name="salary_min" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="experied_date" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="location" Type="ntext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="career_content">
+    <Key>
+      <PropertyRef Name="career_content_id" />
+    </Key>
+    <Property Name="career_content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="career_id" Type="int" Nullable="false" />
+    <Property Name="title" Type="ntext" Nullable="false" />
+    <Property Name="content" Type="ntext" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="company">
     <Key>
       <PropertyRef Name="company_id" />
@@ -220,6 +243,15 @@
     <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="employee_note">
+    <Key>
+      <PropertyRef Name="employee_note_id" />
+    </Key>
+    <Property Name="employee_note_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="note" Type="ntext" Nullable="false" />
+    <Property Name="created_date" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="facility">
     <Key>
       <PropertyRef Name="facility_id" />
@@ -260,7 +292,7 @@
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
     <Property Name="apartment_id" Type="int" Nullable="false" />
-    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="employee_id" Type="int" />
   </EntityType>
   <EntityType Name="problem_image">
     <Key>
@@ -325,6 +357,23 @@
     <Property Name="language" Type="int" Nullable="false" />
     <Property Name="project_id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="service">
+    <Key>
+      <PropertyRef Name="service_id" />
+    </Key>
+    <Property Name="service_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="is_system" Type="bit" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service_detail">
+    <Key>
+      <PropertyRef Name="service_detail_id" />
+    </Key>
+    <Property Name="service_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="service_id" Type="int" Nullable="false" />
+    <Property Name="content" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
   <EntityType Name="slide">
     <Key>
       <PropertyRef Name="slide_id" />
@@ -378,7 +427,7 @@
     <Property Name="user_profile_id" Type="int" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
     <Property Name="note" Type="ntext" Nullable="false" />
-    <Property Name="employee_id" Type="int" />
+    <Property Name="admin_id" Type="int" />
   </EntityType>
   <EntityType Name="user_social">
     <Key>
@@ -586,6 +635,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__career_co__caree__25DB9BFC">
+    <End Role="career" Type="Self.career" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="career_content" Type="Self.career_content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="career">
+        <PropertyRef Name="career_id" />
+      </Principal>
+      <Dependent Role="career_content">
+        <PropertyRef Name="career_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__company__admin_i__1E6F845E">
     <End Role="admin" Type="Self.admin" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -722,6 +785,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__employee___emplo__473C8FC7">
+    <End Role="employee" Type="Self.employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="employee_note" Type="Self.employee_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="employee_note">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__facility___facil__24927208">
     <End Role="facility" Type="Self.facility" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -852,6 +929,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__service_d__servi__2D7CBDC4">
+    <End Role="service" Type="Self.service" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="service_detail" Type="Self.service_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service">
+        <PropertyRef Name="service_id" />
+      </Principal>
+      <Dependent Role="service_detail">
+        <PropertyRef Name="service_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__user_acco__user___1273C1CD">
     <End Role="user_profile" Type="Self.user_profile" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -877,6 +968,18 @@
       </Principal>
       <Dependent Role="user_social">
         <PropertyRef Name="user_profile_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__user_prof__admin__3335971A">
+    <End Role="admin" Type="Self.admin" Multiplicity="0..1" />
+    <End Role="user_profile_note" Type="Self.user_profile_note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="admin">
+        <PropertyRef Name="admin_id" />
+      </Principal>
+      <Dependent Role="user_profile_note">
+        <PropertyRef Name="admin_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -956,11 +1059,14 @@
     <EntitySet Name="apartment_facility" EntityType="Self.apartment_facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="blog" EntityType="Self.blog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="blog_content" EntityType="Self.blog_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="career" EntityType="Self.career" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="career_content" EntityType="Self.career_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contract_employee" EntityType="Self.contract_employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contract_note" EntityType="Self.contract_note" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee_note" EntityType="Self.employee_note" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="issue" EntityType="Self.issue" Schema="dbo" store:Type="Tables" />
@@ -971,6 +1077,8 @@
     <EntitySet Name="project_content" EntityType="Self.project_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project_facility" EntityType="Self.project_facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="project_overview" EntityType="Self.project_overview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_detail" EntityType="Self.service_detail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_account" EntityType="Self.user_account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
@@ -1027,6 +1135,10 @@
       <End Role="blog" EntitySet="blog" />
       <End Role="blog_content" EntitySet="blog_content" />
     </AssociationSet>
+    <AssociationSet Name="FK__career_co__caree__25DB9BFC" Association="Self.FK__career_co__caree__25DB9BFC">
+      <End Role="career" EntitySet="career" />
+      <End Role="career_content" EntitySet="career_content" />
+    </AssociationSet>
     <AssociationSet Name="FK__company__admin_i__1E6F845E" Association="Self.FK__company__admin_i__1E6F845E">
       <End Role="admin" EntitySet="admin" />
       <End Role="company" EntitySet="company" />
@@ -1071,6 +1183,10 @@
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="contract" EntitySet="contract" />
     </AssociationSet>
+    <AssociationSet Name="FK__employee___emplo__473C8FC7" Association="Self.FK__employee___emplo__473C8FC7">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="employee_note" EntitySet="employee_note" />
+    </AssociationSet>
     <AssociationSet Name="FK__facility___facil__24927208" Association="Self.FK__facility___facil__24927208">
       <End Role="facility" EntitySet="facility" />
       <End Role="facility_content" EntitySet="facility_content" />
@@ -1111,6 +1227,10 @@
       <End Role="project" EntitySet="project" />
       <End Role="project_overview" EntitySet="project_overview" />
     </AssociationSet>
+    <AssociationSet Name="FK__service_d__servi__2D7CBDC4" Association="Self.FK__service_d__servi__2D7CBDC4">
+      <End Role="service" EntitySet="service" />
+      <End Role="service_detail" EntitySet="service_detail" />
+    </AssociationSet>
     <AssociationSet Name="FK__user_acco__user___1273C1CD" Association="Self.FK__user_acco__user___1273C1CD">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_account" EntitySet="user_account" />
@@ -1118,6 +1238,10 @@
     <AssociationSet Name="FK__user_goog__user___29221CFB" Association="Self.FK__user_goog__user___29221CFB">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="user_social" EntitySet="user_social" />
+    </AssociationSet>
+    <AssociationSet Name="FK__user_prof__admin__3335971A" Association="Self.FK__user_prof__admin__3335971A">
+      <End Role="admin" EntitySet="admin" />
+      <End Role="user_profile_note" EntitySet="user_profile_note" />
     </AssociationSet>
     <AssociationSet Name="FK__user_prof__user___0E04126B" Association="Self.FK__user_prof__user___0E04126B">
       <End Role="user_profile" EntitySet="user_profile" />

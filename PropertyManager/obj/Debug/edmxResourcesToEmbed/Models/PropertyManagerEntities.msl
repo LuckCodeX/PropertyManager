@@ -448,14 +448,68 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="careers">
+      <EntityTypeMapping TypeName="PropertyManagerModel.career">
+        <MappingFragment StoreEntitySet="career">
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="experied_date" ColumnName="experied_date" />
+          <ScalarProperty Name="salary_min" ColumnName="salary_min" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="career_id" ColumnName="career_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="career_content">
+      <EntityTypeMapping TypeName="PropertyManagerModel.career_content">
+        <MappingFragment StoreEntitySet="career_content">
+          <ScalarProperty Name="language" ColumnName="language" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="career_id" ColumnName="career_id" />
+          <ScalarProperty Name="career_content_id" ColumnName="career_content_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="services">
+      <EntityTypeMapping TypeName="PropertyManagerModel.service">
+        <MappingFragment StoreEntitySet="service">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="is_system" ColumnName="is_system" />
+          <ScalarProperty Name="service_id" ColumnName="service_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="service_detail">
+      <EntityTypeMapping TypeName="PropertyManagerModel.service_detail">
+        <MappingFragment StoreEntitySet="service_detail">
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="service_id" ColumnName="service_id" />
+          <ScalarProperty Name="service_detail_id" ColumnName="service_detail_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="user_profile_note">
       <EntityTypeMapping TypeName="PropertyManagerModel.user_profile_note">
         <MappingFragment StoreEntitySet="user_profile_note">
-          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
           <ScalarProperty Name="note" ColumnName="note" />
           <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="user_profile_id" ColumnName="user_profile_id" />
           <ScalarProperty Name="user_profile_note_id" ColumnName="user_profile_note_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee_note">
+      <EntityTypeMapping TypeName="PropertyManagerModel.employee_note">
+        <MappingFragment StoreEntitySet="employee_note">
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="employee_note_id" ColumnName="employee_note_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

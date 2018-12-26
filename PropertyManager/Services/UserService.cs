@@ -31,6 +31,17 @@ namespace PropertyManager.Services
             }
         }
 
+        private GenericRepository<user_profile_note> _userProfileNoteRepository;
+        public GenericRepository<user_profile_note> UserProfileNoteRepository
+        {
+            get
+            {
+                if (this._userProfileNoteRepository == null)
+                    this._userProfileNoteRepository = new GenericRepository<user_profile_note>(_context);
+                return _userProfileNoteRepository;
+            }
+        }
+
         public user_profile GetUserProfileByNameAndPhone(string name, string phone)
         {
             return UserProfileRepository.FindBy(p => p.full_name == name && p.phone == phone).FirstOrDefault();
@@ -60,6 +71,16 @@ namespace PropertyManager.Services
         {
             return UserProfileRepository.FindBy(p => p.status == 1 && (Equals(search, null) || p.email.Equals(search) || p.full_name.Equals(search)))
                 .ToList();
+        }
+
+        public void SaveUserProfileNote(user_profile_note note)
+        {
+            UserProfileNoteRepository.Save(note);
+        }
+
+        public List<user_profile_note> GetAllUserProfileNoteByUserProfileId(int userProfileId)
+        {
+            return UserProfileNoteRepository.FindBy(p => p.user_profile_id == userProfileId).ToList();
         }
     }
 }

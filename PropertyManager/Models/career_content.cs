@@ -12,15 +12,14 @@ namespace PropertyManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user_profile_note
+    public partial class career_content
     {
-        public int user_profile_note_id { get; set; }
-        public int user_profile_id { get; set; }
-        public int created_date { get; set; }
-        public string note { get; set; }
-        public Nullable<int> admin_id { get; set; }
+        public int career_content_id { get; set; }
+        public int career_id { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public int language { get; set; }
     
-        public virtual admin admin { get; set; }
-        public virtual user_profile user_profile { get; set; }
+        public virtual career career { get; set; }
     }
 }
