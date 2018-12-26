@@ -79,12 +79,13 @@
                 </div>
              </form>
 			</div>
-			<div>
-				<table class="table table-hover table-list table-contract table-maid ">
+			<div id="tableMaid" style="overflow:auto; height: 600px">
+				<table class="table table-hover table-list table-contract table-maid table-maid-apartment ">
+					<thead>
 						<tr class="first-row">
 		                    <th rowspan="2" class="col2rows">Ngày tháng</th>
 		                    <th colspan="5">Thông tin căn hộ</th>
-		                    <th rowspan="2" class="col2rows">Đặc tính khách hàng</th>
+		                    <th rowspan="2" class="col2rows" style="min-width: 200px">Đặc tính khách hàng</th>
 		                    <th rowspan="2" class="col2rows">Nguồn sự cố</th>
 		                    <th colspan="8">Thông tin sự cố</th>
 		                </tr>
@@ -93,27 +94,28 @@
 		                    <th>Tòa</th>  
 		                    <th>Căn hộ</th>
 		                    <th>Khu</th>  
-		                    <th>Địa chỉ</th>  
-		                    <th>Loại sự việc</th>
-		                    <th>Tóm tắt sự việc</th>
+		                    <th class="colWidth200">Địa chỉ</th>  
+		                    <th class="colWidth160">Loại sự việc</th>
+		                    <th class="colWidth200">Tóm tắt sự việc</th>
 		                    <th>Mô tả sự việc</th>
 		                    <th>Trích sang lịch</th>
-		                    <th>Mức độ ưu tiên</th>
-		                    <th>Quá trình</th>
+		                    <th class="colWidth200">Mức độ ưu tiên</th>
+		                    <th class="colWidth120">Quá trình</th>
 		                    <th>Ảnh sự cố</th>
-		                    <th>Tình trạng</th>
+		                    <th class="colWidth160">Tình trạng</th>
 		                </tr>
-					
+					</thead>
+					<tbody>
 	                	<tr ng-repeat="item in problemList track by $index">
 		                	<td>12/12/2018</td>
 		                	<td>AID_20123</td>
 		                    <td>R1</td>  
 		                    <td>1611</td>
 		                    <td>Royal City</td>  
-		                    <td>50 Nguyễn Trãi</td>  
-		                    <td ng-click="openNote(item,$index)" data-toggle="modal" data-target="#employeeModal" style="cursor: pointer;"><span ng-if="item.textNote">{{item.textNote }}</span><span ng-if="!item.textNote"><i class="fas fa-plus"/></span></td>
+		                    <td class="colWidth200">50 Nguyễn Trãi</td>  
+		                    <td ng-click="openNote(item,$index)" data-toggle="modal" data-target="#employeeModal" style="cursor: pointer;min-width: 200px"><span ng-if="item.textNote">{{item.textNote }}</span><span ng-if="!item.textNote"><i class="fas fa-plus"/></span></td>
 		                    <td>Quản lý</td>
-		                    <td>
+		                    <td class="colWidth160">
 		                    	<select class="form-ctrl" ng-model="currentIssue">
 						        	<option value="">Chọn loại sự việc</option>
 	                            	<option value="1">Nội bộ phòng maid</option>
@@ -126,10 +128,10 @@
 	                            	<option value="8">Khu vực phòng tắm</option>
 	                            </select>
                         	</td>
-		                    <td>Ngấm tường</td>
+		                    <td class="colWidth200">Ngấm tường</td>
 		                    <td>Tường ngấm mốc</td>
 		                    <td>21/12/2018</td>
-		                    <td>
+		                    <td class="colWidth200">
 		                    	<select class="form-ctrl" ng-model="currentPrioritize">
 						        	<option value="">Chọn mức độ</option>
 	                            	<option value="1">Phải làm ngay trong ngày</option>
@@ -138,9 +140,9 @@
 	                            </select>
 	                        </td>
 	                        
-		                    <td style="cursor: pointer;" ><span ng-if="item.textFix">{{item.textFix }}</span><span ng-if="!item.textFix"><i class="fas fa-plus"/></span></td>
+		                    <td class="colWidth120" style="cursor: pointer;" ><span ng-if="item.textFix">{{item.textFix }}</span><span ng-if="!item.textFix"><i class="fas fa-plus"/></span></td>
 		                    <td> <button type="button" ng-click="openImages(item,$index)" data-toggle="modal" data-target="#imageModal" class="btn btn-default">Xem ảnh</button></td>
-		                    <td>
+		                    <td class="colWidth160">
 		                    	<select ng-class="currentStatus == 1 ? 'text-warning' : 
 						                    	(currentStatus == 2 ? 'text-notify' :
 						                    	(currentStatus==3 ? 'text-success':''))" class="form-ctrl" ng-model="currentStatus">
@@ -151,7 +153,7 @@
 	                            </select>
 		                    </td>
 		                </tr>
-	               
+	               </tbody>
 	                
 	            </table>
 			</div>
@@ -256,8 +258,8 @@
 	      </div>
 	      <div class="modal-body maid-employee-modal">
 	        <div class="form-group" style="clear: both">
-	            <div class="row">
-	            	<div ng-repeat="image in currentProblem.images track by $index" class="col-md-4 another-img-upload img-upload-current">
+	            <div>
+	            	<div style="height: 153px;" ng-repeat="image in currentProblem.images track by $index" class="col-md-4 another-img-upload img-upload-current">
 	                    <i ng-click="currentProblem.images.splice($index, 1)" ng-if="currentProblem.images[$index].Img_Base64" class="remove-img-btn fas fa-times"></i>
 	                    <img ng-show="currentProblem.images[$index].Img_Base64" class="img" ng-src="{{currentProblem.images[$index].Img_Base64}}" />
 	                </div>

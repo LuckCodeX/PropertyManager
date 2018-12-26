@@ -247,10 +247,10 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         });
     }
 
-    $scope.changFilter = function(){
-        if($scope.currentEmployee)
-            $scope.changFilter($scope.pageChanged());
-    }
+    // $scope.changFilter = function(){
+    //     if($scope.currentEmployee)
+    //         $scope.changFilter($scope.pageChanged());
+    // }
 
     $scope.openNote = function(apartment,index){
         // $scope.apartmentList[$scope.currentApartment.index].textNote = "Không có";
@@ -278,10 +278,21 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
 
     $scope.loadMaidApartment = function(){
         $scope.WorkDate = [];
+        var empData ={
+            Id: -1,
+            Code: "0",
+            FullName: "Tất cả"
+        };
+        $scope.currentEmployee = {selected:[]};
         
-    	
+        if ($stateParams.empID === undefined || $stateParams.empID == -1) {
+            $scope.currentEmployee.selected = {
+                Id: -1,
+                Code: "0",
+                FullName: "Tất cả"
+            };
+        };
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
-        $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
@@ -290,7 +301,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.filterData = {
             "Page":$scope.bigCurrentPage,
             "Limit":20,
-            "Id":$scope.currentEmployee,
+            "Id":$stateParams.empID,
             "FromDate":$scope.fromDate,
             "ToDate":$scope.toDate
         }
@@ -313,24 +324,18 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             $scope.employeeList2 = [];
             $scope.employeeList.push({
                 Id: -1,
-                FirstName: 'Tất',
-                LastName: "cả",
                 Code: "0",
-                value: -1
+                FullName: "Tất cả"
             });
             var dataEmp = data.data;
             dataEmp.forEach(function(item, index){
-                let emp = {
-                    Id: item.Id,
-                    FirstName: item.FirstName,
-                    LastName: item.LastName,
-                    LowerFirstName: $scope.replaceString(item.FirstName)+ " " +  $scope.replaceString(item.LastName),
-                    LowerLastName: $scope.replaceString(item.FirstName.toLowerCase())+ " "+  $scope.replaceString(item.LastName.toLowerCase()),
-                    Code: item.Code,
-                    value: item.Id
-                };     
+                let emp = item;
+                emp.FullName = emp.FirstName + " " +emp.LastName;
                 $scope.employeeList2.push(emp);          
                 $scope.employeeList.push(emp);
+                if ($stateParams.empID == item.Id) {
+                    $scope.currentEmployee.selected = item;
+                };
             });
         },
         function (error) {
@@ -386,8 +391,9 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             item.value = index;
             item.workdays = days;
             item.notes = [];
-            if (item.Maid.WorkTime != null) {
-                item.timeWork = convertMinuteToTime(item.Maid.WorkTime);
+            if (item.Maid.WorkHour != null) {
+                console.log(convertMinuteToTime(item.Maid.WorkHour));
+                item.timeWork = convertMinuteToTime(item.Maid.WorkHour);
             }
             
             // textNote = "Không có";
@@ -450,11 +456,12 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     };
 
     $scope.pageChanged = function () {
+        console.log($scope.currentEmployee);
         $location.path("/maid/apartment")
         .search({ page: $scope.bigCurrentPage, 
                 fromDate: getFirstDay($scope.fromDatePicker),
                 toDate: getEndDay($scope.toDatePicker),
-                empID: $scope.currentEmployee });
+                empID: $scope.currentEmployee.selected.Id });
     };
 
 	

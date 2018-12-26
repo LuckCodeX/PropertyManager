@@ -646,6 +646,24 @@ function numberToString() {
     };
 }
 
+function replaceString(str) {
+    if (!str)
+        return '';
+    str = str.toLowerCase();
+    str = str.replace(/\ /g, " ");
+    str = str.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/\”|\“|\"|\[|\]|\?/g, "");
+    str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
+    str = str.replace(/\u02C6|\u0306|\u031B/g, "");
+    return str;
+};
+
 /**
  *
  * Pass all functions into module
@@ -678,4 +696,34 @@ app.directive('pageTitle', pageTitle)
     .directive('stringToNumber', stringToNumber)
     .directive('numberToString', numberToString)
     .directive('uploadFiles', uploadFiles);
+
+app.filter('textNormalFilter', function($log) {
+  return function(items, props) {
+    var out = [];
+    if (angular.isArray(items)) {
+      var keys = Object.keys(props);
+
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop].toLowerCase();
+          if (replaceString(item[prop].toString()).indexOf(replaceString(text.toString())) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+
+    return out;
+  };
+});
 
