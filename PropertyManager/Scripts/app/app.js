@@ -13,7 +13,8 @@
     'ngCkeditor',
 //    'rzTable',
     'ui.utils',
-    'selectize'
+    'selectize',
+    'ui.select'
 ]);
 
 var API = "http://localhost:22918/api/propertymanager/";

@@ -5,14 +5,17 @@
                 <div class="col-sm-12" >
                     <div class="row">
                     	<p id="test"></p>
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 ">
                             <label class="control-label col-sm-5" for="">Nhân viên:</label>
-                            <div class="col-sm-7 selectize-on-all" style="color: black">
-                            	<selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
+                            <div class="col-sm-7 selectize-on-all selectize-employee" style="color: black">
+                            	<ui-select ng-model="currentEmployee.selected" theme="selectize" ng-disabled="disabled" style="width: 100%;" title="Chọn nhân viên">
+							    <ui-select-match placeholder="Chọn nhân viên"><span ng-if="$select.selected.Code != 0">{{"["+$select.selected.Code+"]"}}</span>{{$select.selected.FullName}}</ui-select-match>
+							    <ui-select-choices repeat="emp in employeeList | textNormalFilter: {FullName: $select.search}">
+							    	<span ng-if="emp.Code != 0">[<span ng-bind-html="emp.Code | highlight: $select.search"></span>]</span>
+							      <span ng-bind-html="emp.FullName | highlight: $select.search"></span>
+							    </ui-select-choices>
+							  </ui-select>
                             </div>
-                        </div>
-                        <div style="display: none;">
-                        	<selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-model="hiddenDropdown" ng-disabled='disable' required='true'></selectize>
                         </div>
                         <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Thời gian từ:</label>
@@ -49,7 +52,7 @@
                             </div>
                         </div>
                         <div style="display: inline-block;float: left">
-                            <button ng-click="changFilter()" type="button" style="margin-left: 30px;margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
+                            <button ng-click="pageChanged()" type="button" style="margin-left: 30px;margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
                         </div>
                     </div>
                     
@@ -61,6 +64,7 @@
 				<table class="table table-hover table-list table-contract table-maid table-maid-apartment">
 					<thead>
 						<tr class="first-row">
+							<th rowspan="2" class="col2rows bold red-text">Xóa</th>
 		                    <th rowspan="2" class="col2rows">Ngày tương tác</th>
 		                    <th colspan="10">Thông tin căn hộ</th>
 		                    <th colspan="2">Thông tin liên lạc chủ hộ</th>
@@ -74,48 +78,58 @@
 		                    <th>Tòa</th>  
 		                    <th>Căn hộ</th>
 		                    <th>Khu</th>  
-		                    <th style="min-width: 200px">Địa chỉ</th>  
-		                    <th style="min-width: 200px">Họ và tên chủ hộ</th>
+		                    <th class="colWidth200">Địa chỉ</th>  
+		                    <th class="colWidth200">Họ và tên chủ hộ</th>
 		                    <th>Số phòng ngủ</th>
 		                    <th>Diện tích</th>
 		                    <th>Pass cửa</th>
 		                    <th>Pass wifi</th>
-		                    <th style="min-width: 200px">Tên</th>
+		                    <th class="colWidth200">Tên</th>
 		                    <th>SĐT</th>
-		                    <th style="min-width: 160px">Tên khách ở</th>
+		                    <th class="colWidth160">Tên khách ở</th>
 		                    <th>SĐT</th>
 		                    <th>Check in</th>
 		                    <th>Check out</th>
 		                    <th style="min-width: 250px">Tên nhân viên</th>
 		                    <th>Số điện thoại</th>
-		                    <th style="min-width:120px;">Số buổi/tuần</th>
-		                    <th style="min-width:120px;">Giờ làm</th>
+		                    <th class="colWidth120">Số buổi/tuần</th>
+		                    <th class="colWidth120">Giờ làm</th>
 		                </tr>
 					</thead>
 	                <tbody>
 	                	<tr ng-repeat="apartment in apartmentList">
+	                		<td><button class="bold btn btn-danger">Xóa</button></td>
 		                	<td>12/12/2018</td>
 		                    <td>{{apartment.Apartment.Code}}</td>
 		                    <td>{{apartment.Building}}</td>  
 		                    <td>{{apartment.NoApartment}}</td>
 		                    <td>{{apartment.Apartment.Project.Name}}</td>  
-		                    <td style="min-width: 200px">{{apartment.Address}}</td>  
-		                    <td style="min-width: 200px">{{apartment.OwnerName}}</td>
+		                    <td class="colWidth200">{{apartment.Address}}</td>  
+		                    <td class="colWidth200">{{apartment.OwnerName}}</td>
 		                    <td>{{apartment.NoBedRoom}}</td>
 		                    <td>{{apartment.Area}}</td>
 		                    <td>{{apartment.PassDoor}}</td>
 		                    <td>{{apartment.PassWifi}}</td>
-		                    <td style="min-width: 200px">{{apartment.OwnerName}}</td>
+		                    <td class="colWidth200">{{apartment.OwnerName}}</td>
 		                    <td>{{apartment.OwnerPhone}}</td>
-		                    <td style="min-width: 160px">{{apartment.UserProfile.FullName}}</td>
+		                    <td class="colWidth160">{{apartment.UserProfile.FullName}}</td>
 		                    <td>{{apartment.UserProfile.Phone}}</td>
-		                    <td>{{convertDate(apartment.StartDate)}}</td>
-		                    <td>{{convertDate(apartment.EndDate)}}</td>
-		                    <td class="selectize-employee" style="min-width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-change="changeMaidApartment(apartment)" ng-model="apartment.Maid.Id" ng-disabled='disable' required='true'></selectize></td>
+		                    <td>{{apartment.StartDate*1000 | date:'dd/MM/yyyy'}}</td>
+		                    <td>{{apartment.EndDate*1000 | date:'dd/MM/yyyy'}}</td>
+		                   <!--  <td class="selectize-employee" style="min-width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-change="changeMaidApartment(apartment)" ng-model="apartment.Maid.Id" ng-disabled='disable' required='true'></selectize></td> -->
+		                  <td class="selectize-employee" style="min-width: 250px">
+		                  	 <ui-select ng-model="apartment.Maid" theme="selectize" ng-disabled="disabled" style="width: 100%;" title="Chọn nhân viên">
+							    <ui-select-match placeholder="Chọn nhân viên">{{"["+$select.selected.Code+"]"+$select.selected.FirstName + " " + $select.selected.LastName}}</ui-select-match>
+							    <ui-select-choices repeat="emp in employeeList2 | textNormalFilter: {FullName: $select.search}">
+							    	<span>[<span ng-bind-html="emp.Code | highlight: $select.search"></span>]</span>
+							      <span ng-bind-html="emp.FullName | highlight: $select.search"></span>
+							    </ui-select-choices>
+							  </ui-select>
+		                  </td>
 		                    <td><span ng-if="apartment.Maid.Id">{{apartment.Maid.Phone}}</span></td>
-		                    <td id="test" style="min-width:120px;" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
+		                    <td id="test" class="colWidth120" ng-init="apartment.textDay = getTextDay(apartment.workdays)">
 		                    	<div style="width:103px;" class="dropdown select-day-dropdown">
-								    <button class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textDay}}
+								    <button class="space-normal btn btn-default dropdown-toggle" type="button">{{apartment.textDay}}
 								    <span class="caret"></span></button>
 								    <ul class=" dropdown-menu">
 									    <li ng-repeat="apt in apartment.workdays" style="padding-left: 30px;"><div style="width:70px; display:inline-block">{{apt.value}}</div> <label class="material-checkbox m-l-10 has-checkbox">
@@ -129,9 +143,9 @@
 								    </ul>
 							  </div>
 							</td>
-		                    <td style="min-width:120px;"  ng-init="apartment.textTime = getTextTime(apartment.timeWork)">
+		                    <td class="colWidth120"  ng-init="apartment.textTime = getTextTime(apartment.timeWork)">
 		                    	<div style="width:80px;" class="dropdown select-day-dropdown dropdown-time-picker">
-								    <button style="width: 100px;" class="space-normal btn btn-primary dropdown-toggle" type="button">{{apartment.textTime}}
+								    <button style="width: 100px;" class="space-normal btn btn-default dropdown-toggle" type="button">{{apartment.textTime}}
 								    <span class="caret"></span></button>
 								    <ul class=" dropdown-menu">
 									    <li style="padding-left: 30px;">
@@ -143,7 +157,7 @@
 								    </ul>
 							  </div>
 				            </td>
-		                    <td ng-click="openNote(apartment,$index)" data-toggle="modal" data-target="#employeeModal" >{{apartment.textNote}}</td>
+		                    <td ng-click="openNote(apartment,$index)" data-toggle="modal" data-target="#employeeModal" style="cursor: pointer;"><span ng-if="apartment.textNote">{{apartment.textNote }}</span><span ng-if="!item.textNote"><i class="fas fa-plus"/></td>
 		                </tr>
 	                </tbody>
 	                
