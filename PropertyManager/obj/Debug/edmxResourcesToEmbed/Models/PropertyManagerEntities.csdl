@@ -418,6 +418,7 @@
       <End Role="employee" EntitySet="employees" />
       <End Role="employee_note" EntitySet="employee_note" />
     </AssociationSet>
+    <EntitySet Name="inboxes" EntityType="PropertyManagerModel.inbox" />
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -1057,6 +1058,7 @@
     <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__apartment__emplo__6D9742D9" FromRole="apartment_employee" ToRole="employee" />
     <Property Name="check_in_geo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="check_out_geo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="apartment_employee_issue">
     <Key>
@@ -1353,4 +1355,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="inbox">
+    <Key>
+      <PropertyRef Name="inbox_id" />
+    </Key>
+    <Property Name="inbox_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="created_date" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

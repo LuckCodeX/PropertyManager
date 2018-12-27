@@ -27,6 +27,7 @@ namespace PropertyManager.Models
         public Nullable<int> check_out_time { get; set; }
         public string check_in_geo { get; set; }
         public string check_out_geo { get; set; }
+        public int type { get; set; }
     
         public virtual apartment apartment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

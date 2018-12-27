@@ -95,5 +95,8 @@ namespace PropertyManager.Services
         void DeleteEmployeeNote(int id);
         void DeleteUserProfileNote(int id);
         List<contract_employee> GetAllCurrentContractEmployeeByEmployeeId(int employeeId);
+        List<apartment_employee> GetListApartmentEmployeeByEmployeeIdAndTimeStamp(int employeeId, int startTime, int endTime);
+        List<inbox> GetAllInboxByType(int type);
+        List<apartment_employee> SearchListApartmentEmployee(FilterModel filter);
     }
 }

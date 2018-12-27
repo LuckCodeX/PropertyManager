@@ -86,5 +86,17 @@ namespace PropertyManager.Helper
             var now = DateTime.Now;
             return (int)(new DateTime(now.Year, 12, 31, 0, 0, 0).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
         }
+
+        public static int GetBeginMonthUnixTimeStampByTimestamp(int timestamp)
+        {
+            var date = UnixTimeStampToDateTime(timestamp);
+            return (int)(new DateTime(date.Year, date.Month, 1, 0, 0, 0).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+        }
+
+        public static int GetEndMonthUnixTimeStampByTimestamp(int timestamp)
+        {
+            var date = UnixTimeStampToDateTime(timestamp);
+            return (int)(new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month), 23, 59, 59).ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+        }
     }
 }

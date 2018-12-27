@@ -77,7 +77,7 @@ namespace PropertyManager.Services
 
         public List<employee> SearchListActiveMaid(FilterModel filter)
         {
-            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).Include(p => p.contract_employee.Select(q => q.contract)).ToList();
+            return EmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id) && (p.role == (int)RoleEmployee.MaidManager || p.role == (int)RoleEmployee.Maid)).OrderBy(p => p.last_name).ThenBy(p => p.first_name).Include(p => p.contract_employee.Select(q => q.contract)).Include(p => p.employee_note).ToList();
         }
 
         public string GetEmployeeRoleName(int role)
@@ -187,6 +187,17 @@ namespace PropertyManager.Services
             return ContractEmployeeRepository
                 .FindBy(p => p.contract.status == 1 && p.employee_id == employeeId && Equals(p.to_date, null))
                 .Include(p => p.contract.apartment.project).ToList();
+        }
+
+        public List<apartment_employee> GetListApartmentEmployeeByEmployeeIdAndTimeStamp(int employeeId, int startTime, int endTime)
+        {
+            return ApartmentEmployeeRepository.FindBy(p =>
+                p.employee_id == employeeId && startTime <= p.check_in_time && p.check_in_time <= endTime).Include(p => p.apartment).ToList();
+        }
+
+        public List<apartment_employee> SearchListApartmentEmployee(FilterModel filter)
+        {
+            return ApartmentEmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id)).ToList();
         }
     }
 }

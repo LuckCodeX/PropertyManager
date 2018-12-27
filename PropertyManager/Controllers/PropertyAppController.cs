@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
 using PropertyManager.Helper;
@@ -23,13 +21,13 @@ namespace PropertyManager.Controllers
             var employee = _service.MaidLogin(model);
             if(Equals(employee, null))
                 ExceptionContent(HttpStatusCode.Unauthorized, "Tài khoản hoặc mật khẩu sai");
-            var token = new TokenModel()
+            var token = new TokenModel
             {
                 Id = employee.employee_id,
                 Username = employee.username,
                 Role = employee.role
             };
-            return new EmployeeModel()
+            return new EmployeeModel
             {
                 Username = employee.username,
                 Token = Encrypt.Base64Encode(JsonConvert.SerializeObject(token)),
@@ -39,7 +37,7 @@ namespace PropertyManager.Controllers
                 LastName = employee.last_name,
                 Phone = employee.phone,
                 Code = employee.code,
-                Statistic = new StatisticModel()
+                Statistic = new StatisticModel
                 {
                     Room1 = 0,
                     Room2 = 0,
@@ -53,7 +51,7 @@ namespace PropertyManager.Controllers
         public List<IssueModel> GetAllIssue()
         {
             var issues = _service.GetAllIssue();
-            return issues.Select(p => new IssueModel()
+            return issues.Select(p => new IssueModel
             {
                 Id = p.issue_id,
                 Name = p.name,
@@ -66,7 +64,7 @@ namespace PropertyManager.Controllers
         public ApartmentModel GetApartmentByCode(ApartmentEmployeeModel model)
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -92,7 +90,7 @@ namespace PropertyManager.Controllers
                 if(!Equals(apartmentEmployee, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Bạn có 1 căn hộ chưa hoàn thành");
 
-                apartmentEmployee = new apartment_employee()
+                apartmentEmployee = new apartment_employee
                 {
                     employee_id = maid.employee_id,
                     apartment_id = apartment.apartment_id,
@@ -102,34 +100,34 @@ namespace PropertyManager.Controllers
                 };
                 _service.SaveApartmentEmployee(apartmentEmployee);
 
-                return new ApartmentModel()
+                return new ApartmentModel
                 {
                     Id = apartment.apartment_id,
                     Address = contract.address,
                     Building = contract.building,
                     NoApartment = contract.no_apartment,
-                    Project = !Equals(apartment.apartment_id, null) ? new ProjectModel()
+                    Project = !Equals(apartment.apartment_id, null) ? new ProjectModel
                     {
                         Name = apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
                     } : new ProjectModel(),
-                    Resident = new UserProfileModel()
+                    Resident = new UserProfileModel
                     {
                         FullName = contract.resident_name,
                         Phone = contract.resident_phone,
                         Id = contract.user_profile1.user_profile_id,
-                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel()
+                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel
                         {
                             Id = p.user_profile_note_id,
                             CreatedDate = p.created_date,
                             Note = p.note
-                        }).ToList(),
+                        }).ToList()
                     },
                     PassWifi = contract.pass_wifi,
                     WifiName = contract.wifi_name,
                     PassDoor = contract.pass_door,
                     WorkHour = contractEmployee.work_hour,
                     WorkDate = contractEmployee.work_date.Split(',').ToList(),
-                    Maid = new EmployeeModel()
+                    Maid = new EmployeeModel
                     {
                         FirstName = maid.first_name,
                         LastName = maid.last_name
@@ -145,8 +143,7 @@ namespace PropertyManager.Controllers
         [Route("MaidTrackingIssue")]
         public void MaidTrackingIssue(ApartmentEmployeeModel model)
         {
-            IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out var values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -158,12 +155,13 @@ namespace PropertyManager.Controllers
                     _service.GetLastApartmentEmployeeByApartmentIdAndEmployeeId(model.ApartmentId, maid.employee_id);
                 apartmentEmployee.check_out_time = ConvertDatetime.GetCurrentUnixTimeStamp();
                 apartmentEmployee.check_out_geo = JsonConvert.SerializeObject(model.CheckOutGeo);
+                apartmentEmployee.type = model.Type;
                 _service.SaveApartmentEmployee(apartmentEmployee);
 
                 var listIssue = new List<apartment_employee_issue>();
                 foreach (var item in model.ListIssue)
                 {
-                    var issue = new apartment_employee_issue()
+                    var issue = new apartment_employee_issue
                     {
                         apartment_employee_id = apartmentEmployee.apartment_employee_id,
                         issue_id = item.IssueId,
@@ -180,8 +178,7 @@ namespace PropertyManager.Controllers
         [Route("MaidCreateProblem")]
         public void MaidCreateProblem(ProblemModel model)
         {
-            IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out var values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -189,7 +186,7 @@ namespace PropertyManager.Controllers
                 if (Equals(maid, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
-                var problem = new problem()
+                var problem = new problem
                 {
                     created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
                     issue_id = model.IssueId,
@@ -208,7 +205,7 @@ namespace PropertyManager.Controllers
                 var listImage = new List<problem_image>();
                 foreach (var item in model.ListImage)
                 {
-                    var img = new problem_image()
+                    var img = new problem_image
                     {
                         problem_id = problem.problem_id,
                         img = _service.SaveImage("~/Upload/problem/",
@@ -229,7 +226,7 @@ namespace PropertyManager.Controllers
         public List<ApartmentModel> MaidGetListApartment()
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -238,13 +235,13 @@ namespace PropertyManager.Controllers
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
                 var contracts = _service.GetAllCurrentContractByEmployeeId(maid.employee_id);
-                var apartmentList = contracts.Select(p => new ApartmentModel()
-                    {
+                var apartmentList = contracts.Select(p => new ApartmentModel
+                {
                         Id = p.apartment.apartment_id,
                         Code = p.apartment.code,
                         Building = p.building,
                         NoApartment = p.no_apartment,
-                        Project = Equals(p.apartment.project_id, null) ? new ProjectModel() : new ProjectModel()
+                        Project = Equals(p.apartment.project_id, null) ? new ProjectModel() : new ProjectModel
                         {
                             Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
                         },
@@ -260,7 +257,7 @@ namespace PropertyManager.Controllers
         public ApartmentModel MaidGetApartmentDetail(int apartmentId)
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -271,14 +268,14 @@ namespace PropertyManager.Controllers
                 var contract = _service.GetCurrentContractByApartmentAndEmployeeId(apartmentId, maid.employee_id);
                 var contractEmployee =
                     _service.GetContractEmployeeByContractIdAndEmployeeId(contract.contract_id, maid.employee_id);
-                return new ApartmentModel()
+                return new ApartmentModel
                 {
                     Id = contract.apartment.apartment_id,
                     Code = contract.apartment.code,
                     Address = contract.address,
                     Building = contract.building,
                     NoApartment = contract.no_apartment,
-                    Project = !Equals(contract.apartment.project_id, null) ? new ProjectModel()
+                    Project = !Equals(contract.apartment.project_id, null) ? new ProjectModel
                     {
                         Name = contract.apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
                     } : new ProjectModel(),
@@ -287,31 +284,31 @@ namespace PropertyManager.Controllers
                     WifiName = contract.wifi_name,
                     WorkHour = contractEmployee.work_hour,
                     WorkDate = contractEmployee.work_date.Split(',').ToList(),
-                    Resident = new UserProfileModel()
+                    Resident = new UserProfileModel
                     {
                         FullName = contract.resident_name,
                         Phone = contract.resident_phone,
                         Id = contract.user_profile1.user_profile_id,
-                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel()
+                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel
                         {
                             Id = p.user_profile_note_id,
                             CreatedDate = p.created_date,
                             Note = p.note
-                        }).ToList(),
+                        }).ToList()
                     },
-                    Maid = new EmployeeModel()
+                    Maid = new EmployeeModel
                     {
                         FirstName = maid.first_name,
                         LastName = maid.last_name
                     },
-                    ProblemList = contract.apartment.problems.Where(p => p.type == (int)ProblemType.Maid).Select(p => new ProblemModel()
+                    ProblemList = contract.apartment.problems.Where(p => p.type == (int)ProblemType.Maid).Select(p => new ProblemModel
                     {
                         Id = p.problem_id,
                         CreatedDate = p.created_date,
                         Summary = p.summary,
                         Description = p.summary,
                         Status = p.status,
-                        ListImage = p.problem_image.Select(q => new ProblemImageModel()
+                        ListImage = p.problem_image.Select(q => new ProblemImageModel
                         {
                             Id = q.problem_image_id,
                             Img = q.img
@@ -327,7 +324,7 @@ namespace PropertyManager.Controllers
         public List<TimeSheetModel> MaidGetListTimeSheet()
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -345,7 +342,7 @@ namespace PropertyManager.Controllers
         public void ChangePassword(EmployeeModel model)
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -367,7 +364,7 @@ namespace PropertyManager.Controllers
         public List<CalendarModel> GetMaidCalendar(int minTime, int maxTime)
         {
             IEnumerable<string> values;
-            if (this.Request.Headers.TryGetValues("Token", out values))
+            if (Request.Headers.TryGetValues("Token", out values))
             {
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
@@ -387,7 +384,7 @@ namespace PropertyManager.Controllers
                         var days = item.work_date.Split(',').ToList();
                         if (days.IndexOf(dow.ToString()) != -1)
                         {
-                            var apartment = new ApartmentModel()
+                            var apartment = new ApartmentModel
                             {
                                 Id = item.contract.apartment.apartment_id,
                                 Code = item.contract.apartment.code,
@@ -396,15 +393,15 @@ namespace PropertyManager.Controllers
                                 Address = item.contract.address,
                                 NoApartment = item.contract.no_apartment,
                                 Building = item.contract.building,
-                                Project = !Equals(item.contract.apartment.project_id, null) ? new ProjectModel()
+                                Project = !Equals(item.contract.apartment.project_id, null) ? new ProjectModel
                                 {
                                     Name = item.contract.apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
-                                } : new ProjectModel(),
+                                } : new ProjectModel()
                             };
                             apartmentList.Add(apartment);
                         }
                     }
-                    var calendar = new CalendarModel()
+                    var calendar = new CalendarModel
                     {
                         ApartmentList = apartmentList,
                         Time = minTime
@@ -416,6 +413,65 @@ namespace PropertyManager.Controllers
                 return result;
             }
             return new List<CalendarModel>();
+        }
+
+        [HttpGet]
+        [Route("GetMaidTotalTimeSheet")]
+        public List<CalendarModel> GetMaidTotalTimeSheet()
+        {
+            IEnumerable<string> values;
+            if (Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var maid = _service.GetActiveMaidById(tokenModel.Id);
+                if (Equals(maid, null))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+
+                var startTime = ConvertDatetime.GetBeginMonthUnixTimeStampByTimestamp(maid.created_date);
+                var endCurrentTime = ConvertDatetime.GetEndMonthUnixTimeStamp();
+                var result = new List<CalendarModel>();
+                while (startTime < endCurrentTime)
+                {
+                    var endTime = ConvertDatetime.GetEndMonthUnixTimeStampByTimestamp(startTime);
+                    var apartmentEmployees =
+                        _service.GetListApartmentEmployeeByEmployeeIdAndTimeStamp(maid.employee_id, startTime, endTime).Select(p => new ApartmentEmployeeModel()
+                        {
+                            Id = p.apartment_employee_id,
+                            CheckInTime = p.check_in_time ?? 0,
+                            CheckOutTime = p.check_out_time ?? 0,
+                            Apartment = new ApartmentModel()
+                            {
+                                Id = p.apartment_id,
+                                Code = p.apartment.code
+                            }
+                        }).ToList();
+                    var calendar = new CalendarModel()
+                    {
+                        Time = startTime,
+                        ApartmentEmployeeList = apartmentEmployees
+                    };
+                    result.Add(calendar);
+
+                    startTime = endTime + 1;
+                }
+
+                return result;
+            }
+            return new List<CalendarModel>();
+        }
+
+        [HttpGet]
+        [Route("GetAllMaidInbox")]
+        public List<InboxModel> GetAllMaidInbox()
+        {
+            return _service.GetAllInboxByType(0).Select(p => new InboxModel()
+            {
+                Id = p.inbox_id,
+                CreatedDate = p.created_date,
+                Type = p.type,
+                Content = p.content
+            }).ToList();
         }
 
         protected override void Dispose(bool disposing)

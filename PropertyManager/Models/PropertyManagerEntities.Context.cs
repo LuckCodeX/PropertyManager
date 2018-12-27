@@ -62,5 +62,6 @@ namespace PropertyManager.Models
         public virtual DbSet<service_detail> service_detail { get; set; }
         public virtual DbSet<user_profile_note> user_profile_note { get; set; }
         public virtual DbSet<employee_note> employee_note { get; set; }
+        public virtual DbSet<inbox> inboxes { get; set; }
     }
 }

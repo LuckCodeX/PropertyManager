@@ -391,6 +391,7 @@
     <EntitySetMapping Name="apartment_employee">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
         <MappingFragment StoreEntitySet="apartment_employee">
+          <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="check_out_geo" ColumnName="check_out_geo" />
           <ScalarProperty Name="check_in_geo" ColumnName="check_in_geo" />
           <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
@@ -511,6 +512,16 @@
           <ScalarProperty Name="note" ColumnName="note" />
           <ScalarProperty Name="employee_id" ColumnName="employee_id" />
           <ScalarProperty Name="employee_note_id" ColumnName="employee_note_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="inboxes">
+      <EntityTypeMapping TypeName="PropertyManagerModel.inbox">
+        <MappingFragment StoreEntitySet="inbox">
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="inbox_id" ColumnName="inbox_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

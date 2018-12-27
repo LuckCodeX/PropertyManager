@@ -880,6 +880,12 @@ namespace PropertyManager.Controllers
                     FirstName = p.first_name,
                     LastName = p.last_name,
                     RoleName = _service.GetEmployeeRoleName(p.role),
+                    NoteList = p.employee_note.Select(q => new EmployeeNoteModel()
+                    {
+                        Id = q.employee_note_id,
+                        CreatedDate = q.created_date,
+                        Note = q.note
+                    }).ToList(),
                     Statistic = new StatisticModel()
                     {
                         Room1 = p.contract_employee.Count(q => Equals(q.to_date, null) && q.contract.no_bedroom == 1 && ((filter.FromDate <= q.from_date && q.from_date <= filter.ToDate) || q.from_date <= filter.FromDate)),
@@ -1051,6 +1057,15 @@ namespace PropertyManager.Controllers
         {
             _service.DeleteEmployeeNote(id);
         }
+
+        //[HttpPost]
+        //[Route("GetListMaidIssue")]
+        //[ACLFilter(AccessRoles = new int[]
+        //    {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        //public List<ApartmentModel> GetListMaidIssue(FilterModel filter)
+        //{
+        //    var apartmentEmployees = _service.SearchListApartmentEmployee(filter);
+        //}
 
         #endregion
 

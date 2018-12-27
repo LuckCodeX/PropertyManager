@@ -78,6 +78,7 @@
           <Property Name="check_out_time" Type="int" />
           <Property Name="check_in_geo" Type="varchar" MaxLength="255" />
           <Property Name="check_out_geo" Type="varchar" MaxLength="255" />
+          <Property Name="type" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="apartment_employee_issue">
           <Key>
@@ -274,6 +275,15 @@
           <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="language" Type="int" Nullable="false" />
           <Property Name="facility_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inbox">
+          <Key>
+            <PropertyRef Name="inbox_id" />
+          </Key>
+          <Property Name="inbox_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="created_date" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="content" Type="ntext" Nullable="false" />
         </EntityType>
         <EntityType Name="issue">
           <Key>
@@ -1075,6 +1085,7 @@
           <EntitySet Name="employee_note" EntityType="Self.employee_note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inbox" EntityType="Self.inbox" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="issue" EntityType="Self.issue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="problem" EntityType="Self.problem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="problem_image" EntityType="Self.problem_image" Schema="dbo" store:Type="Tables" />
@@ -1692,6 +1703,7 @@
             <End Role="employee" EntitySet="employees" />
             <End Role="employee_note" EntitySet="employee_note" />
           </AssociationSet>
+          <EntitySet Name="inboxes" EntityType="PropertyManagerModel.inbox" />
           </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
           <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -2331,6 +2343,7 @@
           <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__apartment__emplo__6D9742D9" FromRole="apartment_employee" ToRole="employee" />
           <Property Name="check_in_geo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="check_out_geo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="apartment_employee_issue">
           <Key>
@@ -2627,6 +2640,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="inbox">
+          <Key>
+            <PropertyRef Name="inbox_id" />
+          </Key>
+          <Property Name="inbox_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3023,6 +3045,7 @@
           <EntitySetMapping Name="apartment_employee">
             <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
               <MappingFragment StoreEntitySet="apartment_employee">
+                <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="check_out_geo" ColumnName="check_out_geo" />
                 <ScalarProperty Name="check_in_geo" ColumnName="check_in_geo" />
                 <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
@@ -3143,6 +3166,16 @@
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="employee_note_id" ColumnName="employee_note_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inboxes">
+            <EntityTypeMapping TypeName="PropertyManagerModel.inbox">
+              <MappingFragment StoreEntitySet="inbox">
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="inbox_id" ColumnName="inbox_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

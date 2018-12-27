@@ -15,6 +15,7 @@ namespace PropertyManager.Models
         public int CheckOutTime { get; set; }
         public ApartmentGeo CheckInGeo { get; set; }
         public ApartmentGeo CheckOutGeo { get; set; }
+        public int Type { get; set; }
         public List<ApartmentEmployeeIssueModel> ListIssue { get; set; }
     }
 
