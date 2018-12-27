@@ -2,6 +2,25 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
 	 const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
     var currentScroll = 0;
+    $(document).ready(function() {
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": false,
+          "positionClass": "toast-bottom-full-width",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+     });
 
     $scope.datePickerOptions = {
         showMeridian: false
@@ -247,36 +266,102 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         });
     }
 
-    // $scope.changFilter = function(){
-    //     if($scope.currentEmployee)
-    //         $scope.changFilter($scope.pageChanged());
-    // }
+    function addNoteList(listAdd,id){
+        var status = true;
+        listAdd.forEach(function(item, index){
+            let dataNote = {
+                "UserProfileId":id,
+                "Note":item.Note
+            };
+           
+            function checkRequest(){
+                return xhrService.post("CreateUserProfileNote",dataNote)
+                    .then(function (data) {
+                        return true;
+                    },
+                    function (error) {
+                        return false;
+                    });
+            };
+            if (item.Id == null) {
+                checkRequest();
+            }
+            
+        });
+    }
+
+    function delelteNoteList(listDelete){
+        console.log(listDelete);
+        listDelete.forEach(function(item, index){
+            function checkRequest(){
+                return xhrService.delete("DeleteUserProfileNote/"+item)
+                    .then(function (data) {
+                        return true;
+                    },
+                    function (error) {
+                        return false;
+                    });
+            }
+            checkRequest();
+           
+        });
+    }
 
     $scope.openNote = function(apartment,index){
-        // $scope.apartmentList[$scope.currentApartment.index].textNote = "Không có";
         $scope.currentApartment = apartment;
         $scope.currentApartment.index = index;
+        $scope.currentApartment.deletelist = [];
+    }
+
+    $scope.deleteNote = function(id,index){
+         if (id == null) {
+               
+                $scope.currentApartment.notes.splice(index, 1);
+            }else{
+                $scope.currentApartment.deletelist.push(id);
+                $scope.currentApartment.notes.splice(index, 1);
+            }
+        // swal({
+        //     title: "Bạn có chắc chắn muốn xóa ?",
+        //     text: "Ghi chú đã xóa không thể khôi phục!",
+        //     icon: "warning",
+        //     buttons: [
+        //         'Không',
+        //         'Có'
+        //     ],
+        //     dangerMode: true,
+        // }).then((willDelete) => {
+        //     if (willDelete) {
+        //         if (id == null) {
+        //            list.deletelist.push(id);
+        //             list.notes.splice(index, 1);
+        //         }else{
+        //             list.notes.splice(index, 1);
+        //         }
+        //         console.log($scope.currentApartment.notes);
+        //     }
+        // });
     }
 
     $scope.addNote = function(){
-        let datestring = "";
         let date = new Date();
-        datestring = date.getDate()+"/"+Math.ceil(date.getMonth()+1)+"/"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes();
-        $scope.currentApartment.notes.push({date:datestring,note:''});
+        date = date.getTime()/1000;
+        $scope.currentApartment.notes.push({CreatedDate:date,Note:''});
     }
 
     $scope.saveNote = function(){
-        $scope.apartmentList[$scope.currentApartment.index].notes = $scope.currentApartment.notes;
-        var length = $scope.apartmentList[$scope.currentApartment.index].notes.length;
-        if(length > 0){
-            length -= 1;
-            $scope.apartmentList[$scope.currentApartment.index].textNote = $scope.apartmentList[$scope.currentApartment.index].notes[length].note;
-        }
-        
+
+        delelteNoteList($scope.currentApartment.deletelist);
+        addNoteList($scope.currentApartment.notes,$scope.currentApartment.Apartment.Resident.Id);
         $('#employeeModal').modal('hide');
+       
+        $timeout(function () {
+             $scope.loadMaidApartment();
+        }, 500);
     }
 
     $scope.loadMaidApartment = function(){
+        console.log("not ok");
         $scope.WorkDate = [];
         var empData ={
             Id: -1,
@@ -295,6 +380,10 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
+        $scope.currentNoApartment = $stateParams.apartment === undefined ? "" : $stateParams.apartment;
+        $scope.currentAddress = $stateParams.address === undefined ? "" : $stateParams.address;
+        $scope.currentBuilding = $stateParams.building === undefined ? "" : $stateParams.building;
+        $scope.currentProject = $stateParams.projectId === undefined ? -1 : $stateParams.projectId;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
 
@@ -303,13 +392,18 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             "Limit":20,
             "Id":$stateParams.empID,
             "FromDate":$scope.fromDate,
-            "ToDate":$scope.toDate
+            "ToDate":$scope.toDate,
+            "Address":$scope.currentAddress,
+            "NoApartment":$scope.currentNoApartment,
+            "Building":$scope.currentBuilding,
+            "ProjectId":$scope.currentProject
         }
          xhrService.post("GetListMaidApartment",$scope.filterData)
         .then(function (data) {
             $scope.apartmentList = data.data.data;
             $scope.totalMaid = data.data.total;
             addDayToApartmentList();
+            getProjectList();
             initDropdown();
             resetScrollLeft();
         },
@@ -318,7 +412,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         });
     	
 
-         xhrService.get("GetAllMaid",$scope.filterData)
+         xhrService.get("GetAllMaid")
         .then(function (data) {
             $scope.employeeList = [];
             $scope.employeeList2 = [];
@@ -357,16 +451,35 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
       
     }
 
+    function getProjectList(){
+        xhrService.get("GetAllProject")
+        .then(function (data) {
+            console.log(data);
+            $scope.projectList = [];
+            $scope.projectList.push({
+                Id: -1,
+                Name: "Tất cả",
+                ValueName: "",             
+                value: -1
+            });
+            var dataEmp = data.data;
+            dataEmp.forEach(function(item, index){
+                let emp = {
+                    Id: item.Id,
+                    Name: item.Name,
+                    ValueName: $scope.replaceString(item.Name),             
+                    value: item.Id
+                };
+                $scope.projectList.push(emp);
+            });
+
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+    }
+
     function addDayToApartmentList(){
-        // for (var i = 0; i < 20; i++) {
-        //     let data = {
-        //         value: i,
-        //         // textDay:
-        //         workdays: days,
-        //         notes:[],
-        //         textNote : "Không có"
-        //     }
-        // };
         $scope.apartmentList.forEach(function(item, index){
             let days = [
                 {value: "Thứ 2",shortValue:"2",number:1,status:false},
@@ -391,6 +504,9 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             item.value = index;
             item.workdays = days;
             item.notes = [];
+            if (item.Apartment.Resident.NoteList != null) {
+                item.notes = item.Apartment.Resident.NoteList;
+            }
             if (item.Maid.WorkHour != null) {
                 console.log(convertMinuteToTime(item.Maid.WorkHour));
                 item.timeWork = convertMinuteToTime(item.Maid.WorkHour);
@@ -400,6 +516,29 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         });
     }
 
+    $scope.projectConfig = {
+          maxItems: 1,
+          labelField: 'Name',
+           score: function(search) {
+            search = search.toLowerCase();
+            search = search.replace(/\ /g, " ");
+            search = search.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            search = search.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            search = search.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            search = search.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            search = search.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            search = search.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            search = search.replace(/đ/g, "d");
+            search = search.replace(/\”|\“|\"|\[|\]|\?/g, "");
+            search = search.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
+            search = search.replace(/\u02C6|\u0306|\u031B/g, ""); 
+            var score = this.getScoreFunction(search);  
+            return function(item) {
+                return score(item);
+            };
+        },
+          searchField: ['ValueName']
+    };
 
     $scope.myConfig = {
           maxItems: 1,
@@ -461,7 +600,11 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         .search({ page: $scope.bigCurrentPage, 
                 fromDate: getFirstDay($scope.fromDatePicker),
                 toDate: getEndDay($scope.toDatePicker),
-                empID: $scope.currentEmployee.selected.Id });
+                empID: $scope.currentEmployee.selected.Id,
+                address:$scope.currentAddress,
+                apartment:$scope.currentNoApartment,
+                building:$scope.currentBuilding,
+                projectId:$scope.currentProject });
     };
 
 	
