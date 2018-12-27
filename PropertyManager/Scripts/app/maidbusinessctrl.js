@@ -1,65 +1,3 @@
-// function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
-
-// $scope.loadMaidBusiness = function(){
-// 	$scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
-//         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
-//         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
-//         $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
-
-// xhrService.get("GetAllMaid",$scope.filterData)
-//             .then(function (data) {
-//             	console.log(data);
-//                 $scope.employeeList = [];
-//                 $scope.employeeList.push({
-//                     Id: -1,
-//                     FirstName: 'Tất',
-//                     LastName: "cả",
-//                     Code: "0",
-//                     value: -1
-//                 });
-//                 var dataEmp = data.data;
-//                 dataEmp.forEach(function(item, index){
-//                     let emp = {
-//                         Id: item.Id,
-//                         FirstName: item.FirstName,
-//                         LastName: item.LastName,
-//                         LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
-//                         LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
-//                         Code: item.Code,
-//                         value: item.Id
-//                     };
-//                     $scope.employeeList.push(emp);
-//                 });
-//             },
-//             function (error) {
-//                 console.log(error.statusText);
-//             });
-
-
-
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// }
-
-// app.controller('MaidBusinessCtrl', MaidBusinessCtrl);
-
 function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
 	 const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
@@ -315,6 +253,22 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
         function (error) {
             console.log(error.statusText);
         });
+
+
+
+       
+        
+        xhrService.get("GetAllIssue")
+        .then(function(data) {
+            console.log(data);
+                $scope.issueList = data.data;
+            },
+            function(error) {
+                console.log(error.statusText);
+            });
+        
+        
+  
 
         
         $scope.dateOptions = {
