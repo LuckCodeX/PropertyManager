@@ -62,6 +62,7 @@ namespace PropertyManager.Models
         public string resident_phone { get; set; }
         public string resident_identification { get; set; }
         public string owner_identification { get; set; }
+        public string wifi_name { get; set; }
     
         public virtual admin admin { get; set; }
         public virtual apartment apartment { get; set; }

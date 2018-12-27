@@ -894,7 +894,7 @@ namespace PropertyManager.Controllers
             };
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteMaid/{id}")]
         [ACLFilter(AccessRoles = new int[] { (int)RoleAdmin.SuperAdmin, (int)RoleAdmin.MaidManager })]
         public void DeleteMaid(int id)
@@ -1209,6 +1209,7 @@ namespace PropertyManager.Controllers
                     contract.area = model.Apartment.Area;
                     contract.no_bedroom = model.Apartment.NoBedRoom;
                     contract.pass_wifi = model.Apartment.PassWifi;
+                    contract.wifi_name = model.Apartment.WifiName;
                     contract.pass_door = model.Apartment.PassDoor;
                     contract.owner_name = model.OwnerUserProfile.FullName;
                     contract.owner_identification = model.OwnerUserProfile.Identification;
@@ -1439,6 +1440,13 @@ namespace PropertyManager.Controllers
                 };
                 _service.SaveUserProfileNote(note);
             }
+        }
+
+        [HttpDelete]
+        [Route("DeleteUserProfileNote/{id}")]
+        public void DeleteUserProfileNote(int id)
+        {
+            _service.DeleteUserProfileNote(id);
         }
 
         [HttpPost]

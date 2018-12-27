@@ -125,11 +125,12 @@ namespace PropertyManager.Controllers
                         }).ToList(),
                     },
                     PassWifi = contract.pass_wifi,
+                    WifiName = contract.wifi_name,
                     PassDoor = contract.pass_door,
+                    WorkHour = contractEmployee.work_hour,
+                    WorkDate = contractEmployee.work_date.Split(',').ToList(),
                     Maid = new EmployeeModel()
                     {
-                        WorkHour = contractEmployee.work_hour,
-                        WorkDate = contractEmployee.work_date.Split(',').ToList(),
                         FirstName = maid.first_name,
                         LastName = maid.last_name
                     },
@@ -277,18 +278,21 @@ namespace PropertyManager.Controllers
                     Address = contract.address,
                     Building = contract.building,
                     NoApartment = contract.no_apartment,
-                    Project = !Equals(contract.apartment.apartment_id, null) ? new ProjectModel()
+                    Project = !Equals(contract.apartment.project_id, null) ? new ProjectModel()
                     {
                         Name = contract.apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
                     } : new ProjectModel(),
                     PassDoor = contract.pass_door,
                     PassWifi = contract.pass_wifi,
+                    WifiName = contract.wifi_name,
+                    WorkHour = contractEmployee.work_hour,
+                    WorkDate = contractEmployee.work_date.Split(',').ToList(),
                     Resident = new UserProfileModel()
                     {
                         FullName = contract.resident_name,
                         Phone = contract.resident_phone,
-                        Id = contract.user_profile.user_profile_id,
-                        NoteList = contract.user_profile.user_profile_note.Select(p => new UserProfileNoteModel()
+                        Id = contract.user_profile1.user_profile_id,
+                        NoteList = contract.user_profile1.user_profile_note.Select(p => new UserProfileNoteModel()
                         {
                             Id = p.user_profile_note_id,
                             CreatedDate = p.created_date,
@@ -297,8 +301,6 @@ namespace PropertyManager.Controllers
                     },
                     Maid = new EmployeeModel()
                     {
-                        WorkHour = contractEmployee.work_hour,
-                        WorkDate = contractEmployee.work_date.Split(',').ToList(),
                         FirstName = maid.first_name,
                         LastName = maid.last_name
                     },
@@ -358,6 +360,68 @@ namespace PropertyManager.Controllers
                 maid.password = newPass;
                 _service.SaveEmployee(maid);
             }
+        }
+
+        [HttpGet]
+        [Route("GetMaidCalendar/{minTime}/{maxTime}")]
+        public List<CalendarModel> GetMaidCalendar(int minTime, int maxTime)
+        {
+            IEnumerable<string> values;
+            if (this.Request.Headers.TryGetValues("Token", out values))
+            {
+                var token = values.First();
+                var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
+                var maid = _service.GetActiveMaidById(tokenModel.Id);
+                if (Equals(maid, null))
+                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                var x = 60 * 60 * 24;
+                var result = new List<CalendarModel>();
+                var contractEmployees = _service.GetAllCurrentContractEmployeeByEmployeeId(maid.employee_id);
+                while (minTime < maxTime)
+                {
+                    var max = minTime + x;
+                    var dow = (int)ConvertDatetime.UnixTimeStampToDateTime(minTime).DayOfWeek;
+                    var apartmentList = new List<ApartmentModel>();
+                    foreach (var item in contractEmployees)
+                    {
+                        var days = item.work_date.Split(',').ToList();
+                        if (days.IndexOf(dow.ToString()) != -1)
+                        {
+                            var apartment = new ApartmentModel()
+                            {
+                                Id = item.contract.apartment.apartment_id,
+                                Code = item.contract.apartment.code,
+                                NoBedRoom = item.contract.no_bedroom,
+                                WorkHour = item.work_hour,
+                                Address = item.contract.address,
+                                NoApartment = item.contract.no_apartment,
+                                Building = item.contract.building,
+                                Project = !Equals(item.contract.apartment.project_id, null) ? new ProjectModel()
+                                {
+                                    Name = item.contract.apartment.project.project_content.FirstOrDefault(p => p.language == 0).name
+                                } : new ProjectModel(),
+                            };
+                            apartmentList.Add(apartment);
+                        }
+                    }
+                    var calendar = new CalendarModel()
+                    {
+                        ApartmentList = apartmentList,
+                        Time = minTime
+                    };
+                    result.Add(calendar);
+                    minTime = max;
+                }
+
+                return result;
+            }
+            return new List<CalendarModel>();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _service.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

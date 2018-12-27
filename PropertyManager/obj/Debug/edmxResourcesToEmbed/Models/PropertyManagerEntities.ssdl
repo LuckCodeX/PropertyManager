@@ -202,6 +202,7 @@
     <Property Name="resident_phone" Type="varchar" MaxLength="20" />
     <Property Name="resident_identification" Type="varchar" MaxLength="50" />
     <Property Name="owner_identification" Type="varchar" MaxLength="50" />
+    <Property Name="wifi_name" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="contract_employee">
     <Key>

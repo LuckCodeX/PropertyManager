@@ -309,6 +309,7 @@
     <EntitySetMapping Name="contracts">
       <EntityTypeMapping TypeName="PropertyManagerModel.contract">
         <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="wifi_name" ColumnName="wifi_name" />
           <ScalarProperty Name="owner_identification" ColumnName="owner_identification" />
           <ScalarProperty Name="resident_identification" ColumnName="resident_identification" />
           <ScalarProperty Name="resident_phone" ColumnName="resident_phone" />

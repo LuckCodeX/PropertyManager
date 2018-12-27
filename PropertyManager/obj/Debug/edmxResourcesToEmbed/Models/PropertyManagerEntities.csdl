@@ -867,6 +867,7 @@
     <Property Name="resident_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="resident_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="owner_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wifi_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="contract_employee">
     <Key>

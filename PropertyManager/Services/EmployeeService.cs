@@ -181,5 +181,12 @@ namespace PropertyManager.Services
         {
             EmployeeNoteRepository.Delete(id);
         }
+
+        public List<contract_employee> GetAllCurrentContractEmployeeByEmployeeId(int employeeId)
+        {
+            return ContractEmployeeRepository
+                .FindBy(p => p.contract.status == 1 && p.employee_id == employeeId && Equals(p.to_date, null))
+                .Include(p => p.contract.apartment.project).ToList();
+        }
     }
 }

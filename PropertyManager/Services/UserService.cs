@@ -82,5 +82,10 @@ namespace PropertyManager.Services
         {
             return UserProfileNoteRepository.FindBy(p => p.user_profile_id == userProfileId).ToList();
         }
+
+        public void DeleteUserProfileNote(int id)
+        {
+            UserProfileNoteRepository.Delete(id);
+        }
     }
 }

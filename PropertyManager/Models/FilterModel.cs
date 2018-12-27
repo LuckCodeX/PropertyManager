@@ -13,5 +13,9 @@ namespace PropertyManager.Models
         public int? FromDate { get; set; }
         public int? ToDate { get; set; }
         public string Search { get; set; }
+        public string Address { get; set; }
+        public string NoApartment { get; set; }
+        public string Building { get; set; }
+        public int? ProjectId { get; set; }
     }
 }

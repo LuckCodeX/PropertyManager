@@ -241,6 +241,7 @@
     <Compile Include="Models\blog_content.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalendarModel.cs" />
     <Compile Include="Models\career.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>

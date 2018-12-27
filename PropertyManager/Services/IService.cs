@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -92,5 +93,7 @@ namespace PropertyManager.Services
         void DeleteProblemImage(int id);
         void SaveEmployeeNote(employee_note note);
         void DeleteEmployeeNote(int id);
+        void DeleteUserProfileNote(int id);
+        List<contract_employee> GetAllCurrentContractEmployeeByEmployeeId(int employeeId);
     }
 }
