@@ -40,7 +40,7 @@ namespace PropertyManager.Services
                              && (Equals(filter.Address, null) ||p.address.Contains(filter.Address))
                              && (Equals(filter.NoApartment, null) || p.no_apartment.Contains(filter.NoApartment))
                              && (Equals(filter.Building, null) || p.building.Contains(filter.Building))
-                             && (Equals(filter.ProjectId, null) || p.apartment.project_id == filter.ProjectId)
+                             && (filter.ProjectId == -1 || p.apartment.project_id == filter.ProjectId)
                              ).Include(p => p.apartment.project.project_content).Include(p => p.contract_employee).Include(p => p.user_profile1.user_profile_note).ToList();
         }
 
