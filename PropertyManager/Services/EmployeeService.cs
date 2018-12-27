@@ -156,7 +156,7 @@ namespace PropertyManager.Services
         public apartment_employee GetLastApartmentEmployeeByApartmentIdAndEmployeeId(int apartmentId, int employeeId)
         {
             return ApartmentEmployeeRepository.FindBy(p =>
-                    p.apartment_id == apartmentId && p.employee_id == employeeId && Equals(p.check_out_time, null))
+                    p.contract.apartment_id == apartmentId && p.employee_id == employeeId && Equals(p.check_out_time, null))
                 .FirstOrDefault();
         }
 
@@ -192,12 +192,30 @@ namespace PropertyManager.Services
         public List<apartment_employee> GetListApartmentEmployeeByEmployeeIdAndTimeStamp(int employeeId, int startTime, int endTime)
         {
             return ApartmentEmployeeRepository.FindBy(p =>
-                p.employee_id == employeeId && startTime <= p.check_in_time && p.check_in_time <= endTime).Include(p => p.apartment).ToList();
+                p.employee_id == employeeId && startTime <= p.check_in_time && p.check_in_time <= endTime).Include(p => p.contract.apartment).ToList();
         }
 
         public List<apartment_employee> SearchListApartmentEmployee(FilterModel filter)
         {
-            return ApartmentEmployeeRepository.FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id)).ToList();
+            return ApartmentEmployeeRepository
+                .FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id)
+                            && filter.FromDate <= p.check_in_time && p.check_in_time <= filter.ToDate
+                           && (Equals(filter.Address, null) || p.contract.apartment.address.Contains(filter.Address))
+                           && (Equals(filter.NoApartment, null) || p.contract.apartment.no_apartment.Contains(filter.NoApartment))
+                           && (Equals(filter.Building, null) || p.contract.apartment.building.Contains(filter.Building))
+                           && (filter.ProjectId == -1 || p.contract.apartment.project_id == filter.ProjectId)).OrderByDescending(p => p.apartment_employee_id).Include(p => p.contract.apartment.project).Include(p => p.employee).Include(p => p.apartment_employee_issue).ToList();
+        }
+
+        public ContractEmployeeModel ConvertContractEmployeeToModel(contract_employee model)
+        {
+            return new ContractEmployeeModel()
+            {
+                Id = model.contract_employee_id,
+                WorkHour = model.work_hour ?? 0,
+                WorkDate = model.work_date.Split(',').ToList(),
+                FromDate = model.from_date,
+                ToDate = model.to_date ?? 0
+            };
         }
     }
 }

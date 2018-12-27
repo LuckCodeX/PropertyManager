@@ -388,20 +388,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="apartment_employee">
-      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
-        <MappingFragment StoreEntitySet="apartment_employee">
-          <ScalarProperty Name="type" ColumnName="type" />
-          <ScalarProperty Name="check_out_geo" ColumnName="check_out_geo" />
-          <ScalarProperty Name="check_in_geo" ColumnName="check_in_geo" />
-          <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
-          <ScalarProperty Name="check_in_time" ColumnName="check_in_time" />
-          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-          <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-          <ScalarProperty Name="apartment_employee_id" ColumnName="apartment_employee_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="apartment_employee_issue">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee_issue">
         <MappingFragment StoreEntitySet="apartment_employee_issue">
@@ -522,6 +508,20 @@
           <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="inbox_id" ColumnName="inbox_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="apartment_employee">
+      <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
+        <MappingFragment StoreEntitySet="apartment_employee">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="check_out_geo" ColumnName="check_out_geo" />
+          <ScalarProperty Name="check_in_geo" ColumnName="check_in_geo" />
+          <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
+          <ScalarProperty Name="check_in_time" ColumnName="check_in_time" />
+          <ScalarProperty Name="apartment_employee_id" ColumnName="apartment_employee_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

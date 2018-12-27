@@ -38,6 +38,8 @@ namespace PropertyManager.Models
         public UserProfileModel Resident { get; set; }
         public EmployeeModel Maid { get; set; }
         public List<ProblemModel> ProblemList { get; set; }
+        public ContractEmployeeModel ContractEmployee { get; set; }
+        public ApartmentEmployeeModel ApartmentEmployee { get; set; }
     }
 
     public class ApartmentContentModel

@@ -67,13 +67,13 @@
       <PropertyRef Name="apartment_employee_id" />
     </Key>
     <Property Name="apartment_employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="apartment_id" Type="int" Nullable="false" />
-    <Property Name="employee_id" Type="int" Nullable="false" />
     <Property Name="check_in_time" Type="int" />
     <Property Name="check_out_time" Type="int" />
     <Property Name="check_in_geo" Type="varchar" MaxLength="255" />
     <Property Name="check_out_geo" Type="varchar" MaxLength="255" />
     <Property Name="type" Type="int" Nullable="false" />
+    <Property Name="contract_id" Type="int" Nullable="false" />
+    <Property Name="employee_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="apartment_employee_issue">
     <Key>
@@ -554,19 +554,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__apartment__apart__6CA31EA0">
-    <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
+  <Association Name="FK__apartment__contr__5B438874">
+    <End Role="contract" Type="Self.contract" Multiplicity="1" />
     <End Role="apartment_employee" Type="Self.apartment_employee" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="apartment">
-        <PropertyRef Name="apartment_id" />
+      <Principal Role="contract">
+        <PropertyRef Name="contract_id" />
       </Principal>
       <Dependent Role="apartment_employee">
-        <PropertyRef Name="apartment_id" />
+        <PropertyRef Name="contract_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__apartment__emplo__6D9742D9">
+  <Association Name="FK__apartment__emplo__5C37ACAD">
     <End Role="employee" Type="Self.employee" Multiplicity="1" />
     <End Role="apartment_employee" Type="Self.apartment_employee" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1119,11 +1119,11 @@
       <End Role="apartment_employee" EntitySet="apartment_employee" />
       <End Role="apartment_employee_issue" EntitySet="apartment_employee_issue" />
     </AssociationSet>
-    <AssociationSet Name="FK__apartment__apart__6CA31EA0" Association="Self.FK__apartment__apart__6CA31EA0">
-      <End Role="apartment" EntitySet="apartment" />
+    <AssociationSet Name="FK__apartment__contr__5B438874" Association="Self.FK__apartment__contr__5B438874">
+      <End Role="contract" EntitySet="contract" />
       <End Role="apartment_employee" EntitySet="apartment_employee" />
     </AssociationSet>
-    <AssociationSet Name="FK__apartment__emplo__6D9742D9" Association="Self.FK__apartment__emplo__6D9742D9">
+    <AssociationSet Name="FK__apartment__emplo__5C37ACAD" Association="Self.FK__apartment__emplo__5C37ACAD">
       <End Role="employee" EntitySet="employee" />
       <End Role="apartment_employee" EntitySet="apartment_employee" />
     </AssociationSet>

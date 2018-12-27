@@ -98,5 +98,6 @@ namespace PropertyManager.Services
         List<apartment_employee> GetListApartmentEmployeeByEmployeeIdAndTimeStamp(int employeeId, int startTime, int endTime);
         List<inbox> GetAllInboxByType(int type);
         List<apartment_employee> SearchListApartmentEmployee(FilterModel filter);
+        ContractEmployeeModel ConvertContractEmployeeToModel(contract_employee model);
     }
 }

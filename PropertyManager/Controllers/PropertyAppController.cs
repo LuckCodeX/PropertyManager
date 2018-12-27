@@ -92,11 +92,11 @@ namespace PropertyManager.Controllers
 
                 apartmentEmployee = new apartment_employee
                 {
-                    employee_id = maid.employee_id,
-                    apartment_id = apartment.apartment_id,
                     apartment_employee_id = 0,
                     check_in_time = ConvertDatetime.GetCurrentUnixTimeStamp(),
-                    check_in_geo = JsonConvert.SerializeObject(model.CheckInGeo)
+                    check_in_geo = JsonConvert.SerializeObject(model.CheckInGeo),
+                    contract_id = contract.contract_id,
+                    employee_id = maid.employee_id
                 };
                 _service.SaveApartmentEmployee(apartmentEmployee);
 
@@ -442,8 +442,8 @@ namespace PropertyManager.Controllers
                             CheckOutTime = p.check_out_time ?? 0,
                             Apartment = new ApartmentModel()
                             {
-                                Id = p.apartment_id,
-                                Code = p.apartment.code
+                                Id = p.contract.apartment_id.Value,
+                                Code = p.contract.apartment.code
                             }
                         }).ToList();
                     var calendar = new CalendarModel()

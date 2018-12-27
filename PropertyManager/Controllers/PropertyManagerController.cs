@@ -1058,14 +1058,52 @@ namespace PropertyManager.Controllers
             _service.DeleteEmployeeNote(id);
         }
 
-        //[HttpPost]
-        //[Route("GetListMaidIssue")]
-        //[ACLFilter(AccessRoles = new int[]
-        //    {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
-        //public List<ApartmentModel> GetListMaidIssue(FilterModel filter)
-        //{
-        //    var apartmentEmployees = _service.SearchListApartmentEmployee(filter);
-        //}
+        [HttpPost]
+        [Route("GetListMaidIssue")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public PagingResult<ApartmentModel> GetListMaidIssue(FilterModel filter)
+        {
+            var apartmentEmployees = _service.SearchListApartmentEmployee(filter);
+            var apartmentList = apartmentEmployees.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit)
+                .Select(p => new ApartmentModel()
+                {
+                    Id = p.contract.apartment_id.Value,
+                    Code = p.contract.apartment.code,
+                    Address = p.contract.address,
+                    Building = p.contract.building,
+                    NoApartment = p.contract.no_apartment,
+                    Project = !Equals(p.contract.apartment.project_id, null) ? new ProjectModel()
+                    {
+                        Name = p.contract.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                    } : new ProjectModel(),
+                    Maid = new EmployeeModel()
+                    {
+                        Id = p.employee_id,
+                        Code = p.employee.code,
+                        FirstName = p.employee.first_name,
+                        LastName = p.employee.last_name,
+                        Phone = p.employee.phone,
+                    },
+                    ContractEmployee = _service.ConvertContractEmployeeToModel(_service.GetContractEmployeeByContractIdAndEmployeeId(p.contract_id, p.employee_id)),
+                    ApartmentEmployee = new ApartmentEmployeeModel()
+                    {
+                        Id = p.apartment_employee_id,
+                        CheckInTime = p.check_in_time ?? 0,
+                        CheckOutTime = p.check_out_time ?? 0,
+                        ListIssue = p.apartment_employee_issue.Select(q => new ApartmentEmployeeIssueModel()
+                        {
+                            Id = q.apartment_employee_issue_id,
+                            IsComplete = q.is_complete
+                        }).ToList()
+                    }
+                }).ToList();
+            return new PagingResult<ApartmentModel>()
+            {
+                data = apartmentList,
+                total = apartmentEmployees.Count
+            };
+        }
 
         #endregion
 
@@ -1289,10 +1327,10 @@ namespace PropertyManager.Controllers
                 Apartment = new ApartmentModel()
                 {
                     Code = p.apartment.code,
-                    Project = new ProjectModel()
+                    Project = !Equals(p.apartment.project_id, null) ? new ProjectModel()
                     {
                         Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
-                    }
+                    } : new ProjectModel()
                 },
                 Building = p.building,
                 NoApartment = p.no_apartment,

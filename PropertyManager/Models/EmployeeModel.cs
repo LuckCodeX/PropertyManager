@@ -39,4 +39,13 @@ namespace PropertyManager.Models
         public int Total { get; set; }
         public int StartDate { get; set; }
     }
+
+    public class ContractEmployeeModel
+    {
+        public int Id { get; set; }
+        public int FromDate { get; set; }
+        public int ToDate { get; set; }
+        public int WorkHour { get; set; }
+        public List<string> WorkDate { get; set; }
+    }
 }

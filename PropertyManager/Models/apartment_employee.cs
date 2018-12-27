@@ -21,17 +21,17 @@ namespace PropertyManager.Models
         }
     
         public int apartment_employee_id { get; set; }
-        public int apartment_id { get; set; }
-        public int employee_id { get; set; }
         public Nullable<int> check_in_time { get; set; }
         public Nullable<int> check_out_time { get; set; }
         public string check_in_geo { get; set; }
         public string check_out_geo { get; set; }
         public int type { get; set; }
+        public int contract_id { get; set; }
+        public int employee_id { get; set; }
     
-        public virtual apartment apartment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment_employee_issue> apartment_employee_issue { get; set; }
+        public virtual contract contract { get; set; }
         public virtual employee employee { get; set; }
     }
 }

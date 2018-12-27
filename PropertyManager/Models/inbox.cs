@@ -12,14 +12,11 @@ namespace PropertyManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class apartment_employee_issue
+    public partial class inbox
     {
-        public int apartment_employee_issue_id { get; set; }
-        public int apartment_employee_id { get; set; }
-        public int issue_id { get; set; }
-        public bool is_complete { get; set; }
-    
-        public virtual issue issue { get; set; }
-        public virtual apartment_employee apartment_employee { get; set; }
+        public int inbox_id { get; set; }
+        public int created_date { get; set; }
+        public int type { get; set; }
+        public string content { get; set; }
     }
 }
