@@ -1534,3 +1534,11 @@ select { outline:none; }
 .colWidth160{
     min-width: 160px !important;
 }
+.icon-times-delete{
+    color: #e4201d;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}

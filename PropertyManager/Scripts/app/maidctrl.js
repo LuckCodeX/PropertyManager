@@ -202,6 +202,13 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
             .then(function (data) {
                 $scope.totalMaid = data.data.total;
                 $scope.maidList = data.data.data;
+                $scope.maidList.forEach(function(item, index){
+                    item.notes = [];
+                    if (item.NoteList != null) {
+                        item.notes = item.NoteList;
+                    }
+                });
+
             },
             function (error) {
                 console.log(error.statusText);
@@ -276,6 +283,80 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         });
         
     }
+
+    function addNoteList(listAdd,id){
+            listAdd.forEach(function(item, index){
+            let dataNote = {
+                "EmployeeId":id,
+                "Note":item.Note
+            };
+           
+            function checkRequest(){
+                return xhrService.post("CreateEmployeeNote",dataNote)
+                    .then(function (data) {
+                        return true;
+                    },
+                    function (error) {
+                        return false;
+                    });
+            };
+            if (item.Id == null) {
+                checkRequest();
+            }
+            
+        });
+    }
+
+    function delelteNoteList(listDelete){
+        console.log(listDelete);
+        listDelete.forEach(function(item, index){
+            function checkRequest(){
+                return xhrService.delete("DeleteEmployeeNote/"+item)
+                    .then(function (data) {
+                        return true;
+                    },
+                    function (error) {
+                        return false;
+                    });
+            }
+            checkRequest();
+           
+        });
+    }
+
+    $scope.deleteNote = function(id,index){
+         if (id == null) {
+            $scope.currentNote.notes.splice(index, 1);
+        }else{
+            $scope.currentNote.deletelist.push(id);
+            $scope.currentNote.notes.splice(index, 1);
+        }
+    }
+
+    $scope.openNote = function(item,index){
+        $scope.currentNote = item;
+        $scope.currentNote.index = index;
+        $scope.currentNote.deletelist = [];
+    }
+
+    $scope.addNote = function(){
+        let date = new Date();
+        date = date.getTime()/1000;
+        $scope.currentNote.notes.push({CreatedDate:date,Note:''});
+    }
+
+    $scope.saveNote = function(){
+
+        delelteNoteList($scope.currentNote.deletelist);
+        addNoteList($scope.currentNote.notes,$scope.currentNote.Id);
+        $('#maidModal').modal('hide');
+       
+        $timeout(function () {
+             $scope.loadMaidList();
+        }, 500);
+        
+    }
+
     $scope.pageChanged = function () {
         $location.path("/maid/list")
         .search({ page: $scope.bigCurrentPage, 
@@ -285,7 +366,6 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     };
 
     $scope.deleteEmployee = function(id){
-        console.log(id);
         swal({
             title: "Bạn có chắc chắn muốn xóa ?",
             text: "Nhân viên đã xóa không thể khôi phục!",
