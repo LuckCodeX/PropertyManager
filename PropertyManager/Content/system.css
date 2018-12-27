@@ -127,13 +127,15 @@ width: 88px;
 }
 
 
+.nindex .selectize-control{
+z-index: 9999;
+}
 
 
 
 
 
-
-#pin-table thead tr .col-pin{
+/*#pin-table thead tr .col-pin{
      position: sticky;
      top: 0px;
       z-index: 5;
@@ -180,7 +182,7 @@ width: 88px;
         width: 100%;
         height: 100%;*/
        /* border: none;*/
-        background: #fff;
+        /*background: #fff;*/
     }
 
 /*#table-wrapper > .row:nth-child(2) > .col-sm-12{
@@ -189,7 +191,7 @@ width: 88px;
     height: calc(100vh - 300px);
 }*/
 
-#table-wrapper .row .col-sm-12{
+/*#table-wrapper .row .col-sm-12{
     overflow: scroll;
     padding: 0;
     height: calc(100vh - 300px);
@@ -201,7 +203,7 @@ width: 88px;
     margin-left: 0 !important;
      margin-top: 20px;
 }
-
+*/
 
 
    

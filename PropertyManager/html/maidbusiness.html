@@ -7,7 +7,7 @@
                     	
                         <div class="form-group col-sm-4">
                             <label class="control-label col-sm-5" for="">Nhân viên:</label>
-                            <div class="col-sm-7" style="color: black">
+                            <div class="col-sm-7 nindex" style="color: black">
                             	<selectize  placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
                             </div>
                         </div>
@@ -54,36 +54,35 @@
 			</div>
 
 
-		<div id="table-wrapper">
-		<div class="row">
-			<div class="col-sm-12">
-		 <table style="border-collapse: separate;margin:0;border-left: 1px solid #ddd;" class="table table-hover table-list table-contract table-maid " id="pin-table">
+		<!-- <div id="table-wrapper"> -->
+		<div id="tableMaid" style="overflow:auto; height: 600px">
+		 <table class="table table-hover table-list table-contract table-maid table-maid-apartment">
 		 	<thead>
-                    <tr>
-                        <th class="col-pin"  colspan="4">Thông tin căn hộ</th>
-                        <th class="col-pin" colspan="4">Thông tin maid</th>
-                        <th class="col-pin" colspan="4">Thời gian làm việc</th>
-                        <th class="col-pin" colspan="6">Quy trình nghiệp vụ</th>
+                    <tr class="first-row">
+                        <th class="col-pin"  colspan="5">Thông tin căn hộ</th>
+                        <th class="col-pin" colspan="3">Thông tin maid</th>
+                        <th class="col-pin" colspan="2">Thời gian phụ trách</th>
+                        <th class="col-pin" colspan="5">Thời gian làm việc</th>
+                        <th class="col-pin" colspan="{{issueList.length}}">Quy trình nghiệp vụ</th>
                     </tr>
-                    <tr>
-                        <th>Mã HĐ</th>
+                    <tr class="second-row">
+                        <th>Mã căn hộ</th>
                         <th>Tòa</th>  
                         <th>Căn hộ</th>
+                        <th>Địa chỉ</th>
                         <th>Khu</th>  
                         <th>Buổi/tuần</th>  
                         <th>Nhân viên</th>
-                        <th>Mã nhân viên</th>
-                        <th>Điện thoại</th>
+                        <th>Số ĐT</th>
+                        <th>Thời gian bắt đầu</th>
+                        <th>Thời gian kết thúc</th>
                         <th>Ngày</th>
                         <th>Giờ bắt đầu</th>
                         <th>Giờ kết thúc</th>
-                        <th>Thời gian làm 1 căn</th>
-                        <th>Dọn phòng bếp</th>
-                        <th>Dọn phòng ngủ</th>
-                        <th>Dọn phòng khách</th>
-                        <th>Dọn phòng tắm</th>
-                        <th>Kiểm tra bếp</th>
-                        <th>Kiểm tra phòng khách</th>
+                        <th>Thời gian làm</th>
+                        <th>Loại</th>
+                        <th ng-repeat="item in issueList">{{item.Name}}</th>
+                        
 
                     </tr>
                 </thead>
@@ -115,8 +114,7 @@
 
 
                 </table>
-                </div>
-                </div>
+                
                 </div>
                 <div class="pagination-employee">
 			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change=""></ul>	
