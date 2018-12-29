@@ -200,6 +200,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
         xhrService.post("GetListMaid",$scope.filterData)
             .then(function (data) {
+                console.log(data);
                 $scope.totalMaid = data.data.total;
                 $scope.maidList = data.data.data;
                 $scope.maidList.forEach(function(item, index){
