@@ -180,97 +180,74 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
             $scope.changFilter($scope.pageChanged());
     }
 
+    $scope.getDayPerWeekDay = function(listDay){
+        let result = ""
+        for (var i = 0; i < listDay.length; i++) {
+            if (listDay[i] == 0) {
+                result += "CN ,"
+            }else{
+                result += (Number(listDay[i])+1)
+                result += ","
+            }   
+        }
+        if (result != "") {
+            result = result.slice(0, result.length-1);
+        }
+        return result;
+    }
+
    
     $scope.loadMaidBusiness = function(){
         
-    	initDropdown();
+       $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
+        $scope.currentNoApartment = $stateParams.apartment === undefined ? "" : $stateParams.apartment;
+        $scope.currentAddress = $stateParams.address === undefined ? "" : $stateParams.address;
+        $scope.currentBuilding = $stateParams.building === undefined ? "" : $stateParams.building;
+        $scope.currentProject = $stateParams.projectId === undefined ? -1 : $stateParams.projectId;
+        $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
-    	$scope.dataTest = [];
-
-    	for (var i = 0; i < 20; i++) {
-            let days = [
-                {value: "Thứ 2",shortValue:"2",status:false},
-                {value: "Thứ 3",shortValue:"3",status:false},
-                {value: "Thứ 4",shortValue:"4",status:false},
-                {value: "Thứ 5",shortValue:"5",status:false},
-                {value: "Thứ 6",shortValue:"6",status:false},
-                {value: "Thứ 7",shortValue:"7",status:false},
-                {value: "Chủ nhật",shortValue:"CN",status:false}
-            ];
-            let data = {
-                value: i,
-                // textDay:
-                workdays: days,
-                notes:[],
-                textNote : "Không có"
-            }
-    		$scope.dataTest.push(data);
-    	};
-
-        $(document).ready(function(){
-            $('.selectize-input').on('mousedown',function(e){
-                currentScroll = $("#tableMaid").scrollLeft();
-                setTimeout(function(){ $("#tableMaid").scrollLeft(currentScroll); }, 100);
-                
-            });
-            // $("#tableMaid").click(function(){
-            //     $("#tableMaid").scrollLeft(currentScroll);
-            // })
-        });
-       
         
-
+        $("input#username").on({
+          keydown: function(e) {
+            if (e.which === 32)
+              return false;
+          },
+          change: function() {
+            this.value = this.value.replace(/\s/g, "");
+          }
+        });
+        
          xhrService.get("GetAllMaid",$scope.filterData)
-        .then(function (data) {
-            $scope.employeeList = [];
-            $scope.employeeList2 = [];
-            $scope.employeeList.push({
-                Id: -1,
-                FirstName: 'Tất',
-                LastName: "cả",
-                Code: "0",
-                value: -1
-            });
-            var dataEmp = data.data;
-            dataEmp.forEach(function(item, index){
-                let emp = {
-                    Id: item.Id,
-                    FirstName: item.FirstName,
-                    LastName: item.LastName,
-                    LowerFirstName: $scope.replaceString(item.FirstName)+ " " +  $scope.replaceString(item.LastName),
-                    LowerLastName: $scope.replaceString(item.FirstName.toLowerCase())+ " "+  $scope.replaceString(item.LastName.toLowerCase()),
-                    Code: item.Code,
-                    value: item.Id
-                };     
-                $scope.employeeList2.push(emp);          
-                $scope.employeeList.push(emp);
-            });
-            console.log($scope.employeeList);
-        },
-        function (error) {
-            console.log(error.statusText);
-        });
-
-
-
-       
-        
-        xhrService.get("GetAllIssue")
-        .then(function(data) {
-            console.log(data);
-                $scope.issueList = data.data;
+            .then(function (data) {
+                $scope.employeeList = [];
+                $scope.employeeList.push({
+                    Id: -1,
+                    FirstName: 'Tất',
+                    LastName: "cả",
+                    Code: "0",
+                    value: -1
+                });
+                var dataEmp = data.data;
+                dataEmp.forEach(function(item, index){
+                    let emp = {
+                        Id: item.Id,
+                        FirstName: item.FirstName,
+                        LastName: item.LastName,
+                        LowerFirstName: $scope.replaceString(item.FirstName) + $scope.replaceString(item.LastName),
+                        LowerLastName: $scope.replaceString(item.FirstName.toLowerCase()) +  $scope.replaceString(item.LastName.toLowerCase()),
+                        Code: item.Code,
+                        value: item.Id
+                    };
+                    $scope.employeeList.push(emp);
+                });
             },
-            function(error) {
+            function (error) {
                 console.log(error.statusText);
             });
-        
-        
-  
-
-        
+        $scope.currentMaid = null;
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2050, 5, 22),
@@ -279,10 +256,54 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
         };
         $scope.format = 'dd/MM/yyyy';
           
-        
+        // $scope.filterData = {
+        //     "Page":$scope.bigCurrentPage,
+        //     "Limit":"20",
+        //     "Id":$scope.currentEmployee,
+        //     "FromDate":$scope.fromDate,
+        //     "ToDate":$scope.toDate
+        // }
+
+$scope.currentAddress=null;
+$scope.currentNoApartment=null;
+$scope.currentBuilding=null;
+        $scope.filterData = {
+            "Page":$scope.bigCurrentPage,
+            "Limit":10,
+            // "Id":$stateParams.empID,
+            "Id":$scope.currentEmployee,
+            "FromDate":$scope.fromDate,
+            "ToDate":$scope.toDate,
+            "Address":$scope.currentAddress,
+            "NoApartment":$scope.currentNoApartment,
+            "Building":$scope.currentBuilding,
+            "ProjectId":$scope.currentProject
+        };
+
+        xhrService.post("GetListMaidIssue",$scope.filterData)
+        .then(function (data) {
+            console.log(data);
+            $scope.issuemaidList=data.data.data;
+           
+
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+
+
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
-      
+        
+
+            xhrService.get("GetAllIssue")
+        .then(function(data) {
+            // console.log(data);
+                $scope.issueList = data.data;
+            },
+            function(error) {
+                console.log(error.statusText);
+            });
     }
 
 
@@ -340,7 +361,24 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
         }
     };
 
-    $scope.pageChanged = function(){};
+    
+$scope.pageChanged = function () {
+        console.log($scope.currentEmployee);
+        $location.path("/maid/business")
+        .search({ page: $scope.bigCurrentPage, 
+                fromDate: getFirstDay($scope.fromDatePicker),
+                toDate: getEndDay($scope.toDatePicker),
+                empID: $scope.currentEmployee,
+                address:$scope.currentAddress,
+                apartment:$scope.currentNoApartment,
+                building:$scope.currentBuilding,
+                projectId:$scope.currentProject });
+    };
+
+
+
+
+
 $scope.datePickerOptions = {
         showMeridian: false
     };

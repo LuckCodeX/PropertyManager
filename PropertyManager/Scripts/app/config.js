@@ -117,7 +117,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             })
         .state('maid.business',
             {
-                url: "/business?page&search",
+                url: "/business?page&search&fromDate&toDate&empID",
                 templateUrl: "html/maidbusiness.html"
             })
         .state('maid.problem',
