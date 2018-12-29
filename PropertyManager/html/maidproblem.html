@@ -83,7 +83,7 @@
 				<table class="table table-hover table-list table-contract table-maid table-maid-apartment ">
 					<thead>
 						<tr class="first-row">
-							<th rowspan="2" class="col2rows bold red-text">Xóa</th>
+							<th rowspan="2" class="col2rows bold red-text col-detele">Xóa</th>
 		                    <th rowspan="2" class="col2rows">Ngày tháng</th>
 		                    <th colspan="5">Thông tin căn hộ</th>
 		                    <th rowspan="2" class="col2rows" style="min-width: 200px">Đặc tính khách hàng</th>
@@ -108,7 +108,7 @@
 					</thead>
 					<tbody>
 	                	<tr ng-repeat="item in problemList track by $index">
-	                		<td><i style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
+	                		<td class="col-detele"><i style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
 		                	<td>12/12/2018</td>
 		                	<td>AID_20123</td>
 		                    <td>R1</td>  
@@ -194,7 +194,7 @@
 	    </div>
 	    <div class="modal-footer">
 	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
-	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentProblem = null" data-dismiss="modal">Đóng</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal"  data-dismiss="modal">Đóng</button>
 	    </div>
 	    </form>
 

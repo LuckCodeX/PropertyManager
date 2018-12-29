@@ -2,6 +2,17 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
 
+    $(document).ready(function(){
+        $('#employeeModal').on('hidden.bs.modal', function () {
+            for (var i = 0; i < $scope.currentProblem.notes.length; i++) {
+                if ($scope.currentProblem.notes[i].note == "") {
+                    $scope.currentProblem.notes.splice(i, 1);
+                    i--;
+                }
+            }
+        });
+    });
+
     $scope.convertDateToString = function(date){
         var timeConvert = date.getDate() + "/" + Math.ceil(date.getMonth()+1) + "/" +date.getFullYear();
         return timeConvert;
@@ -157,6 +168,7 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
 
     $scope.openNote = function(item,index){
         console.log(item);
+        $scope.currentProblem = JSON.parse(JSON.stringify(item));
         // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
         $scope.currentProblem = item;
         $scope.currentProblem.index = index;
@@ -183,7 +195,7 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     $scope.openNoteFix = function(item,index){
         console.log(item);
         // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
-        $scope.currentProblem = item;
+        $scope.currentProblem = JSON.parse(JSON.stringify(item));
         $scope.currentProblem.index = index;
     }
 

@@ -101,7 +101,7 @@
 				<table class="table table-hover table-list table-contract table-maid table-maid-apartment">
 					<thead>
 						<tr class="first-row">
-							<th rowspan="2" class="col2rows bold red-text">Xóa</th>
+							<th rowspan="2" class="col2rows bold red-text col-detele">Xóa</th>
 		                    <th rowspan="2" class="col2rows">Ngày tương tác</th>
 		                    <th colspan="10">Thông tin căn hộ</th>
 		                    <th colspan="2">Thông tin liên lạc chủ hộ</th>
@@ -135,7 +135,7 @@
 					</thead>
 	                <tbody>
 	                	<tr ng-repeat="apartment in apartmentList">
-	                		<td><i style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
+	                		<td class="col-detele"><i style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
 		                	<td>12/12/2018</td>
 		                    <td>{{apartment.Apartment.Code}}</td>
 		                    <td>{{apartment.Building}}</td>  
@@ -236,7 +236,7 @@
 	    </div>
 	    <div class="modal-footer">
 	      	<button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
-	        <button type="button" class="btn btn-default" id="btn-close-modal" ng-click="currentApartment = null" data-dismiss="modal">Đóng</button>
+	        <button type="button" ng-click="test()" class="btn btn-default" id="btn-close-modal" data-dismiss="modal">Đóng</button>
 	    </div>
 	    </form>
 

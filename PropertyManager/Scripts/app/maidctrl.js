@@ -2,6 +2,17 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
 
+    $(document).ready(function(){
+        $('#maidModal').on('hidden.bs.modal', function () {
+            for (var i = 0; i < $scope.currentNote.notes.length; i++) {
+                if ($scope.currentNote.notes[i].Note == "") {
+                    $scope.currentNote.notes.splice(i, 1);
+                    i--;
+                }
+            }
+        });
+    });
+
     $scope.datePickerOptions = {
         showMeridian: false
     };
@@ -335,7 +346,7 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     }
 
     $scope.openNote = function(item,index){
-        $scope.currentNote = item;
+        $scope.currentNote = JSON.parse(JSON.stringify(item));
         $scope.currentNote.index = index;
         $scope.currentNote.deletelist = [];
     }

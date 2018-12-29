@@ -1542,3 +1542,7 @@ select { outline:none; }
     right: 30px;
     top: 20px;
 }
+.col-detele{
+    min-width: 68px !important;
+    width: 68px !important;
+}
