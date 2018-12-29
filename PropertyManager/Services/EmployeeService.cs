@@ -217,5 +217,31 @@ namespace PropertyManager.Services
                 ToDate = model.to_date ?? 0
             };
         }
+
+        public List<ApartmentEmployeeIssueModel> TrackingIssue(List<apartment_employee_issue> apartmentEmployeeIssue)
+        {
+            var issues = GetAllIssue();
+            var result = new List<ApartmentEmployeeIssueModel>();
+            foreach (var issue in issues)
+            {
+                var flag = false;
+                foreach (var item in apartmentEmployeeIssue)
+                {
+                    if (item.issue_id == issue.issue_id)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                var aei = new ApartmentEmployeeIssueModel()
+                {
+                    IssueId = issue.issue_id,
+                    IsComplete = flag
+                };
+                result.Add(aei);
+            }
+
+            return result;
+        }
     }
 }

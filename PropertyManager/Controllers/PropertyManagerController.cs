@@ -1091,11 +1091,8 @@ namespace PropertyManager.Controllers
                         Id = p.apartment_employee_id,
                         CheckInTime = p.check_in_time ?? 0,
                         CheckOutTime = p.check_out_time ?? 0,
-                        ListIssue = p.apartment_employee_issue.Select(q => new ApartmentEmployeeIssueModel()
-                        {
-                            Id = q.apartment_employee_issue_id,
-                            IsComplete = q.is_complete
-                        }).ToList()
+                        Type = p.type,
+                        ListIssue = _service.TrackingIssue(p.apartment_employee_issue.ToList())
                     }
                 }).ToList();
             return new PagingResult<ApartmentModel>()

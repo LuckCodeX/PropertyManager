@@ -390,7 +390,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.filterData = {
             "Page":$scope.bigCurrentPage,
             "Limit":20,
-            "Id":$stateParams.empID,
+            "Id":$scope.currentEmployee.selected.Id,
             "FromDate":$scope.fromDate,
             "ToDate":$scope.toDate,
             "Address":$scope.currentAddress,

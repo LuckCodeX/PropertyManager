@@ -19,7 +19,7 @@ namespace PropertyManager.Controllers
         public EmployeeModel MaidLogin(EmployeeModel model)
         {
             var employee = _service.MaidLogin(model);
-            if(Equals(employee, null))
+            if (Equals(employee, null))
                 ExceptionContent(HttpStatusCode.Unauthorized, "Tài khoản hoặc mật khẩu sai");
             var token = new TokenModel
             {
@@ -69,25 +69,25 @@ namespace PropertyManager.Controllers
                 var token = values.First();
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
-                if(Equals(maid, null))
+                if (Equals(maid, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
                 var apartment = _service.GetApartmentByCode(model.ApartmentCode);
-                if(Equals(apartment, null))
+                if (Equals(apartment, null))
                     ExceptionContent(HttpStatusCode.InternalServerError, "Không tìm thấy thông tin căn hộ");
 
                 var contract = _service.GetCurrentParentContractByApartmentId(apartment.apartment_id);
-                if(Equals(contract, null))
+                if (Equals(contract, null))
                     ExceptionContent(HttpStatusCode.InternalServerError, "Căn hộ đã hết hạn hợp đồng");
 
                 var contractEmployee =
                     _service.GetContractEmployeeByContractIdAndEmployeeId(contract.contract_id, maid.employee_id);
-                if(Equals(contractEmployee, null) || contractEmployee.status != 1 || !Equals(contractEmployee.to_date, null))
+                if (Equals(contractEmployee, null) || contractEmployee.status != 1 || !Equals(contractEmployee.to_date, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Bạn không có quyền vào căn hộ này");
 
                 var apartmentEmployee =
                     _service.GetLastApartmentEmployeeNotCheckOutByEmployeeId(maid.employee_id);
-                if(!Equals(apartmentEmployee, null))
+                if (!Equals(apartmentEmployee, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Bạn có 1 căn hộ chưa hoàn thành");
 
                 apartmentEmployee = new apartment_employee
@@ -218,7 +218,7 @@ namespace PropertyManager.Controllers
                 _service.SaveListProblemImage(listImage);
             }
 
-            
+
         }
 
         [HttpGet]
@@ -237,16 +237,16 @@ namespace PropertyManager.Controllers
                 var contracts = _service.GetAllCurrentContractByEmployeeId(maid.employee_id);
                 var apartmentList = contracts.Select(p => new ApartmentModel
                 {
-                        Id = p.apartment.apartment_id,
-                        Code = p.apartment.code,
-                        Building = p.building,
-                        NoApartment = p.no_apartment,
-                        Project = Equals(p.apartment.project_id, null) ? new ProjectModel() : new ProjectModel
-                        {
-                            Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
-                        },
-                        Address = p.address
-                    }).ToList();
+                    Id = p.apartment.apartment_id,
+                    Code = p.apartment.code,
+                    Building = p.building,
+                    NoApartment = p.no_apartment,
+                    Project = Equals(p.apartment.project_id, null) ? new ProjectModel() : new ProjectModel
+                    {
+                        Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                    },
+                    Address = p.address
+                }).ToList();
                 return apartmentList;
             }
             return new List<ApartmentModel>();
@@ -350,10 +350,10 @@ namespace PropertyManager.Controllers
                 if (Equals(maid, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
-                var newPass = Encrypt.EncodePassword(model.Password);
-                if(!Equals(newPass, maid.password))
+                var oldPass = Encrypt.EncodePassword(model.OldPassword);
+                if (!Equals(oldPass, maid.password))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Mật khẩu cũ không đúng");
-
+                var newPass = Encrypt.EncodePassword(model.Password);
                 maid.password = newPass;
                 _service.SaveEmployee(maid);
             }
@@ -440,10 +440,12 @@ namespace PropertyManager.Controllers
                             Id = p.apartment_employee_id,
                             CheckInTime = p.check_in_time ?? 0,
                             CheckOutTime = p.check_out_time ?? 0,
+                            Type = p.type,
                             Apartment = new ApartmentModel()
                             {
                                 Id = p.contract.apartment_id.Value,
-                                Code = p.contract.apartment.code
+                                Code = p.contract.apartment.code,
+                                NoBedRoom = p.contract.no_bedroom
                             }
                         }).ToList();
                     var calendar = new CalendarModel()

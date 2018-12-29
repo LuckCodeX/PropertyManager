@@ -99,5 +99,6 @@ namespace PropertyManager.Services
         List<inbox> GetAllInboxByType(int type);
         List<apartment_employee> SearchListApartmentEmployee(FilterModel filter);
         ContractEmployeeModel ConvertContractEmployeeToModel(contract_employee model);
+        List<ApartmentEmployeeIssueModel> TrackingIssue(List<apartment_employee_issue> apartmentEmployeeIssue);
     }
 }
