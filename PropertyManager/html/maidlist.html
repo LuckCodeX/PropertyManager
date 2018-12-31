@@ -1,7 +1,7 @@
 ﻿<div ng-controller="MaidCtrl" ng-init="loadMaidList()" class="view-maid-list">
    <div class="container-fluid content-maid-list">
        <div class="row">
-           <form class="form-horizontal" name="myForm">
+           <form class="form-horizontal" name="myForm" ng-submit="changFilter()">
                 <div class="col-sm-12" >
                     <div class="row">
                     	<p id="test"></p>
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div style="display: inline-block;float: left">
-                            <button ng-click="changFilter()" type="button" style="margin-left: 30px;margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
+                            <button type="submit" style="margin-left: 30px;margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
                         </div>
                         <div style="display: inline-block;float: right">
                             <button ng-click="openPopup({})" data-toggle="modal" data-target="#employeeModal" type="button" style="margin-right: 11px;margin-top: 4px;" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Tạo mới</button>
