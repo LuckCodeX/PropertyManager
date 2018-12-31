@@ -59,7 +59,7 @@
 			</div>
            <table class="table table-hover table-list table-contract table-maid">
                     <tr>
-                        <th rowspan="2" class="col2rows bold red-text">Xóa</th>
+                        <th rowspan="2" class="col2rows bold red-text col-detele">Xóa</th>
                         <th colspan="6">Thông tin nhân viên</th>
                         <th colspan="4">Số lượng căn phụ trách</th>
                         <th rowspan="2" style="width: 200px;" class="col2rows colWidth200">Ghi chú</th>
@@ -77,7 +77,7 @@
                         <th>3 ngủ</th>
                     </tr>
                     <tr ng-repeat="item in maidList">
-                        <td><i ng-click="deleteEmployee(item.Id)" style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
+                        <td class="col-detele"><i ng-click="deleteEmployee(item.Id)" style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
                         <td>{{item.Type}}</td>
                         <td><a href="#" ng-click="openPopup(item)" data-toggle="modal" data-target="#employeeModal">{{item.FirstName + ' ' + item.LastName}}</a></td>
                         <td>{{item.Code}}</td>
@@ -256,7 +256,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-save" style="margin-right: 10px;">Xong</button>
-            <button type="button" class="btn btn-default" id="btn-close" ng-click="currentNote = null" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-default" id="btn-close" data-dismiss="modal">Đóng</button>
         </div>
         </form>
 

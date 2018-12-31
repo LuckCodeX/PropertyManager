@@ -19,8 +19,30 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
           "hideEasing": "linear",
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
-        }
+        };
+        $('#employeeModal').on('hidden.bs.modal', function () {
+            for (var i = 0; i < $scope.currentApartment.notes.length; i++) {
+                if ($scope.currentApartment.notes[i].Note == "") {
+                    $scope.currentApartment.notes.splice(i, 1);
+                    i--;
+                }
+            }
+        });
      });
+
+    // $scope.test = function(){
+    //     for (var i = 0; i < $scope.currentApartment.notes.length; i++) {
+    //         if ($scope.currentApartment.notes[i].Note == "") {
+    //             $scope.currentApartment.notes.splice(i, 1);
+    //             i--;
+    //         }
+    //     }
+    //     // $scope.currentApartment.notes.forEach(function(item, index){
+    //     //         if (item.Note == "") {
+    //     //             $scope.currentApartment.notes.splice(index, 1);
+    //     //         }
+    //     //     });
+    // }
 
     $scope.datePickerOptions = {
         showMeridian: false
@@ -269,23 +291,26 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     function addNoteList(listAdd,id){
         var status = true;
         listAdd.forEach(function(item, index){
-            let dataNote = {
-                "UserProfileId":id,
-                "Note":item.Note
-            };
-           
-            function checkRequest(){
-                return xhrService.post("CreateUserProfileNote",dataNote)
-                    .then(function (data) {
-                        return true;
-                    },
-                    function (error) {
-                        return false;
-                    });
-            };
-            if (item.Id == null) {
-                checkRequest();
+            if (item.Note != "") {
+                let dataNote = {
+                    "UserProfileId":id,
+                    "Note":item.Note
+                };
+               
+                function checkRequest(){
+                    return xhrService.post("CreateUserProfileNote",dataNote)
+                        .then(function (data) {
+                            return true;
+                        },
+                        function (error) {
+                            return false;
+                        });
+                };
+                if (item.Id == null) {
+                    checkRequest();
+                }
             }
+            
             
         });
     }
@@ -308,7 +333,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.openNote = function(apartment,index){
-        $scope.currentApartment = apartment;
+        $scope.currentApartment = JSON.parse(JSON.stringify(apartment));
         $scope.currentApartment.index = index;
         $scope.currentApartment.deletelist = [];
     }
@@ -380,9 +405,9 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
-        $scope.currentNoApartment = $stateParams.apartment === undefined ? "" : $stateParams.apartment;
-        $scope.currentAddress = $stateParams.address === undefined ? "" : $stateParams.address;
-        $scope.currentBuilding = $stateParams.building === undefined ? "" : $stateParams.building;
+        $scope.currentNoApartment = $stateParams.apartment === undefined ? null : $stateParams.apartment;
+        $scope.currentAddress = $stateParams.address === undefined ? null : $stateParams.address;
+        $scope.currentBuilding = $stateParams.building === undefined ? null : $stateParams.building;
         $scope.currentProject = $stateParams.projectId === undefined ? -1 : $stateParams.projectId;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
