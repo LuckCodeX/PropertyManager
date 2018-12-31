@@ -3,45 +3,7 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
     const today = getEndDay(new Date());
     var currentScroll = 0;
 
-    $scope.datePickerOptions = {
-        showMeridian: false
-    };
-
-    $scope.openCalendar = function(e, picker) {
-        picker.open = true;
-    };
-
-    $scope.buttonBar = {
-        show: true,
-        now: {
-            show: true,
-            text: 'Bây giờ'
-        },
-        today: {
-            show: true,
-            text: 'Hôm nay'
-        },
-        clear: {
-            show: false,
-            text: 'Làm mới'
-        },
-        date: {
-            show: true,
-            text: 'Ngày'
-        },
-        time: {
-            show: true,
-            text: 'Giờ'
-        },
-        close: {
-            show: true,
-            text: 'Đóng'
-        },
-        cancel: {
-            show: false,
-            text: 'Quay lại'
-        }
-    }
+    
 
     $scope.checkWorkday = function(days){
         for (var i = 0; i < days.length; i++) {
@@ -202,9 +164,9 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
        $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.fromDate = $stateParams.fromDate === undefined ? firstDay : $stateParams.fromDate;
         $scope.toDate = $stateParams.toDate === undefined ? today : $stateParams.toDate;
-        $scope.currentNoApartment = $stateParams.apartment === undefined ? "" : $stateParams.apartment;
-        $scope.currentAddress = $stateParams.address === undefined ? "" : $stateParams.address;
-        $scope.currentBuilding = $stateParams.building === undefined ? "" : $stateParams.building;
+        $scope.currentNoApartment = $stateParams.apartment === undefined ? null : $stateParams.apartment;
+        $scope.currentAddress = $stateParams.address === undefined ? null : $stateParams.address;
+        $scope.currentBuilding = $stateParams.building === undefined ? null : $stateParams.building;
         $scope.currentProject = $stateParams.projectId === undefined ? -1 : $stateParams.projectId;
         $scope.currentEmployee = $stateParams.empID === undefined ? -1 : $stateParams.empID;
         $scope.fromDatePicker = new Date(Number($scope.fromDate)*1000);
@@ -219,6 +181,18 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
             this.value = this.value.replace(/\s/g, "");
           }
         });
+
+         $scope.filterData = {
+            "Page":$scope.bigCurrentPage,
+            "Limit":10,        
+            "Id":$scope.currentEmployee,
+            "FromDate":$scope.fromDate,
+            "ToDate":$scope.toDate,
+            "Address":$scope.currentAddress,
+            "NoApartment":$scope.currentNoApartment,
+            "Building":$scope.currentBuilding,
+            "ProjectId":$scope.currentProject
+        };
         
          xhrService.get("GetAllMaid",$scope.filterData)
             .then(function (data) {
@@ -247,7 +221,7 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
             function (error) {
                 console.log(error.statusText);
             });
-        $scope.currentMaid = null;
+      
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2050, 5, 22),
@@ -255,36 +229,13 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
             startingDay: 1
         };
         $scope.format = 'dd/MM/yyyy';
-          
-        // $scope.filterData = {
-        //     "Page":$scope.bigCurrentPage,
-        //     "Limit":"20",
-        //     "Id":$scope.currentEmployee,
-        //     "FromDate":$scope.fromDate,
-        //     "ToDate":$scope.toDate
-        // }
-
-$scope.currentAddress=null;
-$scope.currentNoApartment=null;
-$scope.currentBuilding=null;
-        $scope.filterData = {
-            "Page":$scope.bigCurrentPage,
-            "Limit":10,
-            // "Id":$stateParams.empID,
-            "Id":$scope.currentEmployee,
-            "FromDate":$scope.fromDate,
-            "ToDate":$scope.toDate,
-            "Address":$scope.currentAddress,
-            "NoApartment":$scope.currentNoApartment,
-            "Building":$scope.currentBuilding,
-            "ProjectId":$scope.currentProject
-        };
+      
 
         xhrService.post("GetListMaidIssue",$scope.filterData)
         .then(function (data) {
             console.log(data);
             $scope.issuemaidList=data.data.data;
-           
+           getProjectList();
 
         },
         function (error) {
@@ -306,6 +257,57 @@ $scope.currentBuilding=null;
             });
     }
 
+function getProjectList(){
+        xhrService.get("GetAllProject")
+        .then(function (data) {
+            console.log(data);
+            $scope.projectList = [];
+            $scope.projectList.push({
+                Id: -1,
+                Name: "Tất cả",
+                ValueName: "",             
+                value: -1
+            });
+            var dataEmp = data.data;
+            dataEmp.forEach(function(item, index){
+                let emp = {
+                    Id: item.Id,
+                    Name: item.Name,
+                    ValueName: $scope.replaceString(item.Name),             
+                    value: item.Id
+                };
+                $scope.projectList.push(emp);
+            });
+
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+    };
+
+    $scope.projectConfig = {
+          maxItems: 1,
+          labelField: 'Name',
+           score: function(search) {
+            search = search.toLowerCase();
+            search = search.replace(/\ /g, " ");
+            search = search.replace(/à|á|ạ|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            search = search.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            search = search.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            search = search.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            search = search.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            search = search.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            search = search.replace(/đ/g, "d");
+            search = search.replace(/\”|\“|\"|\[|\]|\?/g, "");
+            search = search.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); 
+            search = search.replace(/\u02C6|\u0306|\u031B/g, ""); 
+            var score = this.getScoreFunction(search);  
+            return function(item) {
+                return score(item);
+            };
+        },
+          searchField: ['ValueName']
+    };
 
     $scope.myConfig = {
           maxItems: 1,

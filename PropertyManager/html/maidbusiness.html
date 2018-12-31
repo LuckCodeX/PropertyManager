@@ -4,8 +4,33 @@
            <form class="form-horizontal" name="myForm">
                 <div class="col-sm-12" >
                     <div class="row">
-                    	
-                        <div class="form-group col-sm-4">
+
+                    	<div class="form-group col-sm-3">
+                        <label class="control-label col-sm-5" for="">Khu:</label>
+                        <div class="col-sm-7"style="height: 37px;z-index: 1030;">
+                            <selectize placeholder='Chọn dự án...'  name="khu" options='projectList' config="projectConfig" ng-model="currentProject" ng-disabled='disable' required='true'></selectize>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label class="control-label col-sm-5" for="">Tòa:</label>
+                        <div class="col-sm-7">
+                            <input type="text" ng-model="currentBuilding" name="searchToa" class="form-ctrl">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label class="control-label col-sm-5" for="">Căn hộ:</label>
+                        <div class="col-sm-7">
+                            <input type="text" ng-model="currentNoApartment" name="searchCanHo" class="form-ctrl">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label class="control-label col-sm-5" for="">Địa chỉ:</label>
+                        <div class="col-sm-7">
+                            <input type="text" ng-model="currentAddress" name="searchDiaChi" class="form-ctrl">
+                        </div>
+                    </div>
+
+                        <div class="form-group col-sm-3">
                             <label class="control-label col-sm-5" for="">Nhân viên:</label>
                             <div class="col-sm-7 selectize-on-all selectize-employee" style="color: black">
                             <selectize placeholder='Chọn nhân viên...' options='employeeList' config="myConfig" ng-model="currentEmployee" ng-disabled='disable' required='true'></selectize>
@@ -45,7 +70,7 @@
                             </p>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                         <label class="control-label col-sm-5" for=""></label>
                         <button ng-click="pageChanged()" type="button" style="margin-top: 4px;" class="btn btn-save float-left"> Tìm kiếm</button>
                     </div>
@@ -101,11 +126,15 @@
                             <td>{{item.Maid.FirstName + ' ' + item.Maid.LastName}}</td>
                     		<td>{{item.Maid.Phone}}</td>
                             <td>{{item.ContractEmployee.FromDate*1000 | date:'dd/MM/yyyy'}}</td>
-                            <td>{{(item.ContractEmployee.FromDate + (item.ContractEmployee.WorkHour*60))*1000 | date:'dd/MM/yyyy'}}</td>
+                            <td><span ng-if="item.ContractEmployee.ToDate == 0">Hôm nay</span>
+                                
+                                <span ng-if="item.ContractEmployee.ToDate != 0">{{item.ContractEmployee.FromDate*1000 | date:'dd/MM/yyyy'}}</span>
+                                
+                            </td>
                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'dd/MM/yyyy'}}</td>
-                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'dd/MM/yyyy'}}</td>
-                              <td>{{item.ApartmentEmployee.CheckOutTime*1000 | date:'dd/MM/yyyy'}}</td>
-                              <td>{{(item.ApartmentEmployee.CheckOutTime - item.ApartmentEmployee.CheckInTime)*1000 | date:"HH:mm"}}</td>
+                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'HH:mm'}}</td>
+                              <td>{{item.ApartmentEmployee.CheckOutTime*1000 | date:'HH:mm'}}</td>
+                              <td>{{(item.ApartmentEmployee.CheckOutTime - item.ApartmentEmployee.CheckInTime)*1000 | date:'HH:mm'}}</td>
                               <td>
                                 <span ng-if="item.ApartmentEmployee.Type == 0">Dọn dẹp</span>
                                 <span ng-if="item.ApartmentEmployee.Type == 1">Kiểm tra</span>
