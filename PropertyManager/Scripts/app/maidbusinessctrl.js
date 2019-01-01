@@ -1,4 +1,4 @@
-function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll) {
+function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll, $filter) {
 	 const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
     var currentScroll = 0;
@@ -130,7 +130,6 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
         if (datestring) {
             datestring = datestring.split("/").reverse().join("/");
             var date = new Date(datestring);
-            console.log(date);
             return date.getTime()/1000;
         }else{
             return '';
@@ -156,7 +155,8 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
             result = result.slice(0, result.length-1);
         }
         return result;
-    }
+    };
+
 
    
     $scope.loadMaidBusiness = function(){
@@ -233,7 +233,6 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 
         xhrService.post("GetListMaidIssue",$scope.filterData)
         .then(function (data) {
-            console.log(data);
             $scope.issuemaidList=data.data.data;
            getProjectList();
 
@@ -249,7 +248,6 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 
             xhrService.get("GetAllIssue")
         .then(function(data) {
-            // console.log(data);
                 $scope.issueList = data.data;
             },
             function(error) {
@@ -260,7 +258,6 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
 function getProjectList(){
         xhrService.get("GetAllProject")
         .then(function (data) {
-            console.log(data);
             $scope.projectList = [];
             $scope.projectList.push({
                 Id: -1,
@@ -365,7 +362,6 @@ function getProjectList(){
 
     
 $scope.pageChanged = function () {
-        console.log($scope.currentEmployee);
         $location.path("/maid/business")
         .search({ page: $scope.bigCurrentPage, 
                 fromDate: getFirstDay($scope.fromDatePicker),
@@ -419,8 +415,44 @@ $scope.datePickerOptions = {
             show: false,
             text: 'Quay lại'
         }
-    }
+    };
+
+     $scope.deleteEmployee = function(id){
+        swal({
+            title: "Bạn có chắc chắn muốn xóa ?",
+            text: "Cột đã xóa không thể khôi phục!",
+            icon: "warning",
+            buttons: [
+                'Không',
+                'Có'
+            ],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                
+
+            }
+        });
+    };
 	
 }
 
 app.controller('MaidBusinessCtrl', MaidBusinessCtrl);
+
+app.filter('secondsToDateTime', [function() {
+    function padTime(t) {
+        return t < 10 ? "0"+t : t;
+    }
+
+    return function(_seconds) {
+        if (typeof _seconds !== "number" || _seconds < 0)
+            return "00:00";
+
+        var hours = Math.floor(_seconds / 3600),
+            minutes = Math.floor((_seconds % 3600) / 60),
+            seconds = Math.floor(_seconds % 60);
+
+        return padTime(hours) + ":" + padTime(minutes);
+    };
+}])
