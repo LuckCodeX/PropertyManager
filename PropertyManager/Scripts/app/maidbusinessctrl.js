@@ -420,7 +420,7 @@ $scope.datePickerOptions = {
      $scope.deleteEmployee = function(id){
         swal({
             title: "Bạn có chắc chắn muốn xóa ?",
-            text: "Nhân viên đã xóa không thể khôi phục!",
+            text: "Cột đã xóa không thể khôi phục!",
             icon: "warning",
             buttons: [
                 'Không',
