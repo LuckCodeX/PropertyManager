@@ -103,7 +103,6 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
 
      function convertDateToUnixTimeStamp(datestring){
         if (datestring) {
-            console.log(datestring);
             return datestring.getTime()/1000;
         }else{
             return '';
@@ -167,7 +166,6 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     $scope.format = 'dd/MM/yyyy hh:mm';
 
     $scope.openNote = function(item,index){
-        console.log(item);
         $scope.currentProblem = JSON.parse(JSON.stringify(item));
         // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
         $scope.currentProblem = item;
@@ -193,7 +191,6 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     }
 
     $scope.openNoteFix = function(item,index){
-        console.log(item);
         // $scope.dataTest[$scope.currentApartment.index].textNote = "Không có";
         $scope.currentProblem = JSON.parse(JSON.stringify(item));
         $scope.currentProblem.index = index;
@@ -207,7 +204,6 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     }
 
     $scope.openImages = function(item,index){
-        console.log(item);
         $scope.currentProblem = item;
         $scope.currentProblem.index = index;
     }
@@ -281,6 +277,39 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
             });
         };
         getListEmployee();
+    }
+
+    $scope.deleteMaidProblem = function(id){
+        swal({
+            title: "Bạn có chắc chắn muốn xóa ?",
+            text: "Sự việc đã xóa không thể khôi phục!",
+            icon: "warning",
+            buttons: [
+                'Không',
+                'Có'
+            ],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // xhrService.delete("DeleteMaid/"+id)
+                // .then(function (data) {
+                //     $scope.loadMaidList();
+                //     swal("Xóa nhân viên thành công!",
+                //         {
+                //             icon: "success",
+                //         });
+
+                // },
+                // function (error) {
+                //     swal("Xóa nhân viên thất bại!",
+                //         {
+                //             icon: "error",
+                //         });
+                // });
+
+            }
+        });
     }
 }
 app.controller('MaidProblemCtrl', MaidProblemCtrl);

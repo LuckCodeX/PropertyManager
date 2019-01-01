@@ -131,7 +131,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         };
         xhrService.post("SaveMaidApartment",data)
         .then(function (data) {
-            console.log(data);
         },
         function (error) {
             console.log(error.statusText);
@@ -316,7 +315,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     function delelteNoteList(listDelete){
-        console.log(listDelete);
         listDelete.forEach(function(item, index){
             function checkRequest(){
                 return xhrService.delete("DeleteUserProfileNote/"+item)
@@ -386,7 +384,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     }
 
     $scope.loadMaidApartment = function(){
-        console.log("not ok");
         $scope.WorkDate = [];
         var empData ={
             Id: -1,
@@ -479,7 +476,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     function getProjectList(){
         xhrService.get("GetAllProject")
         .then(function (data) {
-            console.log(data);
             $scope.projectList = [];
             $scope.projectList.push({
                 Id: -1,
@@ -525,7 +521,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                     
                 }
             }
-            console.log(days);
             item.value = index;
             item.workdays = days;
             item.notes = [];
@@ -533,7 +528,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                 item.notes = item.Apartment.Resident.NoteList;
             }
             if (item.Maid.WorkHour != null) {
-                console.log(convertMinuteToTime(item.Maid.WorkHour));
                 item.timeWork = convertMinuteToTime(item.Maid.WorkHour);
             }
             
@@ -620,7 +614,6 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
     };
 
     $scope.pageChanged = function () {
-        console.log($scope.currentEmployee);
         $location.path("/maid/apartment")
         .search({ page: $scope.bigCurrentPage, 
                 fromDate: getFirstDay($scope.fromDatePicker),
@@ -631,6 +624,39 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                 building:$scope.currentBuilding,
                 projectId:$scope.currentProject });
     };
+
+    $scope.deleteApartment = function(id){
+        swal({
+            title: "Bạn có chắc chắn muốn xóa ?",
+            text: "Sự việc đã xóa không thể khôi phục!",
+            icon: "warning",
+            buttons: [
+                'Không',
+                'Có'
+            ],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // xhrService.delete("DeleteMaid/"+id)
+                // .then(function (data) {
+                //     $scope.loadMaidList();
+                //     swal("Xóa nhân viên thành công!",
+                //         {
+                //             icon: "success",
+                //         });
+
+                // },
+                // function (error) {
+                //     swal("Xóa nhân viên thất bại!",
+                //         {
+                //             icon: "error",
+                //         });
+                // });
+
+            }
+        });
+    }
 
 	
 }
