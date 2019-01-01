@@ -90,7 +90,6 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     };
 
     $scope.convertString = function(str){
-        console.log($scope.replaceString('mèo'));
         
         return str;
     }
@@ -129,7 +128,6 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         if (datestring) {
             datestring = datestring.split("/").reverse().join("/");
             var date = new Date(datestring);
-            console.log(date);
             return date.getTime()/1000;
         }else{
             return '';
@@ -211,7 +209,6 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
         $scope.toDatePicker = new Date(Number($scope.toDate)*1000);
         xhrService.post("GetListMaid",$scope.filterData)
             .then(function (data) {
-                console.log(data);
                 $scope.totalMaid = data.data.total;
                 $scope.maidList = data.data.data;
                 $scope.maidList.forEach(function(item, index){
@@ -320,7 +317,6 @@ function MaidCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrServ
     }
 
     function delelteNoteList(listDelete){
-        console.log(listDelete);
         listDelete.forEach(function(item, index){
             function checkRequest(){
                 return xhrService.delete("DeleteEmployeeNote/"+item)

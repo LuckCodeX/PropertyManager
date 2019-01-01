@@ -51,7 +51,6 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 
     function convertDateToUnixTimeStamp(datestring){
         if (datestring) {
-            console.log(datestring);
             return datestring.getTime()/1000;
         }else{
             return '';
@@ -159,7 +158,6 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 		xhrService.get("GetListAllTypeApartment/"+textSearch)
         .then(function (data) {
             $scope.apartmentList = data.data;
-            console.log($scope.apartmentList);
             $scope.apartmentList.forEach(function(item, index){
             	item.value = item.Id;
             });
@@ -238,7 +236,6 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 	$scope.getDetailCompany = function(){
 		$scope.companyList.forEach(function(item, index){
         	if (item.Id == $scope.currentCompany) {
-        		console.log(item);
         		$scope.contract.Company.Name = item.Name;
         		$scope.contract.Company.Address = item.Address;
         		$scope.contract.Company.TaxCode = item.TaxCode;
@@ -398,7 +395,6 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         if ($scope.contract.ParentId == -1) {$scope.contract.ParentId == null};
 		$scope.contract.StartDate = getFirstDay($scope.contract.StartDate);
 		$scope.contract.EndDate = getEndDay($scope.contract.EndDate);
-        console.log($scope.contract);
 		xhrService.post("CreateContract/",$scope.contract)
         .then(function (data) {
         	window.location.href = "/contract";
