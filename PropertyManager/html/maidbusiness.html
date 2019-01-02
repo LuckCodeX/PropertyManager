@@ -134,16 +134,14 @@
                                 
                             </td>
                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'dd/MM/yyyy'}}</td>
-                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'HH:mm'}}</td>
-                              <td>{{item.ApartmentEmployee.CheckOutTime*1000 | date:'HH:mm'}}</td>
-                              <td>{{item.ApartmentEmployee.CheckOutTime - item.ApartmentEmployee.CheckInTime | secondsToDateTime}}</td>
-                             <!--  <td>{{duration_for(item.ApartmentEmployee.CheckOutTime - item.ApartmentEmployee.CheckInTime)}}</td> -->
+                              <td>{{item.ApartmentEmployee.CheckInTime*1000 | date:'HH:mm:ss'}}</td>
+                              <td>{{item.ApartmentEmployee.CheckOutTime*1000 | date:'HH:mm:ss'}}</td>
+                              <td>{{item.ApartmentEmployee.CheckOutTime - item.ApartmentEmployee.CheckInTime | secondsToDateTime | date:'HH:mm'}}</td>
                               <td>
                                 <span ng-if="item.ApartmentEmployee.Type == 0">Dọn dẹp</span>
                                 <span ng-if="item.ApartmentEmployee.Type == 1">Kiểm tra</span>
                               </td>
                               <td ng-repeat="child in item.ApartmentEmployee.ListIssue">
-                              <!-- {{child.IsComplete}} -->
                               <span ng-if="child.IsComplete == true"><i class="fas fa-times"></i></span>
                               <span ng-if="child.IsComplete == false"></span>
                           </td>
@@ -162,8 +160,10 @@
                 
                 </div>
 
+                
+
                 <div class="pagination-employee">
-			<ul uib-pagination total-items="totalMaid" items-per-page="20" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
+			<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
 		</div>
 	</div>
 </div>

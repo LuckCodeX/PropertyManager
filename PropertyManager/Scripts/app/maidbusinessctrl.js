@@ -234,6 +234,7 @@ function MaidBusinessCtrl($scope, $rootScope, $stateParams, $location, $timeout,
         xhrService.post("GetListMaidIssue",$scope.filterData)
         .then(function (data) {
             $scope.issuemaidList=data.data.data;
+            $scope.totalItems = data.data.total;
            getProjectList();
 
         },
@@ -420,7 +421,7 @@ $scope.datePickerOptions = {
      $scope.deleteEmployee = function(id){
         swal({
             title: "Bạn có chắc chắn muốn xóa ?",
-            text: "Cột đã xóa không thể khôi phục!",
+            text: "Dữ liệu đã xóa không thể khôi phục!",
             icon: "warning",
             buttons: [
                 'Không',
@@ -440,19 +441,26 @@ $scope.datePickerOptions = {
 
 app.controller('MaidBusinessCtrl', MaidBusinessCtrl);
 
-app.filter('secondsToDateTime', [function() {
-    function padTime(t) {
-        return t < 10 ? "0"+t : t;
-    }
+app.filter('secondsToDateTime', function() {
+    // function padTime(t) {
+    //     return t < 10 ? "0"+t : t;
+    // }
 
-    return function(_seconds) {
-        if (typeof _seconds !== "number" || _seconds < 0)
-            return "00:00";
+    // return function(_seconds) {
+    //     if (typeof _seconds !== "number" || _seconds < 0)
+    //         return "00:00:00";
 
-        var hours = Math.floor(_seconds / 3600),
-            minutes = Math.floor((_seconds % 3600) / 60),
-            seconds = Math.floor(_seconds % 60);
+    //     var hours = Math.floor(_seconds / 3600),
+    //         minutes = Math.floor((_seconds % 3600) / 60),
+    //         seconds = Math.floor(_seconds % 60);
 
-        return padTime(hours) + ":" + padTime(minutes);
-    };
-}])
+    //     return padTime(hours) + ":" + padTime(minutes) + ":" + padTime(seconds);
+    // };
+    return function (input) {
+    function z(n) { return (n < 10 ? '0' : '') + n; }
+    var seconds = input % 60;
+    var minutes = Math.floor(input % 3600 / 60);
+    var hours = Math.floor(input / 3600);
+    return (z(hours) + ':' + z(minutes) + ':' + z(seconds));
+}
+})
