@@ -243,5 +243,10 @@ namespace PropertyManager.Services
 
             return result;
         }
+
+        public apartment_employee GetApartmentEmployeeById(int id)
+        {
+            return ApartmentEmployeeRepository.FindBy(p => p.apartment_employee_id == id).FirstOrDefault();
+        }
     }
 }

@@ -102,5 +102,6 @@ namespace PropertyManager.Services
         List<ApartmentEmployeeIssueModel> TrackingIssue(List<apartment_employee_issue> apartmentEmployeeIssue);
         void SaveProblemTracking(problem_tracking tracking);
         List<problem> SearchListProblem(FilterModel filter);
+        apartment_employee GetApartmentEmployeeById(int id);
     }
 }

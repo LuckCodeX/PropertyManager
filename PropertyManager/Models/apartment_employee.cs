@@ -28,6 +28,7 @@ namespace PropertyManager.Models
         public int type { get; set; }
         public int contract_id { get; set; }
         public int employee_id { get; set; }
+        public int status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<apartment_employee_issue> apartment_employee_issue { get; set; }

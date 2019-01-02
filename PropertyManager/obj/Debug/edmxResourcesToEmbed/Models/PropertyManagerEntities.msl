@@ -497,6 +497,7 @@
     <EntitySetMapping Name="apartment_employee">
       <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
         <MappingFragment StoreEntitySet="apartment_employee">
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="employee_id" ColumnName="employee_id" />
           <ScalarProperty Name="contract_id" ColumnName="contract_id" />
           <ScalarProperty Name="type" ColumnName="type" />

@@ -1267,6 +1267,7 @@
     <NavigationProperty Name="contract" Relationship="PropertyManagerModel.FK__apartment__contr__5B438874" FromRole="apartment_employee" ToRole="contract" />
     <Property Name="employee_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__apartment__emplo__5C37ACAD" FromRole="apartment_employee" ToRole="employee" />
+    <Property Name="status" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="FK__apartment__apart__6ABAD62E">
     <End Type="PropertyManagerModel.apartment_employee" Role="apartment_employee" Multiplicity="1">

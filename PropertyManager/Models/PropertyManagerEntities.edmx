@@ -79,6 +79,7 @@
           <Property Name="type" Type="int" Nullable="false" />
           <Property Name="contract_id" Type="int" Nullable="false" />
           <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="apartment_employee_issue">
           <Key>
@@ -2585,6 +2586,7 @@
           <NavigationProperty Name="contract" Relationship="PropertyManagerModel.FK__apartment__contr__5B438874" FromRole="apartment_employee" ToRole="contract" />
           <Property Name="employee_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__apartment__emplo__5C37ACAD" FromRole="apartment_employee" ToRole="employee" />
+          <Property Name="status" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK__apartment__apart__6ABAD62E">
           <End Type="PropertyManagerModel.apartment_employee" Role="apartment_employee" Multiplicity="1">
@@ -3221,6 +3223,7 @@
           <EntitySetMapping Name="apartment_employee">
             <EntityTypeMapping TypeName="PropertyManagerModel.apartment_employee">
               <MappingFragment StoreEntitySet="apartment_employee">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="contract_id" ColumnName="contract_id" />
                 <ScalarProperty Name="type" ColumnName="type" />

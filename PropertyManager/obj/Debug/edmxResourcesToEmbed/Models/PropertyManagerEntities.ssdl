@@ -74,6 +74,7 @@
     <Property Name="type" Type="int" Nullable="false" />
     <Property Name="contract_id" Type="int" Nullable="false" />
     <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="apartment_employee_issue">
     <Key>

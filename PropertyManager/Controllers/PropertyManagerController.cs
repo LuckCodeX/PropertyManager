@@ -1102,6 +1102,20 @@ namespace PropertyManager.Controllers
             };
         }
 
+        [HttpDelete]
+        [Route("DeleteMaidIssue/{apartmentEmployeeId}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void DeleteMaidIssue(int apartmentEmployeeId)
+        {
+            var apartmentEmployee = _service.GetApartmentEmployeeById(apartmentEmployeeId);
+            if (!Equals(apartmentEmployee, null))
+            {
+                apartmentEmployee.status = 2;
+                _service.SaveApartmentEmployee(apartmentEmployee);
+            }
+        }
+
         #endregion
 
         #region Issue
@@ -1460,6 +1474,20 @@ namespace PropertyManager.Controllers
                 total = problems.Count,
                 data = problemList
             };
+        }
+
+        [HttpDelete]
+        [Route("DeleteProblem/{id}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void DeleteProblem(int id)
+        {
+            var problem = _service.GetProblemById(id);
+            if (!Equals(problem, null))
+            {
+                problem.status = 2;
+                _service.SaveProblem(problem);
+            }
         }
 
         [HttpPost]

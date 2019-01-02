@@ -96,7 +96,8 @@ namespace PropertyManager.Controllers
                     check_in_time = ConvertDatetime.GetCurrentUnixTimeStamp(),
                     check_in_geo = JsonConvert.SerializeObject(model.CheckInGeo),
                     contract_id = contract.contract_id,
-                    employee_id = maid.employee_id
+                    employee_id = maid.employee_id,
+                    status = 1
                 };
                 _service.SaveApartmentEmployee(apartmentEmployee);
 
