@@ -149,7 +149,7 @@ namespace PropertyManager.Services
 
         public apartment GetApartmentByCode(string code)
         {
-            return ApartmentRepository.FindBy(p => p.code == code && (p.status == 1 || p.status == 3)).Include(p => p.project.project_content).Include(p => p.problems).FirstOrDefault();
+            return ApartmentRepository.FindBy(p => p.code == code && (p.status == 1 || p.status == 3)).Include(p => p.project.project_content).FirstOrDefault();
         }
     }
 }

@@ -302,8 +302,9 @@
     <Property Name="priority" Type="int" />
     <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
-    <Property Name="apartment_id" Type="int" Nullable="false" />
     <Property Name="employee_id" Type="int" />
+    <Property Name="apartment_id" Type="int" />
+    <Property Name="contract_id" Type="int" />
   </EntityType>
   <EntityType Name="problem_image">
     <Key>
@@ -824,8 +825,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__problem__apartme__79FD19BE">
-    <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
+  <Association Name="FK__problem__apartme__7E8CC4B1">
+    <End Role="apartment" Type="Self.apartment" Multiplicity="0..1" />
     <End Role="problem" Type="Self.problem" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="apartment">
@@ -833,6 +834,30 @@
       </Principal>
       <Dependent Role="problem">
         <PropertyRef Name="apartment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__problem__contrac__7F80E8EA">
+    <End Role="contract" Type="Self.contract" Multiplicity="0..1" />
+    <End Role="problem" Type="Self.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contract">
+        <PropertyRef Name="contract_id" />
+      </Principal>
+      <Dependent Role="problem">
+        <PropertyRef Name="contract_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__problem__employe__6C6E1476">
+    <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+    <End Role="problem" Type="Self.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="problem">
+        <PropertyRef Name="employee_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1203,8 +1228,16 @@
       <End Role="facility" EntitySet="facility" />
       <End Role="facility_content" EntitySet="facility_content" />
     </AssociationSet>
-    <AssociationSet Name="FK__problem__apartme__79FD19BE" Association="Self.FK__problem__apartme__79FD19BE">
+    <AssociationSet Name="FK__problem__apartme__7E8CC4B1" Association="Self.FK__problem__apartme__7E8CC4B1">
       <End Role="apartment" EntitySet="apartment" />
+      <End Role="problem" EntitySet="problem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__problem__contrac__7F80E8EA" Association="Self.FK__problem__contrac__7F80E8EA">
+      <End Role="contract" EntitySet="contract" />
+      <End Role="problem" EntitySet="problem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__problem__employe__6C6E1476" Association="Self.FK__problem__employe__6C6E1476">
+      <End Role="employee" EntitySet="employee" />
       <End Role="problem" EntitySet="problem" />
     </AssociationSet>
     <AssociationSet Name="FK__problem__issue_i__725BF7F6" Association="Self.FK__problem__issue_i__725BF7F6">

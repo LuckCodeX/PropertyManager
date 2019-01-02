@@ -1399,6 +1399,70 @@ namespace PropertyManager.Controllers
         #region Problem
 
         [HttpPost]
+        [Route("GetListMaidProblem")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public PagingResult<ProblemModel> GetListMaidProblem(FilterModel filter)
+        {
+            var problems = _service.SearchListProblem(filter);
+            var problemList = problems.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit)
+                .Select(p => new ProblemModel()
+                {
+                    Id = p.problem_id,
+                    CreatedDate = p.created_date,
+                    Type = p.type,
+                    IssueId = p.issue_id,
+                    Summary = p.summary,
+                    Status = p.status,
+                    Description = p.description,
+                    Priority = p.priority,
+                    ListImage = p.problem_image.Select(q => new ProblemImageModel()
+                    {
+                        Id = q.problem_image_id,
+                        Img = q.img
+                    }).ToList(),
+                    Apartment = new ApartmentModel()
+                    {
+                        Id = p.apartment_id.Value,
+                        Code = p.apartment.code,
+                        Address = p.apartment.address,
+                        Building = p.apartment.building,
+                        NoApartment = p.apartment.no_apartment,
+                        Project = !Equals(p.apartment.project_id, null) ? new ProjectModel()
+                        {
+                            Name = p.apartment.project.project_content.FirstOrDefault(q => q.language == 0).name
+                        } : new ProjectModel(),
+                        Resident = new UserProfileModel()
+                        {
+                            FullName = p.contract.resident_name,
+                            Phone = p.contract.resident_phone,
+                            Id = p.contract.user_profile1.user_profile_id,
+                            NoteList = p.contract.user_profile1.user_profile_note.Select(q => new UserProfileNoteModel()
+                            {
+                                Id = q.user_profile_note_id,
+                                CreatedDate = q.created_date,
+                                Note = q.note
+                            }).ToList(),
+                        },
+                    },
+                    TrackingList = p.problem_tracking.Select(q => new ProblemTrackingModel()
+                    {
+                        Id = q.problem_tracking_id,
+                        CreatedDate = q.created_date,
+                        Content = q.content,
+                        ProblemId = q.problem_id,
+                        Price = q.price,
+                        EmployeeId = q.employee_id
+                    }).ToList()
+                }).ToList();
+            return new PagingResult<ProblemModel>()
+            {
+                total = problems.Count,
+                data = problemList
+            };
+        }
+
+        [HttpPost]
         [Route("SaveProblem")]
         [ACLFilter(AccessRoles = new int[]
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
@@ -1472,6 +1536,8 @@ namespace PropertyManager.Controllers
 
         [HttpPost]
         [Route("CreateUserProfileNote")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void CreateUserProfileNote(UserProfileNoteModel model)
         {
             IEnumerable<string> values;
@@ -1494,6 +1560,8 @@ namespace PropertyManager.Controllers
 
         [HttpDelete]
         [Route("DeleteUserProfileNote/{id}")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void DeleteUserProfileNote(int id)
         {
             _service.DeleteUserProfileNote(id);
@@ -1501,9 +1569,20 @@ namespace PropertyManager.Controllers
 
         [HttpPost]
         [Route("CreateProblemTracking")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void CreateProblemTracking(ProblemTrackingModel model)
         {
-
+            var tracking = new problem_tracking()
+            {
+                problem_tracking_id = 0,
+                problem_id = model.ProblemId,
+                content = model.Content,
+                created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                price = model.Price,
+                employee_id = model.EmployeeId,
+            };
+            _service.SaveProblemTracking(tracking);
         }
 
 

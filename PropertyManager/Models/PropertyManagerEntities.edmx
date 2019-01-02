@@ -307,8 +307,9 @@
           <Property Name="priority" Type="int" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="created_date" Type="int" Nullable="false" />
-          <Property Name="apartment_id" Type="int" Nullable="false" />
           <Property Name="employee_id" Type="int" />
+          <Property Name="apartment_id" Type="int" />
+          <Property Name="contract_id" Type="int" />
         </EntityType>
         <EntityType Name="problem_image">
           <Key>
@@ -829,8 +830,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__problem__apartme__79FD19BE">
-          <End Role="apartment" Type="Self.apartment" Multiplicity="1" />
+        <Association Name="FK__problem__apartme__7E8CC4B1">
+          <End Role="apartment" Type="Self.apartment" Multiplicity="0..1" />
           <End Role="problem" Type="Self.problem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="apartment">
@@ -838,6 +839,30 @@
             </Principal>
             <Dependent Role="problem">
               <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem__contrac__7F80E8EA">
+          <End Role="contract" Type="Self.contract" Multiplicity="0..1" />
+          <End Role="problem" Type="Self.problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem__employe__6C6E1476">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="problem" Type="Self.problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="employee_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1208,8 +1233,16 @@
             <End Role="facility" EntitySet="facility" />
             <End Role="facility_content" EntitySet="facility_content" />
           </AssociationSet>
-          <AssociationSet Name="FK__problem__apartme__79FD19BE" Association="Self.FK__problem__apartme__79FD19BE">
+          <AssociationSet Name="FK__problem__apartme__7E8CC4B1" Association="Self.FK__problem__apartme__7E8CC4B1">
             <End Role="apartment" EntitySet="apartment" />
+            <End Role="problem" EntitySet="problem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem__contrac__7F80E8EA" Association="Self.FK__problem__contrac__7F80E8EA">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="problem" EntitySet="problem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem__employe__6C6E1476" Association="Self.FK__problem__employe__6C6E1476">
+            <End Role="employee" EntitySet="employee" />
             <End Role="problem" EntitySet="problem" />
           </AssociationSet>
           <AssociationSet Name="FK__problem__issue_i__725BF7F6" Association="Self.FK__problem__issue_i__725BF7F6">
@@ -1637,7 +1670,6 @@
           </AssociationSet>
           <EntitySet Name="issues" EntityType="PropertyManagerModel.issue" />
           <EntitySet Name="apartment_employee_issue" EntityType="PropertyManagerModel.apartment_employee_issue" />
-          <EntitySet Name="problems" EntityType="PropertyManagerModel.problem" />
           <EntitySet Name="problem_image" EntityType="PropertyManagerModel.problem_image" />
           <EntitySet Name="problem_tracking" EntityType="PropertyManagerModel.problem_tracking" />
           <AssociationSet Name="FK__apartment__issue__6BAEFA67" Association="PropertyManagerModel.FK__apartment__issue__6BAEFA67">
@@ -1647,22 +1679,6 @@
           <AssociationSet Name="FK__problem_t__emplo__7908F585" Association="PropertyManagerModel.FK__problem_t__emplo__7908F585">
             <End Role="employee" EntitySet="employees" />
             <End Role="problem_tracking" EntitySet="problem_tracking" />
-          </AssociationSet>
-          <AssociationSet Name="FK__problem__issue_i__725BF7F6" Association="PropertyManagerModel.FK__problem__issue_i__725BF7F6">
-            <End Role="issue" EntitySet="issues" />
-            <End Role="problem" EntitySet="problems" />
-          </AssociationSet>
-          <AssociationSet Name="FK__problem_i__probl__753864A1" Association="PropertyManagerModel.FK__problem_i__probl__753864A1">
-            <End Role="problem" EntitySet="problems" />
-            <End Role="problem_image" EntitySet="problem_image" />
-          </AssociationSet>
-          <AssociationSet Name="FK__problem_t__probl__7814D14C" Association="PropertyManagerModel.FK__problem_t__probl__7814D14C">
-            <End Role="problem" EntitySet="problems" />
-            <End Role="problem_tracking" EntitySet="problem_tracking" />
-          </AssociationSet>
-          <AssociationSet Name="FK__problem__apartme__79FD19BE" Association="PropertyManagerModel.FK__problem__apartme__79FD19BE">
-            <End Role="apartment" EntitySet="apartments" />
-            <End Role="problem" EntitySet="problems" />
           </AssociationSet>
           <EntitySet Name="careers" EntityType="PropertyManagerModel.career" />
           <EntitySet Name="career_content" EntityType="PropertyManagerModel.career_content" />
@@ -1703,6 +1719,31 @@
           <AssociationSet Name="FK__apartment__emplo__5C37ACAD" Association="PropertyManagerModel.FK__apartment__emplo__5C37ACAD">
             <End Role="employee" EntitySet="employees" />
             <End Role="apartment_employee" EntitySet="apartment_employee" />
+          </AssociationSet>
+          <EntitySet Name="problems" EntityType="PropertyManagerModel.problem" />
+          <AssociationSet Name="FK__problem__apartme__7E8CC4B1" Association="PropertyManagerModel.FK__problem__apartme__7E8CC4B1">
+            <End Role="apartment" EntitySet="apartments" />
+            <End Role="problem" EntitySet="problems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem__contrac__7F80E8EA" Association="PropertyManagerModel.FK__problem__contrac__7F80E8EA">
+            <End Role="contract" EntitySet="contracts" />
+            <End Role="problem" EntitySet="problems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem__employe__6C6E1476" Association="PropertyManagerModel.FK__problem__employe__6C6E1476">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="problem" EntitySet="problems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem__issue_i__725BF7F6" Association="PropertyManagerModel.FK__problem__issue_i__725BF7F6">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="problem" EntitySet="problems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem_i__probl__753864A1" Association="PropertyManagerModel.FK__problem_i__probl__753864A1">
+            <End Role="problem" EntitySet="problems" />
+            <End Role="problem_image" EntitySet="problem_image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__problem_t__probl__7814D14C" Association="PropertyManagerModel.FK__problem_t__probl__7814D14C">
+            <End Role="problem" EntitySet="problems" />
+            <End Role="problem_tracking" EntitySet="problem_tracking" />
           </AssociationSet>
           </EntityContainer>
         <Association Name="FK__admin__parent_id__02084FDA">
@@ -1820,7 +1861,7 @@
           <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="contracts" Relationship="PropertyManagerModel.FK__contract__apartm__2704CA5F" FromRole="apartment" ToRole="contract" />
           <Property Name="is_import" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="problems" Relationship="PropertyManagerModel.FK__problem__apartme__79FD19BE" FromRole="apartment" ToRole="problem" />
+          <NavigationProperty Name="problems" Relationship="PropertyManagerModel.FK__problem__apartme__7E8CC4B1" FromRole="apartment" ToRole="problem" />
         </EntityType>
         <Association Name="FK__aparment___apart__1ED998B2">
           <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1">
@@ -2072,6 +2113,7 @@
           <Property Name="created_date" Type="Int32" Nullable="false" />
           <NavigationProperty Name="employee_note" Relationship="PropertyManagerModel.FK__employee___emplo__473C8FC7" FromRole="employee" ToRole="employee_note" />
           <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__emplo__5C37ACAD" FromRole="employee" ToRole="apartment_employee" />
+          <NavigationProperty Name="problems" Relationship="PropertyManagerModel.FK__problem__employe__6C6E1476" FromRole="employee" ToRole="problem" />
         </EntityType>
         <EntityType Name="company">
           <Key>
@@ -2154,6 +2196,7 @@
           <Property Name="owner_identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="wifi_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__contr__5B438874" FromRole="contract" ToRole="apartment_employee" />
+          <NavigationProperty Name="problems" Relationship="PropertyManagerModel.FK__problem__contrac__7F80E8EA" FromRole="contract" ToRole="problem" />
         </EntityType>
         <EntityType Name="contract_employee">
           <Key>
@@ -2340,26 +2383,6 @@
           <NavigationProperty Name="issue" Relationship="PropertyManagerModel.FK__apartment__issue__6BAEFA67" FromRole="apartment_employee_issue" ToRole="issue" />
           <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__apart__6ABAD62E" FromRole="apartment_employee_issue" ToRole="apartment_employee" />
         </EntityType>
-        <EntityType Name="problem">
-          <Key>
-            <PropertyRef Name="problem_id" />
-          </Key>
-          <Property Name="problem_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="issue_id" Type="Int32" />
-          <Property Name="type" Type="Int32" />
-          <Property Name="summary" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="is_calendar" Type="Boolean" />
-          <Property Name="priority" Type="Int32" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="created_date" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="issue" Relationship="PropertyManagerModel.FK__problem__issue_i__725BF7F6" FromRole="problem" ToRole="issue" />
-          <NavigationProperty Name="problem_image" Relationship="PropertyManagerModel.FK__problem_i__probl__753864A1" FromRole="problem" ToRole="problem_image" />
-          <NavigationProperty Name="problem_tracking" Relationship="PropertyManagerModel.FK__problem_t__probl__7814D14C" FromRole="problem" ToRole="problem_tracking" />
-          <Property Name="apartment_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__problem__apartme__79FD19BE" FromRole="problem" ToRole="apartment" />
-          <Property Name="employee_id" Type="Int32" />
-        </EntityType>
         <EntityType Name="problem_image">
           <Key>
             <PropertyRef Name="problem_image_id" />
@@ -2403,54 +2426,6 @@
             </Principal>
             <Dependent Role="problem_tracking">
               <PropertyRef Name="employee_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__problem__issue_i__725BF7F6">
-          <End Type="PropertyManagerModel.issue" Role="issue" Multiplicity="0..1" />
-          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="issue">
-              <PropertyRef Name="issue_id" />
-            </Principal>
-            <Dependent Role="problem">
-              <PropertyRef Name="issue_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__problem_i__probl__753864A1">
-          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="1" />
-          <End Type="PropertyManagerModel.problem_image" Role="problem_image" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="problem">
-              <PropertyRef Name="problem_id" />
-            </Principal>
-            <Dependent Role="problem_image">
-              <PropertyRef Name="problem_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__problem_t__probl__7814D14C">
-          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="1" />
-          <End Type="PropertyManagerModel.problem_tracking" Role="problem_tracking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="problem">
-              <PropertyRef Name="problem_id" />
-            </Principal>
-            <Dependent Role="problem_tracking">
-              <PropertyRef Name="problem_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__problem__apartme__79FD19BE">
-          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="1" />
-          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="apartment">
-              <PropertyRef Name="apartment_id" />
-            </Principal>
-            <Dependent Role="problem">
-              <PropertyRef Name="apartment_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2646,6 +2621,101 @@
             </Principal>
             <Dependent Role="apartment_employee">
               <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="problem">
+          <Key>
+            <PropertyRef Name="problem_id" />
+          </Key>
+          <Property Name="problem_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="issue_id" Type="Int32" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="summary" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_calendar" Type="Boolean" />
+          <Property Name="priority" Type="Int32" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="Int32" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" />
+          <Property Name="apartment_id" Type="Int32" />
+          <Property Name="contract_id" Type="Int32" />
+          <NavigationProperty Name="apartment" Relationship="PropertyManagerModel.FK__problem__apartme__7E8CC4B1" FromRole="problem" ToRole="apartment" />
+          <NavigationProperty Name="contract" Relationship="PropertyManagerModel.FK__problem__contrac__7F80E8EA" FromRole="problem" ToRole="contract" />
+          <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__problem__employe__6C6E1476" FromRole="problem" ToRole="employee" />
+          <NavigationProperty Name="issue" Relationship="PropertyManagerModel.FK__problem__issue_i__725BF7F6" FromRole="problem" ToRole="issue" />
+          <NavigationProperty Name="problem_image" Relationship="PropertyManagerModel.FK__problem_i__probl__753864A1" FromRole="problem" ToRole="problem_image" />
+          <NavigationProperty Name="problem_tracking" Relationship="PropertyManagerModel.FK__problem_t__probl__7814D14C" FromRole="problem" ToRole="problem_tracking" />
+        </EntityType>
+        <Association Name="FK__problem__apartme__7E8CC4B1">
+          <End Type="PropertyManagerModel.apartment" Role="apartment" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="apartment">
+              <PropertyRef Name="apartment_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="apartment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem__contrac__7F80E8EA">
+          <End Type="PropertyManagerModel.contract" Role="contract" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem__employe__6C6E1476">
+          <End Type="PropertyManagerModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem__issue_i__725BF7F6">
+          <End Type="PropertyManagerModel.issue" Role="issue" Multiplicity="0..1" />
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issue_id" />
+            </Principal>
+            <Dependent Role="problem">
+              <PropertyRef Name="issue_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem_i__probl__753864A1">
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="1" />
+          <End Type="PropertyManagerModel.problem_image" Role="problem_image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="problem">
+              <PropertyRef Name="problem_id" />
+            </Principal>
+            <Dependent Role="problem_image">
+              <PropertyRef Name="problem_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__problem_t__probl__7814D14C">
+          <End Type="PropertyManagerModel.problem" Role="problem" Multiplicity="1" />
+          <End Type="PropertyManagerModel.problem_tracking" Role="problem_tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="problem">
+              <PropertyRef Name="problem_id" />
+            </Principal>
+            <Dependent Role="problem_tracking">
+              <PropertyRef Name="problem_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3052,23 +3122,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="problems">
-            <EntityTypeMapping TypeName="PropertyManagerModel.problem">
-              <MappingFragment StoreEntitySet="problem">
-                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
-                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="priority" ColumnName="priority" />
-                <ScalarProperty Name="is_calendar" ColumnName="is_calendar" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="summary" ColumnName="summary" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="issue_id" ColumnName="issue_id" />
-                <ScalarProperty Name="problem_id" ColumnName="problem_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="problem_image">
             <EntityTypeMapping TypeName="PropertyManagerModel.problem_image">
               <MappingFragment StoreEntitySet="problem_image">
@@ -3176,6 +3229,24 @@
                 <ScalarProperty Name="check_out_time" ColumnName="check_out_time" />
                 <ScalarProperty Name="check_in_time" ColumnName="check_in_time" />
                 <ScalarProperty Name="apartment_employee_id" ColumnName="apartment_employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="problems">
+            <EntityTypeMapping TypeName="PropertyManagerModel.problem">
+              <MappingFragment StoreEntitySet="problem">
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="apartment_id" ColumnName="apartment_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="is_calendar" ColumnName="is_calendar" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="issue_id" ColumnName="issue_id" />
+                <ScalarProperty Name="problem_id" ColumnName="problem_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

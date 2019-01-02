@@ -9,15 +9,18 @@ namespace PropertyManager.Models
     {
         public int Id { get; set; }
         public int ApartmentId { get; set; }
+        public int ContractId { get; set; }
         public int? IssueId { get; set; }
         public IssueModel Issue { get; set; }
-        public int Type { get; set; }
+        public int? Type { get; set; }
         public string Summary { get; set; }
         public string Description { get; set; }
-        public int Priority { get; set; }
+        public int? Priority { get; set; }
         public int Status { get; set; }
         public int CreatedDate { get; set; }
         public List<ProblemImageModel> ListImage { get; set; }
+        public ApartmentModel Apartment { get; set; }
+        public List<ProblemTrackingModel> TrackingList { get; set; }
     }
 
     public class ProblemImageModel
@@ -31,9 +34,10 @@ namespace PropertyManager.Models
     public class ProblemTrackingModel
     {
         public int Id { get; set; }
+        public int ProblemId { get; set; }
         public int CreatedDate { get; set; }
         public string Content { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public int? EmployeeId { get; set; }
     }
 }

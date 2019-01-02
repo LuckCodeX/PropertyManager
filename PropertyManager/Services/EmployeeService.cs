@@ -200,9 +200,9 @@ namespace PropertyManager.Services
             return ApartmentEmployeeRepository
                 .FindBy(p => (filter.Id == -1 || p.employee_id == filter.Id)
                             && filter.FromDate <= p.check_in_time && p.check_in_time <= filter.ToDate
-                           && (Equals(filter.Address, null) || p.contract.apartment.address.Contains(filter.Address))
-                           && (Equals(filter.NoApartment, null) || p.contract.apartment.no_apartment.Contains(filter.NoApartment))
-                           && (Equals(filter.Building, null) || p.contract.apartment.building.Contains(filter.Building))
+                           && (Equals(filter.Address, null) || p.contract.address.Contains(filter.Address))
+                           && (Equals(filter.NoApartment, null) || p.contract.no_apartment.Contains(filter.NoApartment))
+                           && (Equals(filter.Building, null) || p.contract.building.Contains(filter.Building))
                            && (filter.ProjectId == -1 || p.contract.apartment.project_id == filter.ProjectId)).OrderByDescending(p => p.apartment_employee_id).Include(p => p.contract.apartment.project).Include(p => p.employee).Include(p => p.apartment_employee_issue).ToList();
         }
 
@@ -229,7 +229,7 @@ namespace PropertyManager.Services
                 {
                     if (item.issue_id == issue.issue_id)
                     {
-                        flag = true;
+                        flag = item.is_complete;
                         break;
                     }
                 }

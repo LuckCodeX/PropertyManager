@@ -186,6 +186,10 @@ namespace PropertyManager.Controllers
                 if (Equals(maid, null))
                     ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
 
+                var contract = _service.GetCurrentParentContractByApartmentId(model.ApartmentId);
+                if (Equals(contract, null))
+                    ExceptionContent(HttpStatusCode.InternalServerError, "Căn hộ đã hết hạn hợp đồng");
+
                 var problem = new problem
                 {
                     created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
@@ -197,7 +201,8 @@ namespace PropertyManager.Controllers
                     type = (int)ProblemType.Maid,
                     is_calendar = false,
                     apartment_id = model.ApartmentId,
-                    employee_id = maid.employee_id
+                    employee_id = maid.employee_id,
+                    contract_id = contract.contract_id
                 };
                 _service.SaveProblem(problem);
 

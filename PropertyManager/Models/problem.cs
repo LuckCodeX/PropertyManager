@@ -30,14 +30,17 @@ namespace PropertyManager.Models
         public Nullable<int> priority { get; set; }
         public int status { get; set; }
         public int created_date { get; set; }
-        public int apartment_id { get; set; }
         public Nullable<int> employee_id { get; set; }
+        public Nullable<int> apartment_id { get; set; }
+        public Nullable<int> contract_id { get; set; }
     
+        public virtual apartment apartment { get; set; }
+        public virtual contract contract { get; set; }
+        public virtual employee employee { get; set; }
         public virtual issue issue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<problem_image> problem_image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<problem_tracking> problem_tracking { get; set; }
-        public virtual apartment apartment { get; set; }
     }
 }
