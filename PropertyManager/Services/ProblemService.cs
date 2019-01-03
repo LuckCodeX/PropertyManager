@@ -82,5 +82,10 @@ namespace PropertyManager.Services
                                                  && (filter.ProjectId == -1 || p.apartment.project_id == filter.ProjectId)
                                                  && (filter.Type == -1 || p.issue_id == filter.Type)).Include(p => p.apartment.project.project_content).Include(p => p.contract.user_profile1.user_profile_note).Include(p => p.problem_image).Include(p => p.problem_tracking).OrderByDescending(p => p.problem_id).ToList();
         }
+
+        public void DeleteProblemTracking(int id)
+        {
+            ProblemTrackingRepository.Delete(id);
+        }
     }
 }

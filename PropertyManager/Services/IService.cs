@@ -103,5 +103,13 @@ namespace PropertyManager.Services
         void SaveProblemTracking(problem_tracking tracking);
         List<problem> SearchListProblem(FilterModel filter);
         apartment_employee GetApartmentEmployeeById(int id);
+        void SaveEmployeeToken(employee_token employeeToken);
+        employee_token GetEmployeeTokenByUDID(string UDID);
+        void DeleteEmployeeToken(employee_token employeeToken);
+        List<employee_token> GetListEmployeeTokenByUDID(string UDID);
+        List<apartment_employee_issue> GetListApartmentEmployeeIssueByApartmentEmployeeId(int apartmentEmployeeId);
+        void DeleteApartmentEmployeeIssue(apartment_employee_issue item);
+        List<string> GetListTokenByEmployeeId(int employeeId);
+        void DeleteProblemTracking(int id);
     }
 }

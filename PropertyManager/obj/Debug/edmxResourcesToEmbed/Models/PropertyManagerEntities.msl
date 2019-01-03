@@ -527,5 +527,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="employee_token">
+      <EntityTypeMapping TypeName="PropertyManagerModel.employee_token">
+        <MappingFragment StoreEntitySet="employee_token">
+          <ScalarProperty Name="token" ColumnName="token" />
+          <ScalarProperty Name="udid" ColumnName="udid" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="employee_token_id" ColumnName="employee_token_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

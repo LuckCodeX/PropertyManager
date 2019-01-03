@@ -57,11 +57,20 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.4.1.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.4.1\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="FCM.Net, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCM.Net.1.0.5\lib\net452\FCM.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Entity" />
@@ -209,6 +218,7 @@
     <Compile Include="Helper\ConvertDatetime.cs" />
     <Compile Include="Helper\Encrypt.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\FCM.cs" />
     <Compile Include="Helper\Images.cs" />
     <Compile Include="Helper\LoginActionFilter.cs" />
     <Compile Include="Models\admin.cs">
@@ -267,6 +277,9 @@
     </Compile>
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\employee_note.cs">
+      <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\employee_token.cs">
       <DependentUpon>PropertyManagerEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\facility.cs">
@@ -814,6 +827,7 @@
     <Content Include="html\maid.html" />
     <Content Include="html\maidapartment.html" />
     <Content Include="html\maidbusiness.html" />
+    <Content Include="html\maidinbox.html" />
     <Content Include="html\maidlist.html" />
     <Content Include="html\maidproblem.html" />
     <Content Include="html\maidwater.html" />
@@ -949,6 +963,7 @@
     <Content Include="Views\Home\IssueDetail.cshtml" />
     <Content Include="Views\Home\MaidProblem.cshtml" />
     <Content Include="Views\Home\MaidWater.cshtml" />
+    <Content Include="Views\Home\MaidInbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1021,7 +1036,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

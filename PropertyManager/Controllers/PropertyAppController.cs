@@ -21,6 +21,22 @@ namespace PropertyManager.Controllers
             var employee = _service.MaidLogin(model);
             if (Equals(employee, null))
                 ExceptionContent(HttpStatusCode.Unauthorized, "Tài khoản hoặc mật khẩu sai");
+
+            var employeeTokens = _service.GetListEmployeeTokenByUDID(model.UDID);
+            foreach (var item in employeeTokens)
+            {
+                _service.DeleteEmployeeToken(item);
+            }
+
+            var employeeToken = new employee_token()
+            {
+                employee_id = employee.employee_id,
+                employee_token_id = 0,
+                token = model.DeviceToken,
+                udid = model.UDID
+            };
+            _service.SaveEmployeeToken(employeeToken);
+
             var token = new TokenModel
             {
                 Id = employee.employee_id,
@@ -44,6 +60,17 @@ namespace PropertyManager.Controllers
                     Room3 = 0
                 }
             };
+        }
+
+        [HttpPost]
+        [Route("MaidLogout")]
+        public void MaidLogout(EmployeeModel model)
+        {
+            var employeeTokens = _service.GetListEmployeeTokenByUDID(model.UDID);
+            foreach (var item in employeeTokens)
+            {
+                _service.DeleteEmployeeToken(item);
+            }
         }
 
         [HttpGet]
@@ -158,6 +185,14 @@ namespace PropertyManager.Controllers
                 apartmentEmployee.check_out_geo = JsonConvert.SerializeObject(model.CheckOutGeo);
                 apartmentEmployee.type = model.Type;
                 _service.SaveApartmentEmployee(apartmentEmployee);
+
+                var apartmentIssues =
+                    _service.GetListApartmentEmployeeIssueByApartmentEmployeeId(apartmentEmployee
+                        .apartment_employee_id);
+                foreach (var item in apartmentIssues)
+                {
+                    _service.DeleteApartmentEmployeeIssue(item);
+                }
 
                 var listIssue = new List<apartment_employee_issue>();
                 foreach (var item in model.ListIssue)

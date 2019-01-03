@@ -23,6 +23,7 @@ namespace PropertyManager.Models
             this.employee_note = new HashSet<employee_note>();
             this.apartment_employee = new HashSet<apartment_employee>();
             this.problems = new HashSet<problem>();
+            this.employee_token = new HashSet<employee_token>();
         }
     
         public int employee_id { get; set; }
@@ -50,5 +51,7 @@ namespace PropertyManager.Models
         public virtual ICollection<apartment_employee> apartment_employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<problem> problems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<employee_token> employee_token { get; set; }
     }
 }

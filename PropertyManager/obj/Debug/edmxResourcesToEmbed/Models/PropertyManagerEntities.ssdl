@@ -255,6 +255,15 @@
     <Property Name="note" Type="ntext" Nullable="false" />
     <Property Name="created_date" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="employee_token">
+    <Key>
+      <PropertyRef Name="employee_token_id" />
+    </Key>
+    <Property Name="employee_token_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="udid" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="token" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
   <EntityType Name="facility">
     <Key>
       <PropertyRef Name="facility_id" />
@@ -798,6 +807,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__employee___emplo__269AB60B">
+    <End Role="employee" Type="Self.employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="employee_token" Type="Self.employee_token" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="employee_token">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__employee___emplo__473C8FC7">
     <End Role="employee" Type="Self.employee" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1104,6 +1127,7 @@
     <EntitySet Name="contract_note" EntityType="Self.contract_note" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="employee_note" EntityType="Self.employee_note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee_token" EntityType="Self.employee_token" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility" EntityType="Self.facility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="facility_content" EntityType="Self.facility_content" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="inbox" EntityType="Self.inbox" Schema="dbo" store:Type="Tables" />
@@ -1220,6 +1244,10 @@
     <AssociationSet Name="FK__contract__user_p__251C81ED" Association="Self.FK__contract__user_p__251C81ED">
       <End Role="user_profile" EntitySet="user_profile" />
       <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK__employee___emplo__269AB60B" Association="Self.FK__employee___emplo__269AB60B">
+      <End Role="employee" EntitySet="employee" />
+      <End Role="employee_token" EntitySet="employee_token" />
     </AssociationSet>
     <AssociationSet Name="FK__employee___emplo__473C8FC7" Association="Self.FK__employee___emplo__473C8FC7">
       <End Role="employee" EntitySet="employee" />

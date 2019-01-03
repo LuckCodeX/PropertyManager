@@ -89,6 +89,8 @@
         <AssociationConnector Association="PropertyManagerModel.FK__problem__issue_i__725BF7F6" />
         <AssociationConnector Association="PropertyManagerModel.FK__problem_i__probl__753864A1" />
         <AssociationConnector Association="PropertyManagerModel.FK__problem_t__probl__7814D14C" />
+        <EntityTypeShape EntityType="PropertyManagerModel.employee_token" Width="1.5" PointX="12.625" PointY="22.125" />
+        <AssociationConnector Association="PropertyManagerModel.FK__employee___emplo__269AB60B" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

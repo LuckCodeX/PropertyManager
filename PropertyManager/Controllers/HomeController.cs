@@ -120,5 +120,10 @@ namespace PropertyManager.Controllers
         {
             return View();
         }
+
+        public ActionResult MaidInbox()
+        {
+            return View();
+        }
     }
 }

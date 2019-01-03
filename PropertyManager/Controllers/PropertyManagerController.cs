@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
 using System.Web.Http;
@@ -1613,8 +1614,23 @@ namespace PropertyManager.Controllers
             _service.SaveProblemTracking(tracking);
         }
 
+        [HttpDelete]
+        [Route("DeleteProblemTracking")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public void DeleteProblemTracking(int id)
+        {
+            _service.DeleteProblemTracking(id);
+        }
 
 
+        [HttpPost]
+        [Route("TestFCM")]
+        public async Task TestFCM()
+        {
+            var registrationIds = _service.GetListTokenByEmployeeId(8);
+            await Helper.FCM.PushFCM(registrationIds, "Bạn có 1 thông báo mới", "Đây là 1 thông báo rất rất dàiiiiiiiiii");
+        }
 
         #endregion
 

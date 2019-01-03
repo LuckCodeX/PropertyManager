@@ -63,5 +63,6 @@ namespace PropertyManager.Models
         public virtual DbSet<inbox> inboxes { get; set; }
         public virtual DbSet<apartment_employee> apartment_employee { get; set; }
         public virtual DbSet<problem> problems { get; set; }
+        public virtual DbSet<employee_token> employee_token { get; set; }
     }
 }

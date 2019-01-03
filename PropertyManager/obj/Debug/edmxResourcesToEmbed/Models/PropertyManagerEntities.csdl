@@ -427,6 +427,11 @@
       <End Role="problem" EntitySet="problems" />
       <End Role="problem_tracking" EntitySet="problem_tracking" />
     </AssociationSet>
+    <EntitySet Name="employee_token" EntityType="PropertyManagerModel.employee_token" />
+    <AssociationSet Name="FK__employee___emplo__269AB60B" Association="PropertyManagerModel.FK__employee___emplo__269AB60B">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="employee_token" EntitySet="employee_token" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK__admin__parent_id__02084FDA">
     <End Type="PropertyManagerModel.admin" Role="admin" Multiplicity="0..1" />
@@ -796,6 +801,7 @@
     <NavigationProperty Name="employee_note" Relationship="PropertyManagerModel.FK__employee___emplo__473C8FC7" FromRole="employee" ToRole="employee_note" />
     <NavigationProperty Name="apartment_employee" Relationship="PropertyManagerModel.FK__apartment__emplo__5C37ACAD" FromRole="employee" ToRole="apartment_employee" />
     <NavigationProperty Name="problems" Relationship="PropertyManagerModel.FK__problem__employe__6C6E1476" FromRole="employee" ToRole="problem" />
+    <NavigationProperty Name="employee_token" Relationship="PropertyManagerModel.FK__employee___emplo__269AB60B" FromRole="employee" ToRole="employee_token" />
   </EntityType>
   <EntityType Name="company">
     <Key>
@@ -1399,6 +1405,30 @@
       </Principal>
       <Dependent Role="problem_tracking">
         <PropertyRef Name="problem_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="employee_token">
+    <Key>
+      <PropertyRef Name="employee_token_id" />
+    </Key>
+    <Property Name="employee_token_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="udid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="token" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employee" Relationship="PropertyManagerModel.FK__employee___emplo__269AB60B" FromRole="employee_token" ToRole="employee" />
+  </EntityType>
+  <Association Name="FK__employee___emplo__269AB60B">
+    <End Type="PropertyManagerModel.employee" Role="employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PropertyManagerModel.employee_token" Role="employee_token" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="employee_token">
+        <PropertyRef Name="employee_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

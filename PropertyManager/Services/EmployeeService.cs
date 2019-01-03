@@ -10,14 +10,25 @@ namespace PropertyManager.Services
 {
     public partial class Service
     {
-        private GenericRepository<employee_note> _employeeNoteIssueRepository;
+        private GenericRepository<employee_note> _employeeNoteRepository;
         public GenericRepository<employee_note> EmployeeNoteRepository
         {
             get
             {
-                if (this._employeeNoteIssueRepository == null)
-                    this._employeeNoteIssueRepository = new GenericRepository<employee_note>(_context);
-                return _employeeNoteIssueRepository;
+                if (this._employeeNoteRepository == null)
+                    this._employeeNoteRepository = new GenericRepository<employee_note>(_context);
+                return _employeeNoteRepository;
+            }
+        }
+
+        private GenericRepository<employee_token> _employeeTokenRepository;
+        public GenericRepository<employee_token> EmployeeTokenRepository
+        {
+            get
+            {
+                if (this._employeeTokenRepository == null)
+                    this._employeeTokenRepository = new GenericRepository<employee_token>(_context);
+                return _employeeTokenRepository;
             }
         }
 
@@ -156,7 +167,7 @@ namespace PropertyManager.Services
         public apartment_employee GetLastApartmentEmployeeByApartmentIdAndEmployeeId(int apartmentId, int employeeId)
         {
             return ApartmentEmployeeRepository.FindBy(p =>
-                    p.contract.apartment_id == apartmentId && p.employee_id == employeeId && Equals(p.check_out_time, null))
+                    p.contract.apartment_id == apartmentId && p.employee_id == employeeId)
                 .FirstOrDefault();
         }
 
@@ -247,6 +258,42 @@ namespace PropertyManager.Services
         public apartment_employee GetApartmentEmployeeById(int id)
         {
             return ApartmentEmployeeRepository.FindBy(p => p.apartment_employee_id == id).FirstOrDefault();
+        }
+
+        public void SaveEmployeeToken(employee_token employeeToken)
+        {
+            EmployeeTokenRepository.Save(employeeToken);
+        }
+
+        public employee_token GetEmployeeTokenByUDID(string UDID)
+        {
+            return EmployeeTokenRepository.FindBy(p => p.udid == UDID).FirstOrDefault();
+        }
+
+        public void DeleteEmployeeToken(employee_token employeeToken)
+        {
+            EmployeeTokenRepository.Delete(employeeToken);
+        }
+
+        public List<employee_token> GetListEmployeeTokenByUDID(string UDID)
+        {
+            return EmployeeTokenRepository.FindBy(p => p.udid == UDID).ToList();
+        }
+
+        public List<apartment_employee_issue> GetListApartmentEmployeeIssueByApartmentEmployeeId(int apartmentEmployeeId)
+        {
+            return ApartmentEmployeeIssueRepository.FindBy(p => p.apartment_employee_id == apartmentEmployeeId)
+                .ToList();
+        }
+
+        public void DeleteApartmentEmployeeIssue(apartment_employee_issue item)
+        {
+            ApartmentEmployeeIssueRepository.Delete(item);
+        }
+
+        public List<string> GetListTokenByEmployeeId(int employeeId)
+        {
+            return EmployeeTokenRepository.FindBy(p => p.employee_id == employeeId).Select(p => p.token).ToList();
         }
     }
 }

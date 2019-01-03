@@ -208,3 +208,9 @@ D:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\Proper
 D:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.CopyComplete
 D:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.dll
 D:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.pdb
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\FCM.Net.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Extensions.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Primitives.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Extensions.xml
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Primitives.xml
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.App.config
