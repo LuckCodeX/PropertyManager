@@ -442,25 +442,25 @@ $scope.datePickerOptions = {
 app.controller('MaidBusinessCtrl', MaidBusinessCtrl);
 
 app.filter('secondsToDateTime', function() {
-    // function padTime(t) {
-    //     return t < 10 ? "0"+t : t;
-    // }
+    function padTime(t) {
+        return t < 10 ? "0"+t : t;
+    }
 
-    // return function(_seconds) {
-    //     if (typeof _seconds !== "number" || _seconds < 0)
-    //         return "00:00:00";
+    return function(_seconds) {
+        if (typeof _seconds !== "number" || _seconds < 0)
+            return "00:00:00";
 
-    //     var hours = Math.floor(_seconds / 3600),
-    //         minutes = Math.floor((_seconds % 3600) / 60),
-    //         seconds = Math.floor(_seconds % 60);
+        var hours = Math.floor(_seconds / 3600),
+            minutes = Math.floor((_seconds % 3600) / 60),
+            seconds = Math.floor(_seconds % 60);
 
-    //     return padTime(hours) + ":" + padTime(minutes) + ":" + padTime(seconds);
-    // };
-    return function (input) {
-    function z(n) { return (n < 10 ? '0' : '') + n; }
-    var seconds = input % 60;
-    var minutes = Math.floor(input % 3600 / 60);
-    var hours = Math.floor(input / 3600);
-    return (z(hours) + ':' + z(minutes) + ':' + z(seconds));
-}
+        return padTime(hours) + ":" + padTime(minutes) + ":" + padTime(seconds);
+    };
+    // return function (input) {
+    // function z(n) { return (n < 10 ? '0' : '') + n; }
+    // var seconds = input % 60;
+    // var minutes = Math.floor(input % 3600 / 60);
+    // var hours = Math.floor(input / 3600);
+    // return (z(hours) + ':' + z(minutes) + ':' + z(seconds));
+// }
 })
