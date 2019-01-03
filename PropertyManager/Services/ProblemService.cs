@@ -80,7 +80,7 @@ namespace PropertyManager.Services
                                                  && (Equals(filter.Building, null) || p.apartment.building.Contains(filter.Building))
                                                  && (Equals(filter.NoApartment, null) || p.apartment.no_apartment.Contains(filter.NoApartment))
                                                  && (filter.ProjectId == -1 || p.apartment.project_id == filter.ProjectId)
-                                                 && (filter.Type == -1 || p.issue_id == filter.Type)).Include(p => p.apartment.project).Include(p => p.contract.user_profile1.user_profile_note).Include(p => p.problem_tracking).ToList();
+                                                 && (filter.Type == -1 || p.issue_id == filter.Type)).Include(p => p.apartment.project.project_content).Include(p => p.contract.user_profile1.user_profile_note).Include(p => p.problem_image).Include(p => p.problem_tracking).OrderByDescending(p => p.problem_id).ToList();
         }
     }
 }
