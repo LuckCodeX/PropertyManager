@@ -508,7 +508,7 @@ namespace PropertyManager.Controllers
         [Route("GetAllMaidInbox")]
         public List<InboxModel> GetAllMaidInbox()
         {
-            return _service.GetAllInboxByType(0).Select(p => new InboxModel()
+            return _service.GetAllInboxByType((int)InboxType.Maid).Select(p => new InboxModel()
             {
                 Id = p.inbox_id,
                 CreatedDate = p.created_date,

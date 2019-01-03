@@ -1644,6 +1644,27 @@ namespace PropertyManager.Controllers
             await Helper.FCM.PushFCM(registrationIds, "Bạn có 1 thông báo mới", model.Content);
         }
 
+        [HttpPost]
+        [Route("GetListMaidInbox")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public PagingResult<InboxModel> GetListMaidInbox(FilterModel filter)
+        {
+            var inboxs = _service.GetAllInboxByType((int) InboxType.Maid);
+            var inboxList = inboxs.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit)
+                .Select(p => new InboxModel()
+                {
+                    Id = p.inbox_id,
+                    CreatedDate = p.created_date,
+                    Content = p.content
+                }).ToList();
+            return new PagingResult<InboxModel>()
+            {
+                data = inboxList,
+                total = inboxs.Count
+            };
+        }
+
         #endregion
 
 
