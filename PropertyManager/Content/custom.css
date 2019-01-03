@@ -711,7 +711,7 @@ input::-webkit-inner-spin-button {
 }
 
 .img-upload-current .img {
-    width: calc(100% - 30px);
+    width: calc(100% - 15px);
     height: 153px;
     position: absolute;
     top: 0;
@@ -1207,6 +1207,9 @@ table.rz-table {
     pointer-events: none;
     opacity: 0.5;
 }
+.blocked{
+     pointer-events: none;
+}
 .account-detail-view.contract-detail-view{
     padding: 0 15px;
 }
@@ -1340,6 +1343,10 @@ hr.dashed {
     width: 690px !important;
 }
 
+#newProblemModal .modal-dialog{
+    width: 950px !important;
+}
+
 .view-maid-list .modal-header{
     background: #08B0A0;
     color: white;
@@ -1469,10 +1476,12 @@ hr.dashed {
 } 
 .input-datetime.input-time .input-group .input-group-btn button{
     bottom: 0px;
+    height: 37px;
 }
 .input-datetime.input-time .input-group .input-group-btn button i{
-    padding-top: 5px;
-    height: 28px;
+    padding-top: 1px;
+    height: 25px;
+    top: 4px;
 }
 /*.uib-time.am-pm{
     padding-top: 16px;
