@@ -1,1 +1,60 @@
-﻿<h1>Inbox</h1>
+﻿<div ng-controller="MaidInboxCtrl" ng-init="loadMaidInbox()" class="">
+<div class="container-fluid content-maid-list view-maid-list" style="padding-top: 35px;">
+ <div style="display: inline-block;float: right;margin-bottom: 50px;">
+                            <button  data-toggle="modal" data-target="#employeeModal" type="button" style="margin-right: 180px;margin-top: 4px;" class="btn btn-save float-right"><i style="color: white;" class="fas fa-plus"></i> Thêm mới</button>
+                        </div>
+<div class="container">
+	<div id="inbox-table">
+<table class="table table-hover table-list">
+				<tr>
+					<th style="border-right: 1px solid #ddd;">Nội dung</th>
+					<th style="width: 295px;">Ngày tạo</th>
+					
+				</tr>
+				<tr ng-repeat="item in maidinbox" >
+					<td>{{item.Content}}</td>
+					<td style="text-align: center;">{{item.CreatedDate*1000 | date:'dd/MM/yyyy HH:mm'}}</td>
+					
+				</tr>
+				
+			</table>
+
+</div>
+
+<div class="pagination-employee">
+            <ul uib-pagination total-items="totalItems" max-size="10" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>  
+        </div>
+</div>
+
+<div id="employeeModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <form class="form-horizontal modal-content" name="myForm" ng-submit="saveMaidInbox(maidinbox)">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times"></i></button>
+	        <h4 class="modal-title" style="color: #DFF5F3">Thêm nội dung</h4>
+	      </div>
+	      <div class="modal-body maid-employee-modal">
+            
+      		<div class="form-group">
+	            <label class="control-label col-sm-3 text-left" for="">Nội dung :</label>
+	            <div class="col-sm-8">
+	            	<input ng-model="maidinbox.Content" type="text" required="" class="form-ctrl" >
+	            </div>
+	        </div>
+	        
+	    <div class="modal-footer">
+	      	<button  type="submit" class="btn btn-save" style="margin-right: 10px;">Thêm mới</button>
+	        <button type="button" class="btn btn-default" id="btn-close-modal" data-dismiss="modal">Đóng</button>
+	    </div>
+	    </form>
+
+	  </div>
+	</div>
+
+
+
+
+
+
+</div>
+</div>
