@@ -177,7 +177,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var apartmentEmployee =
                     _service.GetLastApartmentEmployeeByApartmentIdAndEmployeeId(model.ApartmentId, maid.employee_id);
@@ -220,11 +220,11 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var contract = _service.GetCurrentParentContractByApartmentId(model.ApartmentId);
                 if (Equals(contract, null))
-                    ExceptionContent(HttpStatusCode.InternalServerError, "Căn hộ đã hết hạn hợp đồng");
+                    ExceptionContent(HttpStatusCode.InternalServerError, "err_apartment_not_contract");
 
                 var problem = new problem
                 {
@@ -273,7 +273,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var contracts = _service.GetAllCurrentContractByEmployeeId(maid.employee_id);
                 var apartmentList = contracts.Select(p => new ApartmentModel
@@ -304,7 +304,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var contract = _service.GetCurrentContractByApartmentAndEmployeeId(apartmentId, maid.employee_id);
                 var contractEmployee =
@@ -371,7 +371,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
 
             }
@@ -389,11 +389,11 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var oldPass = Encrypt.EncodePassword(model.OldPassword);
                 if (!Equals(oldPass, maid.password))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Mật khẩu cũ không đúng");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_old_password_not_valid");
                 var newPass = Encrypt.EncodePassword(model.Password);
                 maid.password = newPass;
                 _service.SaveEmployee(maid);
@@ -411,7 +411,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
                 var x = 60 * 60 * 24;
                 var result = new List<CalendarModel>();
                 var contractEmployees = _service.GetAllCurrentContractEmployeeByEmployeeId(maid.employee_id);
@@ -467,7 +467,7 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_account_not_found");
 
                 var startTime = ConvertDatetime.GetBeginMonthUnixTimeStampByTimestamp(maid.created_date);
                 var endCurrentTime = ConvertDatetime.GetEndMonthUnixTimeStamp();

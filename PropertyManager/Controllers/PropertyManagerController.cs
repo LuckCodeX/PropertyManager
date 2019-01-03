@@ -1501,6 +1501,7 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
+                    var contract = _service.GetCurrentParentContractByApartmentId(model.ApartmentId);
                     var problem = _service.GetProblemById(model.Id);
                     if (Equals(problem, null))
                         problem = new problem()
@@ -1515,6 +1516,7 @@ namespace PropertyManager.Controllers
                     problem.summary = model.Summary;
                     problem.type = model.Type;
                     problem.status = model.Status;
+                    problem.contract_id = contract.contract_id;
                     _service.SaveProblem(problem);
 
                     var imageList = _service.GetAllProblemImageByProblemId(problem.problem_id);
