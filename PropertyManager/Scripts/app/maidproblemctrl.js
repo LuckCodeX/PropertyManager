@@ -2,6 +2,11 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     const firstDay = getFirstDay(new Date());
     const today = getEndDay(new Date());
 
+    $scope.listIssue = [{value:null,name:"Nội bộ phòng maid"},{value:0,name:"Đồ nội thất"},
+                        {value:1,name:"Thiết bị thu phát"},{value:2,name:"Đồ điện tử"}
+                        ,{value:3,name:"Ánh sáng"},{value:4,name:"Điều hòa nhiệt độ"}
+                        ,{value:5,name:"Khu vực bếp"},{value:6,name:"Khu vực phòng tắm"}]
+
     $(document).ready(function(){
         $('#employeeModal').on('hidden.bs.modal', function () {
             for (var i = 0; i < $scope.currentApartment.notes.length; i++) {
@@ -247,6 +252,7 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
     }
 
     $scope.changeValue = function(item){
+        if(item.IssueId == '') item.IssueId = null;
         xhrService.post("SaveProblem",item)
         .then(function (data) {
             // getProjectList();
@@ -330,10 +336,12 @@ function MaidProblemCtrl($scope, $rootScope, $stateParams, $location, $timeout, 
 
     $scope.saveProblem = function(){
         $scope.newProblem.Type=0;
+        if($scope.newProblem.IssueId == '') $scope.newProblem.IssueId = null;
         xhrService.post("SaveProblem",$scope.newProblem)
         .then(function (data) {
             $scope.loadMaidProblem();
             $('#newProblemModal').modal('hide');
+            toastr.success('Thành công!');
             $scope.newProblem = {};
         },
         function (error) {
