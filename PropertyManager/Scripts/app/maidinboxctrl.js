@@ -19,8 +19,11 @@ $scope.loadMaidInbox = function() {
         
     };
 
-    $scope.saveMaidInbox = function(){
-    	xhrService.post("SaveMaidInbox",$scope.maidinbox).then(function (data) {
+    $scope.saveMaidInbox = function(maidinbox){
+        let data = {
+            "Content":maidinbox.Content,
+        };
+    	xhrService.post("SaveMaidInbox",data).then(function (data) {
             swal("Thành công!", "", "success")
             .then((value) => {
                 $('#employeeModal').modal('hide');
