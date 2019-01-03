@@ -1,5 +1,26 @@
 function MaidInboxCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhrService, $anchorScroll, $filter) {
 
+$(document).ready(function() {
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": false,
+          "positionClass": "toast-bottom-full-width",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+  });
+
+
 $scope.loadMaidInbox = function() {
        $scope.bigCurrentPage = $stateParams.page === undefined ? 1 : $stateParams.page;
         $scope.filterData = {
@@ -24,11 +45,10 @@ $scope.loadMaidInbox = function() {
             "Content":maidinbox.Content,
         };
     	xhrService.post("SaveMaidInbox",data).then(function (data) {
-            swal("Thành công!", "", "success")
-            .then((value) => {
+            toastr.success('Thành công!');
                 $('#employeeModal').modal('hide');
                 $scope.loadMaidInbox();
-            });
+            
         },
         function (error) {
             console.log(error.statusText);
