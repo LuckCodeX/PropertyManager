@@ -1607,7 +1607,7 @@ namespace PropertyManager.Controllers
                 problem_tracking_id = 0,
                 problem_id = model.ProblemId,
                 content = model.Content,
-                created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                created_date = model.CreatedDate,
                 price = model.Price,
                 employee_id = model.EmployeeId,
             };
@@ -1622,6 +1622,29 @@ namespace PropertyManager.Controllers
         {
             _service.DeleteProblemTracking(id);
         }
+
+        #region Inbox
+
+        [HttpPost]
+        [Route("SaveMaidInbox")]
+        [ACLFilter(AccessRoles = new int[]
+            {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
+        public async Task SaveMaidInbox(InboxModel model)
+        {
+            var inbox = new inbox()
+            {
+                created_date = ConvertDatetime.GetCurrentUnixTimeStamp(),
+                type = (int)InboxType.Maid,
+                content = model.Content,
+                inbox_id = 0
+            };
+            _service.SaveInbox(inbox);
+
+            var registrationIds = _service.GetAllEmployeeDeviceToken();
+            await Helper.FCM.PushFCM(registrationIds, "Bạn có 1 thông báo mới", model.Content);
+        }
+
+        #endregion
 
 
         [HttpPost]

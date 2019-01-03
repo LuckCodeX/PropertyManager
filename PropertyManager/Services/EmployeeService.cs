@@ -295,5 +295,10 @@ namespace PropertyManager.Services
         {
             return EmployeeTokenRepository.FindBy(p => p.employee_id == employeeId).Select(p => p.token).ToList();
         }
+
+        public List<string> GetAllEmployeeDeviceToken()
+        {
+            return EmployeeTokenRepository.GetAll().Select(p => p.token).ToList();
+        }
     }
 }

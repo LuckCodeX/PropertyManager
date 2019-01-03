@@ -23,5 +23,10 @@ namespace PropertyManager.Services
         {
             return InboxRepository.FindBy(p => p.type == type).ToList();
         }
+
+        public void SaveInbox(inbox inbox)
+        {
+            InboxRepository.Save(inbox);
+        }
     }
 }

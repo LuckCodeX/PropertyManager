@@ -26,4 +26,10 @@ namespace PropertyManager.Helper
     {
         Maid
     }
+
+    public enum InboxType
+    {
+        Maid
+    }
+
 }

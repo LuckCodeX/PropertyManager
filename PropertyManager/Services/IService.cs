@@ -111,5 +111,7 @@ namespace PropertyManager.Services
         void DeleteApartmentEmployeeIssue(apartment_employee_issue item);
         List<string> GetListTokenByEmployeeId(int employeeId);
         void DeleteProblemTracking(int id);
+        void SaveInbox(inbox inbox);
+        List<string> GetAllEmployeeDeviceToken();
     }
 }
