@@ -1615,7 +1615,7 @@ namespace PropertyManager.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteProblemTracking")]
+        [Route("DeleteProblemTracking/{id}")]
         [ACLFilter(AccessRoles = new int[]
             {(int) RoleAdmin.SuperAdmin, (int) RoleAdmin.MaidManager})]
         public void DeleteProblemTracking(int id)

@@ -20,7 +20,7 @@ namespace PropertyManager.Controllers
         {
             var employee = _service.MaidLogin(model);
             if (Equals(employee, null))
-                ExceptionContent(HttpStatusCode.Unauthorized, "Tài khoản hoặc mật khẩu sai");
+                ExceptionContent(HttpStatusCode.Unauthorized, "err_email_or_pass");
 
             var employeeTokens = _service.GetListEmployeeTokenByUDID(model.UDID);
             foreach (var item in employeeTokens)
@@ -97,25 +97,25 @@ namespace PropertyManager.Controllers
                 var tokenModel = JsonConvert.DeserializeObject<TokenModel>(Encrypt.Base64Decode(token));
                 var maid = _service.GetActiveMaidById(tokenModel.Id);
                 if (Equals(maid, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Không tìm thấy thông tin tài khoản");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_email_or_pass");
 
                 var apartment = _service.GetApartmentByCode(model.ApartmentCode);
                 if (Equals(apartment, null))
-                    ExceptionContent(HttpStatusCode.InternalServerError, "Không tìm thấy thông tin căn hộ");
+                    ExceptionContent(HttpStatusCode.InternalServerError, "err_apartment_not_found");
 
                 var contract = _service.GetCurrentParentContractByApartmentId(apartment.apartment_id);
                 if (Equals(contract, null))
-                    ExceptionContent(HttpStatusCode.InternalServerError, "Căn hộ đã hết hạn hợp đồng");
+                    ExceptionContent(HttpStatusCode.InternalServerError, "err_apartment_not_contract");
 
                 var contractEmployee =
                     _service.GetContractEmployeeByContractIdAndEmployeeId(contract.contract_id, maid.employee_id);
                 if (Equals(contractEmployee, null) || contractEmployee.status != 1 || !Equals(contractEmployee.to_date, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Bạn không có quyền vào căn hộ này");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_not_authorize");
 
                 var apartmentEmployee =
                     _service.GetLastApartmentEmployeeNotCheckOutByEmployeeId(maid.employee_id);
                 if (!Equals(apartmentEmployee, null))
-                    ExceptionContent(HttpStatusCode.Unauthorized, "Bạn có 1 căn hộ chưa hoàn thành");
+                    ExceptionContent(HttpStatusCode.Unauthorized, "err_not_complete_check");
 
                 apartmentEmployee = new apartment_employee
                 {

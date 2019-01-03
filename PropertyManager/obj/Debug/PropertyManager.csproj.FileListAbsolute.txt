@@ -214,3 +214,8 @@ H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.H
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Extensions.xml
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.Primitives.xml
 H:\Project\Google Drive\Project\PropertyManager\PropertyManager\obj\Debug\PropertyManager.csproj.App.config
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\Microsoft.CSharp.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Net.Http.WebRequest.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Runtime.Serialization.dll
+H:\Project\Google Drive\Project\PropertyManager\PropertyManager\bin\System.Security.dll
