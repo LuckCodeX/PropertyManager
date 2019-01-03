@@ -1,11 +1,11 @@
 ﻿<div ng-controller="MaidBusinessCtrl" ng-init="loadMaidBusiness()" class="">
-	<div class="container-fluid content-maid-list" style="padding-top: 35px;">
+    <div class="container-fluid content-maid-list" style="padding-top: 35px;">
 <div class="row">
            <form class="form-horizontal" name="myForm" ng-submit="pageChanged()">
                 <div class="col-sm-12" >
                     <div class="row">
 
-                    	<div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3">
                         <label class="control-label col-sm-5" for="">Khu:</label>
                         <div class="col-sm-7"style="height: 37px;z-index: 1030;">
                             <selectize placeholder='Chọn dự án...'  name="khu" options='projectList' config="projectConfig" ng-model="currentProject" ng-disabled='disable' required='true'></selectize>
@@ -79,27 +79,28 @@
                     
                 </div>
              </form>
-			</div>
+            </div>
 
-
-		<!-- <div id="table-wrapper"> -->
-		<div id="tableMaid" style="overflow:auto; height: 600px">
-		 <table class="table table-hover table-list table-contract table-maid table-maid-apartment">
-		 	<thead>
+<div class="view">
+  <div class="wrapper"> 
+        <!-- <div id="table-wrapper"> -->
+        <div id="tableMaid" style="overflow:auto; height: 600px">
+         <table class="table table-hover table-list table-contract table-maid table-maid-apartment table-fix">
+            <thead>
                     <tr class="first-row">
-                        <th rowspan="2" class="col2rows bold red-text col-detele">Xóa</th>
-                        <th colspan="5">Thông tin căn hộ</th>
-                        <th colspan="3">Thông tin maid</th>
-                        <th  colspan="2">Thời gian phụ trách</th>
-                        <th  colspan="5">Thời gian làm việc</th>
-                        <th colspan="{{issueList.length}}">Quy trình nghiệp vụ</th>
+                        <th rowspan="2" style="position: sticky;left: 0;z-index: 99;"  class="col2rows bold red-text col-detele ">Xóa</th>
+                        <th class="fix-border" colspan="5" style="position: sticky;left: 68px;z-index: 99;" >Thông tin căn hộ</th>
+                        <th class="fix-border" colspan="3">Thông tin maid</th>
+                        <th class="fix-border" colspan="2">Thời gian phụ trách</th>
+                        <th class="fix-border" colspan="5">Thời gian làm việc</th>
+                        <th class="fix-border" colspan="{{issueList.length}}">Quy trình nghiệp vụ</th>
                     </tr>
                     <tr class="second-row">
-                        <th>Mã căn hộ</th>
-                        <th>Tòa</th>  
-                        <th>Căn hộ</th>
-                        <th class="colWidth200">Địa chỉ</th>
-                        <th class="colWidth200">Khu</th>  
+                        <th style="position: sticky;left: 68px;z-index: 99;" >Mã căn hộ</th>
+                        <th style="position: sticky;left: 184px;z-index: 99;" >Tòa</th>  
+                        <th style="position: sticky;left: 300px;z-index: 99;">Căn hộ</th>
+                        <th style="position: sticky;left: 416px;z-index: 99;" class="colWidth200">Địa chỉ</th>
+                        <th style="position: sticky;left: 616px;z-index: 99;" class="colWidth200">Khu</th>  
                         <th>Buổi/tuần</th>  
                         <th>Nhân viên</th>
                         <th>Số ĐT</th>
@@ -117,16 +118,16 @@
                 </thead>
                     
                     <tbody>
-                    	<tr ng-repeat="item in issuemaidList">
-                            <td class="col-detele"><i ng-click="deleteEmployee(item.Id)" style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
-                            <td>{{item.Code}}</td>
-                            <td>{{item.Building}}</td>
-                            <td>{{item.NoApartment}}</td>
-                            <td class="colWidth200" style="width: 200px;">{{item.Address}}</td>
-                            <td class="colWidth200">{{item.Project.Name}}</td>
+                        <tr ng-repeat="item in issuemaidList">
+                            <td style="position: sticky;left: 0;z-index: 99;" class="col-detele sticky-col first-col"><i ng-click="deleteEmployee(item.Id)" style="color: #ac2925;cursor: pointer;" class="fas fa-minus"></i></td>
+                            <td style="position: sticky;left: 68px;z-index: 99;">{{item.Code}}</td>
+                            <td style="position: sticky;left: 184px;z-index: 99;">{{item.Building}}</td>
+                            <td style="position: sticky;left: 300px;z-index: 99;">{{item.NoApartment}}</td>
+                            <td style="position: sticky;left: 416px;z-index: 99;" class="colWidth200" style="width: 200px;">{{item.Address}}</td>
+                            <td style="position: sticky;left: 616px;z-index: 99;" class="colWidth200">{{item.Project.Name}}</td>
                             <td>{{getDayPerWeekDay(item.ContractEmployee.WorkDate)}}</td>
                             <td>{{item.Maid.FirstName + ' ' + item.Maid.LastName}}</td>
-                    		<td>{{item.Maid.Phone}}</td>
+                            <td>{{item.Maid.Phone}}</td>
                             <td>{{item.ContractEmployee.FromDate*1000 | date:'dd/MM/yyyy'}}</td>
                             <td><span ng-if="item.ContractEmployee.ToDate == 0">Hôm nay</span>
                                 
@@ -146,10 +147,10 @@
                               <span ng-if="child.IsComplete == false"></span>
                           </td>
 
-                    	</tr>
-                    	
+                        </tr>
+                        
                        
-                    	
+                        
 
 
                     </tbody>
@@ -159,12 +160,13 @@
                 </table>
                 
                 </div>
-
+            </div>
+        </div>
                 
 
                 <div class="pagination-employee">
-			<ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>	
-		</div>
-	</div>
+            <ul uib-pagination total-items="totalItems" max-size="4" ng-model="bigCurrentPage" ng-change="pageChanged()"></ul>  
+        </div>
+    </div>
 </div>
 
