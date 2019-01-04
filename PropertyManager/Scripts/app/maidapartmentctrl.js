@@ -116,7 +116,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             "Maid": {
                 "Id":"",
                 "WorkDate":[],
-                "WorkHour":""
+                "WorkHour":null
             }
         };
         if (apartment.timeWork != null) 
@@ -330,6 +330,35 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
         });
     }
 
+    $scope.saveApartmentMaid = function(apartment){
+        let dataSubmit = {
+            "Id":apartment.Id,
+            "Maid": {
+                "Id":apartment.Maid.Id,
+                "WorkDate":[],
+                "WorkHour":null
+            }
+        };
+        if (apartment.timeWork != null) 
+            dataSubmit.Maid.WorkHour = convertTimeToMinute(apartment.timeWork);
+        
+        dataSubmit.Maid.Id = apartment.Maid.Id;
+
+        for (var i = 0; i < apartment.workdays.length; i++) {
+            if (apartment.workdays[i].status) {
+                dataSubmit.Maid.WorkDate.push(apartment.workdays[i].number);
+            }
+        };
+        console.log(dataSubmit);
+        xhrService.post("SaveMaidApartment",dataSubmit)
+        .then(function (data) {
+            $scope.loadMaidApartment();
+        },
+        function (error) {
+            console.log(error.statusText);
+        });
+    }
+
     $scope.openNote = function(apartment,index){
         $scope.currentApartment = JSON.parse(JSON.stringify(apartment));
         $scope.currentApartment.index = index;
@@ -447,7 +476,7 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             dataEmp.forEach(function(item, index){
                 let emp = item;
                 emp.FullName = emp.FirstName + " " +emp.LastName;
-                $scope.employeeList2.push(emp);          
+                $scope.employeeList2.push(emp);       
                 $scope.employeeList.push(emp);
                 if ($stateParams.empID == item.Id) {
                     $scope.currentEmployee.selected = item;

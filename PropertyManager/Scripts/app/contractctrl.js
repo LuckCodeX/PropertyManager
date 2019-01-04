@@ -220,7 +220,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
 
 	$scope.getDetailEmployee = function(){
 		$scope.employeeList.forEach(function(item, index){
-        	if (item.Id == $scope.currentEmployee) {
+        	if (item.Id == $scope.contract.AdminId) {
         		$scope.employee.FullName = item.FullName;
         		$scope.employee.Phone = item.Phone;
         		$scope.employee.Email = item.Email;
@@ -228,7 +228,7 @@ function ContractCtrl($scope, $rootScope, $stateParams, $location, $timeout, xhr
         		$scope.employee.BankNumber = item.BankNumber;
         		$scope.employee.BankName = item.BankName;
         		$scope.employee.BankBranch = item.BankBranch;
-        		$scope.contract.AdminId = item.Id;
+        		// $scope.contract.AdminId = item.Id;
         	}
         });
 	}
