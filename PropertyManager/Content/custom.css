@@ -1555,3 +1555,6 @@ select { outline:none; }
     min-width: 68px !important;
     width: 68px !important;
 }
+.choose-employee .selectize-control{
+    z-index: 1050;
+}
