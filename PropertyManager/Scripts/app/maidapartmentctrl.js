@@ -472,12 +472,18 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
                 Code: "0",
                 FullName: "Tất cả"
             });
+            $scope.employeeList2.push({
+                Id: 0,
+                Code: "0",
+                FullName: "Chọn nhân viên"
+            });
             var dataEmp = data.data;
             dataEmp.forEach(function(item, index){
                 let emp = item;
                 emp.FullName = emp.FirstName + " " +emp.LastName;
                 $scope.employeeList2.push(emp);       
                 $scope.employeeList.push(emp);
+
                 if ($stateParams.empID == item.Id) {
                     $scope.currentEmployee.selected = item;
                 };
@@ -553,6 +559,13 @@ function MaidApartmentCtrl($scope, $rootScope, $stateParams, $location, $timeout
             item.value = index;
             item.workdays = days;
             item.notes = [];
+            if (item.Maid.Id == 0) {
+                $scope.apartmentList[index].Maid =  {
+                Id: 0,
+                Code: 0,
+                FirstName:"Chọn nhân viên"
+            };
+            }
             if (item.Apartment.Resident.NoteList != null) {
                 item.notes = item.Apartment.Resident.NoteList;
             }
