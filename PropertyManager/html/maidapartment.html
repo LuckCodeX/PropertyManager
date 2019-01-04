@@ -156,9 +156,9 @@
 		                   <!--  <td class="selectize-employee" style="min-width: 250px"><selectize placeholder='Chọn nhân viên...' options='employeeList2' config="myConfig" ng-change="changeMaidApartment(apartment)" ng-model="apartment.Maid.Id" ng-disabled='disable' required='true'></selectize></td> -->
 		                  <td class="selectize-employee" style="min-width: 250px">
 		                  	 <ui-select ng-model="apartment.Maid" theme="selectize" ng-change="saveApartmentMaid(apartment)" ng-disabled="disabled" style="width: 100%;" title="Chọn nhân viên">
-							    <ui-select-match placeholder="Chọn nhân viên">{{"["+$select.selected.Code+"]"+$select.selected.FirstName + " " + $select.selected.LastName}}</ui-select-match>
+							    <ui-select-match placeholder="Chọn nhân viên"><span ng-if="$select.selected.Id != 0">{{"["+$select.selected.Code+"]"+$select.selected.FirstName + " " + $select.selected.LastName}}</span><span ng-if="$select.selected.Id == 0">{{$select.selected.FirstName + " " + $select.selected.LastName}}</span></ui-select-match>
 							    <ui-select-choices repeat="emp in employeeList2 | textNormalFilter: {FullName: $select.search}">
-							    	<span>[<span ng-bind-html="emp.Code | highlight: $select.search"></span>]</span>
+							    	<span ng-if="emp.Code != 0">[<span ng-bind-html="emp.Code | highlight: $select.search"></span>]</span>
 							      <span ng-bind-html="emp.FullName | highlight: $select.search"></span>
 							    </ui-select-choices>
 							  </ui-select>
