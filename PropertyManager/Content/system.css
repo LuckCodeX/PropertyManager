@@ -141,11 +141,11 @@ z-index: 9999;
 }
 
 
-#tableMaid > table {
+.nwrapper #tableMaid > table {
     border-collapse: unset;
 }
 
-#tableMaid > table > thead > tr .fix-border{
+.nwrapper  #tableMaid > table > thead > tr .fix-border{
     border-bottom: none !important;
 }
 
